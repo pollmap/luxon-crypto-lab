@@ -1,0 +1,58 @@
+---
+slug: bitcoin-macro-cycle
+title: "DXY·금리·M2와 BTC — 매크로 회귀 vs NY Fed의 반박"
+subtitle: 학계 카운터 시각까지 정직하게 보기
+coin: BTC
+issue: 1
+publishedAt: "2026-06-15"
+category: L1-PoW
+tags: [bitcoin, macro, dxy, fed, m2, ny-fed, pourpourides]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "NY Fed Staff Report 1052 — Benigno & Rosa, The Bitcoin–Macro Disconnect"
+    url: https://www.newyorkfed.org/research/staff_reports/sr1052
+  - name: "Pourpourides 2025 — Long-term nexus of macroeconomic and financial fundamentals with cryptocurrencies (Frontiers in Blockchain)"
+    url: https://www.frontiersin.org/journals/blockchain
+  - name: "FRED — DXY, M2, FFR series"
+    url: https://fred.stlouisfed.org/
+  - name: "Lyn Alden Macro Letter"
+    url: https://www.lynalden.com/
+---
+
+{/* DRAFT — 2026-06-08까지 본문 작성. 분량 ~3000자 */}
+
+## 도입 — 매크로 자산으로서의 BTC
+
+{/* TODO: ~400자. 2026년 5월 매크로: Fed 3.50-3.75% (2025.12 인하), DXY 101-102 약달러, M2 사상최대 $22.3T, BTC-Gold 0.68. "이게 디지털 골드 가설의 골든타임인가" */}
+
+## 1. 상관관계 데이터 — DXY · 금리 · M2 · 금
+
+<CorrelationHeatmap variables={['DXY','US10Y','M2','GOLD','SP500']} />
+
+{/* TODO: ~800자. Pourpourides 2025 D-OLS 회귀 결과 인용. 24개월 rolling correlation. 국면별로 다름 */}
+
+## 2. 학계의 카운터 — NY Fed Staff Report 1052
+
+<Callout type="opposing-view" title="Benigno & Rosa (2024) — The Bitcoin–Macro Disconnect">
+NY Fed 페이퍼는 BTC 가격이 (1) Federal Reserve target rate 변경에는 거의 반응하지 않고 (2) rate path 가이던스나 LSAP 같은 unconventional 정책에만 부분적으로 반응한다고 보고합니다. "디지털 골드 가설"의 강한 형태가 학계에서 합의되지 않은 이유입니다.
+</Callout>
+
+{/* TODO: ~800자. 페이퍼 핵심 발견 자세히. event study 방법론. 한계점 */}
+
+## 3. 2026년 매크로 setup — 시나리오 분석
+
+{/* TODO: ~700자. (1) Risk-on continuation (2) Stagflation (3) Hard landing 세 가지 시나리오에서 BTC 포지셔닝 */}
+
+## 4. 결론 — 매크로 회귀를 어떻게 사용해야 하는가
+
+{/* TODO: ~300자. 단일 변수 회귀로 가격 예측 X. 국면 진단 + 비대칭 베팅 setup */}
+
+---
+
+**시리즈 안내** (BTC #1, 4편)
+
+- ✅ [#1-A 비트코인은 왜 21,000,000개인가](/posts/bitcoin-21m-monetary-evolution/) (2026-06-01)
+- ✅ [#1-B 4번의 반감기 후 마이너 경제학과 ETF](/posts/bitcoin-mining-etf/) (2026-06-08)
+- 🔵 #1-C DXY·금리·M2와 BTC — *현재 글*
+- ⏳ #1-D NVT·MVRV로 본 BTC 적정가 그리고 리스크 (2026-06-22)

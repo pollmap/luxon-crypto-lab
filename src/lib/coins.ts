@@ -8,6 +8,14 @@ export type CoinCategory =
   | "RWA"
   | "Series";
 
+export interface SubIssue {
+  slug: string;
+  label: string;
+  title: string;
+  publishedAt: string;
+  scope: string;
+}
+
 export interface CoinMeta {
   symbol: string;
   name: string;
@@ -18,6 +26,7 @@ export interface CoinMeta {
   marketCapBillion?: number;
   description: string;
   macroEvent?: string;
+  subIssues?: readonly SubIssue[];
 }
 
 export const COINS: readonly CoinMeta[] = [
@@ -31,6 +40,36 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 1574,
     description: "21,000,000 cap PoW, ETF AUM $102B 회복, 5차 반감기 카운트다운",
     macroEvent: "6월 FOMC, BTC ETF AUM 회복",
+    subIssues: [
+      {
+        slug: "bitcoin-21m-monetary-evolution",
+        label: "#1-A",
+        title: "비트코인은 왜 21,000,000개인가",
+        publishedAt: "2026-06-01",
+        scope: "도입 + 토크노믹스 + 화폐 진화 4단계",
+      },
+      {
+        slug: "bitcoin-mining-etf",
+        label: "#1-B",
+        title: "4번의 반감기 후 마이너 경제학과 ETF",
+        publishedAt: "2026-06-08",
+        scope: "합의 (PoW·해시·마이너) + ETF $102B 흐름",
+      },
+      {
+        slug: "bitcoin-macro-cycle",
+        label: "#1-C",
+        title: "DXY·금리·M2와 BTC — 매크로 회귀 vs NY Fed 반박",
+        publishedAt: "2026-06-15",
+        scope: "매크로 상관관계 + 학계 카운터 시각",
+      },
+      {
+        slug: "bitcoin-nvt-mvrv-risk",
+        label: "#1-D",
+        title: "NVT·MVRV로 본 BTC 적정가 그리고 리스크",
+        publishedAt: "2026-06-22",
+        scope: "온체인 가치평가 + 양자/정치/집중도 리스크 + 결론",
+      },
+    ],
   },
   {
     symbol: "ETH",
