@@ -1,0 +1,96 @@
+---
+slug: exchange-binance-dominance
+title: "Binance · 글로벌 1위 점유율과 규제 잔존 리스크"
+subtitle: 일 거래대금 $18.5B 거래소가 CFTC $4.3B 합의 후에도 1위인 이유
+exchangeId: binance
+issue: "E1"
+publishedAt: "2026-06-04"
+category: Exchange-CEX
+tags: [binance, cex, cftc, changpeng-zhao, market-structure]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "CFTC v. Binance Holdings — Settlement Order (2023.11.21)"
+    url: https://www.cftc.gov/PressRoom/PressReleases/8821-23
+  - name: "DOJ Press Release — Binance Plea Agreement (2023.11.21)"
+    url: https://www.justice.gov/opa/pr/binance-and-ceo-plead-guilty-federal-charges-4b-resolution
+  - name: "Kaiko Research — CEX Spot Volume Share (2026 Q1)"
+    url: https://research.kaiko.com/
+  - name: "Binance — 2025 Annual Transparency Report"
+    url: https://www.binance.com/en/about
+  - name: "CoinDesk — Richard Teng First Year as CEO (2024.11)"
+    url: https://www.coindesk.com/business/2024/11/22/binance-ceo-richard-teng-first-year/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Binance 는 2023년 11월 미국 법무부와 $43억 규모 합의를 맺고 창업자 Changpeng Zhao 가 CEO 에서 사임한 후에도 글로벌 1위 거래소를 유지하고 있다. 이 case 는 "왜 처벌받은 거래소가 점유율을 잃지 않는가" 라는 시장구조 질문을 던진다. 본 글은 거래소 점유율 메커니즘, 합의의 실제 내용, 그리고 잔존 리스크를 메커니즘 단위로 분해한다.
+</Callout>
+
+## 도입 — 처벌받은 1위
+
+2026년 5월 현재 Binance 의 일 평균 spot 거래대금은 약 $18.5B 로 글로벌 CEX 점유율 약 38% 다. 2위 Bybit 가 약 $7.1B (15%), 3위 OKX 가 약 $5.3B (11%), 미국 Coinbase 는 $4.2B (9%) 다. 거래소 1위와 4위가 4배 이상 벌어진 시장은 다른 금융 인프라에서는 거의 보이지 않는다.
+
+흥미로운 사실은 Binance 가 2023년 11월 미국 법무부·재무부·CFTC 와 도합 $43억 (약 5조 8천억원) 합의를 맺었고, 창업자 Changpeng Zhao 가 CEO 에서 즉시 사임 + 4개월 실형을 받았는데도 점유율이 합의 직후 35% → 현재 38% 로 오히려 **상승했다**는 점이다. 본 글은 이 현상의 메커니즘을 다룬다.
+
+## 1. 거래소 점유율의 자기강화 메커니즘
+
+거래소 시장의 1위가 잘 안 바뀌는 이유는 **liquidity flywheel** 때문이다. 단계는 다음과 같다.
+
+| 단계 | 작동 방식 | Binance 데이터 |
+|------|----------|---------------|
+| 1 | 거래량 많음 → 호가 스프레드 작음 | BTC/USDT 0.5bp |
+| 2 | 스프레드 작음 → 기관·HFT 진입 유리 | API 사용자 71% |
+| 3 | 기관 진입 → 거래량 더 증가 | 일 $18.5B |
+| 4 | 거래량 증가 → 알트코인 listing 유인 | 350+ pair |
+| 5 | listing 다양 → 리테일 진입 | 월 활성 1.7억 |
+| → 1 | 다시 거래량 증가 | flywheel |
+
+Kaiko 의 2026 Q1 리포트에 따르면 BTC/USDT 페어의 1% market depth (호가 1% 안에 매수·매도 합산 깊이) 는 Binance 가 약 $580M, 2위 OKX 가 $190M 이다. **약 3배 차이**. 같은 1만 달러 매수 주문을 넣어도 슬리피지가 Binance 에서 더 작다. 이 차이가 큰 자금일수록 결정적이다.
+
+이 flywheel 의 약점은 단 하나 — **국가 규제로 사용자 풀 자체가 절단되는 경우**. 2017년 9월 중국 정부의 ICO/거래소 금지로 OKCoin/Huobi 가 본토 영업 중단했고, 이때 Malta 로 이전한 Binance 가 해외 흐름을 흡수한 것이 1위 발판이었다.
+
+## 2. CFTC $4.3B 합의 — 무엇이 정확히 처벌됐는가
+
+2023년 11월 21일 합의 문서는 4개 정부 부처가 공동 서명한 5페이지 짜리다. 핵심 항목을 정리하면:
+
+<Callout type="info" title="CFTC v. Binance — 합의 내용 (2023.11.21)">
+**(1) 인정 위반**: BSA (은행비밀법) 미준수 + 무허가 송금 사업 + 미국인 KYC 우회 허용
+**(2) 벌금**: $4.3B 도합 — 1위 거래소 사상 최대
+**(3) 개인 처벌**: Changpeng Zhao CEO 사임 + 4개월 연방교도소 (2024.5)
+**(4) 모니터**: DOJ 5년 + FinCEN 5년 monitor 동의
+**(5) 미국 시장 차단**: Binance.com 미국 사용자 출금만 허용, 신규 거래 X
+</Callout>
+
+이 합의의 디자인이 흥미로운 점은 **거래소 자체를 폐쇄하지 않고 운영 모델을 바꾸도록** 했다는 데 있다. 2014년 Mt.Gox 가 도산한 것과는 다르다. 이유는 두 가지로 해석된다 — (a) 미국 외 사용자가 압도적으로 많아 폐쇄 시 글로벌 자산 동결 위험 (b) Binance 가 가진 KYC/AML 데이터가 다른 수사에 가치가 있음.
+
+합의 후 1년 (2024.11) Bloomberg 인터뷰에서 신임 CEO Richard Teng 은 "compliance 인력을 1년 만에 200% 확장, 122개 라이센스 보유" 라고 발표했다. 점유율 데이터로 보면 시장은 이 변화를 받아들였다.
+
+## 3. BNB Chain — 거래소 + 체인 통합 모델
+
+Binance 가 다른 CEX 와 결정적으로 다른 점은 **자체 L1 (BNB Chain)** 을 운영한다는 것이다. 이 통합 구조가 거래소 사업의 호황·불황 의존도를 낮춘다.
+
+- **BNB 토큰** — 시총 $99B (2026.5 기준, 7위). Binance 거래수수료 25% 할인 + BNB Chain 의 가스 토큰 + launchpad 참여권. 거래소 fee 가 줄어도 BNB 보유 인센티브는 유지.
+- **BNB Chain TVL** — $7.2B (2026.5, DefiLlama). Ethereum, Tron 다음 3위.
+- **Launchpad** — 신규 토큰 IDO 의 사실상 표준. Binance 상장 → 즉시 글로벌 유동성.
+
+이 구조의 한계는 **BNB Chain 의 검열 가능성** 에 있다. Validator 21개 중 다수가 Binance 가 직간접 통제한다는 것이 일반적 평가이며, 이는 Vitalik Buterin 의 탈중앙화 3축 (architectural / political / logical) 중 political 에서 점수가 낮다. 본 시리즈 #D2 Nakamoto coefficient 비교에서 다시 다룬다.
+
+## 4. 잔존 리스크 — Monitor 5년의 의미
+
+<Callout type="opposing-view" title="반대 시각 · 점유율은 일시적이다">
+Binance 점유율 38% 가 영구적이라는 보장은 없다. (a) DOJ 5년 monitor 가 2028년까지 운영 모델을 추가 제약할 수 있음 (b) Hong Kong VATP 라이센스 거부 후 아시아 시장에서 OKX·Bybit 에 점유율 일부 양보 (c) Hyperliquid 같은 perp DEX 가 derivatives 영역에서 4년 만에 시장 1위 진입한 case 가 보여주듯, "거래소 자리는 빠르게 바뀐다." 본 시리즈 #E5 Hyperliquid 편에서 perp 시장 변화를 다룬다.
+</Callout>
+
+세 가지로 정리된다.
+
+1. **Monitor 5년 (2028.11 까지)** — Binance 의 모든 거래·자금세탁 감시 데이터를 DOJ 가 받는다. 위반 발견 시 합의 무효 + 추가 처벌. 이는 거래소 입장에서는 "기관 사용자 안심 신호" 로도 작동.
+2. **미국 사용자 영구 차단** — Binance.US 는 별도 법인이며, 본진 Binance.com 은 미국 IP·KYC 차단 유지. 2026년 트럼프 행정부의 SEC 정책 변화 (#R1) 가 이를 풀 가능성은 낮다.
+3. **창업자 영향력 잔존** — Changpeng Zhao 는 2024.10 출소 후 "투자만 하고 운영은 안 한다" 입장이지만, BNB 보유분 (개인 약 17%) 으로 사실상 의결권 다수.
+
+거래소 1위는 점유율 숫자만이 아니라 **flywheel + 토큰 + 체인 + 규제 적응**이 결합된 시스템이다. Binance 는 이 4축 모두에서 1위를 유지하고 있다는 점이 case 의 핵심이다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. 거래소 시장구조와 규제 case 의 학술적 framework 정리입니다.
