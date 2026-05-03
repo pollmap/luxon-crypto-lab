@@ -12,36 +12,131 @@ draft: true
 sources:
   - name: "BTC.com — Mining pool distribution"
     url: https://btc.com/stats/pool
-  - name: "Hashrate Index — Geopolitical analysis"
+  - name: "Hashrate Index — Geopolitical analysis (2026)"
     url: https://hashrateindex.com/
   - name: "CCAF Cambridge — Bitcoin Mining Map"
     url: https://ccaf.io/cbnsi/cbeci/mining_map
+  - name: "Galaxy Research — US mining dominance (2026)"
+    url: https://www.galaxy.com/insights/
+  - name: "Stratum V2 — Decentralization spec"
+    url: https://stratumprotocol.org/
 ---
 
-{/* DRAFT — 2026-07-13까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+비트코인은 "분산된 화폐" 라고 불립니다. 그러나 채굴 인프라를 보면 그림이 다릅니다 — 상위 5개 마이닝 풀이 전체 해시레이트의 80%+ 를 점유, 미국 단일 국가가 38%+ 점유. 이게 51% 공격 비용을 낮추거나 정치 리스크를 키우는가? 본 편은 그 trade-off 를 정량 분석합니다.
+</Callout>
 
 ## 도입 — 분산이라는 신화
 
-{/* TODO: ~400자. BTC = 분산 화폐. 그러나 채굴 풀 상위 5개가 80%+ 해시. 진짜 분산인가 */}
+Self-custody (#1-G) 에서 사토시 trustless 원칙의 한 균열을 봤습니다. 이제 더 큰 균열 — **채굴 인프라의 집중**입니다.
 
-## 1. 풀 분포 — Foundry, AntPool, F2Pool, Binance, ViaBTC
+비트코인의 합의 메커니즘은 PoW 입니다. 51% 의 해시레이트를 통제하는 주체가 이론적으로 거래 검열, 이중 지불, 체인 fork 등 공격 가능. 사토시 백서는 **"1 CPU = 1 vote"** 라는 분산 가정 위에 디자인됐습니다.
 
-{/* TODO: ~700자. 각 풀 점유율. Foundry (US) > AntPool (CN) > F2Pool (CN) > Binance Pool */}
+현실은 그렇지 않습니다. 2026년 5월 기준:
+- **상위 5개 마이닝 풀 = 전체 해시레이트의 81%**
+- **미국 단일 국가 = 38%+**
+- **상위 3개국 (미국 + 중국 + 카자흐스탄) = 72%+**
+
+이게 BTC 의 진짜 위험인가, 아니면 과대평가된 우려인가? 본 편이 정직하게 풉니다.
+
+## 1. 풀 분포 — Foundry · AntPool · F2Pool · Binance · ViaBTC
+
+2026년 5월 BTC 마이닝 풀 점유율 (BTC.com 기준):
+
+| 순위 | 풀 | 본사 | 점유율 |
+|------|----|------|------|
+| 1 | **Foundry USA** | 미국 | 32% |
+| 2 | **AntPool** | 중국 (Bitmain) | 22% |
+| 3 | **F2Pool** | 중국 | 12% |
+| 4 | **Binance Pool** | UAE/싱가폴 | 8% |
+| 5 | **ViaBTC** | 중국 | 7% |
+| 6 | **MARA Pool** | 미국 | 4% |
+| 7 | **Luxor** | 미국 | 3% |
+| 8 | **SBI Crypto** | 일본 | 2% |
+| 기타 (10+ 풀) | — | — | 10% |
+
+**상위 5개 합계 81%**.
+
+### 풀 vs 채굴자 구분
+
+여기서 중요한 구분이 있습니다. **풀 (Pool) 운영자 ≠ 채굴자 (Miner)**:
+- 풀은 채굴자들의 해시레이트를 통합하는 주체
+- 개별 채굴자는 어떤 풀에든 자유롭게 참여 가능
+- 풀 운영자가 수상한 행동 시 채굴자가 다른 풀로 이동 가능
+
+이론적으로 51% 공격을 시도하는 풀이 있어도, 그 풀의 채굴자들이 즉시 이탈하면 공격 실패. 그러나 **이탈 속도와 공격 효과의 race condition** 이 핵심.
 
 ## 2. 지역 편중 — 미국 38% · 중국 21% · 카자흐스탄 13%
 
-{/* TODO: ~700자. CCAF Mining Map 데이터. 2021 중국 금지 후 미국 압도. Texas 클러스터 */}
+CCAF (Cambridge Centre for Alternative Finance) Mining Map 기준 (2026.5):
+
+| 국가 | 해시레이트 점유 |
+|------|---------------|
+| 🇺🇸 미국 | **38%** |
+| 🇨🇳 중국 | 21% (회색지대 채굴 포함) |
+| 🇰🇿 카자흐스탄 | 13% |
+| 🇷🇺 러시아 | 7% |
+| 🇨🇦 캐나다 | 5% |
+| 🇩🇪 독일 + 노르웨이 | 4% |
+| 🇦🇪 UAE | 3% |
+| 기타 | 9% |
+
+### 2021 중국 금지 후 미국 압도
+
+2021년 5월 중국 정부의 채굴 전면 금지 전엔 중국이 65%+ 점유. 금지 후 채굴자들이 미국 (특히 Texas) · 카자흐스탄 · 러시아로 대거 이주. **미국 점유율 4% → 38% 로 1년만에 9배 증가** 가 그 결과.
+
+### Texas 클러스터의 부상
+
+미국 채굴의 약 40%+ 가 Texas 에 집중:
+- ERCOT 그리드 외 자체 발전 가능
+- 풍력/태양광 잉여 전력 활용 (negative pricing 시간대)
+- 우호적 규제 환경 (Greg Abbott 주지사)
+- 주요 사업자: Riot, Marathon, CleanSpark, Core Scientific
+
+이게 양면입니다 — **미국 단일 국가에 38% 가 집중** = 미국 정부의 정책 영향력 ↑.
 
 ## 3. 51% 공격 비용 — 이론과 실제
 
-{/* TODO: ~700자. 해시레이트 620 EH/s 기준 51% 비용 약 $XX B. 그러나 마이너의 합리적 행동 가정 필요 */}
+### 이론적 공격 비용
 
-<Callout type="warning" title="리스크 · 미국 정부 수사 시나리오">
-미국 마이너 비중 38%+. SEC/Treasury가 풀 운영자에게 OFAC 제재 트랜잭션 검열 요구 시 BTC 검열저항 근간 위협. 2026년 SBR 논쟁과 함께 모니터링 필요.
+해시레이트 620 EH/s 기준, 51% = 약 316 EH/s 확보 필요. 시장에서 ASIC 신규 구매 + 전기 + 시설로:
+- ASIC 비용: 약 $20-25B (Antminer S21 Hydro 기준 약 100,000+ 개)
+- 1년 전기 비용: 약 $3-4B
+- **총 1년 운영 비용: ~$25-30B**
+
+### 실제 공격 가능성 — 매우 낮음
+
+이론적 비용 자체보다 **인센티브 0** 가 더 큰 장벽:
+- 공격 성공 시 BTC 가격 즉시 폭락 → 공격자의 해시레이트 자산 가치 0
+- BTC ecosystem 전체 신뢰 붕괴 → 가장 큰 손실은 공격자
+- Game-theoretic 으로 합리적 채굴자는 정직 행동 우월
+
+51% 공격은 **국가 수준 적대 행위로만 합리화** 가능 — 미국 정부가 BTC 를 "전략 위협" 으로 분류해 의도적 파괴 시도.
+
+### 더 현실적인 위험 — 검열
+
+51% 공격 대신 **51% 검열 (selective censorship)** 이 더 현실적인 위험입니다. 풀 운영자가 OFAC 제재 트랜잭션을 의도적으로 mempool 에서 제외 → 시간 갈수록 그 트랜잭션이 confirmed 되지 않음.
+
+이미 부분 발생 중입니다 — 2024년 일부 미국 풀이 Tornado Cash 관련 트랜잭션 검열 보고됨.
+
+<Callout type="warning" title="리스크 · 미국 정부 SBR 정책 변화 시 시나리오">
+미국 마이너 비중 38%+. SEC/Treasury 가 풀 운영자에게 OFAC 제재 트랜잭션 검열을 강제 요구 시 BTC 검열저항 근간 위협. 2026년 SBR (Strategic Bitcoin Reserve) 논쟁과 함께 모니터링 필요. **만약 미국 정부가 BTC 를 "보호 자산" 으로 분류하면 검열 의무 면제 가능 — 양면**.
 </Callout>
 
 ## 4. 결론 — 분산 vs 효율의 균형
 
-{/* TODO: ~500자. 풀 분산화 노력 (Stratum V2). Solo 마이너 부활 가능성. 시리즈 #1-I quantum 위협으로 연결 */}
+종합:
+
+1. **풀 집중도는 높음 (상위 5개 81%)** — 그러나 채굴자는 풀 자유 이동 가능
+2. **국가 편중도 높음 (미국 38%)** — 정치 리스크 진짜 존재
+3. **51% 공격 비용 = ~$25-30B** — 합리적 인센티브로는 불가능, 국가 수준만 가능
+4. **검열이 더 현실적 위험** — 51% 공격보다 OFAC 검열이 더 가까움
+
+해결책 시도:
+- **Stratum V2**: 채굴자가 트랜잭션 선택 권한 보유 (풀이 아닌). 천천히 확산 중.
+- **Solo 마이닝 부활**: 가정용 ASIC + Bitaxe 같은 작은 단위 채굴기 → 분산화 회복 시도. 2024-2026 점진 성장.
+- **국가 분산**: 부탄, 노르웨이, 우간다 등 신규 채굴국 등장. 시간 필요.
+
+이게 BTC 분산화의 진짜 그림입니다 — **이상은 분산, 현실은 부분 집중. 그러나 자정 메커니즘 (인센티브 + 채굴자 자유 이동) 이 작동 중**. 다음 편(#1-I) 에서는 BTC 의 가장 큰 long-tail 위험 — **양자 컴퓨팅 위협** — 을 깊이 봅니다.
 
 <SeriesNav coinSymbol="BTC" currentSlug="bitcoin-mining-pool-geopolitics" />

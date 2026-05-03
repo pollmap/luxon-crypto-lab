@@ -14,34 +14,152 @@ sources:
     url: https://www.ishares.com/us/products/333011/
   - name: "Glassnode Insights — UTXO age distribution"
     url: https://insights.glassnode.com/
-  - name: "Casa / Unchained Capital — multisig custody guides"
+  - name: "Casa — Multisig custody guide"
     url: https://keys.casa/
+  - name: "Unchained Capital — Bitcoin custody report (2025)"
+    url: https://unchained.com/
+  - name: "Coinbase Custody — Institutional cold storage"
+    url: https://www.coinbase.com/prime
 ---
 
-{/* DRAFT — 2026-07-06까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+"Not your keys, not your coins" — 비트코인 진영의 가장 유명한 격언입니다. 그러나 2026년 5월 기준 BTC 의 6.3% 가 ETF 형태로 BlackRock 같은 단일 발행자에 위탁됐고, 추가로 거래소 보유분까지 합치면 **약 20% 가 사실상 위탁 형태**입니다. 본 편은 self-custody 와 ETF 위탁의 trade-off, 그리고 portfolio 적정 비율을 다룹니다.
+</Callout>
 
 ## 도입 — Not your keys, not your coins
 
-{/* TODO: ~400자. 사토시의 원칙: 트러스트리스. 그러나 ETF AUM $102B = 6.3% 위탁 보유. 충돌의 의미 */}
+사토시 백서 (#1-E) 의 핵심 원칙 중 하나가 "trustless" 였습니다. 어떤 단일 주체에도 신뢰 의존 X. 비트코인 진영은 이 원칙을 한 격언으로 압축했습니다 — **"Not your keys, not your coins"**. 자기 private key 를 통제하지 않는 BTC 는 진정한 의미의 BTC 가 아니라는 주장.
+
+그러나 2024년 1월 spot BTC ETF 출시 후 풍경이 크게 변했습니다. 2026년 5월 기준:
+- **BTC ETF 보유분**: 약 1.25M BTC (유통량의 6.3%)
+- **거래소 보유분 (콜드 + 핫)**: 약 2.5M BTC (12.6%)
+- **WBTC + cbBTC**: 약 0.3M BTC (1.5%)
+- **합계 위탁 형태**: **약 4M BTC (20.4%)**
+
+전체 유통량의 1/5 이 사실상 IOU (I-Owe-You) 형태로 존재합니다. 사토시의 trustless vision 과 정면 충돌하는 추세죠. 본 편은 이 trade-off 를 정량 분석합니다.
 
 ## 1. Self-custody 옵션 — 단일서명 · 멀티시그 · 하드웨어
 
-{/* TODO: ~700자. Ledger / Trezor / Coldcard. Multisig 2-of-3, 3-of-5. Casa Unchained 서비스 */}
+Self-custody 의 기술적 구현 방식:
+
+### 1-1. 핫월렛 (Mobile/Browser)
+
+- **MetaMask, Sparrow, Electrum** 등
+- 인터넷 연결 디바이스에 private key 저장
+- 편리하지만 **온라인 공격 vulnerable**
+- 권장 보유: 일상 결제 금액만 (전체 자산의 5-10%)
+
+### 1-2. 하드웨어 월렛 (콜드월렛)
+
+- **Ledger, Trezor, Coldcard, Foundation Passport** 등
+- private key 가 air-gapped 디바이스에 저장
+- 거래 서명 시만 USB/QR 연결
+- 권장 보유: 중장기 보유분 (전체 자산의 70-90%)
+- 가격: $80-200 (1회성 비용)
+
+### 1-3. 멀티시그 (Multisig 2-of-3, 3-of-5)
+
+- 여러 key 중 일부 동의가 있어야 거래 실행
+- **상속·증여·기관 자금** 표준
+- Casa, Unchained Capital 등 서비스 이용 또는 자체 구현
+- 가장 안전하지만 운영 복잡 (분실 시 복구 시나리오 사전 설계 필수)
+
+### Self-custody 의 자본 소요
+
+- 32 BTC 보유 시 (2026.5 기준 약 $2.5M):
+  - 하드웨어 월렛 2-3 개 분산 보관: $300-500
+  - Casa multisig 서비스: 연 $300-2,000
+  - 안전 금고 / 변호사 / 상속 설계: $1,000-5,000 일회성
+- **총 비용**: 자산의 0.05-0.2% 수준 (1회성 + 연간)
 
 ## 2. ETF 위탁의 매력 — 세제 · 편의성 · 기관 접근
 
-{/* TODO: ~700자. 401(k) / IRA 통합. 세제 처리. Coinbase Custody 보안 */}
+미국 spot BTC ETF 의 매력:
+
+### 세제 통합
+
+- **401(k) / IRA**: ETF 형태로 비과세/이연 가능. Self-custody BTC 는 401(k) 직접 보유 거의 불가.
+- **세제 보고**: ETF 는 1099 발행. Self-custody 는 자체 계산 + Form 8949.
+- **상속**: ETF 는 stepped-up basis 자동 적용. Self-custody 는 상속 설계 필요.
+
+### 운용 편의
+
+- 1-click 매수/매도 (Schwab, Fidelity, Vanguard 계좌)
+- 가격 알림, 자동 리밸런싱
+- 분실 위험 0 (ETF 발행사가 책임)
+
+### 기관 접근
+
+- 펀드 매니저 의무 (일부 펀드는 ETF 형태만 보유 가능)
+- Compliance 부담 ↓ (Coinbase Custody 가 cold storage 책임)
+- 보험 가능 (BlackRock IBIT 는 SIPC + 자체 보험)
+
+### IBIT 의 우월 — 49-62% 점유
+
+미국 11개 spot BTC ETF 중 BlackRock IBIT 가 단독 49-62% 점유. 이유:
+- 가장 낮은 fee (0.12-0.25%)
+- 가장 큰 유동성 (일 거래량 압도적)
+- BlackRock 브랜드 신뢰
 
 ## 3. 위탁 BTC vs 자기보관 BTC — 자산 클래스 차이
 
-{/* TODO: ~700자. UTXO age 데이터. ETF 보유분은 사실상 IOU. 검열·동결 가능성 */}
+기술적으로 두 BTC 는 **같은 토큰** 입니다. 그러나 자산 클래스 측면에서는 다릅니다.
+
+### Glassnode UTXO age 분석 (2026.5 기준)
+
+| 보유 형태 | 비중 | 평균 보유 기간 | UTXO 이동 빈도 |
+|---------|-----|------------|--------------|
+| Self-custody (1년+) | ~55% | 4.2년 | 매우 낮음 |
+| ETF 락업 | ~6.3% | 2년 (출시 후 평균) | 중간 (재조정) |
+| 거래소 (트레이딩) | ~13% | 30일 | 매우 높음 |
+| WBTC/cbBTC (DeFi) | ~1.5% | 90일 | 높음 |
+
+Self-custody 보유분은 **사실상 영구 보유 (HODL)** 로 행동. ETF 는 일부 환매 발생 (2024.8 일본 캐리 청산 시 IBIT $1.2B 환매). 거래소 보유분은 단기 트레이딩.
+
+### 검열·동결 가능성
+
+| 보유 형태 | 검열 가능성 | 동결 가능성 |
+|---------|----------|---------|
+| Self-custody | 0 (private key 모르면) | 0 |
+| ETF (BlackRock) | OFAC 제재 시 가능 | 가능 |
+| 거래소 | 매우 높음 | 매우 높음 |
+
+이게 **사토시 trustless 원칙**과 **현실 사용** 의 trade-off 입니다.
 
 <Callout type="opposing-view" title="반대 시각 · 양립 가능">
-ETF와 self-custody는 양립. ETF는 트레이딩 / 노출, self-custody는 sovereignty. 둘 다 활용이 정답.
+Self-custody 와 ETF 는 zero-sum 이 아닙니다. **두 가지 다 활용**이 정답입니다 — Self-custody 는 sovereignty / 검열저항 / 영구 보유, ETF 는 트레이딩 / 세제 / 기관 통합. 같은 자산을 다른 layer 에서 사용. 어느 한 쪽에 100% 도 비합리적.
 </Callout>
 
-## 4. 결론 — 100% self vs 100% ETF의 양극화
+## 4. 결론 — 권장 portfolio 비율
 
-{/* TODO: ~500자. 권장 portfolio: 70% self + 30% ETF. 시리즈 #1-H 채굴 풀 집중도와 연결 */}
+종합 권장:
+
+### 일반 투자자 (BTC 보유 1 BTC 이하)
+
+- **100% ETF** 권장
+- Self-custody 운영 학습 비용 > 검열저항 가치
+- 401(k)/IRA 계정 활용
+
+### 중간 투자자 (1-10 BTC)
+
+- **70% Self-custody + 30% ETF**
+- Self-custody = 하드웨어 월렛 (Ledger/Trezor)
+- ETF = 트레이딩 노출 + 세제 통합
+
+### 큰 보유자 (10 BTC 이상)
+
+- **80% Self-custody (multisig) + 15% ETF + 5% 거래소**
+- Multisig = Casa/Unchained Capital
+- ETF = 상속 + 세제
+- 거래소 = 단기 거래
+
+### 절대 X 시나리오
+
+- **100% 거래소 보유** — FTX 같은 위기 시 자산 0 가능성. Mt.Gox, FTX, Celsius 사례.
+- **100% ETF 보유** (큰 보유자) — BlackRock single point of failure
+
+## 마무리
+
+Self-custody vs ETF 는 사토시 trustless 원칙의 가장 큰 현실 시험대입니다. 다음 편(#1-H) 에서는 그 원칙의 또 다른 균열 — **채굴 풀 집중도와 지정학** — 을 봅니다. BTC 보안의 90%+ 가 상위 5개 풀에 집중된 현실.
 
 <SeriesNav coinSymbol="BTC" currentSlug="bitcoin-self-custody-vs-etf" />
