@@ -1,0 +1,103 @@
+---
+slug: decentralization-censorship-resistance
+title: "검열저항 — Tornado Cash · Roman Storm · OFAC case"
+subtitle: 코드는 표현인가, 개발자는 책임이 있는가 — 2022 OFAC 제재 후 4년의 법정 다툼
+topicId: decentralization
+issue: "D4"
+publishedAt: "2026-08-06"
+category: Topic-Decentralization
+tags: [tornado-cash, roman-storm, ofac, censorship-resistance, code-as-speech]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "OFAC — Tornado Cash Designation (2022.8.8)"
+    url: https://home.treasury.gov/news/press-releases/jy0916
+  - name: "Coin Center — Tornado Cash Lawsuit (Van Loon v. Treasury, 2024)"
+    url: https://www.coincenter.org/lawsuits/"
+  - name: "DOJ — Roman Storm Indictment (2023.8)"
+    url: https://www.justice.gov/usao-sdny/pr/tornado-cash-developers-charged-money-laundering"
+  - name: "Fifth Circuit Court — Van Loon v. Treasury Decision (2024.11)"
+    url: https://www.ca5.uscourts.gov/opinions/pub/23/23-50669-CV0.pdf
+  - name: "EFF — Code is Speech Amicus Brief (2024)"
+    url: https://www.eff.org/cases/van-loon-v-treasury
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2022년 8월 미국 재무부 OFAC 가 **Tornado Cash 스마트 컨트랙트 자체** 를 제재 명단에 추가했다. 사람도, 회사도 아닌 코드를 제재한 첫 case 였다. 2023년 개발자 Roman Storm 이 자금세탁 혐의로 기소됐고, 2024년 Coin Center 의 Van Loon v. Treasury 소송에서 Fifth Circuit 은 OFAC 결정을 무효화했다. 본 글은 이 4년의 사건을 검열저항이라는 framework 로 분석한다.
+</Callout>
+
+## 도입 — 코드를 제재할 수 있는가
+
+검열저항 (censorship resistance) 은 가상자산 시스템의 핵심 가치 중 하나다. 그러나 이 가치가 실제로 시험되는 case 는 드물다 — 정부가 특정 거래나 사용자를 차단하라고 요구하는 경우다.
+
+2022년 8월 8일 미국 재무부 외환관리청 (OFAC, Office of Foreign Assets Control) 은 Tornado Cash 라는 Ethereum 스마트 컨트랙트를 제재 명단 (SDN list) 에 추가했다. 명단의 통상 대상은 개인 또는 회사인데, 이번에는 **자율 실행되는 코드 자체** 가 대상이었다. Tornado Cash 는 거래 추적을 차단하는 zero-knowledge 기반 mixer 였고, OFAC 는 이를 사용한 북한 Lazarus Group 의 $7B+ 자금세탁을 이유로 들었다.
+
+이 결정의 의미는 단순한 제재를 넘어선다. 만약 OFAC 결정이 유효하다면, **모든 미국인은 Tornado Cash 컨트랙트와 상호작용 시 형사 처벌 대상**이 된다. 이는 이더리움 사용자, 개발자, 검증자에게 즉각적 영향을 끼쳤다.
+
+## 1. 즉각적 시장 반응 — Validator 검열
+
+OFAC 제재 후 24시간 안에 미국 기반 Ethereum staking pool 들이 Tornado Cash 관련 트랜잭션을 자체 차단하기 시작했다. Coinbase, Lido (Bond Finance operator), Kraken 등이 OFAC 컴플라이언스를 위해 자신들의 검증자에게 해당 트랜잭션을 블록에 포함하지 말도록 지시.
+
+이를 측정한 데이터가 mevwatch.info 의 "OFAC compliant blocks" 지표다.
+
+| 시점 | OFAC 호환 블록 비율 | 의미 |
+|------|------------------|------|
+| 2022.9 (Merge 직후) | 25% | 약 1/4 검증자가 검열 협조 |
+| 2022.11 | 79% | 정점 |
+| 2023.4 | 47% | MEV-Boost relay 다양화 후 감소 |
+| 2024.11 | 18% | Van Loon 판결 후 추가 감소 |
+| 2026.5 | 9% | 현재 |
+
+이 데이터의 흥미로운 점은 **Ethereum 의 검열저항이 시간이 갈수록 강해졌다**는 것이다. 2022년 11월 79% 정점에서 현재 9% 까지 감소. 이는 (a) 검증자의 분산화 노력 (b) Van Loon 판결 (#3) (c) Helius, Manifold 같은 OFAC 비협조 relay 의 등장이 누적된 결과다.
+
+## 2. Roman Storm 기소 — 개발자 책임 문제
+
+2023년 8월 23일 미국 법무부는 Tornado Cash 의 공동 개발자 Roman Storm 을 기소했다. 혐의는 자금세탁 공모 + 무허가 송금 사업 운영. **코드를 작성한 개발자가 그 코드의 사용에 형사 책임을 가지는가** 라는 질문이 정면으로 등장했다.
+
+이 기소의 학술적 의미는 두 가지다.
+
+(a) **"Code is Speech" 원칙** — 1996년 Bernstein v. United States 판례 이후 미국 법원은 코드를 First Amendment (수정헌법 1조) 의 표현으로 인정해왔다. Tornado Cash 코드도 이 보호 대상인가? EFF (Electronic Frontier Foundation) 가 amicus brief 에서 강하게 주장.
+
+(b) **개발자 통제 불가능성** — Roman Storm 은 Tornado Cash 컨트랙트를 deploy 했지만, 그 후에는 코드를 수정할 권한이 없다 (immutable). 그가 Lazarus Group 의 사용을 막을 수 있었는가? 답은 "할 수 없다" — 그러나 미국 검찰은 "그렇다면 처음부터 deploy 하지 말았어야 했다" 는 입장.
+
+2025년 3월 Storm 은 1심에서 2개 혐의에 대해 hung jury (배심원 의견 불일치), 1개 혐의에 무죄. 검찰이 재기소를 검토 중이다.
+
+## 3. Van Loon v. Treasury — Fifth Circuit 판결
+
+2022년 9월 Coin Center 와 6명의 개인 (Tornado Cash 사용자) 이 OFAC 결정을 무효화하는 소송을 제기했다. 핵심 주장 — **OFAC 권한은 "재산 (property) 또는 재산권" 에 대한 것이며, 자율 실행 스마트 컨트랙트는 재산이 아니다**.
+
+2024년 11월 26일 Fifth Circuit Court of Appeals 는 이 주장을 받아들였다.
+
+<Callout type="info" title="Van Loon v. Treasury — 핵심 판시">
+"Tornado Cash 의 immutable smart contracts 는 재산이 아니다. 누구도 그것을 소유하지 않으며, 누구도 그것을 통제할 수 없다. OFAC 의 IEEPA (International Emergency Economic Powers Act) 권한은 재산을 봉쇄하는 권한이며, 이는 Tornado Cash 컨트랙트에 적용될 수 없다."
+</Callout>
+
+판결의 의미는 분명하다 — **자율 실행 코드는 그 자체로 제재 대상이 될 수 없다**. OFAC 는 이후 2025년 1월 Tornado Cash 컨트랙트를 SDN 명단에서 제거.
+
+다만 이 판결은 좁은 범위다. (a) Tornado Cash 운영자 개인 (Storm 등) 은 여전히 처벌 가능 (b) 다른 immutable 이 아닌 컨트랙트는 다른 결론 가능 (c) Fifth Circuit 외 다른 circuit 은 다르게 판결 가능. 이 판례가 미국 전체에 확장될지는 향후 Supreme Court 또는 다른 circuit 의 동조 여부에 달렸다.
+
+## 4. 검열저항의 경제학 + 자산별 위치
+
+<Callout type="opposing-view" title="반대 시각 · 검열저항이 정말 가치인가">
+검열저항은 가상자산 옹호 측의 핵심 주장이지만, 비판도 명확하다. (a) 북한 Lazarus Group 이 Tornado Cash 로 $7B+ 자금세탁한 사실은 부인 불가능. 검열저항이 범죄 자금의 도구로 작동한 case 다. (b) 미국·EU 등의 시각에서는 "OFAC 제재 우회" 가 곧 정당성 약화 — 합법 시장 진입 비용을 키운다. (c) Bitcoin·Monero 의 강한 검열저항이 일반 사용자에게 일상적 효용을 주는지 의문. 즉 검열저항은 "0 또는 1" 이 아니라 비용/편익 trade-off 의 한 차원이며, 본 시리즈 #D5 편에서 다시 다룬다.
+</Callout>
+
+검열저항의 자산별 위치를 정리하면:
+
+| 자산 | 검증자 단계 검열 | 컨트랙트 단계 검열 | 결론 |
+|------|---------------|-----------------|------|
+| Bitcoin | 사실상 불가능 (PoW 마이너 글로벌) | N/A (Turing-incomplete) | 매우 강 |
+| Ethereum | 9% 검열 (감소 중) | OFAC 제재 약화 | 강-중 |
+| Solana | 단일 클라이언트 | Solana Foundation 영향 | 중 |
+| BNB Chain | 21 validator 검열 가능 | Binance 통제 | 약 |
+| Tornado Cash | N/A | Van Loon 후 회복 | 강 (컨트랙트 차원) |
+
+이 표의 의미는 **검열저항은 architectural + political + 법적 보호 의 결합**이라는 것이다. Tornado Cash case 는 법적 보호가 architectural 보호를 강화한 드문 사례.
+
+다음 #D5 편에서 5편 시리즈 종합 — 분산화 vs 효율성 trade-off 가 어떻게 자산 선택의 framework 가 되는지를 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. 검열저항 case study 의 학술적 framework 정리입니다.

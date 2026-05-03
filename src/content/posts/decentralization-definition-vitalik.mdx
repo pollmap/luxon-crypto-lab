@@ -1,0 +1,108 @@
+---
+slug: decentralization-definition-vitalik
+title: "무엇이 진짜 탈중앙화인가 — Vitalik 3 axes"
+subtitle: Architectural · Political · Logical 세 축으로 분해해서 보는 탈중앙화 정의
+topicId: decentralization
+issue: "D1"
+publishedAt: "2026-07-16"
+category: Topic-Decentralization
+tags: [decentralization, vitalik-buterin, architectural, political, logical]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Vitalik Buterin — The Meaning of Decentralization (2017.2)"
+    url: https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274
+  - name: "Vitalik Buterin — Endgame (2021.12)"
+    url: https://vitalik.eth.limo/general/2021/12/06/endgame.html
+  - name: "Angela Walch — Deconstructing Decentralization (Wash. U. L. Rev. 2019)"
+    url: https://openscholarship.wustl.edu/law_lawreview/vol96/iss5/12/
+  - name: "Paul Sztorc — Measuring Decentralization (2015)"
+    url: https://www.truthcoin.info/blog/measuring-decentralization/
+  - name: "Vitalik Buterin — Crypto Cities (2021.10)"
+    url: https://vitalik.eth.limo/general/2021/10/31/cities.html
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+"탈중앙화" 라는 단어는 가상자산 업계에서 가장 자주 쓰이지만 가장 정의가 흐릿한 개념이다. Vitalik Buterin 이 2017년 *The Meaning of Decentralization* 에서 제안한 3축 (architectural / political / logical) 정의는 이 모호함을 해결하는 가장 영향력 있는 framework 다. 본 글은 이 3축의 의미와 비트코인·이더리움·솔라나가 어디에 위치하는지를 정리한다.
+</Callout>
+
+## 도입 — "분산화" 라는 단어의 모호함
+
+"이 프로토콜은 탈중앙화되어 있다" 라는 문장은 거의 모든 가상자산 프로젝트의 마케팅 자료에 등장한다. 그러나 같은 단어가 매우 다른 의미로 쓰인다 — Bitcoin 의 노드 분산을 의미하기도 하고, DAO 의 토큰 보유자 거버넌스를 의미하기도 하며, 어떤 경우에는 "회사가 아닌 프로토콜" 이라는 모호한 의미로 쓰인다.
+
+법학자 Angela Walch 는 2019년 Washington University Law Review 의 *Deconstructing Decentralization* 에서 이 모호함을 "veil of decentralization" (탈중앙화 베일) 이라고 표현했다 — 단어 자체가 책임 분산의 도구로 쓰인다는 비판이었다. 이 비판이 정확하다면, 탈중앙화 정의는 정치적 단어가 아닌 기술적 단어여야 한다.
+
+Vitalik Buterin 이 2017년 2월 Medium 에 올린 *The Meaning of Decentralization* 은 이 정의 작업의 출발점이 됐다. 그는 단일 단어를 **3개의 독립 축** 으로 분해한다.
+
+## 1. Architectural Decentralization — 물리적 분산
+
+첫 번째 축은 **시스템이 몇 개의 물리적 컴퓨터로 구성되는가**, 그리고 **그 중 몇 개가 동시에 망가져도 시스템이 작동하는가**다.
+
+| 자산 | 노드 수 | 지역 분산 | 단일 장애점 |
+|------|--------|---------|-----------|
+| Bitcoin | 약 18,000 | 100+ 국가 | 없음 |
+| Ethereum | 약 7,500 | 80+ 국가 | 없음 |
+| Solana | 약 1,400 | 30+ 국가 | 일부 RPC 의존 |
+| BNB Chain | 21 (validator) | 비공개 | 단일 회사 |
+
+Architectural decentralization 의 측정 지표는 통상 **노드 수, 지역 분산, 클라이언트 다양성** 세 가지다. Bitcoin 은 셋 모두 강하다 — 노드 수 18K+, 100+ 국가, Bitcoin Core 외에 Bitcoin Knots, btcd 등 5+ 클라이언트.
+
+Ethereum 의 architectural decentralization 은 흥미로운 데이터를 보여준다. 2022년 Merge 이전에는 PoW 마이너의 약 65% 가 중국 (그 후 미국·카자흐스탄으로 이동) 에 집중되었지만, Merge 이후 PoS 검증자는 더 분산됐다. 다만 Geth 클라이언트 점유 약 73% 라는 클라이언트 단일화는 architectural 약점이다.
+
+## 2. Political Decentralization — 통제 분산
+
+두 번째 축은 **시스템이 몇 명/조직의 결정에 의존하는가**다. 이는 architectural 과 별개다 — 노드는 1만 개여도 그 코드를 결정하는 사람이 5명이면 political 으로는 중앙집중이다.
+
+Vitalik 의 표현:
+
+<Callout type="info" title="Vitalik, The Meaning of Decentralization">
+"How many people or organizations ultimately control the computers that the system is made up of?"
+(시스템을 구성하는 컴퓨터를 궁극적으로 통제하는 사람 또는 조직이 몇인가?)
+</Callout>
+
+이 축의 측정은 어렵다. Bitcoin 의 political decentralization 은 "사토시 사라짐" 이라는 역사적 사건 후 사실상 강하다 — Bitcoin Core 의 BIP 도입은 누구도 단독 결정할 수 없다. 반면 Solana 의 코드 변경은 Solana Foundation + Anatoly Yakovenko 의 결정에 사실상 의존하며, political 으로는 중앙집중에 가깝다.
+
+흥미로운 case 는 Ethereum 의 Vitalik 본인이다. 그는 ETH 의 약 0.3% 만 보유하며, 의결권 시스템이 없으므로 코드 결정에 직접 권한이 없다. 그러나 그의 영향력은 사회적 (인용·신뢰) 으로 매우 강하다. 이를 **"Vitalik 위험"** 이라고 부르며, Ethereum 의 political decentralization 약점 중 하나로 꼽힌다.
+
+## 3. Logical Decentralization — 데이터 구조 분산
+
+세 번째 축은 가장 미묘하다. **시스템이 한 개의 단일체로 보이는가, 아니면 별개의 작동체 여러 개로 분해 가능한가**.
+
+Vitalik 의 사고 실험: "시스템을 절반으로 자르면, 양쪽 절반이 각각 독립적으로 작동하는가?"
+
+- **Bitcoin** — Logically centralized. 모든 노드가 동일한 단일 ledger 에 합의해야 함. 절반으로 자를 수 없음.
+- **Ethereum** — Logically centralized. EVM 상태가 단일.
+- **Solana** — Logically centralized. 단일 chain.
+- **인터넷 자체** — Logically decentralized. 부분 절단해도 각 부분이 작동.
+- **Holochain · IPFS** — Logically decentralized. 데이터 구조 자체가 분산.
+
+거의 모든 블록체인이 logically centralized 라는 사실은 역설적이다. 블록체인의 핵심 가치 (단일 진실) 가 logical centralization 의 정의이기 때문이다. Vitalik 은 이를 인정하면서, "logical decentralization 은 항상 추구해야 할 목표가 아니다" 라고 명시했다.
+
+## 4. 3축으로 보는 자산별 위치
+
+<Callout type="opposing-view" title="반대 시각 · 3축으로도 부족하다">
+Vitalik 의 3축 framework 는 영향력이 크지만, 한계도 명확하다. (a) economic decentralization (자산 분포) 이 빠져있다 — Bitcoin 도 상위 1% 지갑이 90%+ 보유. (b) developer decentralization (개발자 분포) 이 빠져있다 — Ethereum core dev 50명 중 35명이 Ethereum Foundation 소속. (c) infrastructure decentralization (RPC, 인덱서) 이 빠져있다 — 대부분의 dApp 이 Infura, Alchemy 의 RPC 에 의존. Angela Walch 는 *Deconstructing Decentralization* 에서 5축 또는 7축 framework 를 제안한다. 본 시리즈 #D2 Nakamoto coefficient 편이 economic 축의 측정 시도다.
+</Callout>
+
+3축 framework 로 본 자산별 위치를 정리하면:
+
+| 자산 | Architectural | Political | Logical |
+|------|---------------|-----------|---------|
+| Bitcoin | 강 (18K 노드) | 강 (사토시 부재) | 약 (단일 chain) |
+| Ethereum | 중-강 | 중 (Vitalik 영향력) | 약 |
+| Solana | 중 | 약 (Foundation 통제) | 약 |
+| BNB Chain | 약 (21 validator) | 약 (Binance 통제) | 약 |
+
+이 표의 의미는 **모든 블록체인이 모든 축에서 똑같이 분산화되어 있지는 않다**는 것이다. 어떤 축이 어떤 application 에 중요한지가 자산 선택의 framework 가 된다.
+
+- 검열저항 우선 → Architectural + Political 강한 자산 (Bitcoin)
+- 빠른 거버넌스 → Political 약하지만 Architectural 강한 자산 (Solana)
+- 기관 컴플라이언스 → 의외로 Logical 강할 필요 없음
+
+다음 #D2 편에서 이 3축 중 architectural 축을 정량화하는 Nakamoto coefficient 측정을 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. 탈중앙화 정의의 학술적 framework 정리입니다.

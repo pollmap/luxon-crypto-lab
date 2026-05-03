@@ -1,0 +1,128 @@
+---
+slug: decentralization-l1-comparison
+title: "BTC vs ETH vs SOL — Nakamoto coefficient 비교"
+subtitle: 검증자 분포·노드 분산도·자산 집중도 3개 지표로 측정한 L1 분산화
+topicId: decentralization
+issue: "D2"
+publishedAt: "2026-07-23"
+category: Topic-Decentralization
+tags: [nakamoto-coefficient, validators, l1-comparison, btc, eth, sol]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Balaji Srinivasan & Leland Lee — Quantifying Decentralization (2017)"
+    url: https://news.earn.com/quantifying-decentralization-e39db233c28e
+  - name: "Messari — Nakamoto Coefficient Methodology (2024)"
+    url: https://messari.io/report/nakamoto-coefficient"
+  - name: "Beaconcha.in — Ethereum Validator Distribution (2026.5)"
+    url: https://beaconcha.in/charts/validators
+  - name: "Solana Beach — Validator Stake Distribution (2026.5)"
+    url: https://solanabeach.io/validators
+  - name: "BTC.com — Mining Pool Distribution (2026.5)"
+    url: https://btc.com/stats/pool
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+탈중앙화는 정성적 단어가 아니라 측정 가능한 개념이다. **Nakamoto coefficient** 는 시스템을 통제하기 위해 결탁해야 하는 최소 entity 수로 정의된다. 작을수록 중앙집중. 본 글은 BTC, ETH, SOL 세 자산의 Nakamoto coefficient 를 검증자·노드·자산 3개 차원에서 비교하고, 그 측정 자체의 한계를 다룬다.
+</Callout>
+
+## 도입 — 측정 가능한 분산화
+
+Balaji Srinivasan 과 Leland Lee 가 2017년 *Quantifying Decentralization* 에서 제안한 Nakamoto coefficient 는 단순한 정의를 가진다 — **시스템의 51% 통제를 위해 결탁해야 하는 최소 entity 수**.
+
+Bitcoin 마이닝의 경우, 마이닝 풀 점유율이:
+- F2Pool 19%
+- Antpool 18%
+- Foundry USA 17%
+- ViaBTC 13%
+- 합계 67% (51% 초과)
+
+이면 Nakamoto coefficient = 4 (상위 4개 풀이 결탁해야 51% 도달). 작을수록 통제 용이, 클수록 분산.
+
+이 지표의 강점은 **여러 자산을 하나의 숫자로 비교 가능**하다는 점이다. 약점은 entity 정의의 모호함 — 같은 회사가 여러 풀을 운영할 수도 있고, 한 풀에 여러 회사가 위탁할 수도 있다.
+
+## 1. Bitcoin — 마이닝 풀 + 노드
+
+Bitcoin 의 Nakamoto coefficient 는 두 차원에서 측정된다.
+
+**(a) 마이닝 풀 (블록 생성)** — 2026년 5월 BTC.com 데이터:
+
+| 풀 | 해시레이트 점유 | 누적 |
+|----|--------------|------|
+| Foundry USA | 28% | 28% |
+| AntPool | 22% | 50% |
+| F2Pool | 13% | 63% |
+
+상위 2개 풀 합계가 50%, 3개가 63%. **Nakamoto coefficient = 3** (마이닝 차원).
+
+이 숫자가 작아 보이지만, 풀은 개별 마이너의 위탁체일 뿐이다. 마이너는 언제든 풀을 옮길 수 있고, 실제로 2014년 Ghash.io 가 51% 도달했을 때 마이너 자발적 이동으로 점유 하락했다. 따라서 풀 차원의 Nakamoto coefficient 는 단기 결탁 위협 측정이지 장기 분산화 척도는 아니다.
+
+**(b) 노드 분포** — 약 18,000개 full node, 100+ 국가. 단일 entity 통제 불가능. 이 차원의 Nakamoto coefficient 는 사실상 무한대 (또는 측정 불가능).
+
+## 2. Ethereum — 검증자 + LST 풀
+
+Ethereum 은 PoS 전환 (2022.9 Merge) 후 검증자가 약 1,150,000 명 (2026.5). 단순 검증자 수만 보면 Bitcoin 마이닝 풀보다 훨씬 분산되어 보인다.
+
+그러나 **Liquid Staking Token (LST) 풀** 차원에서 보면 다른 그림이 나온다.
+
+| Staking entity | ETH staked | 점유 | 누적 |
+|---------------|----------|------|------|
+| Lido (LST) | 9.8M ETH | 28% | 28% |
+| Coinbase | 4.1M | 12% | 40% |
+| Ether.fi | 2.8M | 8% | 48% |
+| Binance | 1.7M | 5% | 53% |
+
+**Nakamoto coefficient = 4** (staking 차원).
+
+흥미로운 점은 Lido 의 28% 점유가 Ethereum 거버넌스 안에서 자율 제한 논의가 활발하다는 것이다. Vitalik 본인이 2024년 *Don't overload Ethereum's consensus* 에서 LST 풀의 33% 한계를 명시적으로 언급했다. 단일 LST 가 33% 를 넘으면 fork-finality 공격 가능 임계점이기 때문이다.
+
+## 3. Solana — Validator 분포
+
+Solana 는 PoS 검증자 약 1,400명 (2026.5). 검증자 수만 보면 분산도가 보인다.
+
+그러나 stake 분포로 보면:
+
+| 상위 entity | Stake 점유 | 누적 |
+|-----------|----------|------|
+| 상위 1개 | 4.2% | 4.2% |
+| 상위 5개 | 19% | 19% |
+| 상위 19개 | 51% | 51% |
+
+**Nakamoto coefficient = 19**. 이 숫자만 보면 Bitcoin (3) 이나 Ethereum (4) 보다 훨씬 분산화되어 있다.
+
+그러나 두 가지 caveat 가 있다. (a) Solana Foundation 이 delegation 정책으로 검증자 stake 의 약 30% 를 직접 통제. (b) Solana 의 client 는 사실상 Anza (구 Solana Labs) 의 Agave 단일 — Bitcoin 의 다중 클라이언트 (Core, Knots, btcd) 와 비교 시 architectural 약점.
+
+## 4. 비교 + 측정의 한계
+
+<Callout type="opposing-view" title="반대 시각 · Nakamoto coefficient 의 5가지 한계">
+**(1)** 같은 회사가 여러 entity 운영하는 case 미반영 (Coinbase + cbETH + Coinbase Custody = 같은 회사).
+**(2)** 단기 vs 장기 차원 미분리. 마이닝 풀은 옮길 수 있지만 클라이언트 다양성은 옮기기 어려움.
+**(3)** Geographic concentration 미반영. 검증자 1,400명이 모두 한 데이터센터에 있다면?
+**(4)** Code dependency 미반영. ETH client 73% Geth, SOL client 100% Agave.
+**(5)** 자산 보유 (economic) 차원 미반영. BTC 상위 1% 지갑이 90%+ 보유.
+이 한계 때문에 Messari 등은 **Multi-dimensional Nakamoto** (5–8개 축 가중평균) 을 제안한다. 본 시리즈 #D5 trade-off 편에서 다시 다룬다.
+</Callout>
+
+세 자산의 Nakamoto coefficient 를 정리하면:
+
+| 자산 | 마이닝/검증 | LST/Staking 풀 | 노드 수 | 클라이언트 다양성 |
+|------|-----------|--------------|--------|---------------|
+| Bitcoin | 3 (풀) | N/A | 18K | 5+ 클라이언트 |
+| Ethereum | — | 4 (LST) | 7.5K | 2 dominant (Geth/Erigon) |
+| Solana | 19 (validator) | — | 1.4K | 1 (Agave), Firedancer 개발 중 |
+
+이 표의 해석은 단순하지 않다. **어느 자산이 더 분산화되어 있는가** 에 단일 답이 없다.
+
+- 마이닝 결탁 단기 위협 → BTC 가 더 위험 (coefficient 3)
+- LST 풀 결탁 → ETH 가 위험 (coefficient 4)
+- Validator 분산 → SOL 가 우위 (coefficient 19)
+- 클라이언트 다양성 → BTC 가 압도적 우위
+- 노드 수 → BTC 가 압도적 우위
+
+탈중앙화는 단일 지표가 아니다. **어떤 공격 모델을 가정하느냐** 에 따라 우선 축이 달라진다. 다음 #D3 편에서 이 측정 framework 가 거버넌스 모델 (DAO vs Foundation vs 무명) 에 어떻게 적용되는지 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. L1 분산화 정량 비교의 학술적 framework 정리입니다.

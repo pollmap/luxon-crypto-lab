@@ -1,0 +1,107 @@
+---
+slug: exchange-failure-case-study
+title: "FTX · Mt.Gox · Celsius — 거래소 실패 case study"
+subtitle: 8년 간격으로 반복된 같은 패턴 — 자기 수탁 부재, 운영 투명성 부재, 자산 혼합 사용
+exchangeId: failure-cases
+issue: "E6"
+publishedAt: "2026-07-09"
+category: Exchange-Case
+tags: [ftx, mtgox, celsius, custody, self-custody, post-mortem]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Mt.Gox Bankruptcy Trustee — Final Distribution Report (2024.7)"
+    url: https://www.mtgox.com/img/pdf/20240705_announcement_en.pdf
+  - name: "FTX Debtors — First Day Declaration by John J. Ray III (2022.11)"
+    url: https://restructuring.ra.kroll.com/FTX/
+  - name: "Celsius Network — Examiner Report (Shoba Pillay, 2023.1)"
+    url: https://cases.stretto.com/celsius/
+  - name: "Andy Greenberg — WIRED, Mt.Gox Hack Reconstruction (2017)"
+    url: https://www.wired.com/2017/03/inside-mt-gox-meltdown/
+  - name: "DOJ — SBF Indictment (2022.12)"
+    url: https://www.justice.gov/usao-sdny/press-release/file/1559611
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2014년 Mt.Gox, 2022년 7월 Celsius, 2022년 11월 FTX — 8년 간격으로 일어난 세 거래소 도산은 **거의 동일한 패턴**을 따른다. 사용자 자산을 자체 운용하고, 회계가 불투명하며, 위기 시 인출을 막는다. 본 글은 세 case 의 공통 구조를 메커니즘 단위로 분해하고, 이로부터 도출되는 self-custody 함의를 다룬다.
+</Callout>
+
+## 도입 — 8년, 세 번의 같은 사건
+
+| Case | 도산 | 이용자 손실 | 자산 회수율 | 형태 |
+|------|------|------------|------------|------|
+| Mt.Gox | 2014.2 | 850,000 BTC | 약 70% (2024년 7월 분배) | 거래소 |
+| Celsius | 2022.7 | $4.7B | 약 60% (2024년 분배) | 대출/이자 |
+| FTX | 2022.11 | $8.7B | 약 142% (2025년 9월 분배, BTC 가격 상승 효과) | 거래소 + 헤지펀드 |
+
+이 표에서 흥미로운 사실은 **회수율이 시간이 갈수록 높아진다**는 점이다. 그러나 이는 표면적 지표이며, 핵심은 회수율이 아니라 **세 사건의 인과 패턴이 거의 같다**는 것이다.
+
+## 1. Mt.Gox (2014) — 자기 수탁 + 코드 결함
+
+Mt.Gox 는 2010년 일본에서 출시된 세계 최초 BTC 거래소였다. 2013년 정점에 글로벌 BTC 거래량의 70% 를 차지했다. 2014년 2월 7일 인출이 갑자기 중단되었고, 2월 24일 회사는 **750,000 BTC 사용자 자산 + 100,000 BTC 자체 자산 = 850,000 BTC 손실** 을 발표했다.
+
+WIRED 의 2017년 Andy Greenberg 재구성 기사에 따르면, Mt.Gox 는 2011년부터 점진적으로 hot wallet 의 BTC 가 빠져나가고 있었다. 원인은 **"transaction malleability"** — Bitcoin 트랜잭션 ID 가 서명 전후로 다른 형태를 가질 수 있다는 알려진 특성을 공격자가 악용했다. Mt.Gox 의 회계 시스템은 ID 변경된 트랜잭션을 "실패" 로 인식하고 자동 재전송했고, 결과적으로 같은 BTC 를 두 번 출금하는 일이 반복됐다.
+
+핵심 실패 요인:
+
+- **Hot wallet 분리 부재** — 사용자 자산 대부분을 즉시 출금 가능한 hot wallet 에 보관.
+- **회계 검증 부재** — 자체 BTC 보유량과 사용자 잔액 합계를 정기 대조하지 않음.
+- **단일 운영자** — Mark Karpelès CEO 한 사람이 코드와 wallet 키 모두 통제.
+
+## 2. Celsius (2022) — 자산 혼합 + 풀 운용 + 폰지 의혹
+
+Celsius Network 는 2017년 출시된 가상자산 lending 플랫폼이다. "은행보다 높은 이자" 를 내세워 사용자에게 BTC, ETH 예치 시 연 5–18% 이자를 약속했다. 정점에는 약 $20B 의 사용자 자산을 보유했다.
+
+2022년 6월 Terra-LUNA 붕괴와 함께 Celsius 가 보유하던 stETH (이더리움 staking 토큰) 의 디스카운트가 -7% 까지 벌어졌다. 이로 인한 마진 콜이 자산 인출 중단으로 이어졌고, 7월 13일 chapter 11 (파산보호) 신청.
+
+Celsius 검사관 Shoba Pillay 의 132페이지 보고서 (2023.1) 가 밝힌 핵심:
+
+<Callout type="info" title="Celsius Examiner Report 핵심 발견">
+**(1)** 사용자 자산을 자체 토큰 CEL 매수에 사용. CEL 가격을 인위적으로 부양.
+**(2)** 약속한 이자율이 실제 운용 수익을 초과. 신규 예치금으로 기존 이자 지급 — 폰지 구조.
+**(3)** 사용자 자산과 회사 자산의 회계 분리가 실질적으로 없음.
+**(4)** CEO Alex Mashinsky 가 회사 자금으로 자기 명의 BTC 를 매수 후 가격 상승분을 개인 수익화.
+</Callout>
+
+Mashinsky 는 2024년 5월 사기 혐의로 유죄 인정. 12년 형 선고.
+
+## 3. FTX (2022) — 자매 헤지펀드와의 자산 혼합
+
+FTX 는 Sam Bankman-Fried (SBF) 가 2019년 설립한 거래소다. 정점에는 글로벌 perp 시장 점유 25%, 평가가치 $32B. 2022년 11월 11일 도산.
+
+도산의 직접 원인은 **FTX 사용자 자산이 SBF 의 자매 헤지펀드 Alameda Research 의 매매 자금으로 사용되었다**는 사실이 CoinDesk 보도 (2022.11.2) 로 노출된 것이었다. 사용자들이 인출을 시도했고, 자산이 없어 인출 불가능. 24시간 안에 도산.
+
+John J. Ray III (Enron 청산 담당이었던 베테랑 chapter 11 trustee) 가 FTX 인수 후 작성한 First Day Declaration 의 표현은 직설적이다:
+
+> "Never in my career have I seen such a complete failure of corporate controls and such a complete absence of trustworthy financial information as occurred here."
+
+(이전 경력 어디서도 이렇게 완벽한 corporate control 실패와 신뢰할 수 있는 재무정보의 완전한 부재는 본 적이 없다.)
+
+핵심 실패 요인:
+
+- **자매사 자금 혼합** — Alameda 가 FTX 사용자 자산을 사실상 무이자 대출처럼 사용.
+- **FTT 토큰 담보 사용** — 자체 발행 토큰을 담보로 leverage 운용. CoinDesk 가 이를 폭로하면서 토큰 가격 폭락이 도산 트리거.
+- **회계 시스템 부재** — Ray 의 표현으로 "QuickBooks 도 없다". 임직원의 회사 카드 영수증 처리가 Slack 의 emoji 로 진행.
+
+SBF 는 2024년 3월 사기 혐의로 25년 형 선고.
+
+## 4. 세 case 의 공통 패턴 + Self-custody 함의
+
+<Callout type="opposing-view" title="반대 시각 · CEX 가 모두 위험한 것은 아니다">
+세 사건이 비슷한 패턴을 따른다는 것이 모든 CEX 가 위험하다는 결론으로 이어지지는 않는다. Coinbase 는 2012년부터 운영하면서 미국 SEC 등록 + Big4 회계감사 + 외부 custody 분리 (#E2 참조) 를 유지했다. Binance 도 CFTC 합의 후 외부 monitor 를 받는다 (#E1 참조). "거래소 자체가 위험" 이 아니라 "특정 디자인 결정의 거래소가 위험" 이며, 그 결정 변수를 식별하는 것이 case study 의 의미다. 다만 이용자가 거래소 내부 디자인을 검증하기 어려운 정보 비대칭이 근본 문제로 남는다.
+</Callout>
+
+세 case 의 공통 패턴은 4가지로 정리된다.
+
+1. **사용자 자산 자체 운용** — 모두 사용자 자산을 자체 자금처럼 사용했다. Mt.Gox 는 단순 회계 결함, Celsius·FTX 는 의도적 혼합.
+2. **단일 운영자 통제** — 이사회·외부 감사·정부 감독 모두 부재 또는 형식적. Karpelès, Mashinsky, SBF 모두 코드·자산·회계 모두 단독 통제.
+3. **자체 토큰 담보 사용** — Celsius 의 CEL, FTX 의 FTT 가 같은 디자인. 자체 발행 토큰을 담보로 leverage 운용은 토큰 가격 하락 시 즉시 도산 메커니즘.
+4. **인출 중단 → 도산** — 인출 가능 자산이 사실상 없는 상태가 폭로되면 그 시점부터 24–72시간 안에 도산. 패턴이 동일.
+
+Self-custody 의 함의는 두 가지로 갈린다. (a) 거래소에 보관된 자산은 자기 자산이 아니라 거래소에 대한 청구권일 뿐 — "Not your keys, not your coins" 의 사토시 격언. (b) 그러나 대부분의 사용자에게 self-custody 는 운영 비용 (시드 분실, 피싱) 이 거래소 리스크보다 크다. 이 trade-off 가 BTC ETF 의 등장 (#1-G self-custody vs ETF) 으로 새로운 형태가 되었다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. 거래소 도산 case 와 self-custody trade-off 의 학술적 framework 정리입니다.
