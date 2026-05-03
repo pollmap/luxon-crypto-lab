@@ -115,3 +115,54 @@ hashrate: 516 EH/s · cap: 21M · halving #5: 2028-04-17
 ## 발행 후 수정
 
 본문 정정 시 `updatedAt` 갱신. 큰 정정은 글 하단에 "수정 로그" 섹션 추가.
+
+---
+
+## ⚠ MDX 함정 — 빌드 실패 패턴
+
+MDX 는 마크다운 + JSX 이라 **중괄호 `{...}` 와 백슬래시 `\(...\)` 는 JSX expression 으로 파싱**됩니다. 본문에 그대로 쓰면 acorn parser 가 문법 에러를 내며 빌드 실패.
+
+### 금지 패턴
+
+| 깨지는 표현 | 대체 표현 |
+|------------|---------|
+| `\(10{,}500{,}000 \times 2\)` (LaTeX) | 백틱 코드: `` `10,500,000 × 2` `` |
+| `{한글 텍스트}` (단순 중괄호) | `&#123;한글 텍스트&#125;` 또는 백틱 |
+| `function(a) { return a }` (JS 코드) | 코드 펜스 ```` ``` ```` 로 감싸기 |
+| `if (x > 0) {...}` 본문 안에 | 코드 블록 안에 넣기 |
+
+### 안전 패턴
+
+수식·공식은 백틱 코드 또는 일반 텍스트로:
+
+```mdx
+등비수열의 합 공식 `a / (1 - r)` 에 첫항 `a = 10,500,000`,
+공비 `r = 0.5` 를 대입하면 `10,500,000 × 2 = 21,000,000`.
+```
+
+객체·JSON 예시는 코드 펜스로:
+
+```mdx
+~~~ts
+const config = { foo: 'bar' }
+~~~
+```
+
+### JSX 컴포넌트는 OK
+
+`<Callout>`, `<HalvingTimeline />`, `<SeriesNav coinSymbol="BTC" currentSlug="..." />` 등 등록된 컴포넌트는 정상 작동. 단 props 값에 일반 중괄호 안에 한글 넣을 땐 따옴표 문자열로:
+
+```mdx
+<Callout type="info" title="제목">  ✅
+<Callout title={제목 변수}>          ❌ (JSX expression)
+```
+
+## 시리즈 navigation
+
+자산이 여러 sub-issue 로 분할되면 자동 nav 컴포넌트 사용:
+
+```mdx
+<SeriesNav coinSymbol="BTC" currentSlug="bitcoin-21m-monetary-evolution" />
+```
+
+`coins.ts` 의 `subIssues` 배열을 읽어 prev/next + 진행 표시 + dot indicator 자동 생성. 발행 일정 변경 시 `coins.ts` 한 곳만 수정하면 모든 글의 nav 가 자동 업데이트.

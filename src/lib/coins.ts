@@ -81,6 +81,12 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 279,
     description: "Pectra 후속 Fusaka 진척, EIP-1559 burn, 디플레이션 PoS",
     macroEvent: "Pectra 1주년, Fusaka 진척",
+    subIssues: [
+      { slug: "ethereum-pectra-fusaka", label: "#2-A", title: "Pectra 1주년과 글로벌 분산 컴퓨터", publishedAt: "2026-07-06", scope: "도입 + Pectra 핵심 EIP + Fusaka 로드맵" },
+      { slug: "ethereum-pos-validators-lst", label: "#2-B", title: "PoS 검증자 경제학과 LST 시스템 리스크", publishedAt: "2026-07-13", scope: "100만 검증자 · Lido stETH · EigenLayer restaking" },
+      { slug: "ethereum-l2-value-leak", label: "#2-C", title: "L2 가치 누수 vs EIP-1559 burn", publishedAt: "2026-07-20", scope: "Arbitrum/Base/Optimism + ETH 디플레이션 균형" },
+      { slug: "ethereum-pf-ps-valuation", label: "#2-D", title: "P/F · P/S로 본 ETH 가치평가", publishedAt: "2026-07-27", scope: "Token Terminal 비교 + Ultra Sound Money 검증" },
+    ],
   },
   {
     symbol: "SOL",
@@ -92,6 +98,11 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 48,
     description: "주당 22억 트랜잭션, SIMD-0411 인플레이션 30% 추가 감축",
     macroEvent: "Alpenglow / SIMD-0411",
+    subIssues: [
+      { slug: "solana-throughput-firedancer", label: "#3-A", title: "주당 22억 트랜잭션 — 처리량의 의미", publishedAt: "2026-08-03", scope: "도입 + Firedancer + PoH 합의" },
+      { slug: "solana-value-capture", label: "#3-B", title: "가치 포착 논쟁 — Scale is proven, value capture is not", publishedAt: "2026-08-10", scope: "21Shares 2026 보고서 + 애플리케이션 fee vs 프로토콜" },
+      { slug: "solana-simd-0411", label: "#3-C", title: "SIMD-0411 — 인플레이션 30% 감축 거버넌스", publishedAt: "2026-08-17", scope: "토크노믹스 변경 + SOL 실질 수익률 재산출" },
+    ],
   },
   {
     symbol: "BNB",
@@ -103,6 +114,11 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 83,
     description: "분기 Auto-Burn + BEP-95 실시간 burn, 100M 목표",
     macroEvent: "Q3 분기 burn (10월 중순)",
+    subIssues: [
+      { slug: "bnb-burn-yield-model", label: "#4-A", title: "Burn yield = Buyback yield — 디플레이션 토큰 모델", publishedAt: "2026-09-07", scope: "분기 Auto-Burn + BEP-95 + 자사주매입 유사 P/E" },
+      { slug: "bnb-bsc-ecosystem", label: "#4-B", title: "BSC 생태계 — 거래소 토큰을 넘어선 L1", publishedAt: "2026-09-14", scope: "TVL · 스테이블 · opBNB · Greenfield" },
+      { slug: "bnb-regulatory-risk", label: "#4-C", title: "Binance 규제 리스크와 PoSA 중앙화 비판", publishedAt: "2026-09-21", scope: "CFTC 합의 잔존 리스크 + 41 검증자 구조" },
+    ],
   },
   {
     symbol: "XRP",
@@ -114,6 +130,11 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 86,
     description: "현물 ETF 7개 출시, RLUSD 결제 정착, ODL 실수요 검증",
     macroEvent: "11월 XRP 현물 ETF 1주년",
+    subIssues: [
+      { slug: "xrp-etf-1-year", label: "#5-A", title: "XRP 현물 ETF 1년 — 제도화의 명과 암", publishedAt: "2026-10-05", scope: "7개 ETF · $1.4B AUM · 가격 -43% 디커플 분석" },
+      { slug: "xrp-xrpl-rwa-rlusd", label: "#5-B", title: "XRPL의 RWA · RLUSD 결제 사용 현황", publishedAt: "2026-10-12", scope: "RWA $474M · 일 트랜잭션 3M · ODL 실수요" },
+      { slug: "xrp-ripple-concentration", label: "#5-C", title: "Ripple Labs 보유 집중도와 거버넌스 리스크", publishedAt: "2026-10-19", scope: "에스크로 1B 분기 락업 · UNL 노드 신뢰 모델" },
+    ],
   },
   {
     symbol: "TRX",
@@ -125,6 +146,10 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 31,
     description: "USDT $79B 발행, 신흥국 송금 메카, GENIUS Act 영향",
     macroEvent: "GENIUS·CLARITY Act 시행",
+    subIssues: [
+      { slug: "tron-usdt-rails", label: "#6-A", title: "TRON은 어떻게 USDT 결제 백본이 됐나", publishedAt: "2026-11-02", scope: "$79B USDT · 신흥국 송금 메카 · BIS WP 1335" },
+      { slug: "tron-genius-act-impact", label: "#6-B", title: "GENIUS Act 시행과 TRON-USDT 채널 영향", publishedAt: "2026-11-09", scope: "미국 스테이블 규제 · OFAC 리스크 · USDD 디페그" },
+    ],
   },
   {
     symbol: "STABLES",
@@ -135,6 +160,11 @@ export const COINS: readonly CoinMeta[] = [
     signature: "디지털 머니마켓 vs 그림자은행",
     description: "USDT·USDC·USDS·PYUSD 통합. 미국 단기국채 수요 채널",
     macroEvent: "12월 FOMC, 연말 단기국채 점검",
+    subIssues: [
+      { slug: "stables-issuer-anatomy", label: "#7-A", title: "USDT vs USDC — 발행사 준비금 구조 해부", publishedAt: "2026-12-07", scope: "Tether $190B · Circle $77B · 준비금·감사" },
+      { slug: "stables-treasury-channel", label: "#7-B", title: "스테이블코인은 디지털 머니마켓펀드인가", publishedAt: "2026-12-14", scope: "미국 단기국채 수요 채널 · IMF·BIS 시각" },
+      { slug: "stables-yield-bearing", label: "#7-C", title: "Yield-bearing 스테이블의 등장 — USDS·USDe·YLDS", publishedAt: "2026-12-21", scope: "MakerDAO/Sky · Ethena · Figure SEC 등록" },
+    ],
   },
   {
     symbol: "DOGE",
@@ -146,6 +176,10 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 17,
     description: "PoW Scrypt, 무한공급 연 4% 인플레, Litecoin 머지마이닝",
     macroEvent: "신년 risk-on 회복 시즌성",
+    subIssues: [
+      { slug: "doge-schelling-money", label: "#8-A", title: "가치 없는 자산이 가격을 갖는 이유 — 셸링 포인트 화폐론", publishedAt: "2027-01-04", scope: "EMH vs 케인즈 미인대회 · 사회적 합의" },
+      { slug: "doge-x-payment-integration", label: "#8-B", title: "X 결제 통합 가설과 DOGE 모멘텀", publishedAt: "2027-01-11", scope: "트위터 결제 · 머지마이닝 · 변동성 베타" },
+    ],
   },
   {
     symbol: "FIGR",
@@ -157,6 +191,10 @@ export const COINS: readonly CoinMeta[] = [
     marketCapBillion: 18,
     description: "Provenance 위 토큰화 HELOC. $18B 토큰 vs $45M 검증 TVL 논쟁",
     macroEvent: "RWA 시장 $20T 전망 점검",
+    subIssues: [
+      { slug: "figr-rwa-tokenization-case", label: "#9-A", title: "FIGR_HELOC — 토큰화 RWA의 첫 케이스 스터디", publishedAt: "2027-02-01", scope: "Provenance 체인 · HELOC 구조 · Figure Markets" },
+      { slug: "figr-data-controversy", label: "#9-B", title: "$18B 토큰 vs $45M 검증 TVL — Morpheus 공매도 논쟁", publishedAt: "2027-02-08", scope: "RWA.xyz Distributed vs Represented · SEC S-1 분석" },
+    ],
   },
   {
     symbol: "ADA",

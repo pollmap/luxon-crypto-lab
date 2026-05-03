@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import { Callout } from "@/components/post/Callout";
 import { SourceFootnote } from "@/components/post/SourceFootnote";
+import { SeriesNav } from "@/components/post/SeriesNav";
 import { TerminalBox } from "@/components/neon/TerminalBox";
 import { HashBadge } from "@/components/neon/HashBadge";
 import { GlowText } from "@/components/neon/GlowText";
@@ -57,6 +58,7 @@ const components: MDXComponents = {
   ),
   Callout,
   SourceFootnote,
+  SeriesNav,
   TerminalBox,
   HashBadge,
   GlowText,

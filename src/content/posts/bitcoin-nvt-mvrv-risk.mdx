@@ -1,7 +1,7 @@
 ---
 slug: bitcoin-nvt-mvrv-risk
 title: "NVT·MVRV로 본 BTC 적정가 그리고 리스크"
-subtitle: 온체인 가치평가의 가능성과 한계
+subtitle: 온체인 가치평가의 가능성과 한계 (BTC 시리즈 완결)
 coin: BTC
 issue: 1
 publishedAt: "2026-06-22"
@@ -15,55 +15,119 @@ sources:
   - name: "Glassnode Academy — NVT Ratio"
     url: https://academy.glassnode.com/concepts/nvt-ratio
   - name: "CoinMetrics — Realized Cap methodology"
-    url: https://coinmetrics.io/
-  - name: "a16z crypto — Quantum and Bitcoin (2025)"
+    url: https://coinmetrics.io/insights/state-of-the-network/
+  - name: "a16z crypto — Quantum threat to crypto (2025)"
     url: https://a16zcrypto.com/
+  - name: "Willy Woo — NVT Signal original (2017)"
+    url: https://woobull.com/
 ---
 
-{/* DRAFT — 2026-06-15까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+비트코인은 현금흐름도 EBITDA 도 없습니다. 그러면 가격이 비싼지 싼지를 어떻게 판단할까요? 온체인 메트릭 — NVT (네트워크 가치 vs 거래량), MVRV (시장가치 vs 실현가치) — 가 P/E·P/B 의 코인판 대용물입니다. 단일 수치 단정이 아니라 fair value range 박스로 사용하는 법, 그리고 BTC 시리즈 4편을 관통하는 결론까지.
+</Callout>
 
-## 도입 — 내재가치 없는 자산의 가격은 어떻게 평가하는가
+## 도입 — 내재가치 없는 자산을 어떻게 평가하는가
 
-{/* TODO: ~400자. 가치투자에서 BTC는 골치아픈 대상. 현금흐름 X, EBITDA X. 그럼에도 시장은 가격을 정함. 어떻게 그 가격을 평가할 것인가의 도구 = 온체인 메트릭 */}
+전통 가치투자에서 비트코인은 골치아픈 대상입니다. 현금흐름이 없고 EBITDA 가 없고 P/E 정의가 불가합니다. NY Fed 학계 시각에서는 "내재가치 0" 으로 분류되기도 합니다.
+
+그럼에도 시장은 매일 가격을 정합니다. 2026년 5월 현재 $78,600. 이게 비싼지 싼지를 판단하는 도구가 필요합니다. 비트코인 커뮤니티가 발전시킨 도구는 **온체인 메트릭** — 블록체인 위에 기록된 실제 거래·UTXO 데이터를 기반으로 한 정량 지표들입니다.
+
+본 편에서는 두 가지 핵심 지표 — NVT 와 MVRV — 를 짚고, 단일 수치가 아닌 **fair value range** 로 어떻게 사용하는지를 다룹니다. 그리고 시리즈 마지막 섹션에서 양자·정치·집중도 리스크와 BTC 4편 종합 결론을 정리합니다.
 
 ## 1. NVT — 네트워크 가치 vs 거래량 비율
 
-{/* TODO: ~700자. NVT = Market Cap / Daily Transfer Volume. 의미: "기업의 P/E 같은 비율". 임계값. 한계 (ETF OTC flow 미포함) */}
+NVT (Network Value to Transactions) 는 2017년 Willy Woo 가 제안한 지표입니다.
+
+**NVT = Market Cap / Daily On-chain Transfer Volume (USD)**
+
+직관적으로는 "1달러 일일 거래에 시장이 몇 달러를 부여하는가" — 기업의 P/E 와 유사한 발상. 거래량이 활발한데 시총이 낮으면 NVT 낮음(저평가), 거래량 약한데 시총 높으면 NVT 높음(고평가).
+
+**역사적 임계값**:
+- NVT 30+ : 고평가 영역 (cycle top 근접)
+- NVT 15- : 저평가 영역 (cycle bottom 근접)
+- NVT signal (90일 MA) 이 더 안정적
+
+**2026년 5월 현재 NVT**: 약 60-70 (cycle 후반 범위, 그러나 ETF flow 미반영)
+
+여기서 **결정적 한계**가 등장합니다. ETF 매수가 OTC desk 에서 처리되면 온체인 transfer 로 안 보입니다. BlackRock IBIT 가 일평균 $208M 매수해도 그 거래는 Coinbase Prime / Cumberland 같은 OTC 채널에서 일어나고, 온체인엔 단순 ETF 보관 지갑으로의 inbound transfer 로만 기록됩니다. 즉 **분모(transfer volume) 가 실제 경제활동을 과소측정**.
 
 ## 2. MVRV — 시장가치 vs 실현가치
 
-{/* TODO: ~700자. MVRV = Market Cap / Realized Cap. 사이클 top: >3.5, bottom: <1. 2026.5 현재 위치. */}
+MVRV (Market Value to Realized Value) 는 NVT 보다 더 정교한 지표입니다.
+
+**MVRV = Market Cap / Realized Cap**
+
+**Realized Cap** 은 각 BTC 가 마지막으로 이동된 시점의 가격을 합산한 값입니다. 즉 "전체 BTC 보유자의 평균 cost basis 근사" 라고 볼 수 있습니다.
+
+- MVRV > 3.5 : cycle top 영역 (대부분 보유자가 큰 미실현 이익)
+- MVRV < 1 : cycle bottom 영역 (대부분 보유자가 손실)
+- MVRV 1.5-2.5 : mid-cycle 정상 범위
+
+**과거 cycle 사례**:
+- 2017년 12월 top: MVRV ~4.5
+- 2018년 12월 bottom: MVRV ~0.7
+- 2021년 11월 top: MVRV ~4.0
+- 2022년 11월 bottom: MVRV ~0.8
+- 2025년 10월 top ($126K): MVRV ~3.2 (역사적 top 보다 낮음)
+- **2026년 5월 현재**: MVRV ~2.0-2.3 (mid-cycle 조정 구간)
+
+흥미로운 패턴은 **4번째 사이클의 MVRV 정점이 과거보다 낮다**는 점입니다. 가설 두 개:
+1. ETF 흡수로 cost basis 가 빠르게 위로 이동 → realized cap 도 같이 상승 → MVRV ratio 압축
+2. 기관 보유 비중 증가로 정점 distortion 약화
 
 <Callout type="data" title="데이터 한계 · 2024년 이후 신뢰구간 재조정">
-NVT/MVRV는 거래량·UTXO 기반이라 ETF 매수가 OTC desk에서 처리되어 온체인에 안 보이면 측정이 왜곡됩니다. 2024년 이후 학계와 Glassnode는 신뢰구간을 재조정 중입니다.
+NVT 와 MVRV 는 모두 거래량·UTXO 기반이라 ETF OTC flow 가 측정에서 빠집니다. 2024년 이후 학계와 Glassnode 자체가 임계값(threshold) 신뢰구간을 재조정 중입니다. **단일 지표 단독 판단 금지** — 본 편 3절의 fair value range 박스처럼 종합 사용해야 합니다.
 </Callout>
 
 ## 3. Fair value range — 단일 가격이 아닌 범위 제시
 
-{/* TODO: ~600자. NVT/MVRV/Realized Price 세 가지 지표로 박스 표시. 단일 수치 단정 회피 */}
+세 지표를 종합한 박스 모델 (2026년 5월 가설적 산출):
+
+| 지표 | 산출 방식 | Fair value 추정 |
+|------|----------|----------------|
+| NVT 정상화 | 90일 MA NVT 평균 회귀 | $65K-$90K |
+| MVRV 정상화 | MVRV 1.8-2.2 구간 | $70K-$95K |
+| Realized Price | cycle floor 근사 | ~$48K |
+| **종합 박스** | 세 추정의 교집합 | **$70K-$90K** |
+
+현재가 $78,600 는 박스 중앙. 강한 매수도 매도도 아닌 **"중립" 구간**이라는 게 정량 모델의 시그널입니다.
+
+이게 가치투자식 적정가 단정과 다른 점입니다. 단일 숫자 ("BTC 의 적정가는 $XXX 입니다") 가 아니라 **범위와 그 범위가 도출된 가정**을 같이 제시해야 정직합니다. 가정이 깨지면 (예: ETF flow 가 OTC 에서 온체인으로 이동) 박스 자체가 재산출됩니다.
 
 ## 4. 리스크 — 양자 · 정치 · 집중도
 
-{/* TODO: ~700자. (1) 양자컴퓨팅: a16z 2025 시기상조론, Taproot 후속 quantum-resistant 논의 (2) 정치: SAB 121 폐지, 전략적 비축 논쟁 (3) ETF 집중도: BlackRock 단일 49-62% */}
+### 4-1. 양자 컴퓨팅 (중장기, 5-10년 buffer)
 
-## 5. BTC 시리즈 결론
+a16z crypto 의 2025년 리포트는 양자 위협에 대해 **"시기상조" 입장**입니다. RSA 2048 / ECDSA 256 을 깨려면 ~1M 큐비트가 필요하고, 2026년 현재 IBM (1,121 큐비트 Condor) · Google (105 큐비트 Willow) 등이 1K-5K 수준. 차이가 200-1000배.
 
-{/* TODO: ~300자. 4편을 관통하는 결론. 화폐론 + 마이너/ETF + 매크로 + 가치평가 통합 */}
+다만 비트코인 진영도 손 놓고 있지는 않습니다. **Taproot 후속으로 quantum-resistant signature scheme** (Lattice-based, Hash-based) 논의가 BIP 단계에서 진행 중. 5-10년 buffer 가설이 일반적이고, 그 동안 합의 구조 변경 시간이 충분하다는 게 a16z 입장.
 
-3가지 결론:
-1. **수학적 희소성** — 21M cap은 정치 협상 불가. 화폐 진화 4단계의 끝점.
-2. **4번째 사이클이 다르다** — ETF + 기관 인프라가 과거 사이클 모델을 깨뜨린다.
-3. **Fair value는 범위로** — NVT/MVRV/Realized Price 박스. 단정 회피, 비대칭 베팅의 setup 으로.
+### 4-2. 정치 / 규제
 
-다음 호 예고 (7월): **이더리움 시리즈** — Pectra 1주년과 글로벌 분산 컴퓨터 가설.
+2025년 미국 SAB 121 폐지로 은행이 BTC 커스터디 가능. 트럼프 행정부의 **전략적 BTC 비축(Strategic Bitcoin Reserve) 논쟁**이 진행 중이며, 2026년 4월 대만 외환보유액 $602B 일부를 BTC 로 편입하자는 제안이 의회에서 논의됐습니다. 한국·일본도 검토 단계.
 
----
+이건 양면입니다 — 채택 가속화의 강한 호재이지만, 정부가 BTC 를 "전략 자원" 으로 분류하면 동시에 **자본 통제(capital control) 대상**이 될 가능성도 있습니다.
 
-**시리즈 안내** (BTC #1, 4편 완결)
+### 4-3. ETF 집중도
 
-- ✅ [#1-A 비트코인은 왜 21,000,000개인가](/posts/bitcoin-21m-monetary-evolution/) (2026-06-01)
-- ✅ [#1-B 4번의 반감기 후 마이너 경제학과 ETF](/posts/bitcoin-mining-etf/) (2026-06-08)
-- ✅ [#1-C DXY·금리·M2와 BTC](/posts/bitcoin-macro-cycle/) (2026-06-15)
-- 🔵 #1-D NVT·MVRV로 본 BTC 적정가 그리고 리스크 — *현재 글 · 시리즈 완결*
+BlackRock IBIT 단독 49-62% 점유. **단일 발행자에 BTC 유통량의 ~3% 가 묶인 셈**입니다. Single point of failure 리스크.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. 매크로·온체인·모멘텀 관점의 개인 리서치 기록입니다.
+2024년 8월 일본 캐리 트레이드 청산 시 IBIT 1주일 약 $1.2B 환매가 발생했던 것이 그 가설의 첫 stress test 였고, 시스템은 견뎠지만 **장기 베어 페이즈에서 ETF 환매 누적이 가격에 미치는 영향**은 4번째 사이클이 완성되어야 검증됩니다.
+
+분산 ETF (Bitwise BITB, Ark ARKB) 점유율 추이가 향후 1-2년 핵심 지표.
+
+## 5. BTC 시리즈 결론 (#1-A → #1-D 종합)
+
+4편을 관통하는 세 가지 결론:
+
+1. **수학적 희소성 (#1-A)** — 21,000,000 cap 은 정치적 협상 불가능한 코드. 화폐 진화 4단계의 끝점. 명목화폐 무한 발행 시대의 카운터 디자인.
+
+2. **4번째 사이클이 다르다 (#1-B + #1-C)** — ETF + 기관 인프라 + 매크로 채널 정착 = 과거 stock-to-flow 모델 단순 적용 어려움. 새 가격 메커니즘이 작동 중. NY Fed 학계 시각도 정직하게 병기.
+
+3. **Fair value 는 범위로 (#1-D)** — NVT · MVRV · Realized Price 박스 모델. 단일 숫자 단정 회피. 비대칭 베팅의 setup 도구로 사용. 가정 깨지면 박스 재산출.
+
+본 시리즈의 결론은 **"디지털 골드 가설 옹호" 도, "BTC 거품 진단" 도 아닙니다**. 양쪽 시각을 정직하게 병기하고, 데이터 한계를 솔직하게 표시한 뒤, 독자가 자기 매크로 관점에 맞춰 결론을 내릴 도구를 제공하는 것 — 그게 luxon-crypto-lab 의 시리즈 표준입니다.
+
+**다음 호 (7월): 이더리움 시리즈** — Pectra 1주년과 글로벌 분산 컴퓨터 가설부터 시작합니다.
+
+<SeriesNav coinSymbol="BTC" currentSlug="bitcoin-nvt-mvrv-risk" />
