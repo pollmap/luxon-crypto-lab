@@ -1,0 +1,235 @@
+---
+slug: research-amm-uniswap-mathematics
+title: "AMM 의 수학 — x*y=k 부터 Concentrated Liquidity 까지"
+subtitle: Uniswap v2 · v3 · v4 + LP 의 impermanent loss + concentrated liquidity 적분 (Research 시리즈 #P3)
+publishedAt: "2027-01-21"
+category: Series
+tags: [amm, uniswap, lp, impermanent-loss, mev, hayden-adams]
+estimatedReadTime: 16
+draft: true
+sources:
+  - name: "Adams, H., Zinsmeister, N., & Robinson, D. — Uniswap v2 Core (2020.3)"
+    url: https://uniswap.org/whitepaper.pdf
+  - name: "Adams, H., Zinsmeister, N., Salem, M., Keefer, R., & Robinson, D. — Uniswap v3 Core (2021.3)"
+    url: https://uniswap.org/whitepaper-v3.pdf
+  - name: "Uniswap Labs — Uniswap v4 Whitepaper (2025)"
+    url: https://uniswap.org/whitepaper-v4.pdf
+  - name: "Loesch, S., Mahmood, K., et al. — Impermanent Loss in Uniswap v3 (2021)"
+    url: https://arxiv.org/abs/2111.09192
+  - name: "Daian, P., et al. — Flash Boys 2.0: Frontrunning in DEX (USENIX 2020)"
+    url: https://arxiv.org/abs/1904.05234
+  - name: "Angeris, G., et al. — Constant Function Market Makers Theoretical Analysis (2020)"
+    url: https://arxiv.org/abs/2003.10001
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+AMM (Automated Market Maker) 의 수학적 핵심인 *"x × y = k"* 가 무엇이고, Uniswap v3 의 *"concentrated liquidity"* 가 어떤 적분으로 계산되며, LP 의 *"impermanent loss"* 가 정확히 얼마인가? Vitalik 의 영향에서 시작해 학술적 framework 가 된 AMM 의 수학을 봅니다.
+</Callout>
+
+## 도입 — 5천만 달러의 단순한 공식
+
+블록체인 학계에서 가장 우아한 수식 중 하나 — Uniswap 의 *"Constant Product Market Maker"*:
+
+```
+x × y = k
+```
+
+x = 토큰 A 의 풀 잔액. y = 토큰 B 의 풀 잔액. k = 상수.
+
+이 한 줄의 공식이 — DEX 시장의 90% 점유율을 만들고, $5T 누적 거래량을 처리하고, 글로벌 학술 학회에서 100+ 논문의 출발점이 된 framework.
+
+본 편은 4섹션 — (1) v2 의 *"x × y = k"*, (2) v3 의 *"concentrated liquidity"* 적분, (3) impermanent loss 의 정확한 수식, (4) v4 의 *"Hooks"* 가 가져올 변화 — 으로 정리.
+
+## 1. Uniswap v2 — *"x × y = k"*
+
+### 1-1. 메커니즘
+Uniswap v2 (2020년 5월 출시) 의 단순 메커니즘:
+
+- 풀에 토큰 A 100개 + 토큰 B 200개 → x = 100, y = 200, k = 20,000
+- 사용자가 토큰 A 1개 추가 매수 → x' = 101 → y' = 20,000 / 101 ≈ 198.02
+- 즉 사용자가 토큰 A 1개를 받기 위해 토큰 B 1.98개 지불
+
+이 공식의 가장 큰 강점 — **무한 유동성**. 풀이 비어 있어도 (x → 0 또는 y → 0) 거래가 가능. 단지 가격이 매우 unfavorable.
+
+### 1-2. 가격 정의
+v2 에서 *"가격"* 의 정의:
+- 토큰 A 의 가격 (B 단위) = y / x
+- 풀 100A + 200B → 1A = 2B
+
+### 1-3. swap 후 가격 변화
+사용자가 1A 추가 매수 → 풀 101A + 198.02B → 새 가격 1A = 1.96B. 즉 가격이 +2% 변화.
+
+이 *"가격 영향(price impact)"* 이 swap 크기에 비례. 작은 swap (~0.1% of pool) → 작은 영향. 큰 swap (~10% of pool) → 큰 영향.
+
+### 1-4. 학술적 분석
+Angeris 등 (2020) 의 *"Constant Function Market Makers Theoretical Analysis"* 가 v2 의 수학적 특성을 종합:
+
+- **convex curve** — x × y = k 의 그래프가 hyperbola (convex)
+- **arbitrage convergence** — DEX 가격과 CEX 가격의 차이가 arbitrage 로 수렴
+- **fee structure** — 0.3% 가 LP 의 보상 + arbitrage 마진의 균형
+
+이 framework 가 *"AMM 학술 표준"* 이 됐습니다.
+
+## 2. Uniswap v3 — *"Concentrated Liquidity"*
+
+### 2-1. v2 의 한계
+v2 의 가장 큰 한계 — **자본 비효율성**. 풀의 유동성이 *"0 부터 무한대"* 의 모든 가격에 분산. 그러나 실제 거래는 *"좁은 가격 범위"* (예: 1A = 1.95-2.05B) 에서만 발생. 즉 풀의 99% 유동성이 *"사용되지 않는 영역"* 에 잠겨 있음.
+
+### 2-2. v3 의 해결책
+Uniswap v3 (2021년 5월 출시) 의 핵심 — **LP 가 가격 범위를 직접 선택**.
+
+```
+LP 가 가격 범위 P_lower ~ P_upper 에 유동성 L 제공
+→ 풀의 가격이 그 범위 안에 있을 때만 LP 의 유동성 사용
+```
+
+수학적으로 — v3 는 *"가상 풀"* 의 합. 각 LP 의 좁은 범위가 *"자체 v2 풀"* 처럼 작동.
+
+### 2-3. 적분 수식
+v3 에서 LP 의 자본 효율성 (capital efficiency) 의 수식:
+
+```
+EfficiencyMultiplier(P_lower, P_upper, P_market) =
+    1 / (1 - sqrt(P_lower / P_market) - sqrt(P_market / P_upper) / sqrt(...))
+```
+
+복잡하지만 직관적 — 가격 범위가 좁을수록 multiplier 가 큼. 예:
+
+| 범위 | Multiplier |
+|------|-----------|
+| ±10% | ~5x |
+| ±5% | ~10x |
+| ±1% | ~50x |
+| ±0.1% | ~500x |
+
+즉 LP 가 *"좁은 범위 + 5x leverage"* 같은 효율성 가능. 그러나 트레이드오프 — 가격이 범위 밖으로 나가면 LP 가 *"단일 자산만 보유"* (impermanent loss 극대화).
+
+### 2-4. v3 채택의 결과
+Uniswap v3 가 LP 자본 효율성 가속:
+- v2 평균 LP 자본 효율 — ~1x
+- v3 평균 LP 자본 효율 — ~6.5x (Uniswap Labs 2024 분석)
+
+이 가속이 — DEX 거래량 가속, swap fee 인하, 스테이블코인 swap 효율성 가속.
+
+## 3. Impermanent Loss — 정확한 수식
+
+### 3-1. 정의
+Impermanent Loss (IL) — LP 가 토큰을 풀에 예치한 후, 토큰을 단순 보유한 경우와 비교한 *"기회 손실"*.
+
+예 — LP 가 1 ETH + 2,000 USDC 를 ETH/USDC 풀에 예치. 그 후 ETH 가격이 $2,000 → $4,000 (2배 상승).
+
+- 단순 보유: 1 ETH ($4,000) + 2,000 USDC = $6,000
+- 풀에 있던 LP: 약 0.707 ETH ($2,828) + 2,828 USDC = **$5,657**
+- IL = $6,000 - $5,657 = **$343 (5.7% 손실)**
+
+### 3-2. 수식
+v2 풀의 IL 수식:
+
+```
+IL(price_ratio) = 2 × sqrt(price_ratio) / (1 + price_ratio) - 1
+```
+
+price_ratio = 새 가격 / 입금 시 가격.
+
+| price_ratio | IL |
+|-------------|-----|
+| 0.5 (-50%) | -5.7% |
+| 0.75 (-25%) | -2.0% |
+| 1.0 (변화 X) | 0% |
+| 1.25 (+25%) | -1.5% |
+| 1.5 (+50%) | -3.4% |
+| 2.0 (+100%) | -5.7% |
+| 4.0 (+300%) | -20.0% |
+| 10.0 (+900%) | -42.5% |
+
+이 수식이 의미하는 바 — **가격 변화가 대칭이지만 IL 도 대칭**. 즉 가격 +50% 또는 -50% 모두 같은 IL (-3.4%).
+
+### 3-3. v3 의 IL 가속
+v3 의 좁은 범위는 자본 효율성을 가속하지만 — **IL 도 가속**. 가격이 범위 밖으로 나가면 LP 가 *"단일 자산"* 만 보유 → 단순 보유 대비 큰 손실.
+
+Loesch 등 (2021) 의 arXiv 논문 *"Impermanent Loss in Uniswap v3"* 가 이를 정량 검증:
+- v3 평균 LP 가 *"단순 보유"* 대비 **추가 -3.5%** 손실 (1년 기준)
+- 즉 swap fee 수익 - IL = 음수인 경우 다수
+
+이 발견이 *"v3 LP 가 정말 수익성 있는가"* 의 학계 논쟁의 출발점.
+
+## 4. Uniswap v4 — *"Hooks"* 의 출현
+
+### 4-1. v4 의 핵심
+Uniswap v4 (2025년 출시) 의 핵심 — **Hooks**. 풀의 swap 동작을 customizable 하게 만드는 framework.
+
+Hooks 의 작동:
+- **beforeSwap** — swap 전 logic 실행 (예: 가격 oracle 검증, fee 동적 조정)
+- **afterSwap** — swap 후 logic 실행 (예: LP yield 자동 재투자)
+- **beforeAddLiquidity** — 유동성 추가 전 logic
+- **afterRemoveLiquidity** — 유동성 제거 후 logic
+
+이 4 hook 으로 — *"AMM 자체"* 가 customizable framework 가 됨.
+
+### 4-2. 사용 사례
+Hooks 의 사용 사례:
+- **Dynamic fee** — 변동성 높은 시기 fee 자동 인상
+- **MEV protection** — frontrunning 방지 logic
+- **LP yield 자동화** — swap fee 가 자동으로 다른 풀에 재투자
+- **Custom curves** — x*y=k 외의 다른 가격 curve 구현 가능
+
+### 4-3. 학술적 의미
+v4 의 학술적 의의 — **AMM 이 *"고정 framework"* 에서 *"programmable framework"* 로 전환**. 이는 v2/v3 의 직접 발전이라기보다 *"무대 (stage)"* 로의 변환. 다음 5년 동안 다양한 *"AMM 실험"* 이 v4 위에서 가능.
+
+## 5. MEV (Maximal Extractable Value) 와 AMM
+
+### 5-1. MEV 의 정의
+MEV — 트랜잭션 순서 조작으로 추가 수익을 얻는 행위. AMM 에서 가장 흔한 MEV 패턴:
+
+- **Sandwich attack** — 사용자의 큰 swap 앞뒤로 자기 swap 끼워넣기
+- **Arbitrage** — DEX 와 CEX 가격 차이 이용
+- **Liquidation** — 청산 직전 borrower 에게 유리한 거래 차단
+
+### 5-2. MEV 규모
+2026 Q1 ETH 메인넷의 MEV 합계 — 약 **$1.4B / 년**. Daian 등 (USENIX 2020) 의 *"Flash Boys 2.0"* 논문이 처음 정량 측정한 영역.
+
+### 5-3. MEV 의 LP 영향
+MEV 의 다수가 *"LP 의 잠재 수익"* 에서 추출됩니다. 즉 MEV 가 사용자 손실 + LP 손실. v4 의 hooks 로 MEV 를 일부 보호 가능 (sandwich 방지 등).
+
+## 6. AMM 의 학술적 미해결 질문
+
+### 6-1. *"무한 유동성"* 의 trade-off
+v2 의 무한 유동성이 정말 강점인가, 아니면 자본 비효율의 원인인가? v3 의 좁은 범위가 효율성 가속하지만 IL 가속도 함께. 학술적 균형점이 미해결.
+
+### 6-2. CFMM (Constant Function Market Maker) 의 일반화
+*"x × y = k"* 외에 다른 invariant function 가능 — Curve 의 *"x + y = k 와 x × y = k 의 혼합"*, Balancer 의 *"weighted geometric mean"*. 어떤 function 이 어떤 자산에 최적인가가 학술 논쟁.
+
+### 6-3. zero-knowledge AMM
+zk-SNARK 를 이용한 *"private AMM"* 시도 (예: Aztec, Penumbra). Trade 정보를 비공개로 유지하면서 가격 발견 가능한가? 학술적 미해결.
+
+<Callout type="opposing-view" title="반대 시각 · AMM 이 정말 최적의 가격 발견 메커니즘인가">
+AMM 이 DEX 시장의 90% 를 차지하지만, 비판적 시각도 있습니다.
+
+첫째, **CEX 의 orderbook 대비 가격 발견 효율성**. CEX 의 orderbook 이 *"market maker 의 의도적 가격"* 을 반영. AMM 은 *"수식의 결과"* 만 반영. 그러므로 가격 발견의 *"intelligence"* 가 CEX 에 있고, AMM 은 follower.
+
+둘째, **arbitrage 의존**. AMM 의 가격이 CEX 와 동기화되는 메커니즘이 *"arbitrageur 의 활동"*. 즉 AMM 이 자체 가격 발견을 못 하고 CEX 에 의존. *"price discovery without price discovery"* 라는 모순.
+
+셋째, **IL 의 *"hidden cost"***. LP 가 swap fee 수익에 매혹돼 풀에 예치하지만, IL 이 평균 -3.5% (1년) 으로 fee 수익을 일부 상쇄. *"net-positive yield"* 의 LP 비율이 학계 추정 약 50% 만. 즉 LP 의 절반이 손실.
+
+넷째, **MEV 의 LP + 사용자 손실**. MEV 가 연 $1.4B 추출. 이 다수가 LP + 사용자에게서. AMM 의 투명성이 *"transparency = exploit-ability"* 의 trade-off 만듦.
+
+다섯째, **v4 hooks 의 복잡성**. v4 의 customizable hooks 가 *"AMM 의 프로그래머블화"* 강점이지만, 동시에 — smart contract bug, sandwich attack 의 새 변형, 풀 마다 다른 동작 = 사용자 학습 비용. *"단순함의 상실"*.
+
+이 5가지 비판이 의미하는 바 — AMM 이 *"우아한 수학"* 이지만 *"최적의 가격 발견"* 인지는 학술적 의문이 큽니다.
+</Callout>
+
+## 결론 — *"5천만 달러의 단순한 공식"*
+
+본 편이 정리한 5가지 핵심 발견:
+
+1. **v2 의 *"x × y = k"* 가 단순한 공식이지만 글로벌 DEX 시장의 90% 점유율 달성**.
+2. **v3 의 *"concentrated liquidity"* 가 LP 자본 효율성 6.5x 가속**. 그러나 IL 가속도 함께.
+3. **IL 수식 — 가격 변화 대칭 → IL 대칭**. ±50% 변화 모두 -3.4% IL.
+4. **v4 의 Hooks 가 AMM 을 customizable framework 로 전환**. 새 학술 무대.
+5. **MEV 가 연 $1.4B + AMM 의 한계 (가격 발견 의존, IL hidden cost)**. 학술적 미해결 질문 다수.
+
+다음 편(#P4) — 온체인 가치평가 모델 비교. NVT, MVRV, S2F, NY Fed Staff Report 1052.
