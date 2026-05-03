@@ -1,0 +1,219 @@
+---
+slug: l2-scroll-taiko-community-zk
+coin: NONE
+issue: 0
+title: "Scroll + Taiko — 커뮤니티 ZK Rollup 두 모델"
+subtitle: Scroll 학술 zkEVM · Taiko BCR 모델 · 커뮤니티 거버넌스 (L2 시리즈 #L6)
+publishedAt: "2026-05-04"
+category: L2
+tags: [scroll, taiko, zk-rollup, community-l2]
+estimatedReadTime: 12
+draft: false
+author: 이찬희
+sources:
+  - name: "Scroll Documentation"
+    url: https://docs.scroll.io/
+  - name: "Taiko"
+    url: https://taiko.xyz/
+  - name: "L2Beat — Scroll, Taiko"
+    url: https://l2beat.com/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Scroll + Taiko — 두 *"커뮤니티 ZK Rollup"* 의 학술 모델. 기업 (Coinbase, ConsenSys, Matter Labs) 이 운영하는 L2 와 다른 접근. *"진정한 분산 L2"* 의 학술 가능성. L2 시리즈의 마지막 편.
+</Callout>
+
+## 도입 — *"커뮤니티 L2 의 본질"*
+
+자, L2 시리즈 마지막 편 — Scroll + Taiko 강의를 시작합시다.
+
+지금까지 우리는 5 L2 를 봤습니다 — Arbitrum (Offchain Labs), Base (Coinbase), Optimism (OP Labs), zkSync Era (Matter Labs), Linea (ConsenSys). 모두 *"기업이 운영하는 L2"* 입니다.
+
+이번 편의 두 L2 — Scroll + Taiko — 가 다른 점은 **"커뮤니티 + 학계 친화"** 입니다.
+
+- **Scroll**: 학술 + 오픈소스 우선, Type 1 zkEVM (이더리움과 거의 완전 동일)
+- **Taiko**: Based Contestable Rollup (BCR) 의 새 모델, 시퀀서 분산화
+
+이 두 L2 가 — *"진정한 분산 L2"* 의 학술 사례입니다. 그러나 — 시장 점유는 다른 L2 보다 작음. 학술 + 시장의 trade-off 사례.
+
+## 1. Scroll — *"학술 + 오픈소스 ZK Rollup"*
+
+### 1-1. Scroll 의 출발
+
+Scroll Labs 가 — 2021년 출범. 학술 + 오픈소스 우선. 핵심 멤버 다수가 학계 출신.
+
+### 1-2. Type 1 zkEVM
+
+Scroll 의 차별점 — *"Type 1 zkEVM"*. Vitalik 분류 기준 — 이더리움과 거의 완전 동일한 EVM.
+
+차이:
+- zkSync Era: Type 4 (변형 VM)
+- Linea: Type 2 (가까움)
+- Polygon zkEVM: Type 2.5
+- **Scroll: Type 1 (완전 동일)**
+
+이게 학술적으로 매우 우아한 framework. 이더리움 코드를 — 그대로 Scroll 에서 작동시킬 수 있음.
+
+### 1-3. 학술적 의미
+
+Scroll 의 Type 1 zkEVM 이 — ZK Rollup 학계의 *"가장 학술적 우아한 답"*. Stanford CBR + 학계가 — Scroll 의 학술 깊이를 높게 평가.
+
+그러나 — Type 1 의 단점:
+- ZK proof 생성이 — 다른 zkEVM 보다 느림 (이더리움 EVM 의 모든 opcode 를 ZK 로 표현해야 함)
+- 비용 + 시간 비싼
+
+### 1-4. Scroll 의 시장 위상
+
+- Scroll TVL: 약 $0.1-0.2B (2026)
+- ZK Rollup 시장 점유 약 5-10%
+- zkSync Era + Linea 다음 그룹
+
+학술 깊이는 매우 크지만, 시장 점유는 작음.
+
+## 2. Taiko — *"BCR 의 새 모델"*
+
+### 2-1. Taiko 의 출발
+
+Taiko 가 — 2022년 출범. *"Based Contestable Rollup (BCR)"* 의 새 학술 framework.
+
+### 2-2. BCR 가 무엇인가
+
+BCR = *"Based Contestable Rollup"*. 두 핵심 개념:
+
+**Based Sequencing**:
+- 시퀀서가 — 별도 entity X
+- 이더리움 메인넷의 검증자가 직접 시퀀서 역할
+- 즉, *"이더리움 검증자 분산성"* 이 — Taiko 시퀀서 분산성
+
+**Contestable Rollup**:
+- 모든 트랜잭션 ZK proof
+- 그러나 — proof 가 chally 되면 (의의 제기) 다시 검증
+- *"Optimistic + ZK 결합"* 학술 framework
+
+### 2-3. 학술적 의미
+
+BCR 이 — L2 학계의 가장 새로운 학술 framework. 두 가지 의미:
+
+**의미 1: 진정한 분산화**
+- 시퀀서가 이더리움 검증자 = 다른 L2 의 *"중앙집중 시퀀서"* 문제 해결
+- *"진정한 분산 L2"* 의 첫 사례
+
+**의미 2: 미래 모델**
+- *"L2 가 이더리움과 더 깊이 통합"* 의 framework
+- Vitalik Buterin 이 — BCR 을 *"이더리움의 자연스러운 진화"* 로 평가
+
+### 2-4. Taiko 의 시장 위상
+
+- Taiko TVL: 약 $0.05-0.1B (2026)
+- 매우 작음
+- 그러나 학술 framework 으로는 매우 큰 영향
+
+## 3. Scroll + Taiko 의 *"학술 vs 시장"* trade-off
+
+### 3-1. 학술 깊이 + 시장 점유
+
+| 차원 | Scroll | Taiko |
+|------|------|------|
+| 학술 깊이 | 매우 큼 (Type 1 zkEVM) | 매우 큼 (BCR) |
+| 시장 점유 | 작음 (5-10%) | 매우 작음 |
+| 분산화 | 강 (오픈소스) | 매우 강 (BCR) |
+| 토큰 | SCR (2024) | TAIKO (2024) |
+| 기업 인프라 | X | X |
+
+### 3-2. 학술 vs 시장의 trade-off
+
+이 두 L2 가 — *"학술 깊이 + 분산화 우선"* + *"시장 점유 후순위"* 의 학술 사례.
+
+대조:
+- Base (Coinbase) — 시장 점유 + 사용자 진출 우선 + 분산화 약
+- Scroll/Taiko — 학술 + 분산화 우선 + 시장 점유 약
+
+이 trade-off 가 — L2 시장의 가장 큰 학술 토론 주제.
+
+## 4. 커뮤니티 L2 의 학술적 미래
+
+### 4-1. 미래 가능성
+
+Scroll + Taiko 같은 *"커뮤니티 L2"* 의 학술 미래:
+
+**시나리오 1: 시장 leader 진출**
+- 학술 깊이가 — 결국 시장 우위로 이어짐
+- ZK proof 효율 진화 + 사용자 증가
+- 5-10년 후 시장 점유 확대
+
+**시나리오 2: 학술 사례로 머물기**
+- 시장 점유 확대 어려움
+- 기업 L2 (Base, Linea, zkSync) 가 시장 leader 유지
+- Scroll/Taiko 가 — 학술 + 분산 layer 로 한정
+
+**시나리오 3: 이더리움 통합**
+- Taiko BCR 모델이 — 이더리움 자체에 통합
+- 즉, *"L2 가 L1 의 일부"* 가 됨
+- Vitalik Buterin 의 *"Endgame"* (Vitalik 2021 글) 의 framework 실현
+
+### 4-2. 학술적 평가
+
+학자들이 — 시나리오 3 을 가장 흥미롭게 평가. *"L2 가 L1 으로 통합"* 이 — 이더리움의 자연스러운 진화 가설.
+
+## 5. L2 시리즈 (#L1-#L6) 종합
+
+### 5-1. 6 L2 의 학술 위치
+
+| L2 | 학술 framework | 시장 점유 | 분산화 |
+|----|------------|--------|------|
+| Arbitrum (#L1) | Optimistic Rollup 1위 | 매우 큼 | 중간 |
+| Base (#L2) | Coinbase L2, 토큰 부재 | 매우 큼 | 약 |
+| Optimism (#L3) | OP Stack + Superchain + RPGF | 큼 (Superchain 합) | 중간 |
+| zkSync Era (#L4) | Type 4 zkEVM, Boojum | 큼 (ZK 1위) | 중간 |
+| Linea (#L5) | Type 2 zkEVM, MetaMask 통합 | 중간 | 약 |
+| Scroll + Taiko (#L6) | Type 1 zkEVM + BCR | 작음 | 강 |
+
+### 5-2. 학술적 종합
+
+L2 시리즈 6편을 종합:
+
+**시장 leader**: Arbitrum + Base (Optimistic 우위)
+**학술 leader**: Scroll + Taiko (분산화 + 학술 깊이)
+**기업 친화**: Linea + Base
+**새 framework**: Optimism RPGF + Taiko BCR
+
+L2 시장이 — *"학술 + 시장 + 분산화"* 의 다층 trade-off 위에서 발전.
+
+### 5-3. L2 학계의 미해결 질문
+
+L2 학계의 가장 큰 미해결 질문:
+
+1. *"5-10년 내 ZK Rollup 이 Optimistic Rollup 을 대체하나?"*
+2. *"분산 L2 가 시장 leader 가 될 수 있나?"*
+3. *"L2 가 L1 으로 통합되나?"* (Vitalik Endgame)
+4. *"L2 거버넌스 토큰의 가치 포착이 해결되나?"*
+
+이 4 질문이 — L2 학계의 향후 5-10년 토론 주제.
+
+<Callout type="opposing-view" title="반대 시각 · 커뮤니티 L2 의 *시장 한계*">
+Scroll + Taiko 의 비판:
+
+첫째, ***"시장 점유 매우 작음"***. 학술 깊이가 깊어도 사용자 + TVL 부족.
+
+둘째, ***"기업 자원 부족"***. ConsenSys, Coinbase 같은 기업 인프라 X.
+
+셋째, ***"BCR 의 미검증"***. Taiko 의 BCR 모델이 — 이론적으로 우아하지만 실제 시장에서 검증되지 않음.
+
+넷째, ***"토큰 가격 약함"***. SCR + TAIKO 의 시장 가치가 — ARB, OP 보다 매우 작음.
+
+이 비판이 의미하는 바 — Scroll + Taiko 가 *"학술 사례"* 로는 매우 가치 있되, *"시장 leader 진입"* 은 매우 어려움.
+</Callout>
+
+## 결론 — L2 시리즈 (#L1-#L6) 종결
+
+1. **Scroll = Type 1 zkEVM 학술 표준, 이더리움 완전 동일**.
+2. **Taiko = BCR (Based Contestable Rollup) 의 새 학술 framework**.
+3. **두 L2 = 학술 + 분산화 우선, 시장 점유 후순위**.
+4. **L2 시리즈 종합 — 학술 + 시장 + 분산화 의 다층 trade-off**.
+5. **미해결 4 질문 = L2 학계의 향후 5-10년 토론 주제**.
+
+L2 시리즈 6편 (#L1-#L6) 완결. 다음 시리즈 — Beginner Guide 12편 또는 RWA 시리즈로 이어집니다.

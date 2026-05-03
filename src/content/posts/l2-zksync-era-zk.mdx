@@ -1,0 +1,207 @@
+---
+slug: l2-zksync-era-zk
+coin: ZK
+issue: 0
+title: "zkSync Era — ZK Rollup 의 학술 깊이"
+subtitle: zkEVM · ZK proof · Boojum · 데이터 가용성 (L2 시리즈 #L4)
+publishedAt: "2026-05-04"
+category: L2
+tags: [zksync, zk-rollup, l2, zkevm, ethereum]
+estimatedReadTime: 13
+draft: false
+author: 이찬희
+sources:
+  - name: "zkSync Documentation"
+    url: https://docs.zksync.io/
+  - name: "Matter Labs"
+    url: https://matter-labs.io/
+  - name: "L2Beat — zkSync"
+    url: https://l2beat.com/scaling/projects/zksync-era
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+zkSync Era 가 어떻게 *"ZK Rollup 의 학술 표준"* 이 됐는지를 봅니다. ZK proof 의 본질, zkEVM 의 학술 difficulty, Boojum 업그레이드, 그리고 ZK Rollup 의 *"미래 우위"* 학술 토론.
+</Callout>
+
+## 도입 — *"ZK Rollup 의 본질"*
+
+자, ZK Rollup 강의를 시작합시다. *"ZK"* 가 무엇인지부터.
+
+ZK = *"Zero-Knowledge"*. 학술적으로 — *"증명자가 자기가 진실을 알고 있다는 것을 검증자에게 — 진실 자체를 공개하지 않고 — 증명할 수 있는 암호학 framework"*. 1985년 Goldwasser, Micali, Rackoff 가 학술 논문으로 발표.
+
+이 framework 이 — 가상자산 시대에 두 가지로 활용:
+- **ZK proof** — 트랜잭션 valid 임을 증명 (간결)
+- **ZK identity** — 신원 정보 공개 없이 자격 증명
+
+L2 분야에서 — ZK proof 가 *"ZK Rollup"* 의 핵심. 모든 트랜잭션의 valid 함을 — 짧은 ZK proof 로 증명. 이게 학술적으로 매우 우아한 framework.
+
+오늘은 — ZK Rollup 의 학술 표준 zkSync Era 를 깊이 봅니다.
+
+## 1. zkSync 의 출발
+
+### 1-1. Matter Labs
+
+zkSync 의 회사 — *"Matter Labs"*. 2018년 우크라이나 + 러시아 학자 Alex Gluchowski 가 창립.
+
+학술 배경 — *"zkSync 1.0 (Lite)"* 이 2020년 출시. 단순 송금만 지원.
+
+### 1-2. zkSync Era (2.0)
+
+2023년 3월 — *"zkSync Era"* 출시. EVM 호환 ZK Rollup. 일반 스마트 컨트랙트 지원.
+
+이게 — *"zkEVM"* 학술 framework 의 첫 대규모 구현 중 하나.
+
+## 2. zkEVM — *"학술 difficulty"*
+
+### 2-1. zkEVM 가 무엇인가
+
+zkEVM = ZK proof 로 검증 가능한 EVM (Ethereum Virtual Machine). 이게 학술적으로 매우 어려움:
+
+**도전 1: EVM 의 복잡성**
+- EVM 이 — 다양한 opcode + 복잡한 stack 구조
+- 모든 opcode 를 — ZK proof 로 표현 어려움
+
+**도전 2: 성능**
+- ZK proof 생성이 — 매우 무거움
+- 이더리움 EVM 의 모든 트랜잭션을 ZK proof 로 만들면 — 매우 느림
+
+**도전 3: 검증 비용**
+- ZK proof 검증은 빠르지만 — 생성이 비쌈
+- 이더리움 메인넷에 게시 시 — gas 비용
+
+### 2-2. zkSync 의 답
+
+zkSync Era 가 — 위 3 도전에 대한 학술 답:
+- 자체 *"VM"* (zkSync VM, 약간 EVM 다름) — EVM 일부만 호환
+- *"PLONK"* + *"Halo2"* 같은 효율적 ZK proof 알고리즘
+- *"Recursive proof"* — 다수 트랜잭션을 하나의 proof 로 압축
+
+이게 — Stanford CBR + Matter Labs 의 학술 협력 결과.
+
+### 2-3. 다른 zkEVM 비교
+
+| zkEVM | 회사 | EVM 호환도 | 학술적 깊이 |
+|-------|----|---------|---------|
+| zkSync Era | Matter Labs | Type 4 (변형) | 매우 큼 |
+| Polygon zkEVM | Polygon | Type 2 (가까움) | 큼 |
+| Linea | ConsenSys | Type 2 | 큼 |
+| Scroll | Scroll Labs | Type 1 (완전) | 매우 큼 |
+
+Vitalik Buterin 의 *"zkEVM type"* 분류 (2022) 가 — 이 학술 framework 의 표준.
+
+## 3. Boojum — *"zkSync 의 학술 도약"*
+
+### 3-1. Boojum 가 무엇인가
+
+2024년 — zkSync Era 의 *"Boojum"* 업그레이드. 핵심:
+- ZK proof 알고리즘 — PLONK → Halo2 → STARK 변형
+- 더 빠른 proof 생성
+- 더 큰 처리량
+- *"Ethereum 메인넷의 1/100 비용"* 달성
+
+### 3-2. 학술적 의미
+
+Boojum 이 — ZK Rollup 의 학술 도약 사례. *"실용성"* 의 한 단계 더 가까이.
+
+## 4. ZK 데이터 가용성 — *"미해결 문제"*
+
+### 4-1. 데이터 가용성이 무엇인가
+
+L2 의 본질적 문제 — *"L2 데이터를 어디에 저장하는가?"*. 두 답:
+
+**방법 1: Ethereum 메인넷에 저장**
+- 비용: 매우 비쌈 (메인넷 가스비)
+- 보안: 매우 강 (이더리움 보안 직접 활용)
+- 예: zkSync Era (현재)
+
+**방법 2: 외부 데이터 가용성 layer**
+- 비용: 저렴
+- 보안: 외부 layer 의 보안에 의존
+- 예: zkSync Era 의 *"Validium"* 모드
+
+### 4-2. EIP-4844 (Proto-Danksharding)
+
+2024년 이더리움 *"EIP-4844"* (Proto-Danksharding) 시행. *"Blob"* 이라는 새 데이터 저장 framework. L2 데이터 비용 대폭 절감.
+
+zkSync Era + 다른 L2 가 — Blob 으로 데이터 저장. 비용 90%+ 절감.
+
+이게 — L2 학술 framework 의 가장 큰 진화 중 하나.
+
+## 5. zkSync 의 시장 위상
+
+### 5-1. TVL
+
+- zkSync Era TVL: 약 $0.5-1B (2026)
+- ZK Rollup 시장 점유 약 30%
+- Optimistic Rollup (Arbitrum + Optimism + Base) 보다 작음
+
+### 5-2. 학술적 영향
+
+zkSync 가 — ZK Rollup 학계의 가장 큰 학술적 영향력. Matter Labs 가 — 다수 학술 논문 발표.
+
+## 6. ZK 토큰 — *"가치 포착"*
+
+### 6-1. ZK 토큰 출시
+
+2024년 6월 — zkSync 가 *"ZK 토큰"* 출시. 사용자 + 개발자에게 에어드롭.
+
+### 6-2. 가치 포착 메커니즘
+
+ZK 토큰의 역할:
+- zkSync 거버넌스 투표
+- (잠재적) sequencer 수익 분배
+
+그러나 — ARB, OP 처럼 *"가치 포착 약함"* 의 사례.
+
+## 7. ZK Rollup 의 *"미래 우위"* 학술 토론
+
+### 7-1. 학술적 우위
+
+ZK Rollup 의 학술적 우위:
+- 즉시 finality (Optimistic Rollup 의 7일 출금 지연 X)
+- 더 강한 보안 보장 (Math-based vs game-theoretic)
+- 더 강한 사용자 친화
+
+### 7-2. 학술 토론
+
+Vitalik Buterin + 학계가 — ZK Rollup 의 *"장기 우위"* 가설 발표:
+- *"5-10년 내 ZK Rollup 이 Optimistic Rollup 을 대체"*
+- ZK proof 생성 비용이 충분히 낮아지면 — Optimistic Rollup 의 *"7일 지연"* 단점이 사라짐
+- 이더리움 자체도 — *"ZK 친화"* 로 진화 (예: Verkle Trees)
+
+### 7-3. Optimistic Rollup 의 답
+
+Arbitrum + Optimism 측의 답:
+- Optimistic 의 *"단순성 + 빠른 인프라 구축"* 우위
+- ZK 의 학술 + 기술 진화가 느림
+- 시장 점유 + 사용자 경험에서 Optimistic 우위
+
+이 학술 토론이 — L2 학계의 가장 큰 미해결 질문.
+
+<Callout type="opposing-view" title="반대 시각 · ZK Rollup 의 *현재 한계*">
+ZK Rollup 의 비판:
+
+첫째, ***"학술적 깊이 + 기술 어려움"***. zkEVM 이 — 학술적으로 어려운 framework. 개발자가 적응 어려움.
+
+둘째, ***"시장 점유 작음"***. Optimistic Rollup 보다 시장 점유 작음.
+
+셋째, ***"ZK proof 생성 비용"***. 여전히 비싸고 느림.
+
+넷째, ***"ZK 토큰 가치 포착 약함"***. 다른 L2 거버넌스 토큰과 비슷한 한계.
+
+이 비판이 의미하는 바 — ZK Rollup 이 *"미래 우위 가설"* 로는 학술적 가치 있되, *"현재 시장 leader"* 는 아님.
+</Callout>
+
+## 결론
+
+1. **zkSync Era = ZK Rollup 의 학술 표준**.
+2. **zkEVM = 학술 difficulty, EVM 호환도 trade-off**.
+3. **Boojum = ZK proof 알고리즘 진화, 비용 절감**.
+4. **EIP-4844 (Blob) = L2 데이터 비용 90% 절감**.
+5. **ZK Rollup vs Optimistic Rollup = L2 학계의 가장 큰 미해결 토론**.
+
+다음 편(#L5) — Linea 의 ConsenSys ZK Rollup 전략으로 이어집니다.

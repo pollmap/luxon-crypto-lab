@@ -1,0 +1,192 @@
+---
+slug: l2-base-coinbase-strategy
+coin: NONE
+issue: 0
+title: "Base — Coinbase L2 전략과 토큰 부재 모델"
+subtitle: Coinbase 통합 · 토큰 부재 · OP Stack · 사용자 1억 (L2 시리즈 #L2)
+publishedAt: "2026-05-04"
+category: L2
+tags: [base, coinbase, l2, optimism, op-stack]
+estimatedReadTime: 13
+draft: false
+author: 이찬희
+sources:
+  - name: "Base — Documentation"
+    url: https://docs.base.org/
+  - name: "L2Beat — Base"
+    url: https://l2beat.com/scaling/projects/base
+  - name: "Coinbase — Base 발표"
+    url: https://www.coinbase.com/blog/introducing-base
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Coinbase 가 만든 L2 *"Base"* — *"가상자산 + 빅테크 결합"* 의 가장 큰 학술 사례. 그리고 — 토큰 없이도 L2 가 작동하는지를 증명한 첫 사례. 그 학술적 의미.
+</Callout>
+
+## 도입 — *"빅테크의 L2 진출"*
+
+자, Base 강의를 시작합시다. 이 L2 는 — 다른 L2 와 결정적으로 다릅니다. **Coinbase 가 운영하는 L2** 거든요.
+
+전통 L2 (Arbitrum, Optimism, zkSync) 가 — *"독립 가상자산 회사"* 가 운영하는 인프라라면, Base 는 — 미국 최대 가상자산 거래소이자 NASDAQ 상장 기업 Coinbase 가 운영하는 L2. 이게 학술적으로 매우 흥미로운 *"빅테크 + 가상자산 결합"* 사례입니다.
+
+Base 의 출범 (2023년 8월) 이후 — 빠른 시간 안에 사용자 1억 명 + TVL $5B+ 달성. L2 시장의 가장 큰 사례 중 하나가 됐어요.
+
+오늘은 — Base 의 학술적 의미, 그리고 *"토큰 부재 모델"* 의 의미를 깊이 봅니다.
+
+## 1. Base 의 출발 — *"Coinbase 의 전략"*
+
+### 1-1. 왜 Coinbase 가 L2 를 만들었는가
+
+Coinbase 가 — 자체 L2 를 만든 이유:
+- **사용자 락인** — Coinbase 사용자 1억+ 명이 — Base 위에서 직접 활동
+- **수익 다각화** — 거래 수수료 + L2 sequencer 수익
+- **온체인 활동 진출** — DeFi, NFT 등 온체인 사업 직접 참여
+- **이더리움 친화** — 자체 L1 X, Ethereum 친화
+
+이게 — *"빅테크의 L2 통합 전략"* 의 표준 사례.
+
+### 1-2. OP Stack 채택
+
+Base 가 — *"OP Stack"* (Optimism 의 오픈소스 스택) 으로 구축. 이게 학술적으로 중요한 결정입니다.
+
+OP Stack 채택의 의미:
+- 자체 인프라 개발 X
+- Optimism 과 같은 framework + 호환성
+- *"Superchain"* (#L3 참조) 에 참여
+
+Base + Optimism + OP Stack 의 조합이 — L2 시장의 *"공유 인프라 framework"* 가 됐습니다.
+
+## 2. Base 의 시장 위상
+
+### 2-1. TVL + 사용자
+
+- Base TVL: 약 $5B (2026)
+- 일 활성 사용자: 약 100만+
+- Coinbase 통합 사용자: 약 1억 명
+
+### 2-2. 학술적 영향
+
+Base 가 — L2 시장의 *"빅테크 + 일상 사용자"* 의 첫 대규모 사례. 다른 L2 (Arbitrum, Optimism) 가 — DeFi 중심이라면, Base 는 — 일상 결제 + DeFi + NFT + 게임의 종합 플랫폼.
+
+## 3. 토큰 부재 모델 — *"학술적 흥미"*
+
+### 3-1. 토큰 부재의 의미
+
+Base 가 — 자체 토큰을 발행하지 않은 첫 대규모 L2. ARB (Arbitrum), OP (Optimism) 등과 다른 점.
+
+이게 학술적으로 매우 흥미롭습니다. 왜냐:
+
+**전통적 L2 모델**:
+- 자체 토큰 발행 (ARB, OP 등)
+- 거버넌스 + 인센티브 + 가치 포착
+- 토큰 가격이 — L2 의 *"성공 지표"*
+
+**Base 모델**:
+- 자체 토큰 X
+- 가스비를 ETH 로 결제
+- 수익이 — Coinbase 본사로 들어감
+- 거버넌스가 — Coinbase 가 결정
+
+### 3-2. 학술적 trade-off
+
+토큰 부재 모델의 장점:
+- 토큰 가격 변동성 X
+- 사용자가 — 가격 투기 X, 사용에 집중
+- 미국 SEC 규제 회피 (토큰 = 증권성 위험)
+
+단점:
+- 분산 거버넌스 X
+- 사용자 인센티브 약함
+- *"진정한 분산 L2 X"* 라는 학술 비판
+
+### 3-3. 미래 토큰 발행 가능성
+
+Base 가 — 미래에 토큰 발행할 가능성도 있음. 그러나 — 현 단계에서는 토큰 부재 유지. 이게 L2 시장의 *"제3 모델"* (토큰 + 토큰 부재) 의 학술 사례.
+
+## 4. Base 의 *"메인스트림 진입"*
+
+### 4-1. 일상 사용자 친화
+
+Base 의 차별점 — Coinbase 사용자가 — *"가상자산 잘 모르는 일상 사용자"* 가 다수. 그래서 Base 가 — 가장 *"메인스트림 친화적"* 인 L2.
+
+특징:
+- Coinbase Wallet 통합 (어려운 시드 구문 X)
+- USD 결제 (USDC 통합)
+- NFT, 게임, 결제 등 다양한 사용 사례
+
+### 4-2. 학술적 평가
+
+Base 의 *"메인스트림 진입"* 이 — L2 학계의 *"가상자산 채택 framework"* 사례. Cong et al. (2021) RFS framework 으로 분석 가능.
+
+그러나 — *"진정한 가상자산 사용자"* 의 비율이 — 다른 L2 보다 낮을 가능성. 일상 결제만 사용하는 사용자가 다수.
+
+## 5. Base + DeFi
+
+### 5-1. Base 의 DeFi 인프라
+
+Base 위 DeFi:
+- Aerodrome (Velodrome 의 Base 버전, AMM)
+- Uniswap (Base 배포)
+- Aave (Base 배포)
+- DeFiLlama 데이터 — Base 위 DeFi TVL 약 $2-3B
+
+### 5-2. 학술적 의미
+
+Base 의 DeFi 진출이 — *"빅테크가 DeFi 의 게이트웨이"* 가 되는 학술 사례. 그러나 — Coinbase 가 운영하는 인프라이므로 *"중앙화된 DeFi"* 라는 비판.
+
+## 6. Coinbase + Base 의 *"통합 전략"*
+
+### 6-1. Coinbase 통합 효과
+
+Coinbase 본사 + Base 의 통합이 — 시너지 효과:
+- Coinbase 사용자가 — 한 번의 클릭으로 Base 진출
+- USDC (Coinbase 발행) 가 — Base 위 메인 스테이블코인
+- Coinbase Wallet 이 — Base 의 핵심 지갑
+
+### 6-2. 학술적 평가
+
+이 통합이 — *"수직 통합(vertical integration)"* 의 가상자산 시장 사례. 미국 빅테크 (Apple, Google) 의 수직 통합과 비슷한 학술 framework.
+
+그러나 — *"중앙화 위험"* 도 큼. Coinbase 가 — Base 의 모든 핵심 인프라 통제.
+
+## 7. Base 의 위험
+
+### 7-1. SEC 규제 위험
+
+Base 의 가장 큰 위험 — 미국 SEC 규제. Coinbase 가 — SEC 와 분쟁 중 (2023-2024). Base 가 — 규제 영향을 받을 가능성.
+
+### 7-2. 중앙화 위험
+
+Base sequencer 가 — Coinbase 단독 운영. 분산화 X. 학술적 분산성 우려.
+
+### 7-3. 토큰 부재의 한계
+
+장기적으로 — 토큰 부재 모델이 사용자 + 개발자 인센티브 충분한지 미검증.
+
+<Callout type="opposing-view" title="반대 시각 · Base 의 *중앙화 우려*">
+Base 의 비판:
+
+첫째, ***"Coinbase 단독 운영"***. Sequencer + 인프라 + 거버넌스가 모두 Coinbase. 진정한 분산 L2 X.
+
+둘째, ***"토큰 부재의 한계"***. 사용자 + 개발자 인센티브 부족.
+
+셋째, ***"미국 SEC 규제 위험"***. Coinbase 가 SEC 와 분쟁 중.
+
+넷째, ***"메인스트림 사용자의 한계"***. 가상자산 본질을 이해하지 못한 사용자가 다수.
+
+이 비판이 의미하는 바 — Base 가 *"빅테크 L2 의 학술 사례"* 로는 가치 있되, *"진정한 분산 L2"* 는 아님.
+</Callout>
+
+## 결론
+
+1. **Base = Coinbase L2, 빅테크 + 가상자산 결합 학술 사례**.
+2. **OP Stack 채택 = 공유 인프라 framework, Superchain 참여**.
+3. **토큰 부재 모델 = L2 시장의 제3 모델 (토큰 + 토큰 부재)**.
+4. **메인스트림 진입 = 일상 사용자 친화, Cong et al. RFS framework**.
+5. **중앙화 위험 + SEC 규제 = 학술적 우려**.
+
+다음 편(#L3) — Optimism + Superchain 의 OP Stack 생태계로 이어집니다.
