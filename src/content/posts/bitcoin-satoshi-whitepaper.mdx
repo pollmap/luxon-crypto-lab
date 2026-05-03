@@ -18,28 +18,142 @@ sources:
     url: http://www.hashcash.org/
   - name: "Wei Dai — b-money (1998)"
     url: http://www.weidai.com/bmoney.txt
+  - name: "Nick Szabo — BitGold (2005)"
+    url: https://nakamotoinstitute.org/library/bit-gold/
 ---
 
-{/* DRAFT — 2026-06-22까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2008년 10월 31일, "Satoshi Nakamoto" 라는 익명 인물이 cypherpunks 메일링 리스트에 9페이지 PDF 를 올렸습니다. 그게 비트코인의 시작입니다. 본 편은 그 백서가 정확히 무엇을 풀려고 했고, 18년 후 무엇이 맞고 무엇이 빗나갔는지를 9가지 원칙으로 분석합니다. **사토시의 정체보다 백서의 9가지 원칙이 훨씬 더 중요합니다.**
+</Callout>
 
-## 도입 — 2008년 10월 31일의 9페이지
+## 도입 — 9페이지 PDF 의 무게
 
-{/* TODO: ~400자. 사토시 백서가 cypherpunks 메일링리스트에 등장한 맥락. Hashcash, b-money, BitGold 계보 */}
+2008년 10월 31일 14:10 EST, 메일링 리스트 metzdowd.com 의 cryptography 채널에 "Bitcoin P2P e-cash paper" 라는 제목의 글이 올라옵니다. 발신자는 Satoshi Nakamoto, 첨부는 9페이지 PDF.
 
-## 1. 본문 9 섹션 구조 — 무엇을 풀려고 했나
+> "I've been working on a new electronic cash system that's fully peer-to-peer, with no trusted third party."
 
-{/* TODO: ~700자. Introduction → Transactions → Timestamp Server → Proof-of-Work → Network → Incentive → Reclaiming Disk Space → Simplified Payment Verification → Combining and Splitting Value */}
+이 한 문장이 18년 후 1조 5,740억 달러 자산으로 발전한 출발점입니다. 백서의 핵심을 5분에 정리할 수도 있지만, 그렇게 하면 **왜 이 백서가 그 전 20년의 cypherpunks 시도들과 달리 성공했는지**를 놓칩니다.
+
+본 편은 세 갈래로 봅니다:
+1. 9 섹션 본문 구조 — 사토시가 풀려고 한 정확한 문제
+2. 9가지 핵심 원칙 — 본문에서 추출되는 디자인 결정
+3. 18년 후 평가 — 맞은 것, 빗나간 것, 미해결
+
+## 1. 본문 9 섹션 구조 — 사토시가 풀려고 한 문제
+
+백서 본문의 9 섹션:
+
+| 섹션 | 제목 | 핵심 |
+|------|------|------|
+| 1 | Introduction | trusted third party 없이 디지털 결제 가능한가 |
+| 2 | Transactions | 디지털 서명 체인으로 소유권 이전 |
+| 3 | Timestamp Server | 분산 타임스탬프로 이중 지불 방지 |
+| 4 | Proof-of-Work | Hashcash 응용, 합의 메커니즘 |
+| 5 | Network | P2P 네트워크 작동 절차 |
+| 6 | Incentive | 채굴 보상 + 거래 수수료로 정직 인센티브 |
+| 7 | Reclaiming Disk Space | Merkle tree 로 오래된 트랜잭션 prune |
+| 8 | Simplified Payment Verification | SPV — full node 없이 검증 |
+| 9 | Combining and Splitting Value | UTXO 모델 |
+
+이 9 섹션이 풀려는 단일 문제는 **"이중 지불 (double-spending) 문제"** 입니다.
+
+### 이중 지불 문제 — 디지털 화폐의 영원한 골치
+
+물리적 화폐 (지폐, 동전) 는 한 번 줘버리면 다시 사용 불가. 디지털 데이터는 복사 무한 가능 → "100원 디지털 토큰" 을 한 번 줬다고 해서 발신자가 그 토큰의 복사본을 또 다른 사람에게 줄 수 없다는 보장 X.
+
+기존 해결책: **중앙 발행자 (PayPal, 은행) 가 거래 장부를 관리**. 모든 거래를 중앙에서 검증.
+
+사토시의 도전: **중앙 발행자 없이 이 문제를 풀자**. 분산된 노드들이 합의로 "어떤 거래가 먼저인가" 를 결정. PoW 가 그 합의의 enforcement 메커니즘.
 
 ## 2. 9가지 핵심 원칙
 
-{/* TODO: ~800자. (1) Trustless (2) P2P (3) Cryptographic proof (4) Longest chain wins (5) Incentive alignment (6) Pruning (7) SPV (8) Privacy via pseudonymity (9) Scalability via efficiency */}
+백서 본문에서 추출되는 디자인 원칙:
+
+### 2-1. Trustless
+
+어떤 단일 주체에도 신뢰 의존 X. 모든 검증이 cryptographic proof + 분산 합의로 자동.
+
+### 2-2. P2P (Peer-to-Peer)
+
+중앙 서버 없이 노드 간 직접 통신. 어떤 노드를 차단해도 네트워크 작동.
+
+### 2-3. Cryptographic Proof
+
+거래는 디지털 서명, 합의는 PoW 해시. 신뢰가 아닌 수학적 증명으로 작동.
+
+### 2-4. Longest Chain Wins
+
+여러 후보 체인 중 가장 많은 PoW 가 누적된 체인이 정답. 합의의 자동 수렴 메커니즘.
+
+### 2-5. Incentive Alignment
+
+채굴자가 정직하게 행동하는 게 자기 이익에 부합. 부정직한 행동은 자본 손실 (PoW 낭비). Game-theoretic 합리성.
+
+### 2-6. Pruning
+
+오래된 트랜잭션은 Merkle tree 로 압축 저장. 무한히 커지는 데이터 부담 완화.
+
+### 2-7. SPV (Simplified Payment Verification)
+
+가벼운 클라이언트가 full node 없이 거래 검증 가능. 모바일 결제, 라이트 지갑의 기반.
+
+### 2-8. Pseudonymity
+
+거래는 공개되지만 발신/수신은 가명 주소. 익명성과 투명성의 균형.
+
+### 2-9. Scalability via Efficiency
+
+블록 사이즈 자체가 아니라 검증 효율로 확장. 후일 Lightning, L2 등의 기반.
+
+이 9가지가 백서의 전부입니다. **단순하지만 18년 후에도 그대로 유효** — 한 가지도 폐기되지 않았고, 모두 BTC 의 핵심 가치 명제로 남아있습니다.
 
 ## 3. 사토시의 정체 — 무엇이 중요하고 무엇이 중요하지 않은가
 
-{/* TODO: ~500자. 핼 피니, 닉 사보, Adam Back 가설 + 정체 불명의 의도된 디자인 */}
+사토시 정체에 대한 가설들:
 
-## 4. 18년 후 평가 — 무엇이 맞았고 무엇이 빗나갔나
+| 후보 | 가설 근거 | 신빙성 |
+|------|---------|--------|
+| **Hal Finney** | 첫 BTC 수신, 백서 직전 cypherpunks 활동, ALS 사망 (2014) | 높음 |
+| **Nick Szabo** | BitGold (2005) 설계자, 작문 스타일 일치 | 중간 |
+| **Adam Back** | Hashcash (1997) 발명자, BTC 백서 인용 | 중간 |
+| **Craig Wright** | 자칭 사토시, 법정 증거 부족 | 낮음 |
+| **그룹 가설** | 여러 cypherpunks 의 협업 | 가능 |
 
-{/* TODO: ~500자. 맞은 것: 합의·인센티브. 빗나간 것: 결제 사용 빈도·블록 사이즈 논쟁 */}
+### 정체가 중요하지 않은 이유
+
+사토시 본인이 2010-2011 활동 후 자취 감춤. 약 1.1M BTC 보유 (2026.5 기준 약 $86B) 가 17년간 0건 이동. 만약 사토시가 한 번이라도 BTC 를 매도하면 **분산 화폐 정신과의 정면 충돌** — 이를 의도적으로 피한 것.
+
+이 디자인 자체가 핵심입니다. **사토시는 의도적으로 자신의 정체와 영향력을 제거**했습니다. 비트코인이 "한 사람의 화폐" 가 아니라 **"누구의 화폐도 아닌 화폐"** 가 되도록.
+
+이게 ETH 의 Vitalik (여전히 활발한 영향력 행사) 과 가장 큰 거버넌스 차이를 만듭니다.
+
+## 4. 18년 후 평가 — 맞은 것 / 빗나간 것
+
+### 맞은 것
+
+- **합의 메커니즘**: 18년간 51% 공격 0건. PoW + longest chain 이 작동.
+- **인센티브 alignment**: 채굴자의 정직 행동이 우월 전략. 게임이론 baseline 검증.
+- **Pruning + SPV**: 모바일 지갑 기반.
+- **희소성 가설**: 21M cap 이 화폐 디자인의 새 표준.
+
+### 빗나간 것
+
+- **결제 사용 빈도**: 사토시는 일상 결제를 의도. 실제는 가치 저장 자산으로 사용 중심. (Lightning 으로 부분 회복 시도 — 시리즈 #1-F)
+- **블록 사이즈 논쟁**: 백서엔 1MB 명시 X. 2017 fork 분쟁 (BCH).
+- **마이너 분산화**: 백서는 "1 CPU = 1 vote" 를 가정. 현실은 ASIC 클러스터 집중.
+
+### 미해결
+
+- **양자 위협**: 백서 작성 시 양자컴퓨팅 미고려. 시리즈 #1-I 에서 깊이 분석.
+- **거버넌스**: 사토시 부재 후 BIP 합의가 늦어지는 문제 (OP_RETURN 한도 등).
+- **장기 지속성**: 마지막 BTC 채굴 후 (2140) 마이너 인센티브 — 거래 수수료만으로 보안 유지 가능한가.
+
+<Callout type="opposing-view" title="반대 시각 · 백서가 모든 것을 푼 것은 아니다">
+사토시 백서는 분명 천재적 종합 작품이지만, **새로 발명한 것은 거의 없습니다**. PoW = Hashcash (Adam Back, 1997), 분산 합의 = Lamport's Byzantine Generals (1982), 디지털 서명 = ECDSA (1992). **사토시의 진짜 기여는 발명이 아니라 통합** — 기존 cypherpunks 도구들을 한 작동 가능한 시스템으로 결합. 이 시각이 사토시 신화화의 카운터.
+</Callout>
+
+## 마무리 — 시리즈에 들어오는 다음 편
+
+#1-E 에서 백서의 9가지 원칙이 18년 후에도 유효하다는 사실을 봤습니다. 그러나 백서가 직접 다루지 않은 영역이 있습니다 — **L2 (Layer 2)**. 비트코인 위에 새 생태계가 어떻게 자라고 있는지, 그리고 그 생태계가 백서의 원칙과 충돌하는지 보존하는지를 다음 편(#1-F) 에서 봅니다.
 
 <SeriesNav coinSymbol="BTC" currentSlug="bitcoin-satoshi-whitepaper" />

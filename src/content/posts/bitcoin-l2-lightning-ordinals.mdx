@@ -10,40 +10,133 @@ tags: [bitcoin, lightning, ordinals, runes, stacks, bob, l2]
 estimatedReadTime: 10
 draft: true
 sources:
-  - name: "Lightning Network — capacity tracker"
+  - name: "Lightning Network — capacity tracker (1ML)"
     url: https://1ml.com/
-  - name: "Ordinals Protocol — Casey Rodarmor"
+  - name: "Ordinals Protocol — Casey Rodarmor docs"
     url: https://docs.ordinals.com/
   - name: "Stacks — Bitcoin smart contracts"
     url: https://www.stacks.co/
   - name: "BOB — Bitcoin Optimistic Rollup"
     url: https://www.gobob.xyz/
+  - name: "Glassnode — Ordinals fee revenue analytics"
+    url: https://insights.glassnode.com/
 ---
 
-{/* DRAFT — 2026-06-29까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+사토시 백서 (#1-E) 는 비트코인을 결제 시스템으로 정의했습니다. 그러나 BTC 의 실제 사용은 가치 저장 중심이 됐죠. 그런데 2024-2026, 비트코인 위에서 새로운 생태계가 부활하고 있습니다 — Lightning (결제), Ordinals (NFT/데이터), Stacks/BOB (스마트 컨트랙트). 본 편은 그 부활이 BTC 가치 명제를 강화하는지, 아니면 본의에 배신하는지를 봅니다.
+</Callout>
 
-## 도입 — BTC가 단순 화폐를 넘어선다
+## 도입 — BTC 가 단순 화폐를 넘어선다
 
-{/* TODO: ~400자. 사토시 백서는 결제 시스템. 그러나 2024-2026 BTC L2 생태계 폭발. 이게 디지털 금 가설을 강화하는가, 약화하는가 */}
+비트코인 시리즈의 처음 4편 (#1-A ~ #1-D) 은 BTC 를 **"디지털 금"** 으로 분석했습니다. 21M cap, ETF, 매크로 베타, NVT/MVRV — 모두 자산 저장 관점.
+
+그러나 2024-2026 에 비트코인 위 새로운 생태계가 폭발적으로 성장하고 있습니다. Lightning Network 의 결제 capacity 가 5,300 BTC 를 돌파했고, Ordinals/Runes 가 누적 60M+ inscriptions 를 만들면서 마이너에게 $200M+ 의 fee 수익을 추가로 안겼습니다. Stacks 와 BOB 는 비트코인 위에서 스마트 컨트랙트와 DeFi 를 시도 중.
+
+본 편의 핵심 질문은 단순합니다 — **이 L2 부활이 BTC 가치 명제에 무엇을 추가하는가**. 답은 양면입니다.
 
 ## 1. Lightning Network — 결제 레이어의 성숙
 
-{/* TODO: ~700자. capacity ~5,300 BTC, channels 50K+. Strike, Cash App 통합 사례 */}
+Lightning Network 는 2018년 메인넷 활성화 후 8년간 천천히 성장한 BTC L2 입니다. 핵심 메커니즘: **결제 채널 (payment channel)** 을 BTC L1 위에 생성하고, 채널 내에서는 무한 결제 가능 (off-chain), 채널 닫을 때만 L1 에 정산.
+
+### 2026년 5월 상태
+
+- **Capacity**: 약 5,300 BTC ($416M @ $78,600)
+- **활성 채널**: 약 50,000+
+- **노드 수**: 약 16,000
+- **일 결제량 추정**: 50,000-100,000 건 (정확 측정 어려움 — privacy 디자인)
+
+### 메이저 통합 사례
+
+- **Strike** (Jack Mallers): 엘살바도르 결제 시스템 baseline
+- **Cash App** (Block, 구 Square): 미국 사용자 BTC 송금
+- **El Salvador**: BTC 법정통화 (2021.9~). Lightning 인프라 표준
+- **Twitter/X tipping**: 부분 통합 (2023~)
+
+### Lightning 의 가치 명제
+
+Lightning 은 **사토시 백서의 결제 vision 을 가장 충실히 구현** 합니다. 일 결제 사용 사례, 빠른 정산, 낮은 fee — 모두 백서 인텐트와 일치. 사용자가 늘면 BTC 사용 사례 확장, **BTC 보유 incentive 강화**.
 
 ## 2. Ordinals & Runes — 데이터 레이어의 등장
 
-{/* TODO: ~700자. Casey Rodarmor 2023.1 출시. inscription 60M+. fee 수익 누적 $200M+ 마이너 보상 */}
+Casey Rodarmor 가 2023년 1월 출시한 **Ordinals Protocol** 이 BTC 진영의 가장 큰 논쟁을 만들었습니다.
+
+### Ordinals 메커니즘
+
+- 1 satoshi (BTC 의 최소 단위) 에 임의 데이터 (이미지, 텍스트) 를 inscription 으로 attach
+- 사실상 BTC 위 NFT
+- L1 블록 공간을 데이터로 채움
+
+### Runes (2024.4)
+
+Ordinals 의 fungible token 버전. Casey Rodarmor 가 추가 설계. ERC-20 유사 토큰 발행 가능.
+
+### 2026년 5월 데이터
+
+- **누적 inscriptions**: 약 95M+ (Ordinals + Runes 합계)
+- **Ordinals 누적 fee 수익**: 약 $350M (마이너에게)
+- **2024 Q1 peak**: 일 BTC fee 의 60%+ 가 Ordinals 트랜잭션
+- **2026 현재**: 일 BTC fee 의 약 15-25% Ordinals
+
+### 마이너 경제학에 미친 영향
+
+이게 #1-B (마이너 + ETF) 와 연결됩니다. 4차 반감기 (2024.4) 후 마이너 매출 감소 압박이 컸을 텐데, **Ordinals 의 fee 수익이 그 충격을 부분 완화**했습니다. 일종의 "마이너 구원" 효과.
 
 ## 3. Stacks · BOB · Bitcoin Smart Contracts
 
-{/* TODO: ~700자. Stacks STX · BOB Optimistic Rollup · sBTC. 비트코인 DeFi 가능성 */}
+비트코인 위 스마트 컨트랙트 시도들:
 
-<Callout type="opposing-view" title="반대 시각 · BTC 본위와의 충돌">
-Lightning은 OK지만 Ordinals/Runes는 비트코인 블록 공간을 NFT 데이터로 채워서 "전자현금 시스템" 본의에 배신이라는 비판. Bitcoin Core 개발자 다수가 OP_RETURN 한도 논쟁 진행 중.
+### Stacks (STX)
+
+- 2018년 출시, 2021년 메인넷
+- BTC 위 자체 합의 레이어 (Proof-of-Transfer)
+- 자체 토큰 STX, 자체 컨트랙트 언어 (Clarity)
+- 시총 ~$1.5B (2026.5)
+- 주요 사용: sBTC (BTC 의 Stacks 위 표상)
+
+### BOB (Build on Bitcoin)
+
+- Bitcoin Optimistic Rollup
+- 2023년 출시, 2024년 활성화
+- EVM 호환 — 기존 Ethereum 도구 그대로 사용
+- ETH 대신 BTC 를 가스 자산으로 사용
+- TVL 약 $300M (2026.5)
+
+### Babylon
+
+- BTC restaking — 비트코인을 다른 PoS 체인 보안에 빌려주는 모델
+- TVL 약 $4B (2026.5)
+- ETH EigenLayer (#2-E) 와 유사한 발상의 BTC 버전
+
+이 시도들의 공통점: **BTC 토큰을 "그냥 보유" 가 아니라 "활용" 하는 메커니즘**.
+
+## 4. 양면 평가 — 가치 명제 강화 vs 본의 배신
+
+<Callout type="opposing-view" title="반대 시각 · 비트코인 본위와의 충돌 (Bitcoin Core 진영)">
+**Lightning 은 OK** — 사토시 백서의 결제 vision 과 일치. 그러나 **Ordinals/Runes 는 비트코인 블록 공간을 NFT 데이터로 채워서 "전자현금 시스템" 본의를 배신**한다는 강한 비판. Bitcoin Core 개발자 다수가 OP_RETURN 한도 논쟁 진행 중. 만약 한도가 강화되면 Ordinals 사실상 사라짐.
 </Callout>
 
-## 4. 결론 — BTC 가치 명제에 추가되는 차원
+L2 부활을 두 시각으로 나누면:
 
-{/* TODO: ~400자. L2 활성화 = 디지털 골드 + 활성 결제 인프라. 시리즈 #1-G self-custody 와 연결 */}
+### 강화론 — BTC 가치 명제 추가
+
+- Lightning = 결제 사용 사례 확장 → BTC 보유 incentive ↑
+- Ordinals = 마이너 fee 수익 추가 → 보안 인프라 강화
+- Stacks/BOB = BTC DeFi 가능성 → 자본 효율 ↑
+- 결론: **"BTC = 디지털 금 + 활성 결제·계산 인프라"** 로 정체성 확장
+
+### 배신론 — BTC 본의 위반
+
+- Ordinals 가 BTC 블록 공간을 NFT 로 점유 → "전자현금" 본의 위반
+- Stacks/BOB = ETH 의 분산 컴퓨터 모델 모방 → BTC 본위와 충돌
+- Lightning 외 모든 L2 는 BTC 의 단순함과 검열저항을 약화
+- 결론: **"BTC 는 디지털 금만으로 충분"** — L2 는 비핵심
+
+두 시각 모두 BTC 진영 내에 강하게 존재합니다. 시간이 검증할 문제 — 다음 5-10년에 BTC L2 생태계가 살아남으면 강화론, 죽으면 배신론 승리.
+
+## 마무리
+
+본 편이 BTC 시리즈의 중간 변곡점입니다. 화폐론 (#1-A) → 마이너/ETF (#1-B) → 매크로 (#1-C) → 가치평가 (#1-D) → 백서 (#1-E) → **L2 (#1-F)** → self-custody (#1-G) → 풀 지정학 (#1-H) → 양자 (#1-I) → 사이클 종합 (#1-J).
+
+다음 편(#1-G) 에서는 BTC 보유 방식의 가장 큰 분기점 — **콜드월렛 vs ETF 위탁** — 의 trade-off 를 봅니다.
 
 <SeriesNav coinSymbol="BTC" currentSlug="bitcoin-l2-lightning-ordinals" />
