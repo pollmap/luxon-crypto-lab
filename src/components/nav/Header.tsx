@@ -4,7 +4,9 @@ import { GlowText } from "@/components/neon/GlowText";
 const NAV_ITEMS = [
   { href: "/", label: "HOME" },
   { href: "/posts/", label: "POSTS" },
-  { href: "/categories/l1-pos/", label: "CATEGORIES" },
+  { href: "/exchanges/", label: "EXCHANGES" },
+  { href: "/topics/", label: "TOPICS" },
+  { href: "/regulation/", label: "REGULATION" },
   { href: "/roadmap/", label: "ROADMAP" },
   { href: "/about/", label: "ABOUT" },
 ];
