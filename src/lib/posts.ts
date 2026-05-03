@@ -23,6 +23,7 @@ export interface PostFrontmatter {
   sources?: PostSource[];
   estimatedReadTime?: number;
   draft?: boolean;
+  author?: string;
 }
 
 export interface PostMeta extends PostFrontmatter {
@@ -72,7 +73,7 @@ export function getPostBySlug(slug: string): PostMeta | undefined {
 }
 
 export function getPostsByCoin(symbol: string): PostMeta[] {
-  return getAllPosts().filter((p) => p.coin.toLowerCase() === symbol.toLowerCase());
+  return getAllPosts().filter((p) => p.coin?.toLowerCase() === symbol.toLowerCase());
 }
 
 export function getAllSlugs(): string[] {
@@ -94,7 +95,7 @@ export function getBlogStats(): BlogStats {
     totalPosts: all.length,
     publishedPosts: published.length,
     draftPosts: all.length - published.length,
-    uniqueCoins: new Set(all.map((p) => p.coin)).size,
-    uniqueCategories: new Set(all.map((p) => p.category)).size,
+    uniqueCoins: new Set(all.map((p) => p.coin).filter(Boolean)).size,
+    uniqueCategories: new Set(all.map((p) => p.category).filter(Boolean)).size,
   };
 }

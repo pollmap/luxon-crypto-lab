@@ -1,0 +1,205 @@
+---
+slug: defi-lido-lst-dominance
+title: "Lido — LST 시장 30%+ 점유의 학술 분석"
+subtitle: stETH · 검증자 분포 · 분산화 vs 효율성 trade-off (DeFi 시리즈 #DF3)
+coin: LDO
+issue: 100
+publishedAt: "2026-05-04"
+category: DeFi
+tags: [lido, lst, steth, ethereum, staking]
+estimatedReadTime: 13
+draft: false
+author: 이찬희
+sources:
+  - name: "Lido Documentation"
+    url: https://docs.lido.fi/
+  - name: "DeFiLlama — Lido TVL"
+    url: https://defillama.com/protocol/lido
+  - name: "rated.network — Lido validator analysis"
+    url: https://www.rated.network/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Lido 가 어떻게 *"이더리움 스테이킹의 30%+"* 를 점유하게 됐는지, 그리고 이 점유가 *"이더리움의 분산성"* 에 어떤 위협이 되는지를 학술적으로 분석합니다. LST (Liquid Staking Token) 의 본질과 trade-off.
+</Callout>
+
+## 도입 — *"스테이킹의 본질"*
+
+자, Lido 강의를 시작합시다. 먼저 *"스테이킹(staking)"* 이 무엇인지부터.
+
+이더리움이 2022년 9월 *"The Merge"* 로 PoS (Proof of Stake) 로 전환했습니다. PoS 의 작동:
+- 검증자(validator) 가 — ETH 32 를 *"스테이킹"* (잠금)
+- 블록 생성 + 검증에 참여
+- 그 대가로 — 연 3-5% 정도의 ETH 보상 + MEV 추가
+
+그런데 학술적으로 두 가지 문제가 있어요.
+
+**첫째, 32 ETH 라는 임계값**. 보통 사용자가 — 32 ETH (현 시세 약 $80K-100K) 를 가지고 있을까요? 거의 없죠. 그래서 — *"풀링(pooling)"* 이 필요합니다.
+
+**둘째, 락업의 비효율**. 스테이킹된 ETH 는 — 즉시 사용 불가. 디파이에서 활용 못 함. 자본 효율 낮음.
+
+이 두 문제를 해결한 게 — *"Liquid Staking(유동 스테이킹)"* 입니다. 풀링 + 유동성을 결합한 학술 framework. 그리고 그 첫 대규모 구현이 — **Lido**.
+
+오늘은 — Lido 의 학술적 의미, 그리고 *"이더리움 분산성을 위협한다"* 는 학술 토론을 깊이 봅니다.
+
+## 1. Liquid Staking 의 학술 framework
+
+### 1-1. 작동 메커니즘
+
+Lido 의 작동:
+- 사용자가 — Lido 에 ETH 입금 (32 ETH 미만도 가능)
+- Lido 가 — 모인 ETH 를 검증자에게 분배 (Lido Node Operator 다수)
+- 사용자에게 — *"stETH"* 토큰 발행 (1 ETH = 1 stETH)
+- stETH 는 — 시장에서 자유롭게 거래 가능, DeFi 에서 담보로 활용 가능
+
+이게 *"Liquid Staking"* 입니다. 스테이킹 + 유동성의 결합.
+
+### 1-2. 학술적 의미
+
+Liquid Staking 이 학술적으로 중요한 이유:
+- **자본 효율** — 락업된 ETH 가 — DeFi 에서 활용 가능
+- **접근성** — 32 ETH 미만도 스테이킹 참여
+- **합성 자산의 새 모델** — stETH 가 *"ETH + 스테이킹 보상"* 의 합성 자산
+
+이 framework 이 — Cong et al. (2021) RFS 의 토큰 경제학 모델로 분석 가능. 그리고 *"DeFi 의 가장 큰 혁신 중 하나"* 로 학계가 평가.
+
+## 2. Lido 의 시장 점유 — *"30% 의 위협"*
+
+### 2-1. 정확한 점유율
+
+2026년 데이터:
+- 이더리움 총 스테이킹된 ETH: 약 35M ETH (총 발행량 약 28%)
+- Lido 가 점유: 약 10M ETH (총 스테이킹의 약 30%)
+
+이게 *"단일 LST 프로토콜이 이더리움 스테이킹의 30%+ 를 점유"* 한 학술적 사례입니다.
+
+### 2-2. 점유율 추이
+
+- 2021: Lido 약 5% (LST 시장의 첫 단계)
+- 2022 Merge: 약 30% (Merge 후 빠른 성장)
+- 2023-2024: 30-35% 유지
+- 2025-2026: 30% 정도로 안정 (의도적 self-cap)
+
+### 2-3. *"33% 한계"* 의 학술적 의미
+
+이더리움의 PoS 합의에서 — 단일 검증자(또는 그룹) 가 *"전체 스테이킹의 33%+"* 를 점유하면 — *"finality 공격(finality reversion attack)"* 이 가능합니다. 이게 *"PoS 의 1/3 한계"* 라는 학술 framework.
+
+Lido 가 30% 에 도달했을 때 — 이더리움 학계가 강하게 우려를 표시. *"Lido cap"* 토론이 시작됐어요. Vitalik Buterin 도 — *"Lido 가 33% 를 넘으면 이더리움의 분산성이 위협받는다"* 라는 글 발표.
+
+이게 *"분산화 vs 효율성 trade-off"* 의 가장 큰 학술 사례입니다.
+
+## 3. Lido 의 검증자 구조 — *"위임 분산화"*
+
+### 3-1. Node Operator 구조
+
+Lido 가 직접 검증자를 운영하지 않고 — *"Node Operator"* 들에게 위임. 약 30 개 Node Operator 가 — Lido 의 ETH 를 분담 운영.
+
+Node Operator 다양성:
+- 글로벌 검증자 회사 (Allnodes, Stakewise, P2P Validator)
+- 학술 기관 (Stanford 학술 검증자)
+- 분산 검증자 기술 (DVT) 활용
+
+### 3-2. 위임 분산화의 학술적 평가
+
+학술적으로 — Lido 가 *"단일 entity 가 검증자를 운영"* 하는 게 아니라, *"30+ entity 에 분산"*. 이게 *"위임 분산화(delegated decentralization)"*.
+
+그러나 비판:
+- Lido DAO 가 Node Operator 를 *"선정"* 함 → 거버넌스가 사실상 중앙화
+- 위탁자 (사용자) 입장에서는 — Node Operator 다양성을 알기 어려움
+
+## 4. stETH 의 *"디페그"* 위험
+
+### 4-1. 디페그란 무엇인가
+
+stETH 는 — 1 ETH = 1 stETH 로 거래되는 게 정상. 그러나 시장 위기 시 — stETH 가 1 ETH 보다 적게 거래되는 *"디페그"* 발생 가능.
+
+### 4-2. 2022 Luna 사태 시 디페그
+
+2022 Luna 폭락 + Celsius 파산 시:
+- Celsius 가 보유 stETH 를 대량 매각
+- stETH 가 일시적으로 1 ETH = 0.93 stETH 까지 디페그
+- 시장 패닉 → 더 많은 매각 → 추가 디페그
+- 그러나 — 디페그가 일정 시간 후 회복
+
+### 4-3. 디페그의 구조적 원인
+
+디페그가 발생하는 이유:
+- The Merge 전에는 — 스테이킹된 ETH 의 인출이 불가능 (즉, 1 stETH ↔ 1 ETH 직접 교환 X)
+- 시장에서 stETH 를 ETH 로 바꾸려면 — DEX 를 사용해야 함
+- DEX 의 유동성 부족 시 — 가격 차이 발생
+
+The Merge 이후 — 인출 가능해지면서 디페그 위험이 줄어들었지만, 여전히 단기 위기 시 디페그 가능성.
+
+## 5. Lido vs Rocket Pool — *"두 LST 모델"*
+
+### 5-1. Rocket Pool 의 차이
+
+Rocket Pool 이 — Lido 의 주요 경쟁자. 차이:
+
+| 차원 | Lido | Rocket Pool |
+|------|----|---------|
+| Node Operator | 선정 (30+) | 누구나 (~3,000+) |
+| 최소 ETH | 0 (사용자) | 16 ETH (Node Operator) |
+| 토큰 | LDO 거버넌스 | RPL 슬래싱 + 거버넌스 |
+| 시장 점유 | 30% | 5% |
+
+### 5-2. *"분산화 vs 효율성"* 의 두 답
+
+Lido 와 Rocket Pool 이 — 같은 *"LST 시장"* 에서 *"다른 학술 답"* 을 제시.
+
+- Lido: 효율성 우선 (Node Operator 선정 + 큰 점유)
+- Rocket Pool: 분산화 우선 (누구나 Node Operator + 작은 점유)
+
+이 두 모델의 비교가 — DeFi 분산화 학술 토론의 표준.
+
+## 6. LDO 토큰 — *"가치 포착의 한계"*
+
+### 6-1. LDO 의 역할
+
+LDO 가 — Lido 거버넌스 토큰. 그러나 가치 포착 메커니즘이 — 약함.
+
+LDO 가 받는 것:
+- Lido DAO 거버넌스 투표권
+- 일부 수익 (사용자에게 stETH 보상 후 약 10% 가 Lido DAO 수익)
+
+그러나 — Lido DAO 수익이 LDO 보유자에게 직접 분배되지 않음. 그래서 LDO 가격이 — Lido TVL 성장과 비례하지 않는 사례 다수.
+
+### 6-2. 학술적 평가
+
+이게 — DeFi 거버넌스 토큰의 *"가치 포착 한계"* 의 사례. AAVE, MKR 같은 다른 거버넌스 토큰들도 비슷한 문제.
+
+## 7. EigenLayer 와 Lido — *"재스테이킹 시너지"*
+
+### 7-1. EigenLayer 의 stETH 활용
+
+EigenLayer 가 — 사용자가 *"이미 스테이킹된 ETH (stETH 등)"* 를 재스테이킹할 수 있게 함. Lido 사용자가 — stETH 를 EigenLayer 에 입력해서 추가 보상 획득.
+
+이게 — Lido + EigenLayer 의 시너지. 그러나 — 새로운 학술 위험 발생 (#DF9 EigenLayer 편 참조).
+
+<Callout type="opposing-view" title="반대 시각 · Lido 의 *분산성 위협*">
+Lido 의 학술적 비판:
+
+첫째, ***"이더리움 분산성 위협"***. 30%+ 점유가 PoS 의 분산성 보장을 약화. 33% 임계값 근접.
+
+둘째, ***"위임 분산화의 한계"***. Node Operator 30+ 이지만, Lido DAO 가 선정하므로 사실상 *"selected centralization"*.
+
+셋째, ***"LDO 가치 포착 약함"***. 토큰 보유자가 — 시스템 성장의 직접 수혜를 받지 못함.
+
+넷째, ***"구조적 디페그 위험"***. 시장 위기 시 stETH 디페그 가능성.
+
+이 비판이 의미하는 바 — Lido 가 *"LST 의 학술 표준"* 으로는 가치 있되, *"이더리움 분산성"* 측면에서는 학계의 지속 우려.
+</Callout>
+
+## 결론
+
+1. **Lido = LST 시장 30%+ 점유, 이더리움 스테이킹의 가장 큰 단일 entity**.
+2. **Liquid Staking = 자본 효율 + 접근성 + 합성 자산의 학술 framework**.
+3. **stETH = ETH + 스테이킹 보상의 합성 자산**.
+4. **30% 점유 = 이더리움 분산성의 학술적 우려, 33% 임계값 근접**.
+5. **Lido vs Rocket Pool = 효율성 vs 분산화의 두 학술 답**.
+
+다음 편(#DF4) — Uniswap V4 의 AMM 진화로 이어집니다. AMM 의 학술 표준 + Hooks 의 새 framework.

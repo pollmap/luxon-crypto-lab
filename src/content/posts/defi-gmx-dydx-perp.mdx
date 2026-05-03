@@ -1,0 +1,201 @@
+---
+slug: defi-gmx-dydx-perp
+title: "GMX + dYdX — Perp DEX 의 두 모델"
+subtitle: GLP 풀 vs orderbook · 가격 발견 · 청산 캐스케이드 (DeFi 시리즈 #DF7)
+coin: GMX
+issue: 100
+publishedAt: "2026-05-04"
+category: DeFi
+tags: [gmx, dydx, perp, derivatives, defi]
+estimatedReadTime: 13
+draft: false
+author: 이찬희
+sources:
+  - name: "GMX Documentation"
+    url: https://docs.gmx.io/
+  - name: "dYdX Documentation"
+    url: https://docs.dydx.exchange/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+*"Perp (Perpetual Futures, 무기한 선물)"* 이 무엇이고, 그 DEX 의 두 학술 모델 — GMX 의 *"GLP 풀"* vs dYdX 의 *"orderbook"* — 이 어떻게 다른지 봅니다. 가격 발견 + 청산 캐스케이드의 학술 framework.
+</Callout>
+
+## 도입 — *"Perp 의 본질"*
+
+자, Perp DEX 강의를 시작합시다. *"Perp"* 가 무엇인지부터.
+
+전통 선물 거래소에서 *"선물(futures)"* 은 — 만기일이 있습니다. 3개월 선물, 6개월 선물 등. 만기일에 — 정산이 이루어지죠.
+
+가상자산 시장에서 — BitMEX 가 2016년 *"Perpetual Futures (무기한 선물)"* 을 발명. *"만기일이 없는 선물"*. 어떻게 가능한가?
+
+핵심 메커니즘 — *"Funding Rate"*:
+- 선물 가격이 현물보다 높으면: long 포지션이 short 포지션에 funding fee 지급
+- 선물 가격이 현물보다 낮으면: short 포지션이 long 포지션에 funding fee 지급
+- 이 funding fee 가 — 선물 가격을 현물 가격에 수렴시킴
+
+이게 학술적으로 매우 우아한 설계예요. *"만기 없이도 수렴 가능"* 한 새 파생상품.
+
+Perp 시장이 — 가상자산 파생상품의 가장 큰 카테고리. 일 거래량 약 $200B+ (현물 시장의 5-10배). 이 시장의 DEX 가 — GMX 와 dYdX 입니다.
+
+오늘은 — 두 프로토콜의 학술적 차이를 깊이 봅니다.
+
+## 1. GMX — *"GLP 풀 모델"*
+
+### 1-1. GMX 의 작동
+
+GMX 의 작동 (학술적으로 매우 독특):
+- *"GLP 풀"* — ETH, BTC, USDC, USDT 등 다양한 자산이 모인 큰 풀
+- 트레이더가 — GLP 풀을 상대로 long/short 포지션 진입
+- LP (사용자가 GLP 풀에 자금 제공) — 트레이더의 손익을 반대 방향으로 받음
+- 트레이더 win = LP loss, 트레이더 loss = LP win
+
+이게 *"AMM 식 Perp"* 입니다. Uniswap 의 AMM 모델을 — Perp 시장에 적용한 학술적 혁신.
+
+### 1-2. 가격 발견 메커니즘
+
+GMX 의 가격 결정:
+- *"오라클 (Chainlink)"* 으로 외부 가격 입력
+- 트레이더가 — 그 가격에 진입/청산
+- 슬리피지 0 (큰 포지션도 같은 가격)
+
+장점: 슬리피지 0, 자본 효율 높음
+단점: *"오라클 의존"*, 오라클 조작 시 위험
+
+### 1-3. 학술적 의미
+
+GMX 가 — Perp DEX 분야에서 *"AMM 모델의 학술 표준"*. Cornell IC3 + Stanford CBR 에서 GMX 분석 활발.
+
+특히 — GLP 풀의 위험-수익 분석이 학술적으로 흥미로워요. LP 가 — *"승자의 저주(winner's curse)"* 에 노출. 즉, 정보 비대칭이 큰 트레이더와 거래할 때 LP 가 손해 보는 구조.
+
+## 2. dYdX — *"Orderbook 모델"*
+
+### 2-1. dYdX 의 작동
+
+dYdX 가 — *"orderbook"* 기반 Perp DEX. 전통 거래소와 비슷한 구조:
+- 매수/매도 호가가 호가창에 등록
+- 호가가 만나면 거래 체결
+- Maker (호가 제공자) + Taker (호가 받는자) 구분
+
+### 2-2. dYdX v3 → v4 진화
+
+dYdX v3 (2021): Ethereum L2 (StarkEx) 위에서 운영
+dYdX v4 (2024): Cosmos 기반 자체 체인으로 이전
+
+v4 가 학술적으로 흥미로운 이유 — *"DEX 가 자체 L1 으로 진화"*. 이게 *"app-chain (앱 체인)"* 학술 framework 의 사례.
+
+### 2-3. 학술적 의미
+
+dYdX 가 — Perp DEX 분야에서 *"orderbook 모델의 학술 표준"*. 전통 거래소 + 가상자산의 결합.
+
+장점: 전문 트레이더에게 친숙, 가격 발견 정확
+단점: 인프라 복잡, L2 또는 자체 체인 필요
+
+## 3. GMX vs dYdX — *"두 학술 답의 비교"*
+
+### 3-1. 핵심 차이
+
+| 차원 | GMX | dYdX |
+|------|----|----|
+| 모델 | AMM (GLP 풀) | Orderbook |
+| 슬리피지 | 0 | 호가 따라 |
+| 가격 발견 | 오라클 의존 | 시장 호가 |
+| 트레이더 친화 | 초심자 | 전문가 |
+| LP 구조 | GLP 풀 (모두 LP) | Maker (선택적 LP) |
+| 위험 | 오라클 조작 | 호가 manipulation |
+
+### 3-2. 시장 점유
+
+- GMX: Arbitrum + Avalanche, TVL 약 $0.5-1B
+- dYdX: 자체 체인, 일 거래량 약 $1-3B
+
+dYdX 가 거래량은 더 크지만, GMX 는 LP 분야의 학술 표준.
+
+### 3-3. 학술적 의미
+
+이 두 모델이 — *"DEX Perp 의 두 학술 답"*. 어느 게 *"옳다"* 가 아니라, *"다른 사용자 segment 에 적합"*. 학술적으로 — 두 모델 모두 의미 있음.
+
+## 4. Hyperliquid — *"제3 모델의 부상"*
+
+### 4-1. Hyperliquid 의 등장
+
+2024-2026 *"Hyperliquid"* 가 빠르게 부상. 자체 L1 + orderbook + 0% 거래 수수료 + 토큰 보상.
+
+Hyperliquid 의 위협:
+- dYdX 의 일 거래량 추월
+- TVL 빠르게 증가
+- *"Perp DEX 의 새 학술 표준"* 후보
+
+### 4-2. 학술적 의미
+
+Hyperliquid 가 — *"GMX (AMM) + dYdX (orderbook) 의 결합 + 보상 토큰 인센티브"*. 이게 학술적으로 — Perp DEX 의 *"제3 모델"*.
+
+Hyperliquid 의 성공 + 위험이 — Perp DEX 분야의 다음 학술 토론 주제.
+
+## 5. 청산 캐스케이드 — *"Perp 시장의 시스템 리스크"*
+
+### 5-1. Perp 청산이 무엇인가
+
+Perp 시장에서 — 트레이더가 자기 마진(margin) 의 일정 비율을 잃으면 자동 청산. 즉, 포지션이 강제 종료됨.
+
+### 5-2. 청산 캐스케이드 메커니즘
+
+가격 폭락 시:
+1. 다수 long 포지션이 청산 임계값 도달
+2. 자동 청산 → 그 포지션이 시장에 매도
+3. 시장 매도 압력으로 가격 추가 하락
+4. 더 많은 long 포지션 청산
+5. 1-4 반복 (Cascade)
+
+이 캐스케이드가 — Perp 시장의 가장 큰 시스템 리스크입니다.
+
+### 5-3. 역사적 사례
+
+- 2021년 5월 Bitcoin 폭락 시 — Perp 시장에서 약 $8B+ 청산
+- 2022년 Luna 폭락 시 — DeFi Perp 시장에서 cascade 청산
+- 2024년 8월 일본 캐리 트레이드 청산 시 — 가상자산 Perp 시장에 영향
+
+이 사례들이 — Perp 시장 학술 분석의 표준.
+
+## 6. Perp 시장의 학술적 위험
+
+### 6-1. 시스템 리스크
+
+Perp 시장이 — 가상자산 시장의 *"레버리지 백본"*. Perp 시장에서 cascade 청산이 발생하면, 현물 시장에도 영향.
+
+### 6-2. 규제 회색지대
+
+Perp 가 — 미국 SEC + CFTC 의 권한 다툼 영역:
+- SEC: *"Perp 는 증권성 가짐"*
+- CFTC: *"Perp 는 상품 파생"*
+- 미국 사용자 — Perp DEX 사용 제한 (US 사용자 차단)
+
+이 회색지대가 — 2025 GENIUS Act + CLARITY Act 의 학술 토론 주제.
+
+<Callout type="opposing-view" title="반대 시각 · Perp DEX 의 *시스템 위험*">
+Perp DEX 의 비판:
+
+첫째, ***"과도한 레버리지"***. Perp 시장이 100x+ 레버리지 가능. 시스템 리스크 증가.
+
+둘째, ***"청산 캐스케이드"***. 가격 폭락 시 — 시장 안정성을 흔드는 cascade 발생.
+
+셋째, ***"규제 회색지대"***. SEC vs CFTC 권한 다툼 + 미국 사용자 차단.
+
+넷째, ***"오라클 의존 (GMX)"***. 오라클 조작 시 LP 손실 위험.
+
+이 비판이 의미하는 바 — Perp DEX 가 *"가상자산 파생상품의 학술 표준"* 으로는 가치 있되, *"시스템 안정성"* 측면에서 학계 우려.
+</Callout>
+
+## 결론
+
+1. **GMX = AMM/GLP 풀 모델, 슬리피지 0 + 오라클 의존**.
+2. **dYdX = Orderbook 모델, 전문 트레이더 친화**.
+3. **두 모델 = Perp DEX 의 두 학술 답**.
+4. **Hyperliquid = 제3 모델, 두 모델 결합 + 토큰 인센티브**.
+5. **청산 캐스케이드 = Perp 시장의 가장 큰 시스템 리스크**.
+
+다음 편(#DF8) — Pendle 의 수익률 분리 학술 framework 으로 이어집니다.
