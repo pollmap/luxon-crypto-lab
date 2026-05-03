@@ -1,0 +1,49 @@
+---
+slug: ethereum-macro-eth-btc-ratio
+title: "매크로 — ETH/BTC ratio와 Fed 사이클"
+subtitle: 위험자산 베타 · 기관 ETF · 자산 클래스 비교
+coin: ETH
+issue: 2
+publishedAt: "2026-08-24"
+category: L1-PoS
+tags: [ethereum, macro, eth-btc, ratio, etf, fed]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "FRED — DXY, M2, FFR"
+    url: https://fred.stlouisfed.org/
+  - name: "Farside Investors — ETH ETF flows"
+    url: https://farside.co.uk/eth/
+  - name: "Coin Metrics — ETH/BTC analytics"
+    url: https://coinmetrics.io/
+---
+
+{/* DRAFT — 2026-08-17까지 본문 작성. 분량 ~3000자 */}
+
+## 도입 — ETH 는 BTC 와 같이 움직이지 않는다
+
+{/* TODO: ~400자. ETH/BTC ratio 의 의미. 1년 추세. 위험 사이클에서의 행동 차이 */}
+
+## 1. ETH/BTC ratio — 5년 데이터
+
+<CorrelationHeatmap variables={['DXY','US10Y','M2','GOLD','SP500']} asset="ETH" />
+
+{/* TODO: ~700자. ratio 의 cycle. 2021 high ~0.085, 2024 low ~0.045, 2026 회복 */}
+
+## 2. ETH 의 매크로 베타 — BTC 와 비교
+
+{/* TODO: ~700자. ETH 가 NASDAQ 과 더 강한 상관 (0.7+). 위험자산 베타 1.2-1.5. BTC 와 0.8 동조 */}
+
+## 3. ETH ETF — 출시 1.5년 회고
+
+{/* TODO: ~700자. 2024.7 출시. 누적 유입 / AUM. BTC ETF 와의 흡수 속도 비교 */}
+
+<Callout type="data" title="데이터 한계 · ETH ETF staking 미허용">
+미국 SEC 가 ETH ETF 의 staking 을 허용하지 않아 yield 매력 X. 유럽/홍콩 ETF 는 staking 가능. 미국 SEC 정책 변화 모니터링 필요.
+</Callout>
+
+## 4. 결론 — 자산 클래스 위치
+
+{/* TODO: ~400자. ETH 는 디지털 골드도 아니고 순수 위험자산도 아닌 "프로덕티브 인프라 자산". 다음 편(#2-I) 가치평가로 그 명제 검증 */}
+
+<SeriesNav coinSymbol="ETH" currentSlug="ethereum-macro-eth-btc-ratio" />

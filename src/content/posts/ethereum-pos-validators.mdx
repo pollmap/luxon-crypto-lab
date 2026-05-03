@@ -1,0 +1,47 @@
+---
+slug: ethereum-pos-validators
+title: "PoS 합의 — 100만 검증자 경제학"
+subtitle: 32 ETH 입장료 · 슬래싱 · 통합 효과
+coin: ETH
+issue: 2
+publishedAt: "2026-07-20"
+category: L1-PoS
+tags: [ethereum, pos, validators, staking, slashing, eip-7251]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Ethereum.org — Proof of stake"
+    url: https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/
+  - name: "beaconcha.in — Validator stats"
+    url: https://beaconcha.in/
+  - name: "Rated Network — Staking analytics"
+    url: https://www.rated.network/
+---
+
+{/* DRAFT — 2026-07-13까지 본문 작성. 분량 ~3000자 */}
+
+## 도입 — 검증자가 무엇을 하는가
+
+{/* TODO: ~400자. The Merge (2022.9) 이후 PoW → PoS. 12초 슬롯 + 32슬롯 epoch. RANDAO 제안자 선출 */}
+
+## 1. 32 ETH 입장료 — 솔로 vs 풀드 vs 리퀴드 vs CEX
+
+{/* TODO: ~700자. 4가지 스테이킹 방식 비교 표. 자본·통제·수익률 trade-off */}
+
+## 2. 보상과 슬래싱 — 정직 vs 기만의 비대칭
+
+{/* TODO: ~700자. 신규 발행 + Priority Fee + MEV. 슬래싱 (이중 서명·오프라인) 사례 */}
+
+## 3. EIP-7251 통합 효과 — 100만 → 80만
+
+{/* TODO: ~700자. MAX_EFFECTIVE_BALANCE 32→2048 ETH. 통합 진행률. 솔로 vs 큰 스테이커 결 갈림 */}
+
+<Callout type="data" title="데이터 한계 · 활성 검증자 vs effective balance">
+EIP-7251 후 "검증자 수"와 "effective balance" 가 분리됨. 단순 카운트가 더 이상 정확한 시스템 분산도 지표가 아님. 본 편에서 effective balance 가중치 활용.
+</Callout>
+
+## 4. 결론 — 자본 효율의 이면
+
+{/* TODO: ~500자. 검증자 통합 = 효율 ↑ but 분산화 ↓. 다음 편(#2-D) Lido stETH 시스템 리스크로 연결 */}
+
+<SeriesNav coinSymbol="ETH" currentSlug="ethereum-pos-validators" />

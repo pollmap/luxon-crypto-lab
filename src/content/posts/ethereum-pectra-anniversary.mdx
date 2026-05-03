@@ -1,0 +1,98 @@
+---
+slug: ethereum-pectra-anniversary
+title: "Pectra 1주년 — ETH는 무엇인가"
+subtitle: 두 백서 비교부터 Fusaka 로드맵까지 (ETH 시리즈 도입)
+coin: ETH
+issue: 2
+publishedAt: "2026-07-06"
+category: L1-PoS
+tags: [ethereum, pectra, fusaka, vitalik, eip-7702, eip-7251]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Vitalik Buterin — Ethereum Whitepaper (2014)"
+    url: https://ethereum.org/en/whitepaper/
+  - name: "Ethereum Foundation Blog — Pectra (2025.4.23)"
+    url: https://blog.ethereum.org/
+  - name: "Coinbase Institutional — Ultimate Guide to Pectra"
+    url: https://www.coinbase.com/institutional/research-insights
+  - name: "Fidelity Digital Assets — Ethereum's Pectra Upgrade"
+    url: https://www.fidelitydigitalassets.com/research-and-insights
+  - name: "Mike Ipolito (Bankless) — ETH as oil refinery analogy"
+    url: https://newsletter.banklesshq.com/
+---
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+이더리움은 비트코인과 같은 자산일까요, 다른 자산일까요? 사토시(2008) 와 Vitalik(2014) 의 백서는 출발점이 다릅니다 — 한 쪽은 "전자 현금", 다른 쪽은 "분산 컴퓨터". 2025년 5월 7일 활성화된 Pectra 업그레이드 1주년을 통해 ETH 가 어떤 자산 클래스에 속하는지, 왜 BTC 시리즈와 다른 분석 틀이 필요한지를 봅니다.
+</Callout>
+
+## 도입 — 디지털 금 vs 글로벌 분산 컴퓨터
+
+2026년 7월 현재 이더리움 시가총액은 약 2,790억 달러. BTC 시가총액의 약 18% 수준이지만 **자산 클래스 자체가 다릅니다**. 본 시리즈는 ETH 를 BTC 와 같은 잣대로 보지 않습니다.
+
+비유로 시작하면 좋습니다. Bankless 의 Mike Ipolito 는 2022년 글에서 **"BTC 가 금이라면 ETH 는 정유사(oil refinery)"** 라고 표현했습니다. 금은 가만히 있어도 가치를 보존하지만, 정유사는 매일 원유를 가공해서 가치를 만들어냅니다. 그 가공 과정에서 발생하는 fee 가 ETH 토큰의 가치 포착(value capture) 메커니즘.
+
+본 시리즈는 ETH 를 **10편**에 걸쳐 분석합니다 — 토크노믹스, 합의, 스테이킹, Restaking, L2, DeFi, 매크로, 가치평가, 결론. 첫 편은 가장 큰 그림 — Pectra 1주년을 회고하고 ETH 라는 자산이 어떤 단계에 도달했는지를 봅니다.
+
+## 1. 두 백서의 차이 — 화폐 vs 인프라
+
+| 백서 | 출발 질문 | 핵심 메커니즘 | 자산의 역할 |
+|------|----------|-------------|------------|
+| **Satoshi (2008)** | 신뢰할 제3자 없는 전자현금이 가능한가 | PoW + UTXO + 21M cap | 가치 저장 (수동적) |
+| **Vitalik (2014)** | 임의의 연산을 분산 합의로 실행할 수 있는가 | EVM + 가스 + 무한 supply | 연산 가스 (능동적) |
+
+차이의 핵심은 **"가스(gas)"** 라는 개념입니다. BTC 는 단순 송금만 하므로 비용이 거의 일정합니다. ETH 는 임의의 스마트 컨트랙트 — DEX swap, NFT mint, ZK proof verify, AI inference 등 — 를 실행하기 때문에 연산 종류마다 가스 비용이 다르게 책정됩니다.
+
+이 가스가 EIP-1559 (2021.8) 이후 두 갈래로 갈라집니다:
+- **Base Fee**: 네트워크 혼잡도에 따라 자동 산정 → **소각(burn)**
+- **Priority Fee**: 검증자에게 직접 가는 팁
+
+소각은 ETH 공급을 줄이는 디플레이션 메커니즘이고, 이게 #2-B 에서 다룰 "Ultra Sound Money" 가설의 출발점입니다.
+
+## 2. Pectra (2025.5.7) — 5개 핵심 EIP
+
+Pectra 는 Prague + Electra 의 합성어로, 2025년 5월 7일 epoch 364,032 에 메인넷 활성화됐습니다. 핵심 EIP 5개:
+
+- **EIP-7702 — Set Code for EOAs**: 일반 지갑(EOA) 이 임시로 스마트 컨트랙트처럼 작동. 가스 sponsorship, batch transaction, 소셜 복구 등 가능. 사실상 모든 지갑의 "스마트 어카운트화" 첫 단계.
+- **EIP-7251 — MAX_EFFECTIVE_BALANCE**: 검증자 1명당 최대 스테이킹을 32 ETH 에서 **2,048 ETH 로 64배 확대**. 100만 검증자가 16만 명 수준으로 통합 가능 → 합의 효율 ↑.
+- **EIP-7691 — Blob throughput**: L2 가 사용하는 blob 슬롯을 6 → 9개로 확장. **L2 가스비 30-40% 감소**.
+- **EIP-6110 — Validator activation**: 신규 검증자 활성화 시간 9시간 → **13분**. 자본 효율 대폭 개선.
+- **EIP-2537 — BLS precompile**: ZK proof 검증 효율 ↑ (Aggregated signatures).
+
+요약하면 Pectra 는 **(1) 사용자 경험 개선 (2) 검증자 통합 (3) L2 비용 절감** 세 축의 묶음입니다.
+
+## 3. Pectra 1년 후 평가
+
+2026년 7월 시점, Pectra 활성화 후 1년 회고:
+
+- **검증자 통합**: EIP-7251 적용으로 100만 → 약 80만 명 수준으로 통합 진행 중. 큰 스테이커(Coinbase, Binance, Kraken 등)가 32 ETH × N 개를 1개 큰 검증자로 합치는 추세. 다만 솔로 스테이커는 여전히 32 ETH 단위 운영.
+- **L2 비용**: Arbitrum / Base / Optimism 평균 트랜잭션 가스비 30-40% 감소 확인. Blob 시장이 활성화되어 L2 간 blob 입찰 경쟁 발생.
+- **스마트 어카운트 채택**: EIP-7702 채택은 **예상보다 더딘 진행**. 메이저 지갑(MetaMask, Phantom 등) 의 점진적 통합 단계. 1년 차 효과는 제한적.
+
+종합 평가: 인프라 측면 효과는 분명하지만 사용자 측면 변화는 아직 점진적입니다. 다음 단계인 **Fusaka 업그레이드** 가 필요합니다.
+
+## 4. Fusaka 로드맵 — 다음 단계
+
+Fusaka (Fulu + Osaka) 는 Pectra 의 후속 업그레이드로 2026 Q4 ~ 2027 H1 활성화 예상. 핵심 변경:
+
+- **PeerDAS (Data Availability Sampling)**: blob throughput 을 9개 → 64개+ 로 확장 가능한 인프라. L2 비용 추가 80%+ 감소 가능.
+- **EOF (EVM Object Format)**: EVM 바이트코드 구조 재설계. 가스 비용 예측 가능성 + 보안 향상.
+- **Verkle Trees** (장기): 상태 트리 구조 변경 → stateless client 가능 → 검증자 하드웨어 요구사항 대폭 감소.
+
+Fusaka 까지 적용되면 **이더리움은 "L1 = 정산 + 보안 / L2 = 실행" 의 모듈러 아키텍처**로 완전히 분기됩니다.
+
+<Callout type="opposing-view" title="반대 시각 · L2 가치 누수 우려">
+모듈러 아키텍처의 부수효과는 ETH L1 으로 흘러야 할 fee 가 L2 에서 stuck 되는 것입니다. Arbitrum / Base 등이 자체 시퀀서 fee 로 수익을 내면서, ETH burn 으로 들어오는 L1 fee 는 줄어듭니다. 이 "L2 가치 누수" 가 #2-F 와 #2-I 에서 정량 분석됩니다 — Pectra 의 L2 비용 절감이 ETH 가치 포착 측면에서는 양날의 검입니다.
+</Callout>
+
+## 5. ETH 시리즈 — 무엇을 다룰까
+
+본 시리즈는 ETH 를 **세 가지 질문**으로 나눠 분석합니다:
+
+1. **자산 자체** (#2-B 토크노믹스, #2-C 합의, #2-D 스테이킹, #2-E Restaking) — ETH 토큰의 발행·합의·자본 효율
+2. **생태계** (#2-F L2, #2-G DeFi) — ETH 위에 무엇이 돌아가고 있고, 그 가치가 ETH 토큰에 어떻게 환원되는가
+3. **시장 평가** (#2-H 매크로, #2-I 가치평가, #2-J 결론) — 시장은 ETH 를 어떻게 보고 있고, 그 평가가 합리적인가
+
+각 편은 독립적으로 읽혀야 하지만 순서대로 읽으면 ETH 라는 자산의 풀 그림이 잡힙니다. **다음 편(#2-B)** 에서는 EIP-1559 burn 메커니즘과 "Ultra Sound Money" 가설의 정량 검증으로 시작합니다.
+
+<SeriesNav coinSymbol="ETH" currentSlug="ethereum-pectra-anniversary" />
