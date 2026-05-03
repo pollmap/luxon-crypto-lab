@@ -3,6 +3,8 @@ import { COINS } from "@/lib/coins";
 import { EXCHANGES } from "@/lib/exchanges";
 import { TOPICS } from "@/lib/topics";
 import { REGULATIONS } from "@/lib/regulations";
+import { TREASURIES } from "@/lib/treasuries";
+import { RESEARCH_TOPICS } from "@/lib/research";
 import { getAllPosts } from "@/lib/posts";
 
 const BASE = "https://pollmap.github.io/luxon-crypto-lab";
@@ -20,6 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/exchanges/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/topics/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/regulation/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE}/treasuries/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE}/research/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
   ];
 
   const coinRoutes: MetadataRoute.Sitemap = COINS.map((c) => ({
@@ -50,6 +54,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const treasuryRoutes: MetadataRoute.Sitemap = TREASURIES.map((t) => ({
+    url: `${BASE}/treasuries/${t.id}/`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const researchRoutes: MetadataRoute.Sitemap = RESEARCH_TOPICS.map((t) => ({
+    url: `${BASE}/research/${t.id}/`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   const postRoutes: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
     url: `${BASE}/posts/${p.slug}/`,
     lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(p.publishedAt),
@@ -63,6 +81,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...exchangeRoutes,
     ...topicRoutes,
     ...regulationRoutes,
+    ...treasuryRoutes,
+    ...researchRoutes,
     ...postRoutes,
   ];
 }

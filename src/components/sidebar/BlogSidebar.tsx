@@ -5,6 +5,8 @@ import { NavSection } from "./NavSection";
 import { EXCHANGES, EXCHANGE_TYPE_COLOR } from "@/lib/exchanges";
 import { TOPICS } from "@/lib/topics";
 import { REGULATIONS } from "@/lib/regulations";
+import { TREASURIES, TREASURY_TYPE_COLOR } from "@/lib/treasuries";
+import { RESEARCH_TOPICS, RESEARCH_FIELD_COLOR } from "@/lib/research";
 
 interface BlogSidebarProps {
   activeSlug?: string;
@@ -39,6 +41,22 @@ export function BlogSidebar({
     count: r.subIssues.length,
   }));
 
+  const treasuryItems = TREASURIES.map((t) => ({
+    href: `/treasuries/${t.id}/`,
+    label: `${t.name} (${t.ticker})`,
+    badge: t.subIssues[0]?.label ?? "",
+    color: TREASURY_TYPE_COLOR[t.type],
+    count: t.subIssues.length,
+  }));
+
+  const researchItems = RESEARCH_TOPICS.map((t) => ({
+    href: `/research/${t.id}/`,
+    label: t.name,
+    badge: t.subIssues[0]?.label ?? "",
+    color: RESEARCH_FIELD_COLOR[t.field],
+    count: t.subIssues.length,
+  }));
+
   return (
     <aside className="space-y-6">
       <ProfileCard />
@@ -60,6 +78,22 @@ export function BlogSidebar({
           titleColor="var(--neon-green)"
           href="/regulation/"
           items={regulationItems}
+        />
+      </div>
+      <div className="glass rounded p-5">
+        <NavSection
+          title="TREASURIES"
+          titleColor="var(--neon-cyan)"
+          href="/treasuries/"
+          items={treasuryItems}
+        />
+      </div>
+      <div className="glass rounded p-5">
+        <NavSection
+          title="RESEARCH"
+          titleColor="var(--neon-magenta)"
+          href="/research/"
+          items={researchItems}
         />
       </div>
       {showRecent && <RecentPosts excludeSlug={excludeRecentSlug} />}

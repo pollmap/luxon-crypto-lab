@@ -7,7 +7,8 @@ const NAV_ITEMS = [
   { href: "/exchanges/", label: "EXCHANGES" },
   { href: "/topics/", label: "TOPICS" },
   { href: "/regulation/", label: "REGULATION" },
-  { href: "/roadmap/", label: "ROADMAP" },
+  { href: "/treasuries/", label: "TREASURIES" },
+  { href: "/research/", label: "RESEARCH" },
   { href: "/about/", label: "ABOUT" },
 ];
 
