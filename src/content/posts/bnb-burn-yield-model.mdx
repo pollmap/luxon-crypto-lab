@@ -1,0 +1,117 @@
+---
+slug: bnb-burn-yield-model
+title: "Burn yield = Buyback yield — 디플레이션 토큰 모델"
+subtitle: 분기 Auto-Burn + BEP-95 + 자사주매입 유사 P/E (BNB 시리즈 #5-A)
+coin: BNB
+issue: 5
+publishedAt: "2026-12-07"
+category: CEX-L1
+tags: [bnb, binance, burn, bep-95, deflation, valuation]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Binance — BNB Auto-Burn Whitepaper (2021.12)"
+    url: https://www.binance.com/en/blog/ecosystem
+  - name: "BSC Foundation — BEP-95 Documentation"
+    url: https://github.com/bnb-chain/BEPs
+  - name: "Bernstein Research — BNB Tokenomics 2025"
+    url: https://www.bernsteinresearch.com/
+  - name: "Messari — BNB State of the Network 2026"
+    url: https://messari.io/report/bnb
+  - name: "Galaxy Digital — Token Buyback Models"
+    url: https://www.galaxy.com/research
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+BNB 는 거래소 토큰을 디플레이션 자산으로 진화시킨 최초의 케이스입니다. 분기별 Auto-Burn 과 BEP-95 base fee 소각이 결합돼, 토큰 공급이 매년 줄어듭니다. 이 메커니즘을 전통 자본 시장의 자사주매입(buyback)과 유사 비교해 P/E 프레임워크를 적용해봅니다.
+</Callout>
+
+## 도입 — 거래소 토큰의 진화
+
+거래소 토큰은 원래 단순한 수수료 할인 쿠폰이었습니다. 2017년 BNB 가 발행됐을 때도 마찬가지 — 바이낸스 거래소에서 25% 수수료 할인이 핵심 효용. 그러나 2021년 12월 바이낸스가 발표한 **Auto-Burn 백서**가 BNB 를 자산 클래스 자체로 격상시켰습니다.
+
+자사주매입(share buyback)은 전통 기업이 자사 주식을 시장에서 매수해 발행 주식 수를 줄이는 메커니즘. 같은 순이익을 더 적은 주식으로 나누면 EPS(주당순이익)가 증가하고, 이론적으로 주가가 상승합니다. BNB Auto-Burn 의 본질은 같습니다 — 토큰을 시장에서 매수하지 않고 직접 소각하지만, 결과는 동일하게 **유통량 감소 → 토큰당 가치 상승 압력**.
+
+## 1. Auto-Burn — 분기별 가격 연동 소각
+
+**기존 (2017-2021)**: 바이낸스 분기 영업이익의 20%를 BNB 매수 후 소각. 단점 — 영업이익은 비공개이므로 소각량의 자의성.
+
+**Auto-Burn (2021.12 ~)**: 두 변수에 의해 자동 결정:
+
+```
+Q_burn = N × constant / P_avg
+```
+
+- `N` — 분기 BSC 블록 생성량 (~약 26M blocks/quarter)
+- `constant` — 1,000 (백서 정의)
+- `P_avg` — 분기 BNB 평균 가격(USD)
+
+가격이 낮으면 소각량이 커지고, 가격이 높으면 작아집니다 — **반비례**. 이는 토큰 가격 안정화 메커니즘. 이론적으로 영구히 진행되며, BNB 총 공급량 200M 의 50%를 소각해 100M 까지 줄이는 게 목표.
+
+| 분기 | 소각량 | USD 가치 (분기 평균가) |
+|------|--------|---------------------|
+| 2025 Q1 | 1,778,830 BNB | ~$1.05B |
+| 2025 Q2 | 1,595,200 BNB | ~$960M |
+| 2025 Q3 | 1,439,600 BNB | ~$960M |
+| 2025 Q4 | 1,400,500 BNB | ~$1.02B |
+| **2025 누적** | **~6.21M BNB** | **~$3.99B** |
+
+2025년 한 해 약 4조 원어치가 영구 폐기됐습니다. 시가총액 대비 소각률 약 ~3.5%/년.
+
+## 2. BEP-95 — Base fee 의 절반 소각
+
+2021년 11월 채택된 BEP-95 는 EIP-1559 의 BSC 버전입니다. BSC 의 모든 트랜잭션 base fee 의 50%를 즉시 소각합니다. 나머지 50%는 검증자에게.
+
+| 메커니즘 | 발생 시점 | 소각률 (시총 대비, 연환산) |
+|---------|---------|--------------------------|
+| **Auto-Burn** | 분기말 | ~3.5% |
+| **BEP-95** | 매 트랜잭션 | ~0.6% |
+| **합계** | — | **~4.1%** |
+
+이 ~4.1%/년이 BNB 의 토큰 디플레이션율. 비교 — 이더리움 EIP-1559 후 평균 burn 률 ~0.6%/년 (2025 기준), 거의 7배 차이.
+
+## 3. 자사주매입 유사 P/E 프레임워크
+
+전통 기업의 buyback yield (자사주매입 수익률) = (분기 매입 USD 금액) / (시가총액). 이를 BNB 에 적용하면:
+
+```
+Burn yield = (분기 소각 USD 금액) / 시가총액
+```
+
+| 자산 | 연 buyback / burn yield | P/E (Forward) | 비고 |
+|------|------------------------|---------------|------|
+| **Apple** | 4.0% | 28x | 자사주매입 + 배당 |
+| **Microsoft** | 1.0% | 32x | 자사주매입 + 배당 |
+| **Meta** | 4.5% | 24x | 자사주매입 |
+| **BNB** | ~4.1% | N/A | 토큰 소각 (배당 없음) |
+
+흥미롭게도 BNB 의 burn yield 가 Meta 의 buyback yield 와 거의 같습니다. 이게 Bernstein 의 BNB 분석의 핵심 — *"BNB 는 거래소 수익을 토큰 보유자에게 분배하는 합성 배당주(synthetic dividend stock)"*.
+
+P/E 비유의 한계 — BNB 는 회계적 의미의 "earnings"가 없습니다. 바이낸스의 거래 수수료 매출이 burn 의 원천이지만, 이는 토큰 보유자에게 직접 배당되지 않고 매수-소각 형태로만 우회 분배됩니다.
+
+## 4. 디플레이션의 가속
+
+| 시점 | BNB 유통량 | 누적 소각량 |
+|------|-----------|------------|
+| 2017 ICO | 200M | 0 |
+| 2020 말 | ~146M | ~22.6M |
+| 2023 말 | ~152M | ~37.4M |
+| 2025 말 | ~143M | ~57.3M |
+| 2030 추정 | ~120M | ~80M |
+| 종착점 (목표) | 100M | 100M |
+
+목표인 100M 도달 시점은 burn yield 와 가격에 따라 다릅니다 — Bernstein 추정으로 2032-2035년 사이.
+
+<Callout type="opposing-view" title="반대 시각 · Burn yield = 가치 가설의 한계">
+세 가지 비판이 있습니다 — (1) 거래소 매출은 거래량에 비례하므로 시장 침체 시 burn 이 급격히 줄어듭니다 (2022년 한 해 burn ~$1.6B, 2025년 ~$4B 차이). (2) 자사주매입은 회계적으로 EPS 를 증가시키지만 토큰 burn 은 회계 개념이 아닙니다 — "유통량 감소가 가격에 정확히 반영되는가"는 시장의 결정. (3) 바이낸스 거래소가 규제 제재나 사용자 이탈로 매출이 영구 감소하면 메커니즘 자체가 작동을 멈춥니다.
+</Callout>
+
+## 결론 — 5-A 가 정리하는 것
+
+BNB 는 토큰 소각을 통해 거래소 수익을 보유자에게 분배하는 첫 번째 대규모 케이스입니다. ~4.1%/년의 디플레이션은 자사주매입 yield 와 정량적으로 유사합니다. 그러나 회계적 의미의 earnings 가 아니므로 P/E framework 는 비유로만 유효합니다.
+
+다음 편(#5-B) — BSC 생태계가 거래소 토큰의 한계를 어떻게 넘었는지. opBNB · Greenfield · TVL 데이터.

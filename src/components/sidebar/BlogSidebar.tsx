@@ -7,6 +7,8 @@ import { TOPICS } from "@/lib/topics";
 import { REGULATIONS } from "@/lib/regulations";
 import { TREASURIES, TREASURY_TYPE_COLOR } from "@/lib/treasuries";
 import { RESEARCH_TOPICS, RESEARCH_FIELD_COLOR } from "@/lib/research";
+import { INSTITUTIONS, INSTITUTION_TYPE_COLOR } from "@/lib/institutional";
+import { CRISES, CRISIS_TYPE_COLOR } from "@/lib/crises";
 
 interface BlogSidebarProps {
   activeSlug?: string;
@@ -57,6 +59,22 @@ export function BlogSidebar({
     count: t.subIssues.length,
   }));
 
+  const institutionalItems = INSTITUTIONS.map((i) => ({
+    href: `/institutional/${i.id}/`,
+    label: i.name,
+    badge: i.subIssues[0]?.label ?? "",
+    color: INSTITUTION_TYPE_COLOR[i.type],
+    count: i.subIssues.length,
+  }));
+
+  const crisisItems = CRISES.map((c) => ({
+    href: `/crises/${c.id}/`,
+    label: c.name,
+    badge: c.subIssues[0]?.label ?? "",
+    color: CRISIS_TYPE_COLOR[c.type],
+    count: c.subIssues.length,
+  }));
+
   return (
     <aside className="space-y-6">
       <ProfileCard />
@@ -94,6 +112,22 @@ export function BlogSidebar({
           titleColor="var(--neon-magenta)"
           href="/research/"
           items={researchItems}
+        />
+      </div>
+      <div className="glass rounded p-5">
+        <NavSection
+          title="INSTITUTIONAL"
+          titleColor="var(--neon-cyan)"
+          href="/institutional/"
+          items={institutionalItems}
+        />
+      </div>
+      <div className="glass rounded p-5">
+        <NavSection
+          title="CRISES"
+          titleColor="var(--neon-amber)"
+          href="/crises/"
+          items={crisisItems}
         />
       </div>
       {showRecent && <RecentPosts excludeSlug={excludeRecentSlug} />}

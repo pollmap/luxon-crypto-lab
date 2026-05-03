@@ -4,11 +4,13 @@ import { GlowText } from "@/components/neon/GlowText";
 const NAV_ITEMS = [
   { href: "/", label: "HOME" },
   { href: "/posts/", label: "POSTS" },
-  { href: "/exchanges/", label: "EXCHANGES" },
+  { href: "/exchanges/", label: "EXCH" },
   { href: "/topics/", label: "TOPICS" },
-  { href: "/regulation/", label: "REGULATION" },
-  { href: "/treasuries/", label: "TREASURIES" },
-  { href: "/research/", label: "RESEARCH" },
+  { href: "/regulation/", label: "REGUL" },
+  { href: "/treasuries/", label: "TREAS" },
+  { href: "/institutional/", label: "INSTIT" },
+  { href: "/crises/", label: "CRISES" },
+  { href: "/research/", label: "RES" },
   { href: "/about/", label: "ABOUT" },
 ];
 

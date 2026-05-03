@@ -1,0 +1,140 @@
+---
+slug: stables-treasury-channel
+title: "스테이블코인은 디지털 머니마켓펀드인가"
+subtitle: 미국 단기국채 수요 채널 · IMF·BIS 시각 (Stables 시리즈 #8-B)
+coin: USDC
+issue: 8
+publishedAt: "2027-02-08"
+category: Stable
+tags: [stablecoin, treasury, money-market, imf, bis]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "IMF Staff Report — Stablecoin and US Treasury Demand 2025"
+    url: https://www.imf.org/en/Publications/staff-discussion-notes
+  - name: "BIS Working Paper 1280 — Stablecoin Macro Channel"
+    url: https://www.bis.org/publ/work1280.htm
+  - name: "US Treasury — Quarterly Refunding Reports"
+    url: https://www.treasurydirect.gov
+  - name: "Tether — US Treasury Holding Disclosure Q4 2025"
+    url: https://tether.to/transparency
+  - name: "Federal Reserve — Stablecoin Reserve Tracker"
+    url: https://www.federalreserve.gov/econres
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2025년 Tether + Circle 합산 미국 단기국채 보유는 ~$165B. 일본·중국 다음 7위 외국 보유자 규모. 스테이블코인이 사실상 *"디지털 머니마켓펀드"* 로 작동하면서 미국 채권 시장에 어떤 매크로 효과를 만드는지를 봅니다.
+</Callout>
+
+## 도입 — 스테이블의 매크로 channel
+
+스테이블코인의 가치를 토큰 차원에서만 보면 *"디지털 USD"* 입니다. 그러나 발행사의 자산 운용 측면에서 보면 — 스테이블 1 토큰 발행 = 미국 단기국채 1 USD 매수. 이 단순한 회계 관계가 매크로 차원에서 작동하면 스테이블의 발행량이 미국 단기국채 수요를 직접 변화시킵니다.
+
+## 1. 스테이블의 미국 단기국채 보유량
+
+| 발행사 | 미국 단기국채 보유 (2025 Q4) |
+|-------|----------------------------|
+| Tether (USDT) | $107B |
+| Circle (USDC) | $58B |
+| 기타 (PayPal USD, RLUSD) | $4B |
+| **합계** | **$169B** |
+
+비교 — 외국 보유자 순위 (US Treasury TIC 데이터, 2025 Q4):
+
+| 순위 | 보유자 | 보유액 |
+|------|-------|--------|
+| 1 | 일본 | $1,127B |
+| 2 | 중국 | $759B |
+| 3 | 영국 | $725B |
+| 4 | 룩셈부르크 | $415B |
+| 5 | 케이맨 제도 | $379B |
+| 6 | 캐나다 | $382B |
+| 7 | **스테이블 발행사 (합산)** | **$169B** |
+| 8 | 벨기에 | $329B |
+| 9 | 프랑스 | $300B |
+| 10 | 스위스 | $290B |
+
+스테이블 합산이 외국 보유자 7위 규모. 단순 비교는 부적절하지만(스테이블 보유자는 글로벌 분산), 매크로 시각에서 무시하기 어려운 규모입니다.
+
+## 2. IMF Staff Report 2025 — *"Stablecoin and Treasury Demand"*
+
+IMF 가 2025년 발표한 staff report 의 핵심 발견:
+
+### 2-1. 스테이블 발행과 단기국채 yield 의 상관관계
+```
+ΔYield(3M T-bill) = -0.0004 × ΔStablecoin Issuance + ε
+(R² = 0.27, p < 0.01)
+```
+
+스테이블 발행 $10B 증가 시 3개월 만기 단기국채 yield 가 평균 ~0.4 basis point 하락. 작은 효과지만 통계적으로 유의.
+
+### 2-2. 스테이블 redemption shock
+2023.3 SVB 사태 시 USDC redemption $3.3B / 1주일이 단기국채 시장에 ~5 bp 영향 (학술 추정). 스테이블 redemption 이 매크로 shock 가 될 수 있는 임계 규모는 ~$50B/주 추정.
+
+### 2-3. 정책적 함의
+IMF 의 권고 — *"스테이블 발행 규모가 단기국채 시장 안정성에 영향을 미칠 수 있는 단계에 도달했다. 발행사의 reserve 구성 + 자산 운용 정책에 macro-prudential regulation 적용 필요"*.
+
+## 3. BIS Working Paper 1280 — channel 분석
+
+BIS WP 1280 (2025) 의 분석:
+
+### 3-1. 스테이블이 단기국채 수요를 만드는 이유
+스테이블 발행사는 reserve 를 단기국채로 보유합니다. 발행사 입장에서 단기국채는 — (1) 무위험 자산 (US Treasury default 가능성 ~0), (2) 유동성 풍부, (3) yield 를 발행사 수익으로 보유.
+
+USDC 의 운용 — Reserve Fund 는 BlackRock 이 운용. 평균 만기 ~30일. yield 의 100% 가 Circle 수익. 사용자(USDC 보유자)에게는 yield 가 분배되지 않음.
+
+### 3-2. 스테이블 1 USD 발행의 실제 자금 흐름
+```
+사용자 → Tether/Circle 에 1 USD 입금
+                 ↓
+Tether/Circle → 미국 단기국채 1 USD 매수
+                 ↓
+미국 정부 → 단기국채 발행 자금 1 USD 확보
+                 ↓
+사용자 → USDT/USDC 1 토큰 발행
+```
+
+이 흐름이 매크로적으로 의미하는 것 — 스테이블 발행은 미국 정부에 단기 차입을 제공합니다. 발행사가 yield 를 가져가고, 사용자는 토큰으로 결제 인프라를 사용합니다.
+
+## 4. 미국 정부 입장 — GENIUS Act 의 핵심
+
+GENIUS Act 가 스테이블 발행에 라이센스를 요구하는 표면적 이유는 *"소비자 보호"* 이지만, 정책적 본질은 **단기국채 수요 채널 통제**:
+
+- 발행사는 미국 단기국채 100% 보유 의무 (다양화 금지)
+- 발행 라이센스가 OCC 또는 주(state) 통제
+- 외국 발행사는 미국 시장 진입 제한
+
+이 조항들이 모여 — *"미국 정부가 직접 통제하는 디지털 USD 단기국채 수요 channel"* 을 만듭니다. Lyn Alden 의 *Broken Money* 가 이 framework 를 *"reserve currency 의 디지털 시대 진화"* 로 분석.
+
+## 5. 한국·일본·EU 의 대응
+
+### 5-1. 한국
+2027년 한국형 스테이블코인 발행 라이센스 검토 중. 미국 GENIUS Act 와 비슷한 100% 한국 국채 보유 의무. 이 안이 시행되면 한국 국채 수요 channel 도 만들어집니다.
+
+### 5-2. 일본
+2023년 시행된 일본 *"자금결제법 개정"* 으로 일본 메가뱅크 (MUFG, SMBC) 가 발행하는 yen 스테이블 합법화. JPY-USDC 같은 페어 거래량 가속.
+
+### 5-3. EU
+MiCA 시행으로 EU 내 USDT 사용 제한. EU 자체 EUR 스테이블 (Société Générale 의 EUR-CV, Circle 의 EURC) 의 유통 활성화 시도.
+
+## 6. 미해결 질문
+
+### 6-1. CBDC 와의 관계
+미국 Fed 는 USA CBDC 발행 의지 없음(2025 Powell 의장 발언). 그러나 GENIUS Act 의 면허제 스테이블이 사실상 *"민간 발행 + 미국 정부 통제 CBDC"* 의 역할을 합니다. 이 구조의 정치 경제적 안정성이 미해결.
+
+### 6-2. yield-bearing 스테이블의 도전
+USDS, USDe 같은 yield-bearing 스테이블이 발행사가 단기국채 yield 를 보유하는 모델을 깨려고 합니다. 다음 편(#8-C) 에서 자세히.
+
+<Callout type="opposing-view" title="반대 시각 · 매크로 channel 의 과대평가">
+스테이블 발행사의 미국 단기국채 보유가 $169B 이지만, 미국 단기국채 시장 전체 발행 잔액은 ~$5.6T. 스테이블 보유 비중은 ~3%. 외국 보유자 1위(일본 $1,127B)에 비하면 1/7 규모. 단순 절대 금액 비교가 아니라 marginal effect 로 보면 스테이블의 매크로 영향은 학술적으로 주목할 만하지만 실제 정책 결정에는 작은 변수. IMF·BIS 의 우려가 정량적으로 과장됐다는 비판이 일부 학자(George Selgin, Catalini)에서 제기됩니다.
+</Callout>
+
+## 결론 — 8-B 가 정리하는 것
+
+스테이블코인은 사실상 *"디지털 머니마켓펀드"* 로 작동하며, 미국 단기국채 수요 channel 의 의미 있는 부분(외국 보유자 7위 규모)을 차지합니다. IMF·BIS 의 매크로 분석이 이 채널의 안정성에 우려를 표하지만, 미국 정부는 GENIUS Act 로 채널을 제도화하는 방향을 선택했습니다.
+
+다음 편(#8-C) — Yield-bearing 스테이블 (USDS, USDe, YLDS) 의 등장과 발행사 yield 모델의 도전.

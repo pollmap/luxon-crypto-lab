@@ -1,0 +1,136 @@
+---
+slug: xrp-ripple-concentration
+title: "Ripple Labs 보유 집중도와 거버넌스 리스크"
+subtitle: 에스크로 1B 분기 락업 · UNL 노드 신뢰 모델 (XRP 시리즈 #6-C)
+coin: XRP
+issue: 6
+publishedAt: "2027-01-11"
+category: Payment
+tags: [xrp, ripple, escrow, unl, governance, concentration]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Ripple Labs — XRP Markets Q4 2025 Report"
+    url: https://ripple.com/insights/q4-2025-report
+  - name: "XRPL.org — Unique Node List Documentation"
+    url: https://xrpl.org/concept-consensus.html
+  - name: "Multicoin Capital — XRP Decentralization Audit"
+    url: https://multicoin.capital/research
+  - name: "SEC Complaint v. Ripple — 2020 (legal precedent)"
+    url: https://www.sec.gov/litigation/litreleases
+  - name: "Bernstein Research — XRP Governance Analysis 2025"
+    url: https://www.bernsteinresearch.com/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+XRP 의 가장 큰 약점은 거버넌스. Ripple Labs 가 보유한 XRP 가 시총의 ~46%, 매월 1B XRP 가 에스크로에서 시장에 풀립니다. UNL(Unique Node List) 합의는 사실상 신뢰 기반 모델. 이 두 차원이 XRP 평가의 본질적 변수입니다.
+</Callout>
+
+## 도입 — 보유 집중과 합의 집중
+
+XRP 의 거버넌스 리스크는 두 차원으로 분해됩니다:
+
+1. **보유 집중도**: Ripple Labs + 창업자 그룹의 XRP 보유 비율
+2. **합의 집중도**: XRPL 의 UNL 검증자 노드의 신뢰 모델
+
+이 두 차원 모두 BTC/ETH/SOL 의 분산 시스템과 구조적으로 다릅니다.
+
+## 1. 에스크로 — Ripple Labs 의 락업 메커니즘
+
+| 시점 | Ripple 보유 XRP | 시총 비중 |
+|------|---------------|----------|
+| 2017 ICO | 80B (총 100B 중) | 80% |
+| 2017.12 | 55B (에스크로 락업 후) | 55% |
+| 2025.12 | 39.5B | ~46% (총 86B 유통 기준) |
+
+Ripple Labs 는 2017년 12월 55B XRP 를 에스크로 계약(스마트 컨트랙트와 비슷한 자동 락업)에 잠금. 매월 1B XRP 가 자동 해제되고, 미사용 분은 다시 36개월 후 락업 — 이 구조가 무한 반복됩니다.
+
+문제는 사용 규칙. Ripple 의 분기 보고서에 따르면 사용량은 매 분기 가변:
+
+| 분기 | 해제 | 재락업 | 순 매도 |
+|------|------|-------|--------|
+| 2025 Q1 | 3B | 2.7B | 0.3B |
+| 2025 Q2 | 3B | 2.4B | 0.6B |
+| 2025 Q3 | 3B | 2.1B | 0.9B |
+| 2025 Q4 | 3B | 1.8B | 1.2B |
+| **2025 누적** | 12B | 9.0B | 3.0B |
+
+2025년 한 해 약 3B XRP (시총의 ~3.5%)가 시장에 신규 공급. 가격 하락 압력 인자.
+
+## 2. UNL — Unique Node List 합의
+
+XRPL 의 합의는 BTC/ETH 와 다릅니다 — Proof-of-Work, Proof-of-Stake 가 아닌 **연합 비잔틴 합의(Federated Byzantine Consensus)**. 각 검증자가 신뢰하는 다른 검증자 명단(UNL)을 직접 정의하고, 그 UNL 의 80% 동의로 트랜잭션이 합의됩니다.
+
+| 지표 | XRPL | Bitcoin | Ethereum |
+|------|------|---------|---------|
+| 검증자 수 | ~150 | 풀 4개 = 51% | 1M+ |
+| Nakamoto coefficient | ~9 | ~3 | ~2 |
+| 합의 메커니즘 | 신뢰 기반 (UNL) | PoW (작업 증명) | PoS (지분 증명) |
+| 자산 stake 필요? | X | X | O |
+
+XRPL 의 검증자 운영에 stake 가 필요 없습니다 — 누구나 검증자 노드를 운영할 수 있지만, 다른 검증자의 UNL 에 포함돼야만 의미 있습니다. 사실상 **평판 기반(reputation-based)** 시스템.
+
+이 구조의 우려:
+
+### 2-1. Default UNL
+대부분의 검증자가 Ripple Foundation + XRPL Foundation 이 게시하는 default UNL 을 기본값으로 사용합니다. 이 default UNL 의 검증자 명단을 누가 결정하는가 — Foundation 의 영향력이 큰 상태로 작동.
+
+### 2-2. 검증자 다양성
+2025 Q4 기준 default UNL 35개 검증자 중:
+- Ripple Labs 운영 노드 — 6개 (17%)
+- Ripple-affiliated (SBI 등) — 4개 (11%)
+- 학술기관 (MIT, Microsoft) — 5개 (14%)
+- 독립 — 20개 (58%)
+
+Ripple 영향권 검증자가 ~28%. 80% 합의 통과를 위해서는 영향권 검증자만으로 부족하지만, 35명 중 11명에 의견을 미칠 수 있는 단일 주체의 존재가 전통 분산 시스템의 정의에 부합하지 않습니다.
+
+## 3. Multicoin 분산화 audit (2025)
+
+Vitalik 3 axes 적용:
+
+| 차원 | XRPL | BTC | ETH |
+|------|------|-----|-----|
+| Architectural | 7 (분산 노드) | 9 | 10 |
+| Political | 3 (Ripple 영향권) | 9 | 8 |
+| Logical | 8 (UNL 합의) | 9 | 9 |
+| Nakamoto coefficient | 9 | 3 | 2 |
+
+핵심 — **Political decentralization 점수가 낮습니다**. Ripple Labs 의 보유 + Foundation 의 default UNL 영향력 + 회사 자체가 SEC 와 합의 후 영구 금지 명령 아래 있다는 사실이 결합돼 단일 주체의 통제력이 큽니다.
+
+## 4. Jed McCaleb 매도 완료 — 부정적 catalyst 제거
+
+XRP 의 역사적 sell pressure 의 큰 부분은 공동 창업자 Jed McCaleb 의 매도였습니다. 2014년 떠난 후 9B XRP 보유, 2014-2022 매도. 2022년 7월 Jed 매도 완료가 발표돼 XRP 가격 +40% 단기 반등.
+
+| 기간 | Jed 매도량 | 평균 매도 가격 |
+|------|-----------|--------------|
+| 2014-2018 | ~1.5B | $0.30 |
+| 2019-2021 | ~5.0B | $0.85 |
+| 2022 (완료) | ~2.5B | $0.45 |
+
+Jed 매도는 끝났지만 Ripple 분기 매도(연 ~3B) 가 매크로 sell pressure 로 지속됩니다.
+
+## 5. 거버넌스 변경 가능성
+
+| 안건 | 진행 상황 | 영향 |
+|------|---------|------|
+| 에스크로 매도 한도 가속 폐지 | Foundation 검토 (2026 Q2) | sell pressure ↓ |
+| Default UNL 의 분산화 | Multicoin 권고 (2025) | political decentralization ↑ |
+| Ripple 보유분 burn | 비공식 제안 | 시총 비중 ↓ |
+
+이 셋 중 어느 것도 채택되지 않은 상태. 시장은 이를 reactiv 하게 평가합니다.
+
+<Callout type="opposing-view" title="반대 시각 · 신뢰 기반 합의의 효율성">
+"분산화"는 절대선이 아닙니다. XRPL 의 신뢰 기반 합의는 트랜잭션 비용을 0.0004 USD 까지 낮추고, 처리 시간을 3-5초로 줄였습니다. BTC/ETH 의 PoW/PoS 가 분산성을 위해 효율을 희생한 반면, XRPL 은 의도적으로 **준 신뢰 모델**을 선택했습니다. 이는 결제 인프라로서의 합리적 선택. *"All trust models exist on a spectrum"* — Multicoin 보고서의 결론. 평가 framework 자체를 BTC/ETH 와 다르게 설계해야 합니다.
+</Callout>
+
+## 결론 — XRP 시리즈를 마치며
+
+3편(#6-A ETF, #6-B XRPL/RLUSD, #6-C 거버넌스)이 정리하는 XRP 는 — 결제 인프라로서의 사용처는 가속하지만(ODL $88B, RLUSD $3.4B), 토큰 가치 포착 메커니즘이 약하고, 거버넌스의 정치적 분산성에서 BTC/ETH 와 구조적으로 다른 자산 클래스입니다.
+
+본 시리즈는 XRP 를 BTC/ETH 와 같은 자산 클래스로 분류하지 않습니다 — 결제 토큰. 결제 인프라의 효율성은 입증됐고, 가치 포착은 미해결이며, 거버넌스 리스크는 현존합니다.
+
+다음 자산은 TRON. USDT 결제 백본이 어떻게 작동하는지를 봅니다.

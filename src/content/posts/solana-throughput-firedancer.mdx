@@ -1,0 +1,98 @@
+---
+slug: solana-throughput-firedancer
+title: "주당 22억 트랜잭션 — 처리량의 의미"
+subtitle: 도입 + Firedancer + PoH 합의 (SOL 시리즈 #4-A)
+coin: SOL
+issue: 4
+publishedAt: "2026-11-16"
+category: L1-PoS
+tags: [solana, firedancer, poh, jump-trading, throughput, l1]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Solana Foundation — Architecture Overview"
+    url: https://docs.solana.com/cluster/overview
+  - name: "Anatoly Yakovenko — Proof of History (2017)"
+    url: https://solana.com/solana-whitepaper.pdf
+  - name: "Jump Crypto — Firedancer Engineering Deep Dive"
+    url: https://jumpcrypto.com/firedancer/
+  - name: "Messari — Solana State of the Network 2026 Q1"
+    url: https://messari.io/report/solana
+  - name: "Helius — Solana Validator Economics"
+    url: https://www.helius.dev/blog
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+솔라나는 주당 22억 건의 트랜잭션을 처리합니다. 이게 정말 의미 있는 숫자인가요? 그리고 Firedancer 라는 두 번째 검증자 클라이언트는 무엇을 바꾸나요? PoH(Proof of History) 합의가 왜 다른 L1 과 구조적으로 다른지를 봅니다.
+</Callout>
+
+## 도입 — 처리량의 정의부터 다시
+
+솔라나(SOL)는 시가총액 약 1,030억 달러로 L1 중 4위입니다. 그러나 본 시리즈는 시총 순위가 아니라 **자산 클래스의 차별점**부터 다룹니다. SOL의 차별점은 한 단어 — **처리량(throughput)** 입니다.
+
+2026년 Q1 Messari 보고서에 따르면 솔라나의 주간 트랜잭션 수는 22억 건. 같은 기간 이더리움 메인넷은 약 1,200만 건. 단순 비교하면 **180배**. 그러나 이 숫자는 그대로 받아들이면 안 됩니다 — 솔라나의 트랜잭션 다수는 마켓 메이커의 호가 갱신, 봇의 차익 거래 같은 자동화된 트래픽이고, 사용자 지갑의 명시적 액션은 비율이 다릅니다.
+
+이게 바로 본 편이 답하려는 질문 — **"처리량 자체는 입증됐다. 그러나 그 처리량이 가치(value)로 변환되는가?"** 4-B 에서 본격적으로 다루겠지만, 4-A 는 먼저 그 처리량이 어떻게 가능한지부터 시작합니다.
+
+## 1. PoH(Proof of History) — 시간을 먼저 합의한다
+
+Anatoly Yakovenko의 2017 백서는 한 가지 통찰에서 시작합니다 — **"분산 시스템의 가장 큰 비용은 합의가 아니라 시간 동기화"**. 비트코인은 10분, 이더리움은 12초마다 블록을 만들지만, 그 사이 어떤 트랜잭션이 먼저였는지를 합의하기 위해 검증자들 사이에서 메시지가 끝없이 오갑니다.
+
+PoH의 아이디어는 단순합니다. SHA-256 해시를 연속해서 돌립니다 — `hash_n+1 = SHA256(hash_n)`. 이 연산은 병렬화가 불가능합니다. 즉 N번째 해시를 누군가 가지고 있다면, 그 사람은 적어도 N번의 해시 계산 시간을 보냈다는 증거가 됩니다. 이 해시 사슬에 트랜잭션을 끼워 넣으면 — **시간 순서를 합의 없이도 증명 가능**.
+
+| 메커니즘 | 시간 합의 방식 | 블록 타임 |
+|---------|---------------|----------|
+| **Bitcoin (Nakamoto)** | 가장 긴 체인 = 가장 많은 작업 = 시간 | ~10분 |
+| **Ethereum (Casper)** | 검증자 투표로 슬롯 확정 | 12초 |
+| **Solana (PoH)** | 해시 사슬이 시간 자체를 증명 | 400ms |
+
+이 400ms 슬롯이 솔라나 처리량의 출발점입니다. 그러나 PoH 자체가 합의는 아닙니다 — 시간 순서만 합의하고, 어떤 트랜잭션을 포함할지는 별도의 BFT 합의(Tower BFT)가 결정합니다.
+
+## 2. Firedancer — 두 번째 클라이언트의 의미
+
+2026년 Q1 현재 솔라나의 검증자 클라이언트는 두 종류입니다:
+
+- **Solana Labs (Agave)**: Rust로 작성된 원조 클라이언트. 검증자 수의 ~95%
+- **Firedancer (Jump Crypto)**: C로 작성된 두 번째 클라이언트. 메인넷 점유율 ~5% (2026.1 기준)
+
+왜 두 번째 클라이언트가 중요한가? 단일 클라이언트 의존은 분산 시스템에서 가장 큰 단일 실패 지점입니다. 2022년 9월 솔라나는 메인넷 정지 사고를 겪었는데, 모든 검증자가 같은 코드를 돌렸기 때문에 같은 버그에 동시에 노출됐습니다. 이더리움이 다중 클라이언트 (Geth, Nethermind, Erigon, Besu) 전략을 고수하는 이유와 같습니다.
+
+Firedancer가 가진 추가 의미 — **성능**. Jump Crypto의 벤치마크에 따르면 Firedancer는 단일 노드에서 초당 100만 트랜잭션 이상을 처리할 수 있습니다 (Agave의 약 10배). 물론 네트워크 전체 처리량은 가장 느린 검증자에 묶이므로, 모든 검증자가 Firedancer를 돌릴 때만 의미가 있습니다.
+
+2026년 로드맵 — Frankendancer (Agave + Firedancer 하이브리드, 2025 시작) → 풀 Firedancer (2027 목표).
+
+## 3. 검증자 분산성 — Nakamoto coefficient 의 함정
+
+솔라나의 약점은 검증자 진입 장벽입니다. 검증자 운영에 필요한 하드웨어 — 256GB RAM, NVMe SSD, 1Gbps 네트워크. 비용 — 월 ~$3,000-5,000.
+
+| L1 | Nakamoto coefficient | 검증자 수 |
+|----|---------------------|----------|
+| **Bitcoin** | ~3 (mining pool) | 풀 4개 = 51% |
+| **Ethereum** | ~2 (Lido + Coinbase) | 검증자 1M+ |
+| **Solana** | ~22 | 1,300+ |
+
+Nakamoto coefficient = 네트워크의 33%를 장악하는 데 필요한 최소 엔티티 수. 솔라나가 22로 비교적 높은 이유 — 검증자 stake 분포가 비교적 평탄합니다. 그러나 검증자 수 자체(1,300)가 이더리움(1M+)보다 훨씬 적은 게 약점.
+
+## 4. 처리량의 "쓸모"는 어디에서 오나
+
+22억 트랜잭션이 가치로 바뀌는 채널은 셋:
+
+1. **수수료(Priority Fee)**: 혼잡 시 검증자에게 가는 팁. 2025년 SIMD-0096 이후 100% 검증자에 → SOL 인플레이션과 별개의 수익
+2. **MEV (Jito)**: Jito-Solana 클라이언트가 처리하는 MEV bundle. 2026 Q1 누적 ~$650M
+3. **소각(Burn)**: SIMD-0228 채택 시 base fee 50% 소각. 아직 미정
+
+이 셋이 결합돼야 SOL 의 가치 포착이 작동합니다. 다음 편(4-B)에서 21Shares의 2026 보고서 — *"Scale is proven, value capture is not"* — 를 깊이 읽습니다.
+
+<Callout type="opposing-view" title="반대 시각 · 처리량 = 가치 가설의 한계">
+모든 트랜잭션이 같은 가치를 갖지 않습니다. 솔라나의 22억 트랜잭션 중 사용자 액션은 비율이 작고, 봇의 자동화된 호가 갱신이 다수입니다. Helius 의 2026 Q1 분석은 "user-initiated transactions"가 전체의 ~12%라고 추정. 즉 처리량을 단순 카운트로 다른 L1 과 비교하는 건 학술적으로 타당하지 않습니다. 처리량의 "질(quality)"을 어떻게 정의할지가 미해결 문제입니다.
+</Callout>
+
+## 결론 — 4-A 가 정리하는 것
+
+본 편은 SOL 시리즈의 도입으로, 세 가지를 확정합니다 — (1) 솔라나의 처리량은 PoH + 400ms 슬롯에서 나오는 구조적 차이고, (2) Firedancer는 단일 클라이언트 의존성이라는 분산 시스템의 약점을 해소하는 단계이며, (3) Nakamoto coefficient 22는 비교적 높지만 검증자 진입 장벽과 트레이드오프 관계입니다.
+
+다음 편(#4-B) — 21Shares 2026 보고서를 출발점으로 솔라나의 가치 포착(value capture) 가설을 정량 검증합니다.

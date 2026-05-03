@@ -1,0 +1,142 @@
+---
+slug: stables-yield-bearing
+title: "Yield-bearing 스테이블의 등장 — USDS·USDe·YLDS"
+subtitle: MakerDAO/Sky · Ethena · Figure SEC 등록 (Stables 시리즈 #8-C)
+coin: USDC
+issue: 8
+publishedAt: "2027-02-15"
+category: Stable
+tags: [stablecoin, yield-bearing, usde, usds, ethena, figure]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Sky/MakerDAO — DAI/USDS Yield Mechanism Whitepaper"
+    url: https://sky.money/whitepaper
+  - name: "Ethena Labs — USDe Whitepaper (2024)"
+    url: https://ethena.fi/whitepaper
+  - name: "Figure Technologies — YLDS S-1 SEC Filing"
+    url: https://www.sec.gov/cgi-bin/browse-edgar
+  - name: "Galaxy Digital — Yield-Bearing Stablecoin Report 2025"
+    url: https://www.galaxy.com/research
+  - name: "S&P Global — Yield-Bearing Stable Stability Audit"
+    url: https://www.spglobal.com/ratings
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+USDC 보유자는 yield 를 받지 않습니다 — Circle 이 모든 단기국채 yield 를 가져갑니다. Yield-bearing 스테이블은 이 모델을 깨고 yield 를 사용자에게 분배합니다. USDS(Sky), USDe(Ethena), YLDS(Figure) 3개 모델의 메커니즘과 위험 비교.
+</Callout>
+
+## 도입 — 발행사 yield 모델의 도전
+
+USDT/USDC 의 비즈니스 모델은 단순합니다 — 사용자는 1 USD 를 입금해 1 토큰을 받고, 발행사는 그 1 USD 를 단기국채에 투자해 yield 를 가져갑니다. 2025년 Tether 의 한 해 yield 수익 ~$8B, Circle ~$3B.
+
+이 비즈니스 모델은 사용자 입장에서는 *"yield 를 발행사에 무이자 대출"* 입니다. Yield-bearing 스테이블은 이 구조를 깨려는 시도. 본 편은 3개 대표 모델을 비교합니다 — USDS (Sky/MakerDAO), USDe (Ethena), YLDS (Figure).
+
+## 1. USDS — Sky/MakerDAO 모델
+
+Sky 는 2024년 MakerDAO 가 리브랜드한 새 이름. USDS 는 DAI 의 후속 토큰.
+
+### 1-1. 메커니즘
+- 사용자가 USDC 를 USDS 1:1 로 교환
+- Sky 의 RWA(미국 단기국채 + 사모 신용) 운용으로 yield 발생
+- 사용자가 USDS 를 sUSDS 로 stake 하면 yield 분배 (Sky Savings Rate, SSR)
+
+### 1-2. 수치 (2026 Q1)
+| 지표 | 값 |
+|------|---|
+| USDS 발행량 | $9.8B |
+| sUSDS staking | $4.2B (43%) |
+| Sky Savings Rate | 5.25% |
+| RWA 운용 자산 | $7.1B |
+
+### 1-3. 위험
+- **Smart contract**: Sky 의 contract 가 매주 새 모듈 배포. 감사 비용 큼
+- **RWA 카운터파티**: 사모 신용 채무자의 default 가능성
+
+## 2. USDe — Ethena 의 합성 dollar
+
+Ethena 의 USDe 는 단기국채를 사용하지 않습니다. 대신 *"delta-neutral basis trade"* 를 통해 합성 USD 를 만듭니다.
+
+### 2-1. 메커니즘
+1. 사용자가 stETH 등 ETH 자산을 입금 (예: $100)
+2. Ethena 가 동시에 ETH perp short ($100 short)
+3. 결과: ETH 가격 상승하면 stETH +X, perp short -X = 합산 $100 유지
+4. ETH 가격 하락하면 stETH -X, perp short +X = 합산 $100 유지
+5. yield 의 원천 — stETH 스테이킹 yield (~3.5%) + perp funding rate (양수일 때, ~10% 변동)
+
+### 2-2. 수치 (2026 Q1)
+| 지표 | 값 |
+|------|---|
+| USDe 발행량 | $5.4B |
+| sUSDe staking | $4.0B (74%) |
+| sUSDe APY | 14.2% (변동) |
+| 평균 ETH perp funding rate | +0.012% / 8h (~13.1%/연) |
+
+### 2-3. 위험 — funding rate flip
+USDe 의 yield 는 ETH perp funding rate 가 양수일 때만 작동합니다. 음수가 되면(롱 우세 → 숏 펀딩 받음 vs 숏 우세 → 롱 펀딩 받음의 반대), Ethena 가 funding 을 지급해야 합니다. 보유 reserve fund 가 충분히 크지 않으면 USDe 가 디페그합니다.
+
+2024년 8-9월 ETH perp funding rate 가 일시적으로 음수가 됐을 때 USDe 의 sUSDe APY 가 일시 -3% 로 음수. Ethena reserve fund 가 부족 분을 채웠지만, 학술적으로 long-tail 위험을 가지고 있습니다.
+
+## 3. YLDS — Figure 의 SEC 등록 yield 토큰
+
+Figure Technologies 가 2025년 SEC 에 등록한 YLDS 는 미국 최초의 SEC 등록 yield-bearing 토큰입니다.
+
+### 3-1. 메커니즘
+- 단순 — 사용자가 USDC 를 입금하면 YLDS 토큰을 받음
+- Figure 가 사용자 자금을 Provenance 체인 위 RWA (HELOC, 모기지, 사모 신용)에 운용
+- yield 가 매일 YLDS 토큰의 NAV(net asset value)에 반영 → 토큰 가격이 1.0XX USD 처럼 천천히 상승
+
+### 3-2. 수치 (2026 Q1)
+| 지표 | 값 |
+|------|---|
+| YLDS NAV | $1.0287 (출시 1년 후) |
+| 연 yield | ~5.65% |
+| 발행량 | ~$420M |
+
+### 3-3. 의의
+SEC 등록 자체가 큰 의미. YLDS 는 *"증권으로서의 토큰"* 으로 등록돼, 미국 RIA(독립 투자자문사)가 고객 포트폴리오에 직접 편입 가능합니다. 비스테이블 토큰이 SEC 로부터 등록 승인받은 첫 사례.
+
+다음 편(#9-A FIGR_HELOC) 에서 Figure 의 RWA 토큰화 인프라를 자세히 봅니다.
+
+## 4. 3 모델 비교 — 위험 vs 수익
+
+| 모델 | APY (2026 Q1) | 핵심 위험 | 자산 클래스 |
+|------|--------------|---------|------------|
+| USDS (Sky) | 5.25% | 사모 신용 default + smart contract | RWA |
+| USDe (Ethena) | 14.2% | Funding rate flip + 거래소 위험 | Synthetic |
+| YLDS (Figure) | 5.65% | 모기지 default + 유동성 | RWA + SEC 등록 |
+| 비교: USDC | 0% (사용자) | Circle 단일 | 단기국채 |
+| 비교: TradFi MMF | 4.8% | TradFi MMF 위험 | 단기국채 |
+
+USDe 가 가장 높은 yield 를 제공하지만 위험도 가장 큽니다 — 이는 학술적으로 합리적 trade-off.
+
+## 5. 시장 점유율 — yield-bearing vs 일반 스테이블
+
+| 카테고리 | 시총 (2026 Q1) | 비중 |
+|---------|---------------|------|
+| 일반 (USDT + USDC + RLUSD) | $269B | 92% |
+| Yield-bearing (USDS + USDe + YLDS + 기타) | $24B | 8% |
+
+Yield-bearing 의 점유율은 작지만 가속하고 있습니다. 2024 Q1 ~3% → 2026 Q1 ~8%. Tether/Circle 의 비즈니스 모델에 시장 압력이 가해지는 신호.
+
+## 6. 발행사의 응답
+
+Tether 는 2025년 *"Tether Yield"* 라는 sUSDT 모델을 검토 중 (2026 Q2 출시 예정). Circle 은 *"Circle Earn"* 으로 USDC 보유자에게 일정 yield 분배를 시범. 그러나 두 회사 모두 USDC/USDT 자체에 yield 를 분배하면 SEC 가 *"증권"* 으로 분류할 가능성이 있어 매우 조심스럽게 접근.
+
+이게 GENIUS Act 의 또 다른 측면 — 라이센스 받은 스테이블은 yield 분배 금지. 사용자가 yield 를 원하면 별도의 SEC 등록 yield 토큰(YLDS 같은) 으로 이동해야 합니다.
+
+<Callout type="opposing-view" title="반대 시각 · Yield-bearing 의 본질적 risk-return trade-off">
+USDC 가 0% yield 인 것은 결함이 아니라 design choice 입니다. 사용자가 *"안전한 1 USD"* 를 원하므로 발행사가 reserve 를 가장 보수적으로 운용하고 yield 를 가져갑니다. Yield-bearing 스테이블은 *"yield 를 받는 대신 위험을 진다"* 의 거래일 뿐이고, 이는 단순히 머니마켓펀드와 차별화되지 않습니다. *"USDe 의 14.2% 는 funding rate 위험의 risk premium 일 뿐"* 이라는 카운터(George Selgin, 2025).
+</Callout>
+
+## 결론 — Stables 시리즈를 마치며
+
+3편(#8-A 발행사 비교, #8-B 매크로 channel, #8-C yield-bearing) 이 정리하는 스테이블은 — USDT/USDC 가 시장의 92% 를 차지하지만 yield 분배 부재가 구조적 약점으로 작동합니다. Yield-bearing 모델 3 가지(USDS, USDe, YLDS) 가 빠르게 성장 중이지만 각각의 위험 프로파일은 다릅니다.
+
+본 시리즈는 스테이블을 *"디지털 USD"* 라는 단일 자산 클래스로 묶지 않습니다 — 발행사 + 자산 운용 + 위험 모델별로 다섯 가지 다른 자산 클래스로 분해합니다.
+
+다음 자산은 FIGR. RWA 토큰화의 첫 번째 케이스 스터디.

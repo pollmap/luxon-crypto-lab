@@ -1,0 +1,102 @@
+---
+slug: solana-value-capture
+title: "가치 포착 논쟁 — Scale is proven, value capture is not"
+subtitle: 21Shares 2026 보고서 + 애플리케이션 fee vs 프로토콜 (SOL 시리즈 #4-B)
+coin: SOL
+issue: 4
+publishedAt: "2026-11-23"
+category: L1-PoS
+tags: [solana, value-capture, 21shares, fee, jito, mev]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "21Shares — Solana State of Value Capture (2026.Q1)"
+    url: https://21shares.com/research
+  - name: "Galaxy Digital — Solana Q4 2025 Review"
+    url: https://www.galaxy.com/research
+  - name: "Jito Labs — MEV bundle dashboard"
+    url: https://www.jito.network/
+  - name: "Solana Compass — Validator Income Breakdown"
+    url: https://solanacompass.com/
+  - name: "Helius — On-chain Activity Report 2026.1"
+    url: https://www.helius.dev/blog
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+솔라나는 처리량을 입증했지만, 그 처리량이 SOL 토큰의 가치로 흘러가는가? 21Shares 2026 보고서의 핵심 주장 — *"Scale is proven, value capture is not"* — 를 정량 데이터로 검증합니다. 애플리케이션 fee 와 프로토콜 fee 사이의 가치 누출(value leak)을 봅니다.
+</Callout>
+
+## 도입 — 처리량과 가치 사이의 간극
+
+4-A 에서 본 22억 트랜잭션은 솔라나의 자랑입니다. 그러나 21Shares 의 2026 Q1 보고서는 한 가지 도발적 주장을 합니다:
+
+> "Solana has proven scale. It has not yet proven value capture."
+
+이 문장이 뜻하는 바를 학술적으로 풀면 — 트랜잭션이 발생할 때 발생하는 경제적 가치(fee, MEV, tip)가 SOL 토큰 보유자에게 충분히 귀속되지 않는다는 가설. 본 편은 이 가설을 검증할 정량 framework 를 제시합니다.
+
+## 1. 가치 흐름의 4단계
+
+| 단계 | 발생 가치 | SOL 보유자 귀속 |
+|------|----------|----------------|
+| **1. 사용자 swap fee** | DEX 가 청구 (예: Jupiter 0.1-0.3%) | 0% (DEX 운영자에게) |
+| **2. 가스 fee (Base + Priority)** | 트랜잭션당 ~0.000005 SOL | Priority 100% 검증자 |
+| **3. MEV (Jito tip)** | bundle 경매 | 검증자 + Jito DAO |
+| **4. SOL 인플레이션** | 신규 발행 | 스테이커 |
+
+핵심 — **사용자가 지불한 100원 중 SOL 보유자에게 가는 비율**이 솔라나의 가치 포착 효율을 결정합니다.
+
+Galaxy Digital 의 2025 Q4 추정에 따르면, 솔라나 위에서 발생한 총 사용자 fee 약 $4.1B 중 SOL 토큰 보유자(스테이커)에게 흘러간 부분은 약 $580M (~14%). 이더리움의 비교 — 같은 framework 로 본 ETH 의 가치 포착 비율은 ~32% (EIP-1559 base fee burn + priority fee + MEV-Boost).
+
+## 2. 애플리케이션 fee 의 누출 — Jupiter 케이스
+
+솔라나 DEX 거래의 ~70% 가 Jupiter 라우터를 통과합니다. Jupiter 는 사용자에게서 0.1-0.3% 수수료를 받지만, 이 중 SOL 토큰 보유자에게 가는 부분은 **0**.
+
+| 케이스 | 사용자 fee | 토큰 보유자 귀속 |
+|-------|-----------|----------------|
+| **Jupiter swap (SOL)** | 0.1% | 0% (Jupiter DAO) |
+| **Uniswap swap (ETH L1)** | 0.3% | 0% (LP 에게) |
+| **Pump.fun launch** | 1 SOL fee | 0% (Pump.fun) |
+
+이 패턴은 솔라나만의 문제가 아닙니다 — 이더리움 메인넷 swap도 같은 구조. 그러나 솔라나에서 더 두드러지는 이유는 **트랜잭션량 자체**가 크기 때문에 누적된 누출 규모도 큽니다.
+
+## 3. 가치 포착 모델 3개 후보
+
+미해결 거버넌스 안건 3개:
+
+### 3-1. SIMD-0228 — Base fee 50% 소각
+이더리움 EIP-1559 의 솔라나 버전. base fee 의 50%를 소각해서 SOL 공급을 줄입니다. 2026 Q1 현재 거버넌스 토론 중. 채택 시 SOL 의 디플레이션 압력은 BNB 의 분기 burn 모델과 비슷한 수준이 될 가능성.
+
+### 3-2. SIMD-0411 — 인플레이션 30% 감축
+다음 편(#4-C)에서 자세히. 신규 발행 인플레이션 곡선을 30% 가파르게 떨어뜨리는 안. 2025년 통과됐고, 토큰 희석률이 명시적으로 줄어듭니다.
+
+### 3-3. Priority Fee 100% 검증자 (SIMD-0096, 채택 완료)
+2025년 시행. priority fee 의 50%가 검증자에 가던 구조에서 100%로 변경. 검증자 수익 두 배.
+
+이 셋이 누적되면 SOL 의 실질 수익률(net staking yield - inflation)이 의미 있게 양수로 전환됩니다. 2026 Q1 추정: ~5.5% gross staking - ~4.5% inflation = ~1% net (Helius 추정).
+
+## 4. 비교 — ETH PoS 와 SOL 의 가치 포착 격차
+
+| 메커니즘 | ETH PoS | SOL |
+|---------|---------|-----|
+| 인플레이션 | ~0.6% | ~4.5% (SIMD-0411 후) |
+| Burn | EIP-1559 base fee | SIMD-0228 (미정) |
+| Staking yield | ~3.0% | ~5.5% |
+| Priority fee 분배 | 검증자 100% | 검증자 100% |
+| MEV | MEV-Boost 검증자 | Jito + 검증자 |
+| Net real yield | ~+2.4% | ~+1.0% |
+
+이 표가 21Shares 보고서의 핵심 주장의 근거입니다. 처리량은 솔라나가 압도적이지만, 그 처리량이 SOL 의 net real yield 로 변환되는 효율은 ETH 가 더 높습니다.
+
+<Callout type="opposing-view" title="반대 시각 · 가치 포착이 전부가 아니다">
+가치 포착은 자산 평가의 한 축이지만 유일한 축은 아닙니다. 솔라나 옹호 시각의 카운터 — (1) 사용자 채택률(monthly active wallets, MAW)이 다른 L1 보다 빠르게 증가하고 있어 미래 fee 절대량이 클 수 있고, (2) 인프라 자체가 더 다양한 애플리케이션(고빈도 거래, 메신저, 모바일 게임)을 가능하게 하므로, "처리량 = 옵션 가치(option value)"라는 framework 도 가능. 21Shares 보고서도 결론에서 *"the optionality from scale is non-trivial"* 라고 인정합니다.
+</Callout>
+
+## 결론 — 4-B 가 정리하는 것
+
+처리량(scale)과 가치 포착(value capture)은 별도의 문제입니다. 솔라나는 전자에서 강하지만 후자에서 ETH 에 비해 약합니다. 이 격차를 메우기 위한 거버넌스 안건 3개(SIMD-0228, SIMD-0411, SIMD-0096) 중 일부는 채택됐고 일부는 토론 중입니다.
+
+다음 편(#4-C) — SIMD-0411 의 정량적 영향. SOL 의 net real yield 가 어떻게 변하는지를 시뮬레이션합니다.

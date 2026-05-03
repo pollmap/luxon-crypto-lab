@@ -1,0 +1,142 @@
+---
+slug: xrp-xrpl-rwa-rlusd
+title: "XRPL의 RWA · RLUSD 결제 사용 현황"
+subtitle: RWA $474M · 일 트랜잭션 3M · ODL 실수요 (XRP 시리즈 #6-B)
+coin: XRP
+issue: 6
+publishedAt: "2027-01-04"
+category: Payment
+tags: [xrp, xrpl, rwa, rlusd, odl, sbi]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Ripple Labs — RLUSD Stablecoin Whitepaper (2024.12)"
+    url: https://ripple.com/rlusd
+  - name: "XRPL.org — Daily Transaction Dashboard"
+    url: https://xrpl.org/network-stats
+  - name: "RWA.xyz — XRPL RWA Tracker"
+    url: https://rwa.xyz/
+  - name: "SBI Holdings — Ripple Joint Venture Report (2025)"
+    url: https://www.sbigroup.co.jp/english
+  - name: "BIS Working Paper 1335 — Cross-Border Payment Innovations"
+    url: https://www.bis.org/publ/work1335.htm
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+ETF 가 자금을 끌어왔지만, XRP 의 사용 사례는 무엇인가? XRPL(XRP Ledger) 위 RWA 토큰 $474M, RLUSD 스테이블코인 출시, ODL 결제 거래량 $32B 의 정량 데이터로 XRP 의 fundamentals 를 봅니다.
+</Callout>
+
+## 도입 — 토큰의 사용처가 가치를 결정한다
+
+XRP 의 가치 포착 가설은 단순합니다 — *"XRP 는 ODL(On-Demand Liquidity) 결제의 브리지 자산이 된다"*. 이 가설이 작동하려면:
+
+1. ODL 거래량이 의미 있는 규모여야 하고
+2. XRP 가 그 거래에서 실제로 사용돼야 하며
+3. 거래 수수료가 XRP 보유자에게 분배돼야 합니다.
+
+본 편은 위 3 조건을 정량 데이터로 검증합니다.
+
+## 1. XRPL 거래량 — 일 3M 트랜잭션
+
+| 시점 | 일 평균 트랜잭션 | 활성 지갑 |
+|------|---------------|----------|
+| 2023 Q4 | 1.2M | 230K |
+| 2024 Q4 | 1.8M | 380K |
+| 2025 Q4 | **3.0M** | 620K |
+| 2026 Q1 | 3.4M | 740K |
+
+3M 일 트랜잭션은 비트코인 메인넷(0.4M) 의 ~7배. 그러나 이더리움 메인넷 + L2 합산(~25M) 의 ~12% 수준. XRPL 의 매력 — 트랜잭션 비용 ~0.0002 XRP (~$0.0004), 결제 시간 3-5초.
+
+## 2. RLUSD — Ripple 의 스테이블코인
+
+2024년 12월 출시된 RLUSD 는 Ripple 이 발행하는 USD 페그 스테이블코인. NYDFS 라이센스 (Charter Trust company). 백업 — 미국 단기국채 + 현금.
+
+| 시점 | RLUSD 발행량 | 거래소 상장 |
+|------|------------|------------|
+| 2024.12 (출시) | $5M | Uphold, Bitstamp |
+| 2025.6 | $480M | + Bitfinex, LMAX |
+| 2025.12 | $2.1B | + Coinbase, Bullish |
+| 2026.3 | $3.4B | + Bitso (라틴) |
+
+RLUSD 의 의미 — Ripple 이 자체 스테이블을 발행함으로써 ODL 결제에서 USDT/USDC 의존도를 줄입니다. 그러나 RLUSD 는 XRPL 위에서만 작동하지 않고 Ethereum/Solana 도 지원 → XRPL 점유율은 ~38% 수준.
+
+## 3. ODL 거래량 — 실수요 검증
+
+ODL(On-Demand Liquidity)는 Ripple 의 결제 제품. 송금사가 USD → XRP → 현지 화폐로 변환해 즉시 송금. 전통 SWIFT 대비 1-3일 단축.
+
+| 분기 | ODL 거래량 | YoY |
+|------|----------|-----|
+| 2024 Q4 | $11B | +85% |
+| 2025 Q1 | $14B | +95% |
+| 2025 Q2 | $18B | +120% |
+| 2025 Q3 | $24B | +145% |
+| 2025 Q4 | $32B | +185% |
+| **2025 누적** | **$88B** | — |
+
+ODL 거래량의 가속은 분명. 그러나 SWIFT 의 일 거래량은 ~$5T (연 ~$1,800T) — ODL 의 점유율은 ~0.005%. 학술적으로 의미 있는 점유율(1%) 까지 ~200배 성장 필요.
+
+지역별 점유율:
+
+| 지역 | ODL 비중 | 핵심 채널 |
+|------|---------|---------|
+| 동남아 | 38% | 필리핀·베트남·태국 송금 |
+| 남미 | 24% | 멕시코 (Bitso) · 브라질 |
+| 중동·아프리카 | 18% | UAE·이집트·나이지리아 |
+| 일본 | 14% | SBI Remit |
+| 기타 | 6% | — |
+
+지역별로는 **신흥국 송금 채널** 위주. 미국·EU 의 기관 송금에서는 SWIFT/RTP 가 여전히 주류.
+
+## 4. RWA — XRPL 위 토큰화 자산
+
+RWA(Real-World Assets) 토큰화는 RWA.xyz 추적 기준 XRPL 위 ~$474M (2026 Q1):
+
+| 토큰 종류 | TVL | 발행자 |
+|----------|-----|--------|
+| 미국 단기국채 토큰 | $260M | Ondo (Tether 와 협력) |
+| 부동산 토큰 | $98M | Realio Networks |
+| 사모 신용 토큰 | $74M | OpenEden |
+| 채권 토큰 | $42M | Securitize XRPL |
+
+비교 — Ethereum RWA $14B, Polygon $0.8B, Stellar $1.1B. XRPL 의 RWA 점유율은 ~3%.
+
+XRPL 이 RWA 에 적합한 이유 — (1) DEX 가 프로토콜 레벨에 빌트인, (2) 트랜잭션 비용이 낮음, (3) 결제 시간 3-5초. 그러나 EVM 호환이 아니라 개발자 풀이 작은 게 약점.
+
+## 5. SBI Remit — 일본 케이스
+
+일본 SBI Holdings 의 자회사 SBI Remit 은 ODL 의 가장 성공적 사례입니다. 일본 → 필리핀·베트남·태국 송금 시장에서 ODL 점유율 ~32%.
+
+| 지표 | 2024 | 2025 | 2026 Q1 |
+|------|------|------|---------|
+| SBI Remit ODL 거래량 | $1.8B | $4.2B | $1.5B |
+| 평균 송금 시간 | 28초 | 18초 | 12초 |
+| 평균 수수료 | 1.2% | 0.9% | 0.7% |
+| 사용자 수 | 380K | 720K | 950K |
+
+SBI Remit 의 성공이 모든 송금 시장으로 일반화된다고 가정하면 ODL 의 시장 침투 가능성을 추정할 수 있지만, 일본의 특수성(SBI 의 Ripple 지분 보유, JFSA 와의 협력) 때문에 단순 적용이 어렵습니다.
+
+## 6. 가치 포착 — XRP 토큰으로의 흐름
+
+| 채널 | 메커니즘 | 2025 누적 |
+|------|---------|----------|
+| **트랜잭션 수수료** | 모든 트랜잭션이 소량 XRP 소각 | ~5.5M XRP (~$10M) |
+| **ODL 브리지** | USD ↔ 현지 화폐 사이에 XRP 가 일시 매수-매도 | XRP 토큰 자체에는 흐름 X (단순 회전) |
+| **검증자 수수료** | XRPL 검증자에게 직접 보상 X | $0 |
+
+핵심 발견 — **ODL 거래량은 XRP 가격에 직접적 가치 포착을 만들지 않습니다**. ODL 은 일시적 매수-매도이므로 거래량이 늘어도 보유자 잔액 증가에 비례하지 않습니다. 트랜잭션 수수료의 burn 도 연 ~5.5M XRP 로 매우 작음 (시총 대비 0.005%).
+
+이게 XRP 의 본질적 평가 어려움 — *"많이 사용되지만 가치 포착 메커니즘이 약합니다"*.
+
+<Callout type="opposing-view" title="반대 시각 · XRP 의 자산 가치는 사용량과 별개">
+XRP 옹호 시각의 카운터 — XRP 의 가치는 *"브리지 자산으로서의 지배적 위치 자체"* 에서 옵니다. 마치 외환 시장에서 USD 가 주력 브리지 통화이듯, XRP 가 글로벌 결제 브리지가 되면 그 위치 자체가 가치를 만듭니다(*reserve currency premium*). Lyn Alden 의 *Broken Money* 가 같은 framework 를 화폐론에 적용. 그러나 이 가설이 검증되려면 ODL 점유율이 SWIFT 대비 의미 있는 수준에 도달해야 하고, 현재(0.005%)는 그 단계가 아닙니다.
+</Callout>
+
+## 결론 — 6-B 가 정리하는 것
+
+XRPL 의 사용 데이터는 — 거래량(일 3M 트랜잭션)과 ODL 거래량(연 $88B)이 가속하지만, XRP 토큰의 가치 포착 메커니즘은 약합니다. RWA $474M 과 RLUSD $3.4B 가 인프라 사용처를 늘리지만 XRP 토큰 보유자의 직접 수익으로 이어지지 않습니다.
+
+다음 편(#6-C) — Ripple Labs 의 보유 집중도와 거버넌스 리스크. XRP 의 가치 포착 약점이 단순 토크노믹스 문제가 아니라 거버넌스 구조의 문제임을 봅니다.
