@@ -703,6 +703,32 @@ export const RESEARCH_TOPICS: readonly ResearchTopic[] = [
       },
     ],
   },
+  {
+    id: "global-100-catalog",
+    name: "글로벌 가상자산 학술 자료 100선 카탈로그",
+    field: "Global-Academia",
+    signature: "Fed · ECB · BIS · IMF · MIT · Stanford · Top journal · 100+선",
+    description:
+      "글로벌 중앙은행 (Fed, ECB, BOJ, PBOC, BOE) + 국제기구 (BIS, IMF, FSB, FATF, OECD) + 학계 (MIT, Stanford, Cornell, Princeton, Oxford, Cambridge, ETH Zurich) + Top journal (Nature, Science, JF, RFS) 의 100+ 가상자산 학술 자료 통합 카탈로그",
+    keyPapers: [
+      {
+        authors: "다수 (글로벌 중앙은행 + 학계)",
+        year: 2024,
+        title: "글로벌 가상자산 학술 자료 100+선",
+        venue: "통합 카탈로그",
+        url: "https://www.bis.org/",
+      },
+    ],
+    subIssues: [
+      {
+        slug: "research-global-100-catalog",
+        label: "#P21",
+        title: "글로벌 가상자산 학술 자료 100선 — 통합 카탈로그",
+        publishedAt: "2027-05-27",
+        scope: "Fed · ECB · BOJ · PBOC · BIS · IMF · 미국 + 유럽 + 아시아 학계 100+선",
+      },
+    ],
+  },
 ] as const;
 
 export const RESEARCH_FIELD_COLOR: Record<ResearchField, string> = {
