@@ -52,9 +52,18 @@ GitHub Actions → GitHub Pages
 npm install
 npm run dev          # http://localhost:3000
 npm run build        # → out/ 정적 빌드
+npm run lint         # ESLint
 ```
 
 `next.config.ts` 의 `basePath` 는 `production` 빌드에서만 `/luxon-crypto-lab` 적용 (로컬 dev 영향 없음).
+
+### Pre-commit hook 활성화 (1회)
+
+```bash
+git config core.hooksPath .githooks
+```
+
+VPS IP · 실명 · 토큰 · private key 등 금지 패턴을 staged 파일에서 자동 grep. 발견 시 commit 차단.
 
 ---
 

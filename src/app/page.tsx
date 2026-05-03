@@ -5,6 +5,7 @@ import { GlowText } from "@/components/neon/GlowText";
 import { GridBackground } from "@/components/neon/GridBackground";
 import { HashBadge } from "@/components/neon/HashBadge";
 import { TerminalBox } from "@/components/neon/TerminalBox";
+import { MotionFadeIn } from "@/components/neon/MotionFadeIn";
 
 export default function HomePage() {
   const posts = getAllPosts().slice(0, 6);
@@ -47,46 +48,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="mb-8 flex items-end justify-between border-b border-[var(--border-soft)] pb-4">
-          <h2 className="font-mono text-2xl font-bold uppercase tracking-wider text-[var(--neon-cyan)] glow-cyan">
-            ▎12-month roadmap
-          </h2>
-          <Link href="/roadmap/" className="font-mono text-xs uppercase tracking-wider text-[var(--text-2)] hover:text-[var(--neon-cyan)]">
-            View all →
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-          {COINS.map((coin) => (
-            <Link
-              key={coin.symbol}
-              href={`/coins/${coin.symbol.toLowerCase()}/`}
-              className="group glass rounded p-3 transition-all hover:ring-neon"
-            >
-              <div className="mb-2 flex items-center justify-between font-mono text-xs text-[var(--text-3)]">
-                <span>#{String(coin.issue).padStart(2, "0")}</span>
-                <span>{coin.scheduledMonth}</span>
-              </div>
-              <div className="mb-2">
-                <HashBadge symbol={coin.symbol} category={coin.category} size="sm" />
-              </div>
-              <div className="text-xs leading-snug text-[var(--text-2)] group-hover:text-[var(--text-1)]">
-                {coin.signature}
-              </div>
+      <MotionFadeIn>
+        <section className="mx-auto max-w-6xl px-6 py-16">
+          <div className="mb-8 flex items-end justify-between border-b border-[var(--border-soft)] pb-4">
+            <h2 className="font-mono text-2xl font-bold uppercase tracking-wider text-[var(--neon-cyan)] glow-cyan">
+              ▎12-month roadmap
+            </h2>
+            <Link href="/roadmap/" className="font-mono text-xs uppercase tracking-wider text-[var(--text-2)] hover:text-[var(--neon-cyan)]">
+              View all →
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+            {COINS.map((coin, i) => (
+              <MotionFadeIn key={coin.symbol} delay={i * 0.04} y={12}>
+                <Link
+                  href={`/coins/${coin.symbol.toLowerCase()}/`}
+                  className="group glass block rounded p-3 transition-all hover:ring-neon"
+                >
+                  <div className="mb-2 flex items-center justify-between font-mono text-xs text-[var(--text-3)]">
+                    <span>#{String(coin.issue).padStart(2, "0")}</span>
+                    <span>{coin.scheduledMonth}</span>
+                  </div>
+                  <div className="mb-2">
+                    <HashBadge symbol={coin.symbol} category={coin.category} size="sm" />
+                  </div>
+                  <div className="text-xs leading-snug text-[var(--text-2)] group-hover:text-[var(--text-1)]">
+                    {coin.signature}
+                  </div>
+                </Link>
+              </MotionFadeIn>
+            ))}
+          </div>
+        </section>
+      </MotionFadeIn>
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="mb-8 flex items-end justify-between border-b border-[var(--border-soft)] pb-4">
-          <h2 className="font-mono text-2xl font-bold uppercase tracking-wider text-[var(--neon-magenta)] glow-magenta">
-            ▎latest posts
-          </h2>
-          <Link href="/posts/" className="font-mono text-xs uppercase tracking-wider text-[var(--text-2)] hover:text-[var(--neon-magenta)]">
-            All posts →
-          </Link>
-        </div>
+      <MotionFadeIn>
+        <section className="mx-auto max-w-6xl px-6 py-16">
+          <div className="mb-8 flex items-end justify-between border-b border-[var(--border-soft)] pb-4">
+            <h2 className="font-mono text-2xl font-bold uppercase tracking-wider text-[var(--neon-magenta)] glow-magenta">
+              ▎latest posts
+            </h2>
+            <Link href="/posts/" className="font-mono text-xs uppercase tracking-wider text-[var(--text-2)] hover:text-[var(--neon-magenta)]">
+              All posts →
+            </Link>
+          </div>
         {posts.length === 0 ? (
           <TerminalBox title="status" blink>
             첫 글은 2026년 6월 1일 발행 예정 — Bitcoin: 디지털 금인가?
@@ -115,7 +120,8 @@ export default function HomePage() {
             ))}
           </div>
         )}
-      </section>
+        </section>
+      </MotionFadeIn>
     </>
   );
 }
