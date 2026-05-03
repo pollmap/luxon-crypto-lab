@@ -1,0 +1,82 @@
+---
+slug: onchain-difficulty-ribbon
+title: "Difficulty Ribbon — 채굴자 항복 + 회복 패턴"
+subtitle: Difficulty Ribbon 정의 · compression vs expansion · 가격 bottom 식별 (On-Chain 시리즈 #O15)
+publishedAt: "2027-11-22"
+category: Series
+tags: [difficulty-ribbon, willy-woo, miner-capitulation, glassnode]
+estimatedReadTime: 9
+draft: true
+sources:
+  - name: "Woo, W. — Difficulty Ribbon Original Article (2019)"
+    url: https://woobull.com/introducing-difficulty-ribbon/
+  - name: "Glassnode — Difficulty Ribbon Indicator"
+    url: https://academy.glassnode.com/indicators/difficulty-ribbon
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Willy Woo 의 Difficulty Ribbon — BTC 채굴 난이도의 9개 EMA 의 압축/확장 패턴. compression = 채굴자 항복, expansion = 채굴자 회복. 4 사이클 검증.
+</Callout>
+
+## 도입 — *"난이도 ribbon"*
+
+Willy Woo 가 2019년 발표한 framework — Difficulty Ribbon. BTC 채굴 난이도 (difficulty) 의 9개 EMA (지수이동평균) 의 *"compression"* (수렴) vs *"expansion"* (확장) 패턴.
+
+## 1. Difficulty Ribbon 정의
+
+9개 EMA:
+- 9 day, 14, 25, 40, 60, 90, 128, 200, 1년
+
+이 9개를 동시 plot. 정상 시기 — 9개 EMA 가 *"확장"* (서로 멀어짐). 채굴자 항복 시 — 9개 EMA 가 *"수렴"*.
+
+## 2. 작동 메커니즘
+
+### 2-1. Compression
+BTC 가격 폭락 → 채굴자 마진 음수 → 일부 채굴자 종료 → 글로벌 해시레이트 하락 → 난이도 자동 하향 조정 (2주마다) → 9개 EMA 수렴 (compression).
+
+### 2-2. Expansion
+가격 회복 → 채굴자 마진 양수 → 새 채굴자 진입 → 해시레이트 가속 → 난이도 가속 → EMA 확장.
+
+## 3. 4 사이클 검증
+
+| 시점 | 단계 | 가격 결과 |
+|------|------|---------|
+| 2014.12 | Compression | bottom 직전 |
+| 2018.12 | Compression | bottom 직전 |
+| 2022.7 | Compression | bottom 직전 |
+| 2024.4 (반감기) | Compression (인위적) | 정상 |
+| 2025.10 | Expansion | 가속 |
+
+**4 사이클 모두 compression 시점이 가격 bottom 1-3개월 전**. 가장 정확한 bottom indicator.
+
+## 4. 반감기 후의 인위적 Compression
+
+반감기 직후 — 일부 채굴자 마진 음수 → 일시 종료. 이는 *"일시 compression"* 만들 가능. 진정한 항복 신호 X.
+
+이를 보정 — 반감기 후 6개월 동안 compression 신호 무시 권장.
+
+## 5. ETF 시대의 변화
+
+2024 ETF 출시 후 — 채굴자가 *"ETF 매수 압력"* 으로 마진 안정. Compression 신호 부재. *"새로운 동력 시기"*.
+
+<Callout type="opposing-view" title="반대 시각 · Difficulty Ribbon 의 학술적 한계">
+첫째, **9개 EMA 의 임의성**.
+
+둘째, **반감기 후 인위적 compression** 위험.
+
+셋째, **ETF 시대 채굴자 마진 안정** = compression 신호 자체 부재 가능.
+
+이 비판이 의미 — Difficulty Ribbon 이 *"역사 검증"* 됐지만 *"미래 적용"* 불확실.
+</Callout>
+
+## 결론
+
+1. **Compression = 채굴자 항복 = bottom 임박** (4 사이클 검증).
+2. **반감기 후 6개월 신호 무시 권장**.
+3. **ETF 시대 패턴 변화 가능**.
+
+ONCHAIN 시리즈 종결. 다음은 자산/기업/사기 카테고리.

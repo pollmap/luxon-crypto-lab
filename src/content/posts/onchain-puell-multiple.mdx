@@ -1,0 +1,89 @@
+---
+slug: onchain-puell-multiple
+title: "Puell Multiple — 채굴자 수익성 사이클"
+subtitle: Puell Multiple 정의 · 임계 · 4 반감기 사이클 (On-Chain 시리즈 #O10)
+publishedAt: "2027-10-18"
+category: Series
+tags: [puell-multiple, miner, cycle, glassnode]
+estimatedReadTime: 9
+draft: true
+sources:
+  - name: "Glassnode — Puell Multiple Methodology"
+    url: https://academy.glassnode.com/indicators/puell-multiple
+  - name: "Puell, D. — Original Puell Multiple Article (2019)"
+    url: https://medium.com/unconfiscatable
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+David Puell 의 Puell Multiple 이 *"채굴자 수익성"* 의 사이클을 정량화. 0.5 미만 = 채굴자 항복, 4 초과 = 채굴자 광풍. 4 반감기 사이클 모두에서 검증.
+</Callout>
+
+## 도입 — *"채굴자가 시장의 leading indicator"*
+
+가상자산 시장의 가장 흥미로운 발견 — **채굴자 수익성이 시장 사이클의 leading indicator**. David Puell 이 2019년 발표한 Puell Multiple 이 이 가설의 정량화.
+
+## 1. 정의
+
+```
+Puell Multiple = 일 신규 발행 USD 가치 / 365일 평균
+```
+
+- *"신규 발행 USD 가치"* = (블록 보상 BTC) × (현재 BTC 가격) × (일 블록 수)
+- 365일 평균 = 위 가치의 1년 평균
+
+## 2. 임계
+
+| Puell Multiple | 단계 |
+|----------------|------|
+| < 0.5 | 채굴자 항복 (capitulation) |
+| 0.5 - 2.0 | 정상 |
+| 2.0 - 4.0 | 채굴자 가속 |
+| > 4.0 | 채굴자 광풍 (top zone) |
+
+## 3. 4 반감기 검증
+
+| 시점 | Puell | 결과 |
+|------|-------|------|
+| 2011.6 | 5.2 (top) | -94% 폭락 |
+| 2014.1 | 4.8 (top) | -85% 폭락 |
+| 2015.1 | 0.4 (bottom) | +400% 반등 |
+| 2017.12 | 4.5 (top) | -85% 폭락 |
+| 2018.12 | 0.3 (bottom) | +600% 반등 |
+| 2021.4 | 5.5 (top) | -50% 조정 |
+| 2022.6 | 0.4 (bottom) | +6배 반등 |
+| 2024.4 (반감기 직후) | 1.8 | 정상 |
+| 2026.1 | 2.4 | 약간 가속 |
+
+**4 사이클 모두 Puell > 4 후 폭락, < 0.5 후 반등**.
+
+## 4. 반감기와의 관계
+
+반감기 직후 — Puell 이 일시적으로 0.5 근처로 떨어집니다. 신규 발행이 절반이 되면 365일 평균보다 신규 발행이 작아짐. 이는 *"인위적 항복 신호"* 일 수 있음.
+
+이 효과로 — 반감기 후 6개월간 Puell 의 *"진정한 항복 신호"* 식별 어려움.
+
+## 5. 한국 시장 적용
+
+한국 채굴 산업 비중 ~0.02% (#1-B). Puell Multiple 이 한국 채굴자 영향 거의 X. 한국 사용자에게 직접 trading signal.
+
+<Callout type="opposing-view" title="반대 시각 · Puell Multiple 의 한계">
+첫째, **반감기 효과로 인한 인위적 항복 신호**.
+
+둘째, **mining 산업의 효율 가속**. 효율 좋은 채굴기 (S21, S23) 등장으로 같은 BTC 가격에 채굴자 수익이 가속. 임계 자체가 시간에 따라 변할 가능성.
+
+셋째, **ETF 시대의 채굴자 영향력 감소**. ETF $96B 이 채굴자 매도 흡수. 채굴자 항복이 가격에 미치는 영향이 점차 작아짐.
+
+이 비판이 의미 — Puell 이 *"식별 도구"* 이지만 ETF 시대에 의미 변화 가능.
+</Callout>
+
+## 결론
+
+1. **Puell < 0.5 = 채굴자 항복, > 4 = 광풍**.
+2. **4 사이클 검증 정확도 매우 높음**.
+3. **반감기 후 6개월간 신호 왜곡 위험**.
+
+다음 편(#O11) — Mayer Multiple + Pi Cycle Top.

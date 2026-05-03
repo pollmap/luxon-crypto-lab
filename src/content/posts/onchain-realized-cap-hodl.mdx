@@ -1,0 +1,110 @@
+---
+slug: onchain-realized-cap-hodl
+title: "Realized Cap + HODL Waves — cohort 분석"
+subtitle: Realized Cap 진화 · HODL Waves 6 cohort · LTH vs STH (On-Chain 시리즈 #O12)
+publishedAt: "2027-11-01"
+category: Series
+tags: [realized-cap, hodl-waves, cohort, lth, sth]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Glassnode — HODL Waves"
+    url: https://studio.glassnode.com/metrics?a=BTC&category=indicators&m=supply.HodlWaves
+  - name: "Glassnode — Realized Capitalization"
+    url: https://academy.glassnode.com/indicators/realized-capitalization
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Realized Capitalization 의 시간 진화 + HODL Waves 의 6 cohort 분석. *"누가 얼마나 오래 BTC 를 보유하고 있는가"* 의 가장 학술적 framework. Supply shock 의 식별.
+</Callout>
+
+## 도입 — *"BTC 의 cohort"*
+
+BTC 보유자를 *"보유 기간"* 별로 분류 — HODL Waves. Glassnode 가 2018년 처음 발표한 framework. 가상자산 학계에서 가장 인용되는 cohort 분석.
+
+## 1. Realized Capitalization
+
+### 1-1. 정의
+```
+Realized Cap = Σ (각 BTC 의 마지막 이전 시점 가격)
+```
+
+즉 *"all BTC holders 의 평균 매수 가격"* × *"발행량"*. *"on-chain cost basis"*.
+
+### 1-2. 시간 진화
+| 시점 | Realized Cap |
+|------|-------------|
+| 2013.1 | $0.5B |
+| 2017.1 | $5B |
+| 2021.1 | $200B |
+| 2024.1 | $440B |
+| 2026.1 | **$680B** |
+
+Realized Cap 의 가속이 — *"새 자금이 시장에 진입"* 의 정량 측정. Market Cap 대비 Realized Cap 비율 = MVRV (#P4, #O9).
+
+## 2. HODL Waves — 6 Cohort
+
+### 2-1. 분류
+보유 기간별 BTC 비율:
+- **< 1일** (very short)
+- **1일 - 1주**
+- **1주 - 1달**
+- **1달 - 3달**
+- **3달 - 1년**
+- **1-2년**
+- **2-3년**
+- **3-5년**
+- **5-7년**
+- **7-10년**
+- **10년+**
+
+### 2-2. LTH vs STH 임계
+- **STH** (Short-Term Holder) = < 155일
+- **LTH** (Long-Term Holder) = ≥ 155일
+
+#O6 에서 자세히. 155일 임계가 *"학습된 임계"*.
+
+## 3. Supply Shock 의 식별
+
+### 3-1. *"Supply Shock"* 의 정의
+**Supply Shock** = 단기간 사용 가능 BTC 가 갑자기 줄어드는 현상. LTH 비중 가속 + ETF 유출 등이 결합.
+
+### 3-2. 사례
+2024.1 ETF 출시 후 — IBIT 가 BTC 1.2M 매수. 이는 LTH cohort 가속 (ETF 보유 BTC 가 long-term 보유로 분류). LTH 비중 75% → 80% 가속.
+
+이 *"supply shock"* 이 가격 +60% 가속의 직접 원인 가설.
+
+## 4. *"Realized Profit/Loss"*
+
+### 4-1. 정의
+매도 시점의 *"실현 수익/손실"* = (매도 가격 - 매수 가격) × BTC 수량.
+
+### 4-2. 사이클 신호
+- **Realized Profit 가속** = 사용자 수익 매도 가속 = top 임박
+- **Realized Loss 가속** = 사용자 항복 매도 가속 = bottom 임박
+
+## 5. 한국 시장
+
+한국 사용자의 평균 보유 기간 ~110일 (#O6). 글로벌 (~180일) 보다 짧음. 한국 STH 비중 큼 → HODL Waves 분포가 글로벌 대비 단기 cohort 가속.
+
+<Callout type="opposing-view" title="반대 시각 · HODL Waves 의 ETF 영향">
+첫째, **ETF 가 LTH 로 카운팅** = 인위적 LTH 가속. 신호 왜곡.
+
+둘째, **사라진 BTC 4M 이 영원히 LTH** = baseline 왜곡.
+
+셋째, **155일 임계 임의성**.
+
+이 비판이 의미 — HODL Waves 가 *"질적 도구"* 이지 *"absolute signal"* 이 아닙니다.
+</Callout>
+
+## 결론
+
+1. **Realized Cap = on-chain cost basis**. 2026 $680B.
+2. **HODL Waves cohort + LTH/STH 155일 임계**.
+3. **Supply Shock 식별 — ETF 가속 + LTH 가속**.
+
+다음 편(#O13) — Active Addresses + Metcalfe's Law.

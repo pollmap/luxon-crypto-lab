@@ -1,0 +1,98 @@
+---
+slug: onchain-ssr-stablecoin-power
+title: "SSR — 스테이블 자금의 매수 대기 정량"
+subtitle: SSR 정의 · 임계 영역 · 스테이블 발행 가속과 BTC 가격의 lag (On-Chain 시리즈 #O14)
+publishedAt: "2027-11-15"
+category: Series
+tags: [ssr, stablecoin, dry-powder, glassnode]
+estimatedReadTime: 9
+draft: true
+sources:
+  - name: "Glassnode — Stablecoin Supply Ratio (SSR)"
+    url: https://academy.glassnode.com/indicators/ssr
+  - name: "CoinMetrics — Stablecoin Market Data"
+    url: https://coinmetrics.io/community-data
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+SSR (Stablecoin Supply Ratio) = BTC 시가총액 / 글로벌 스테이블 시가총액. SSR 낮음 = 스테이블 자금 많음 = *"매수 dry powder"* 가속. 이 framework 의 BTC 가격 lag.
+</Callout>
+
+## 도입 — *"스테이블이 매수 dry powder"*
+
+가상자산 시장에서 USDT + USDC + RLUSD 같은 스테이블이 *"매수 자금 대기"* 의 역할. 즉 사용자가 *"비트코인 매수 직전 스테이블 보유"*. 스테이블 시총 가속 = *"매수 power 가속"*.
+
+이 framework 의 정량 — **SSR (Stablecoin Supply Ratio)**.
+
+## 1. SSR 정의
+
+```
+SSR = BTC 시가총액 / 글로벌 스테이블 시가총액
+```
+
+2026 Q1 기준:
+- BTC 시총 ~$2T
+- 글로벌 스테이블 시총 ~$280B
+- SSR = ~7.1
+
+## 2. 임계 영역
+
+| SSR | 의미 |
+|-----|------|
+| < 5 | 스테이블 자금 매우 풍부 (강한 매수 power) |
+| 5-15 | 정상 |
+| 15-25 | 스테이블 자금 부족 (약한 매수 power) |
+| > 25 | 매우 부족 (매수 power 거의 X) |
+
+## 3. 시간 변화
+
+| 시점 | SSR | 가격 결과 |
+|------|-----|---------|
+| 2017.12 | ~25 (top) | -85% 폭락 |
+| 2018.12 | ~22 | bottom 직전 |
+| 2020.3 | ~6.0 | 가속 매수 power |
+| 2020.12 | ~9 | 정상 |
+| 2022.6 | ~10 | bottom |
+| 2024.1 (ETF) | ~7.5 | 매수 가속 |
+| 2026.1 | **7.1** | 정상-강세 |
+
+**SSR 5-10 = 가격 가속 단계**. *"스테이블 자금이 BTC 로 이동"*.
+
+## 4. ETF 시대의 SSR 변화
+
+2024 ETF 출시 후 — ETF 가 USD 직접 사용 (스테이블 X). 그러므로 SSR 이 *"전체 매수 power"* 의 일부만 capture. ETF 자금 ($96B) 가 SSR 외부.
+
+학술적 보정:
+```
+True Buying Power = 스테이블 시총 + ETF 미투자 cash position
+```
+
+이 보정 후 *"true SSR"* 계산 시 SSR 7.1 이 더 낮을 수도 (매수 power 더 큼).
+
+## 5. 한국 사용자
+
+한국 사용자가 KRW 직접 입금 (USDT/USDC 보다 KRW 페어 사용). 그러므로 SSR 이 한국 매수 power 를 정확히 capture 못함.
+
+한국형 보정 — *"BTC KRW 시총 / 한국 거래소 KRW 잔액"*. 그러나 이 데이터가 공개 X.
+
+<Callout type="opposing-view" title="반대 시각 · SSR 의 ETF 시대 한계">
+첫째, **ETF 외부 자금 미반영**.
+
+둘째, **스테이블 사용 다양화** — DeFi, RWA, savings (Anchor 같은) 사용. 스테이블 시총 가속이 BTC 매수 power 가속을 직접 의미 X.
+
+셋째, **한국 KRW 페어 미반영**.
+
+이 비판이 의미 — SSR 이 *"부분 신호"* 이지 *"completeness"* 부족.
+</Callout>
+
+## 결론
+
+1. **SSR < 5 = 매수 dry powder 풍부, > 25 = 부족**.
+2. **2020-2024 가속 시점 SSR 5-10**.
+3. **ETF 시대 SSR 보정 필요**.
+
+다음 편(#O15) — Difficulty Ribbon. 채굴자 항복 + 회복 패턴.
