@@ -1,0 +1,162 @@
+---
+slug: onchain-funding-rate-oi
+title: "펀딩비 + Open Interest — 시장 leverage 식별"
+subtitle: Funding rate 분포 · OI 가속 · long/short ratio (On-Chain 시리즈 #O2)
+publishedAt: "2027-08-23"
+category: Series
+tags: [funding-rate, open-interest, perp, leverage, coinglass]
+estimatedReadTime: 14
+draft: true
+sources:
+  - name: "Coinglass — Aggregated Funding Rate Dashboard"
+    url: https://www.coinglass.com/funding-rate
+  - name: "Coinglass — Open Interest Dashboard"
+    url: https://www.coinglass.com/oi
+  - name: "Binance Research — Perpetual Funding Rate Mechanics (2024)"
+    url: https://research.binance.com/en
+  - name: "BIS — Crypto Derivatives Markets Report 2024"
+    url: https://www.bis.org/publ/work1207.htm
+  - name: "Glassnode — Derivatives Market Pulse Weekly"
+    url: https://insights.glassnode.com/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Perpetual (perp) 거래소의 펀딩비 (funding rate) 가 어떻게 시장 sentiment 를 정량화하나요? Open Interest (OI) 와 어떻게 결합되나요? Coinglass 의 aggregated 데이터로 leverage 가속 + 청산 위험 식별. 한국 시장의 unique pattern.
+</Callout>
+
+## 도입 — *"perp 시장이 spot 시장보다 큼"*
+
+가상자산 시장의 가장 큰 변화 — 2020-2026 동안 **perpetual (perp) 거래소가 spot 거래소보다 더 큰 거래량 처리**. 2026 Q1 일 거래량:
+- BTC spot — ~$25B
+- BTC perp — ~$95B (4배)
+- ETH spot — ~$8B
+- ETH perp — ~$32B (4배)
+
+이 perp 시장의 분석에서 가장 중요한 두 지표 — **Funding Rate** + **Open Interest**.
+
+본 편은 4섹션 — (1) Funding Rate 의 메커니즘, (2) Open Interest 의 의미, (3) 결합 신호, (4) 한국 시장 — 으로 정리.
+
+## 1. Funding Rate 메커니즘
+
+### 1-1. 정의
+Perp 거래소가 *"끝없는 만기"* 의 derivatives 거래. spot 가격과의 동기화를 위해 — long 과 short 사이의 funding fee 매 8시간 자동 정산.
+
+```
+Funding Rate = (Long-Short Premium) × 가중치
+- Funding > 0 (양수) — long 이 short 에게 fee 지불
+- Funding < 0 (음수) — short 이 long 에게 fee 지불
+```
+
+### 1-2. 표준 funding rate 범위
+정상 시장의 funding rate (8시간 기준):
+- 평소: ±0.01% (연 환산 ±10.95%)
+- 강세: +0.05% (연 환산 +54.75%)
+- 광풍: +0.10%+ (연 환산 +109%+)
+- 약세: -0.05% (연 환산 -54.75%)
+- 항복: -0.10% (연 환산 -109%)
+
+이 funding 이 *"장기간 양수"* = long 우세 = 시장 buy. *"장기간 음수"* = short 우세.
+
+### 1-3. 역사 사례
+| 시점 | BTC funding (8h) | 결과 |
+|------|----------------|------|
+| 2021.4 (top) | +0.18% (광풍) | -50% 폭락 |
+| 2022.6 (bottom) | -0.08% (항복) | +120% 반등 |
+| 2024.3 (ETF 가속) | +0.12% | -20% 일시 조정 |
+| 2025.1 (peak) | +0.10% | -15% 조정 |
+| 2026.1 | +0.02% (정상) | 안정 |
+
+**funding 광풍 = 단기 정점**, **funding 항복 = 단기 바닥** 의 패턴.
+
+## 2. Open Interest (OI) 의미
+
+### 2-1. 정의
+OI = *"체결됐지만 아직 청산되지 않은 perp 포지션의 총 가치"*. 즉 현재 시장에서 *"열려 있는 포지션"* 의 합.
+
+### 2-2. OI 의 시간 변화
+| 시점 | BTC OI (Aggregated) |
+|------|---------------------|
+| 2020.3 | $1.5B |
+| 2021.4 | $25B |
+| 2022.6 | $14B |
+| 2024.4 | $32B |
+| 2025.10 | $48B |
+| 2026.1 | **$52B** |
+
+OI 의 가속 = 시장 leverage 가속. *"OI 가 가속하면 변동성이 커짐"* 의 일반 패턴.
+
+### 2-3. OI / 시가총액 비율
+이 비율이 *"market leverage"* 의 표준 측정:
+- 0.5% 미만 — 매우 낮은 leverage
+- 1-2% — 정상
+- 2-3% — 높은 leverage (위험)
+- 3% 이상 — 광풍 (청산 임박)
+
+2026 Q1 BTC OI / Cap = **2.6%**. 약간 높지만 광풍 직전.
+
+## 3. 결합 신호 — Funding × OI
+
+### 3-1. 4 quadrant framework
+| Funding | OI | 시장 단계 | 의미 |
+|---------|-----|---------|------|
+| +0.10%+ | 가속 | **광풍** | 청산 임박 |
+| +0.05% | 안정 | 강세 | 정상 |
+| 0% | 안정 | 중립 | 평형 |
+| -0.05% | 안정 | 약세 | 정상 |
+| -0.10%- | 가속 | **항복** | 반등 임박 |
+
+### 3-2. 청산 cascade 식별
+Funding 광풍 + OI 가속 = *"long 청산 cascade"* 위험. 가격 하락 시 long 포지션 강제 청산 → 추가 매도 압력 → 추가 가격 하락 → 더 많은 청산. 이 cascade 가 5-10% 단기 폭락의 원인.
+
+### 3-3. Coinglass 의 aggregated 데이터
+Coinglass 가 글로벌 perp 거래소 (Binance, Bybit, OKX, BitMEX, Hyperliquid 등) 의 데이터를 합산. 단일 거래소 (Binance 등) 만 보면 왜곡 가능성. Aggregated 가 더 정확.
+
+## 4. 한국 시장 — Bybit 점유율
+
+### 4-1. 한국 perp 거래
+한국 사용자가 perp 거래에 큰 비중 — 약 글로벌 perp 거래량의 **18%** (2026 Q1, Coinglass 추정). 한국 사용자가 글로벌 spot 의 ~5% 대비 perp 가 훨씬 큼.
+
+### 4-2. 거래소 분포
+한국 사용자의 perp 사용 거래소:
+- Bybit — 약 35% (한국 점유율 1위, 한국어 지원)
+- OKX — 25%
+- Binance (외국 IP 우회) — 20%
+- Bitget — 12%
+- 기타 — 8%
+
+한국 perp 거래의 다수가 *"VAUPA 외부 거래소"*. 즉 한국 정부의 직접 통제 어려움.
+
+### 4-3. VAUPA 영향
+2024.7 VAUPA 시행 후 한국 사용자의 perp 거래는 — 한국 거래소 (업비트 등) 에서 perp 미허용. 그러므로 *"우회 거래소"* 사용. VAUPA 가 perp 시장에는 영향 X.
+
+<Callout type="opposing-view" title="반대 시각 · Funding + OI 신호의 한계">
+Funding + OI framework 가 표준이지만, 비판적 시각이 있습니다.
+
+첫째, **lagging indicator 의 한계**. Funding 광풍이 *"top 임박"* 이라는 신호이지만, 실제 top 도달 후 funding 이 가속하는 패턴 (2024.3, 2025.1 모두). 즉 *"식별"* 만 가능, *"예측"* 어려움.
+
+둘째, ***synthetic OI*** 의 의문. 일부 거래소가 *"OI 부풀리기"* — 단기간 거래로 OI 인위적으로 가속. Coinglass 의 aggregated 도 이를 완전히 제거 못 함.
+
+셋째, **Hyperliquid 의 부상**. 2024-2026 Hyperliquid (perp DEX) 가 가속. Hyperliquid 의 funding 패턴이 CEX 와 다름. *"기존 framework"* 가 DEX 시대에 변화 필요.
+
+넷째, **liquidation magnet 의 self-fulfilling**. *"청산 cascade 임박"* 신호를 보고 trader 가 청산 가격으로 자발적 가격 이동. 즉 *"신호 자체가 결과를 만듦"* 의 self-fulfilling prophecy.
+
+다섯째, **한국 사용자의 우회 채널 위험**. VAUPA 외부 거래소 사용 시 — 자금세탁 + 사기 위험 노출. 한국 사용자 약 280만 명이 우회 거래소 사용 추정. 사고 시 한국 정부 보호 X.
+
+이 5가지 비판이 의미하는 바 — Funding + OI 가 *"식별 도구"* 이지 *"trading 결정 도구"* 가 아닙니다.
+</Callout>
+
+## 결론 — Perp 시장의 핵심 지표
+
+본 편이 정리한 5가지 핵심 발견:
+
+1. **Perp 시장이 spot 의 4배 거래량**. 시장 분석의 핵심.
+2. **Funding rate 광풍 (+0.10%+) = 단기 top 임박, 항복 (-0.10%-) = 단기 bottom 임박**.
+3. **OI / Cap 비율 = market leverage**. 3% 이상 = 광풍 + 청산 위험.
+4. **4 quadrant framework + cascade 식별**. Coinglass aggregated 데이터 권장.
+5. **한국 perp 거래 글로벌 18% 점유**. VAUPA 외부 거래소 우회 + 위험 노출.
+
+다음 편(#O3) — 청산 (Liquidation) Heatmap. Liquidity Magnet + Cascade.

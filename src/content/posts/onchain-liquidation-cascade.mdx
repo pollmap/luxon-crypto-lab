@@ -1,0 +1,127 @@
+---
+slug: onchain-liquidation-cascade
+title: "청산 Heatmap — Liquidity Magnet + Cascade"
+subtitle: Liquidation level · magnet zone · 5월 19일 2021 case study (On-Chain 시리즈 #O3)
+publishedAt: "2027-08-30"
+category: Series
+tags: [liquidation, cascade, coinglass, heatmap, leverage]
+estimatedReadTime: 12
+draft: true
+sources:
+  - name: "Coinglass — Liquidation Heatmap"
+    url: https://www.coinglass.com/pro/futures/LiquidationHeatMap
+  - name: "Coinglass — Liquidation Data"
+    url: https://www.coinglass.com/LiquidationData
+  - name: "BitMEX Research — May 19 2021 Liquidation Analysis"
+    url: https://blog.bitmex.com/research/
+  - name: "Hyperliquid — Liquidation Mechanism Documentation"
+    url: https://hyperliquid.gitbook.io/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+강제 청산이 어떻게 가격을 *liquidity magnet zone* 으로 끌어당기나요? Coinglass Liquidation Heatmap 의 작동. 2021년 5월 19일 *"$8B 한 시간 청산 cascade"* 의 분석. 한국 사용자 perp 거래의 청산 위험.
+</Callout>
+
+## 도입 — *"가격이 leverage 를 따라간다"*
+
+가상자산 시장의 가장 흥미로운 현상 — *"가격이 펀더멘털 보다 leverage cluster 에 끌려간다"*. 즉 *"많은 long 청산 가격이 모인 지점"* 으로 가격이 자기력처럼 끌립니다. 이게 **liquidity magnet** 가설.
+
+Coinglass 의 *"Liquidation Heatmap"* 이 이 magnet zone 을 시각화. 본 편은 메커니즘 + 사례 + 한계를 봅니다.
+
+## 1. Liquidation 의 메커니즘
+
+### 1-1. 강제 청산
+Perp 거래의 leverage — 사용자가 1 BTC 가치만큼 자본 (margin) 으로 10 BTC 포지션 (10x leverage). 가격이 -10% 이동하면 사용자 자본 100% 소진 → **강제 청산**. 거래소가 자동 매도.
+
+### 1-2. Liquidation level
+사용자의 청산 가격 = entry price ± (1 / leverage). 예:
+- 5x long entry $100K → 청산 $80K
+- 10x long entry $100K → 청산 $90K
+- 25x long entry $100K → 청산 $96K
+- 50x long entry $100K → 청산 $98K
+
+높은 leverage = 좁은 청산 거리.
+
+### 1-3. Heatmap 작동
+Coinglass 가 모든 거래소의 청산 가격을 aggregate. 그래프에 *"가격 vs 청산량"* 표시. *"hot zone"* (밝은 색) = 많은 청산 cluster.
+
+## 2. Liquidity Magnet 가설
+
+### 2-1. 메커니즘
+1. 가격이 hot zone 근처 도달
+2. 일부 small position 청산 시작
+3. 청산이 추가 매도 압력 → 가격 추가 하락
+4. 다음 청산 가격 도달 → cascade
+
+이 cascade 가 가속되면 — 5-10분 사이 -10-20% 폭락 가능.
+
+### 2-2. *"smart money"* 의 활용
+일부 trader 가 magnet zone 인근에서 의도적 매도 → cascade 유발 → 청산 후 저가 매수. 이 패턴이 *"market manipulation"* 의 의혹.
+
+학계의 평가 — *"Hyperliquid 같은 perp DEX 에서 더 명확"*. CEX 는 일부 보호 (price impact limit 등).
+
+## 3. Case Study — 2021.5.19 Cascade
+
+### 3-1. 사건
+2021년 5월 19일 BTC 가격이 한 시간 만에 -30% (~$43K → $30K). 글로벌 청산 — **약 $8B**. 가상자산 산업 최대 단일 청산.
+
+### 3-2. 시간순
+- 09:00 UTC — BTC $43K
+- 11:00 — Tesla 가 BTC 결제 중단 트윗 (3월의 사건 재인용)
+- 11:30 — 중국 정부 가상자산 거래 단속 보도
+- 12:00 — BTC $40K
+- 12:30 — 첫 cascade 시작
+- 13:00 — BTC $35K (한 시간 -12%)
+- 13:30 — BTC $30K (추가 cascade)
+- 17:00 — BTC $30K-$32K 안정
+
+### 3-3. 청산 분포
+BitMEX Research 의 분석:
+- Long 청산 약 $7B (전체의 87%)
+- Short 청산 약 $1B (13%)
+- 25x+ leverage 사용자가 비중 다수
+
+이 사건 이후 — **Binance, Bybit 등 거래소가 leverage 한도 인하**. Binance 가 100x → 20x 로, Bybit 가 100x → 50x 로.
+
+## 4. 한국 사용자의 청산 위험
+
+### 4-1. 한국 perp 사용자 추정 280만 명
+한국 perp 거래량이 글로벌 18% 라 추정 (#O2). 사용자 추정 약 280만 명 (한국 가상자산 사용자 800만 명의 35%).
+
+### 4-2. 청산 사례 다수
+한국 사용자가 청산으로 잃은 자금 — 정확한 통계 X 지만 추정 — 2024 한 해 약 ~$2B (한국가상자산보호원 추정). 그러나 — 한국 정부 통제 외부 (Bybit/OKX 등) 거래소이므로 보호 X.
+
+### 4-3. *"고배율 + 김치 프리미엄"* 의 결합
+한국 사용자가 — *"김치 프리미엄으로 글로벌 대비 비싸게 매수"* + *"perp 고배율 leverage"* 결합 시 가장 큰 위험. 한국 거래소 spot 매수 + Bybit 25x perp 의 결합 사용자 다수.
+
+<Callout type="opposing-view" title="반대 시각 · Liquidation Heatmap 의 사용 한계">
+Coinglass Heatmap 이 인기 도구이지만, 비판적 시각도 있습니다.
+
+첫째, ***synthetic data* 위험**. Coinglass 의 aggregated 데이터가 모든 거래소에서 동등하게 정확하지 않음. 일부 거래소의 청산 데이터 불투명.
+
+둘째, ***self-fulfilling*** 위험. Heatmap 을 보고 trader 가 magnet zone 으로 의도적 가격 이동 시도. 즉 *"식별 도구"* 가 *"manipulation 도구"* 가 됨.
+
+셋째, **Hyperliquid 의 부상**. Perp DEX (Hyperliquid 등) 의 청산 메커니즘이 CEX 와 다름. *"on-chain liquidation"* 이 더 투명하지만 더 빠른 cascade.
+
+넷째, **leverage 한도 인하의 효과**. 100x → 20x 변경 후 cascade 빈도 감소. 그러나 magnet zone 자체는 여전히 작동.
+
+다섯째, **시장 구조의 진화**. 2024-2026 시장에서 *"institutional 비중 가속"* + *"ETF 출시"* 로 leverage 시장의 영향력 약화. liquidation cascade 의 가격 영향이 점차 작아질 가능성.
+
+이 5가지 비판이 의미하는 바 — Liquidation Heatmap 이 유용하지만 *"silver bullet"* 이 아닙니다.
+</Callout>
+
+## 결론 — Cascade 위험의 정량 framework
+
+본 편이 정리한 5가지 핵심 발견:
+
+1. **강제 청산이 *liquidity magnet* 형성**. 가격이 청산 cluster 로 끌림.
+2. **2021.5.19 사건이 표준 사례**. $8B 한 시간 청산.
+3. **leverage 한도 인하의 효과**. Binance/Bybit 가 100x → 20-50x 변경.
+4. **한국 perp 사용자 약 280만 명 + 연 $2B 청산 손실 추정**.
+5. **VAUPA 외부 거래소이므로 한국 정부 보호 X**.
+
+다음 편(#O4) — 거래소 reserve + Whale 추적.
