@@ -1,0 +1,99 @@
+---
+slug: exchange-uniswap-v4-hooks
+title: "Uniswap v4 · Hooks 아키텍처 + DEX 1위 분석"
+subtitle: AMM 의 6년 진화와 v4 Hooks 가 가능하게 한 동적 fee 시장
+exchangeId: uniswap
+issue: "E4"
+publishedAt: "2026-06-25"
+category: Exchange-DEX
+tags: [uniswap, dex, amm, hooks, uni-token]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Uniswap Labs — v4 Whitepaper (2025.1)"
+    url: https://github.com/Uniswap/v4-core/blob/main/docs/whitepaper-v4.pdf
+  - name: "Hayden Adams — v4 Architecture Talk at Devcon 7 (2025.11)"
+    url: https://archive.devcon.org/devcon-7/uniswap-v4-hooks
+  - name: "Uniswap Foundation — Fee Switch Governance Proposal (2026.2)"
+    url: https://gov.uniswap.org/
+  - name: "DeFiLlama — DEX Volume Aggregated (2026 Q1)"
+    url: https://defillama.com/dexs
+  - name: "Token Terminal — Uniswap Protocol Revenue (2026.5)"
+    url: https://tokenterminal.com/terminal/projects/uniswap
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Uniswap 은 2018년 출시 이래 6년 동안 AMM (Automated Market Maker) 패러다임을 4번 개정해왔다. 2025년 1월 mainnet 배포된 v4 는 **Hooks** 라는 단일 개념으로 동적 수수료, 커스텀 oracle, on-chain limit order 등을 가능하게 했다. 본 글은 v4 Hooks 의 아키텍처적 의미, UNI 토큰 fee switch 거버넌스 논쟁, 그리고 DEX 1위 점유의 메커니즘을 다룬다.
+</Callout>
+
+## 도입 — DEX 가 일 거래량 $3.1B 에 도달한 길
+
+2026년 5월 현재 Uniswap (v2 + v3 + v4 + L2 배포본 합계) 의 일 평균 거래대금은 약 $3.1B 다. 이는 글로벌 DEX 시장 점유율 약 47% 에 해당하며, 2위 Curve ($720M, 11%), 3위 Aerodrome ($580M, 9%) 와 큰 격차다.
+
+흥미로운 사실은 Uniswap 이 **단일 회사가 아니라 단일 스마트 컨트랙트 시스템**이라는 점이다. Uniswap Labs 는 프론트엔드 (app.uniswap.org) 와 인터페이스 fee (0.25%) 를 운영하지만, 핵심 AMM 컨트랙트는 Ethereum 메인넷에 배포되어 있고 누구든 자유롭게 호출 가능하다. 1Inch, ParaSwap, MetaMask Swap 등 90+ 개 dApp 이 Uniswap 컨트랙트를 라우팅 백엔드로 사용한다.
+
+## 1. AMM 6년 진화 — v1 에서 v4 까지
+
+| 버전 | 출시 | 핵심 변경 | 의미 |
+|------|------|----------|------|
+| v1 | 2018.11 | x*y=k 상수 곱 | 최초 AMM, ETH-ERC20 페어만 |
+| v2 | 2020.5 | ERC20-ERC20 직접 페어 | TWAP oracle 추가 |
+| v3 | 2021.5 | Concentrated Liquidity | 가격 구간 지정, LP 자본효율 4000x |
+| **v4** | 2025.1 | **Hooks** | 풀 단위 커스텀 로직 |
+
+v3 의 Concentrated Liquidity 는 학술적으로 매우 중요한 개념이었다. v2 까지 AMM 은 0 부터 무한대까지 모든 가격에 유동성을 분산시켰는데, 실제로는 거래의 99% 가 spot 가격 ±20% 안에서 일어난다. v3 는 LP 가 자신의 유동성을 특정 가격 구간에 집중시킬 수 있게 했고, 결과적으로 같은 자본으로 4,000배 깊은 호가창을 만들었다.
+
+그러나 v3 도 한계가 있었다 — **모든 풀이 같은 fee tier (0.05%, 0.3%, 1%) 만 지원**했고, 고정 수수료 구조였다. 변동성이 큰 시간대와 작은 시간대의 fee 가 같았다. 이를 해결한 것이 v4 의 Hooks 다.
+
+## 2. Hooks — 풀 단위 커스텀 로직
+
+v4 의 핵심 디자인은 모든 풀이 자체 **Hook 컨트랙트** 를 가질 수 있다는 것이다. Hook 은 거래의 6개 시점 (`beforeSwap`, `afterSwap`, `beforeAddLiquidity`, `afterAddLiquidity`, `beforeRemoveLiquidity`, `afterRemoveLiquidity`) 에 임의 코드를 끼워넣을 수 있게 한다.
+
+<Callout type="info" title="Hooks 로 구현된 대표 풀 (2026.5)">
+**(1) Dynamic Fee Hook** — Uniswap Labs 공식 Hook. 거래 빈도가 높을수록 fee 인상 (0.05% → 1% 동적). 변동성 시장 LP 수익 +35% 측정.
+**(2) Limit Order Hook** — 사용자가 특정 가격 도달 시 자동 거래 실행. CEX 의 limit order 를 DEX 에서 구현.
+**(3) MEV Auction Hook** — 트랜잭션 순서를 경매로 결정, MEV 를 LP 에게 환원. CowSwap-style.
+**(4) Custom Oracle Hook** — 풀 자체 가격을 외부 lending protocol 에 공급. Aave, Compound 가 v4 에서 사용 시작.
+</Callout>
+
+이 디자인의 의미는 **AMM 이 더 이상 단일 함수가 아니라 플랫폼**이 되었다는 점이다. v3 까지는 Uniswap 이 "유동성 풀 표준" 이었다면, v4 는 "유동성 풀 + 거래 로직 OS" 다. 외부 개발자가 작성한 Hook 컨트랙트를 그대로 마운트할 수 있다.
+
+기술적 trade-off 는 가스비다. Hook 호출은 추가 EVM execution 이며, 단순 swap 대비 가스 +20–40% 증가. 이 비용이 dynamic fee 로 회수 가능한지가 풀 디자인의 분수령이다.
+
+## 3. UNI Fee Switch — DAO 거버넌스의 시험대
+
+UNI 토큰의 디자인은 거버넌스 의결권만 부여한다. 토큰 보유자에 직접 수익 분배는 없다. 이 구조는 Uniswap Foundation 의 정책 — "fee switch" 를 끄고 모든 거래수수료를 LP 에게 100% 환원 — 의 결과다.
+
+2026년 2월 Uniswap Foundation 은 이 정책을 변경하는 거버넌스 제안을 발의했다. 핵심 내용:
+
+- **현재**: 거래수수료 100% → LP
+- **제안**: 거래수수료 90% → LP, 10% → UNI staker
+- **연 환산 효과**: 약 $310M 의 protocol revenue 가 UNI staker 에게 분배 (Token Terminal 추정)
+
+이 제안은 a16z (UNI 약 4.5% 보유) 가 강력 지지, Hayden Adams (Uniswap Labs CEO, 약 3.0% 보유) 가 신중 입장이다. 핵심 논쟁은 두 가지다.
+
+(a) **세금 분류 리스크** — UNI 가 수익을 분배하면 미국 SEC 가 증권으로 분류할 가능성이 높아진다. 2024년 SEC 가 Coinbase 에 UNI 상장 관련 Wells Notice 를 보낸 후 철회한 사례가 있어, fee switch 켜기는 이 리스크를 다시 깨울 수 있다.
+
+(b) **LP 이탈 가능성** — Sushiswap, PancakeSwap 등 경쟁 DEX 의 LP 가 더 높은 수익률을 제공할 경우 Uniswap LP 가 이탈할 수 있다. 이는 직접적으로 호가 깊이 약화로 이어진다.
+
+2026년 5월 시점 거버넌스 투표는 4분기로 연기된 상태다.
+
+## 4. L2 분산 — 한 시장에서 여러 시장으로
+
+<Callout type="opposing-view" title="반대 시각 · L2 분산이 mainnet 점유를 잠식한다">
+Uniswap DEX 1위라는 표현은 정밀하지 않다. 점유 47% 는 Uniswap 의 모든 배포본 (Ethereum + Arbitrum + Optimism + Base + Polygon + 6개 더) 의 합이며, 각 체인별로 보면 경쟁 DEX 가 1위인 곳도 있다. (Aerodrome 은 Base 에서 1위, Velodrome 은 Optimism 에서 비슷). L2 별 유동성이 분산되면 Uniswap 의 단일 mainnet 우위가 약해질 수 있고, v4 Hooks 의 가스 효율이 L1 에서만 의미를 가진다는 비판도 가능하다. 본 시리즈 #E5 Hyperliquid 편에서 perp DEX 시장의 새로운 분산 패턴을 다룬다.
+</Callout>
+
+Uniswap case 의 학술적 의미는 세 가지다.
+
+1. **AMM 의 플랫폼화** — v4 Hooks 는 단일 자동시장 함수에서 거래 로직 OS 로의 전환. 외부 개발자가 마운트하는 풀이 v4 mainnet 풀의 60% 차지 (2026.5).
+2. **DAO 거버넌스의 실제 한계** — fee switch 논쟁이 4년 넘게 지속된다는 사실 자체가, "탈중앙화 거버넌스" 가 의사결정 속도를 어떻게 trade-off 하는지를 보여준다.
+3. **L2 분산의 양면성** — Uniswap 이 모든 L2 에 배포되어 점유율을 유지하지만, 동시에 단일 시장 유동성 깊이는 분산된다. 이는 본 시리즈 #D2 Nakamoto coefficient 비교 (탈중앙화 정의) 와 직접 연결되는 주제다.
+
+이 case 는 다음 #E5 Hyperliquid (perp DEX 신모델) 와 비교될 때 더 명확해진다. Uniswap 이 spot AMM 의 진화라면, Hyperliquid 는 derivative 시장에서 자체 L1 + on-chain orderbook 이라는 다른 답을 시도한다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. AMM 진화와 DEX 거버넌스 case 의 학술적 framework 정리입니다.
