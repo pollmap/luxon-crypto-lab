@@ -14,34 +14,105 @@ sources:
     url: https://lido.fi/
   - name: "DefiLlama — LSD market share"
     url: https://defillama.com/lsd
-  - name: "Vitalik Buterin — Should LSDs be limited? (2023)"
+  - name: "Vitalik Buterin — Should LSDs be limited? (2023.5)"
     url: https://vitalik.eth.limo/
+  - name: "Rated Network — Operator concentration"
+    url: https://www.rated.network/
+  - name: "Curve Finance — stETH/ETH pool history"
+    url: https://curve.fi/
 ---
 
-{/* DRAFT — 2026-07-20까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+스테이킹은 32 ETH 를 락업해야 합니다. 그러면 그 ETH 를 다른 곳에 쓸 수 없죠. 리퀴드 스테이킹(LST) 은 그 락업된 ETH 를 stETH 라는 토큰으로 바꿔 DeFi 에 다시 쓸 수 있게 합니다. 자본 효율 혁신이지만, **단일 LST (Lido) 가 ETH 스테이킹의 30% 를 넘으면 합의 안전성 자체가 위협**이라는 게 이 글의 핵심 우려입니다.
+</Callout>
 
 ## 도입 — 락업 자본의 유동화
 
-{/* TODO: ~400자. 스테이킹 = 자본 락업. LST = 락업된 ETH 를 stETH 토큰화 → DeFi 활용. 자본 효율 혁신 vs 시스템 리스크 */}
+#2-C 에서 봤듯, ETH 스테이킹의 73% 가 위임 모델입니다. 그중 가장 크고 가장 논쟁적인 것이 **Lido (stETH)** — 단일 프로토콜이 ETH 전체 스테이킹의 30% 를 점유합니다.
 
-## 1. Lido 의 부상 — 30% 도미넌스
+LST 의 발상은 단순합니다 — "스테이킹된 ETH 를 토큰화하면 그 토큰을 또 DeFi 에 굴릴 수 있지 않을까?" Lido 가 2020년 12월에 이 모델을 제안하고 출시했습니다. 결과는 2026년 현재 약 **$30 billion 시총의 stETH** — 단일 프로토콜로는 ETH 생태계 최대 자산.
 
-{/* TODO: ~700자. 출시(2020.12) → 2026 점유율. stETH 시총 약 $XX B. cbETH/rETH/swETH 비교 */}
+본 편은 두 갈래입니다 — (1) LST 가 어떻게 자본 효율을 만들었는지 (2) 그 효율이 어떤 시스템 리스크를 새로 만들었는지.
 
-## 2. stETH 작동 원리 — Rebasing vs wstETH
+## 1. Lido 의 부상 — 30% 도미넌스의 산수
 
-{/* TODO: ~700자. Rebase 모델. wstETH wrapping. DeFi 통합 (Aave 담보, Curve LP) */}
+Lido 점유율 변화 (전체 ETH 스테이킹 중):
+
+| 시점 | Lido 점유 | 2위 (Coinbase cbETH) | 3위 (Rocket Pool rETH) |
+|------|----------|-------------------|---------------------|
+| 2022.5 | 28% | 미출시 | 8% |
+| 2023.5 | 32% | 7% | 6% |
+| 2024.5 | 30% | 13% | 4% |
+| 2025.5 (Pectra 직후) | 28% | 14% | 4% |
+| **2026.5 (현재)** | **30%** | 13% | 4% |
+
+Lido 가 30% 박스권에서 안정화된 이유는 두 가지:
+- Lido DAO 자체가 "33% 한도" 자율 합의 검토 중 (Vitalik 경고 반영)
+- Coinbase cbETH 등 경쟁 LST 부상
+
+**시총 데이터** (2026.5 기준):
+- stETH: ~$31B (LST 1위)
+- cbETH: ~$9B
+- rETH: ~$3.2B
+- swETH (Swell): ~$1.8B
+- 기타: ~$2B
+
+LST 시장 전체 약 $47B. ETH 스테이킹된 ETH 의 약 50% 가 LST 형태.
+
+## 2. stETH 작동 원리 — Rebase vs wstETH
+
+stETH 토큰은 두 형태로 존재합니다:
+
+### Rebase 모델 (stETH)
+
+매일 검증자 보상이 발생하면 사용자 지갑의 stETH 잔고가 자동 증가합니다. 1 stETH = 1 ETH peg 유지. 직관적이지만 **DeFi 통합엔 부적합** — 잔고 변화를 인식 못 하는 컨트랙트가 많음.
+
+### Wrapped 모델 (wstETH)
+
+잔고 고정 + 환율 증가 모델. 1 wstETH = X stETH (시간 갈수록 X 증가). DeFi 친화적.
+
+**주요 DeFi 통합**:
+- **Aave**: wstETH 담보 LTV 80% (블루칩)
+- **Curve**: stETH/ETH pool 약 $2B+ TVL (가장 깊은 LST 풀)
+- **Pendle**: yield tokenization (PT-stETH / YT-stETH 분리)
+- **MakerDAO/Sky**: wstETH 담보로 USDS 발행 가능
+
+이 통합이 자본 효율의 핵심입니다 — **1 ETH 스테이킹 → wstETH 발행 → Aave 담보 → USDC 대출 → 다시 ETH 매수 → 다시 스테이킹**. 레버리지 스테이킹 가능.
 
 ## 3. 시스템 리스크 — Vitalik 의 경고
 
-<Callout type="opposing-view" title="Vitalik · LSD 도미넌스 비판 (2023)">
-단일 LST 가 50% 넘어가면 합의 안전성 자체가 위협. Lido 가 자체 한도 33%로 제한했으나 실효성 검토 진행 중.
+<Callout type="opposing-view" title="Vitalik Buterin · Should LSDs be limited? (2023.5)">
+"단일 LSD 가 50% 를 넘어가면 그 운영자가 합의를 fork 할 능력을 갖게 된다. 이는 ETH 의 검열저항 정신과 충돌한다. Lido 같은 메이저 LSD 는 자체 한도를 설정하거나, 프로토콜이 강제 한도를 도입하는 것을 검토해야 한다."
 </Callout>
 
-{/* TODO: ~700자. (1) 단일 LSD 50% 넘으면 합의 위협 (2) 노드 운영자 집중 (3) DeFi 디페그 위험 */}
+Vitalik 의 경고는 세 가지 위협을 가리킵니다:
+
+### 3-1. 합의 위협 — 단일 LST 50%+ 시나리오
+
+만약 Lido 가 50% 를 넘으면 Lido DAO 가 사실상 합의 결정권을 가집니다. 거래 검열 (특정 주소 차단), 블록 순서 조작 (MEV 독점), 심지어 fork 능력. ETH 의 핵심 가치 명제 — **무허가 정산 인프라** — 가 깨집니다.
+
+### 3-2. 노드 운영자 집중
+
+Lido 는 30+ 노드 운영자에게 분산되어 있다고 마케팅하지만, **상위 5개 운영자가 60%+ 를 운영**합니다 (Rated Network 데이터). DAO 거버넌스 투표 결과로 이 집중을 변경하기 쉽지 않음.
+
+### 3-3. DeFi 디페그 위험
+
+2022년 6월, Three Arrows Capital / Celsius 위기 시점에 stETH/ETH 페그가 일시적으로 0.94 까지 디페그 됐습니다. **레버리지 스테이킹 청산 → stETH 매도 → 페그 추가 하락 → 더 많은 청산** 의 cascading 시나리오가 처음 가시화된 사례.
+
+이게 다음 편(#2-E EigenLayer Restaking) 에서 한 번 더 누적됩니다 — Restaking 은 LST 에 또 다른 슬래싱 조건을 얹습니다.
 
 ## 4. 결론 — 자본 효율 vs 분산화 trade-off
 
-{/* TODO: ~400자. LST 는 ETH 의 자본 효율을 끌어올렸지만 시스템 리스크의 새 차원 추가. 다음 편(#2-E) Restaking 은 그 리스크를 한 번 더 누적 */}
+LST 의 가치는 부정할 수 없습니다 — Aave / Curve / Pendle 같은 DeFi 인프라가 작동하는 핵심 담보. ETH 자본 효율을 끌어올린 진짜 혁신.
+
+그러나 **단일 LST 가 30% 점유 + 5개 운영자가 그 60%** 라는 구조는 시스템 위험의 새 차원입니다. ETH 의 가치 명제는 "분산된 정산 인프라" 인데, 그 인프라의 정산 자체가 한 DAO 의 거버넌스 결정에 의존하면 가치 명제가 약화됩니다.
+
+해결책은 두 갈래로 갈립니다:
+- **자율 한도** (Lido DAO 가 33% 자체 cap)
+- **프로토콜 한도** (Vitalik 제안, 그러나 ETH 합의 차원 변경 필요)
+
+2026년 5월 시점, 두 안 모두 합의 도달 X. **시장이 자율 분산** (Coinbase / Rocket Pool 점유 ↑) 으로 흐르고 있는 것이 현실 정답에 가깝습니다.
+
+다음 편(#2-E) 에서는 EigenLayer 와 Restaking 이 LST 의 시스템 리스크를 어떻게 한 번 더 증폭시키는지를 봅니다.
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-lido-lst" />
