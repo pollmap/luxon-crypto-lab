@@ -1,0 +1,103 @@
+---
+slug: regulation-us-genius-clarity-acts
+title: "미국 2: GENIUS Act + CLARITY Act + 스테이블코인 법"
+subtitle: 2026 미국 의회의 가상자산 입법 — 시장구조와 스테이블 발행자를 분리하는 두 trail
+region: us
+issue: "R2"
+publishedAt: "2026-08-27"
+category: Regulation
+tags: [genius-act, clarity-act, stablecoin, congress, us-legislation]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "GENIUS Act — Senate Bill S.4155 (2024.6 reintroduced 2025)"
+    url: https://www.congress.gov/bill/118th-congress/senate-bill/4155
+  - name: "CLARITY Act (FIT21 reintroduced as CLARITY in 2025)"
+    url: https://www.congress.gov/bill/119th-congress/house-bill/1
+  - name: "Coin Center — GENIUS Act Analysis (2024.7)"
+    url: https://www.coincenter.org/genius-act-stablecoin-bill-summary/
+  - name: "Bipartisan Policy Center — Stablecoin Framework (2024.8)"
+    url: https://bipartisanpolicy.org/
+  - name: "Treasury — Stablecoin Implementation Guidance (2026.4)"
+    url: https://home.treasury.gov/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+미국 의회는 2026년 가상자산을 두 개의 별도 법률로 입법하려 한다 — **GENIUS Act** (스테이블코인 발행자 라이센스) 와 **CLARITY Act** (가상자산 시장 구조). 두 법안의 디자인은 가상자산을 "스테이블 = 결제 수단" 과 "기타 = 자산" 으로 명확히 분리하고, 각각 다른 규제기관에 배정하는 framework 다.
+</Callout>
+
+## 도입 — 입법 분리의 의미
+
+#R1 에서 본 SEC vs CFTC 관할 분쟁을 입법으로 해결하려는 시도가 2024년 시작됐다. 처음 안은 FIT21 (Financial Innovation and Technology for the 21st Century Act) — 시장 구조 + 스테이블 통합 단일 법안. 그러나 통합 법안은 의회 통과가 어렵다는 판단으로 2025년 두 개로 분리됐다.
+
+| 법안 | 대상 | 관할 |
+|------|------|------|
+| GENIUS Act | 스테이블코인 발행 | 통화감독관 (OCC) + Fed + 주정부 |
+| CLARITY Act | 그 외 가상자산 시장구조 | CFTC (commodity) + SEC (security) |
+
+이 분리의 의미는 **스테이블이 결제 인프라이고, 기타 가상자산이 자산 시장이라는 정의**를 입법화한 것이다.
+
+## 1. GENIUS Act — 스테이블 발행자 라이센스
+
+GENIUS Act (Generating European Network for Innovative US Stablecoins) 의 핵심 디자인:
+
+- **발행자 라이센스 의무** — 미국 내 스테이블 발행 시 OCC 또는 주정부 라이센스 필수. 무허가 발행 형사처벌.
+- **준비금 1:1 의무** — 발행한 스테이블 가치만큼 미국 단기국채 (T-Bill) 또는 현금 보관. 알고리즘 스테이블 (Terra UST 같은) 사실상 금지.
+- **월별 회계 감사** — Big4 회계법인 감사 후 공개 의무.
+- **Fed 의 시스템 위험 검토 권한** — 단일 스테이블이 시스템적 규모 ($10B+) 도달 시 Fed 가 추가 자본 요구 가능.
+
+GENIUS Act 의 가장 흥미로운 디자인은 **외국 발행 스테이블 차별 대우**다. 미국 라이센스 미보유 발행자의 스테이블 (예: Tether USDT) 은 미국 거래소에서 거래 제한. 사실상 USDC (Circle, 미국 라이센스) 의 미국 시장 우위 강화.
+
+<Callout type="info" title="GENIUS Act 와 USDT vs USDC">
+USDT (Tether, $146B) 는 BVI/엘살바도르 등록. USDC (Circle, $42B) 는 미국 라이센스. GENIUS Act 시행 시 Coinbase, Kraken 등 미국 거래소가 USDT 거래 제한 의무. USDC 의 미국 시장 점유율이 현재 22% → 50%+ 가능. 단, USDT 는 미국 외 시장 (특히 신흥국 P2P 결제) 에서 여전히 주력.
+</Callout>
+
+GENIUS Act 는 2026년 5월 상원 통과, 하원 검토 중. 2026 Q4 입법 가능성 높음.
+
+## 2. CLARITY Act — 시장구조 + 토큰 분류
+
+CLARITY Act 의 핵심은 **가상자산을 "투자계약"** vs "디지털 상품" 으로 분류하는 명확한 기준을 입법화하는 것이다. 기준:
+
+- **Issuer-controlled** — 발행자가 토큰 가격에 결정적 영향 (vesting, treasury 운영). → SEC 관할 (security).
+- **Sufficiently decentralized** — 발행 후 4년 이상, 단일 entity 가 30% 미만 보유. → CFTC 관할 (commodity).
+- **Bitcoin** — 자동으로 commodity (창업자 부재).
+- **Ethereum** — Merge (2022.9) 이후 sufficiently decentralized 인정.
+
+이 framework 는 **시간 함수** 다 — 새 토큰은 발행 시 security, 4년 후 commodity 로 전환 가능. 학술적으로 이는 1933 Securities Act 의 "investment contract" 정의와 다른 새로운 자산 카테고리를 만든다.
+
+CLARITY Act 의 약점은 "sufficiently decentralized" 의 기준이 quantitative 하지 않다는 점이다. 30% 가 적정인지, 토큰 분포가 어떻게 측정되는지에 SEC/CFTC 의 가이드라인이 필요. 본 시리즈 #D2 Nakamoto coefficient 가 이 측정 framework 의 일부 답이 될 수 있다.
+
+CLARITY Act 는 2024년 5월 하원 통과, 상원 검토 중. Trump 행정부 적극 지원 입장.
+
+## 3. Stablecoin 별도 법 — Lummis-Gillibrand
+
+GENIUS Act 와 별도로 Lummis-Gillibrand 의원의 **Payment Stablecoin Act** 도 2024년 발의됐다. 두 법안의 차이:
+
+| 차원 | GENIUS Act | Lummis-Gillibrand |
+|------|----------|------------------|
+| 발행자 라이센스 | OCC + 주정부 | OCC만 |
+| 외국 발행자 | 차별 대우 | 동등 대우 |
+| 알고리즘 스테이블 | 금지 | 제한적 허용 |
+| 통과 가능성 | 높음 | 중-낮음 |
+
+GENIUS Act 가 통과 가능성이 더 높지만, 두 법안의 절충안이 최종 형태가 될 가능성도 있다.
+
+## 4. 입법 통과 시 시장 영향
+
+<Callout type="opposing-view" title="반대 시각 · 입법이 사용자에게 좋은가">
+GENIUS + CLARITY 입법이 가상자산 시장에 명확성을 주는 것은 사실이지만, "더 좋은가" 는 질문 자체가 다양하다. (a) 컴플라이언스 비용 증가 — 발행자 라이센스, 회계 감사, 감독 의무 모두 운영 비용. 작은 발행자는 진입 장벽 ↑. (b) 검열저항 약화 — GENIUS Act 는 모든 라이센스 발행자에 OFAC 컴플라이언스 의무화. 본 시리즈 #D4 검열저항 framework 와 충돌. (c) 미국 외 사용자 영향 — USDT 차별 대우는 신흥국 결제 사용자에 부정적. 즉 "명확성" 은 누구를 위한 명확성인지가 중요하다. 본 시리즈 #R3 EU MiCA 편에서 EU 의 다른 접근과 비교한다.
+</Callout>
+
+미국 입법 case 의 학술적 의미는 세 가지다.
+
+1. **이중 트랙 디자인의 함의** — 스테이블은 결제 인프라 (은행 규제), 기타 가상자산은 자산 시장 (증권/상품 규제) 의 분리. 이 framework 가 글로벌 모델이 될 가능성.
+2. **Forward 시간 함수의 토큰 분류** — CLARITY Act 의 "4년 후 commodity 전환" 디자인은 Howey Test 의 진화. 학계와 실무에 큰 영향 예상.
+3. **글로벌 스탠다드 경쟁** — 미국 입법이 늦은 만큼 EU MiCA 가 1년 먼저 시행 (2024.6). 글로벌 표준 경쟁에서 두 framework 의 비교가 본 시리즈 #R3-R4 의 주제.
+
+다음 #R3 편에서 EU MiCA 1년 회고와 미국 입법과의 비교를 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. 미국 가상자산 입법의 학술적 framework 정리입니다.

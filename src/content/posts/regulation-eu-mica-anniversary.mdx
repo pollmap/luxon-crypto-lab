@@ -1,0 +1,118 @@
+---
+slug: regulation-eu-mica-anniversary
+title: "EU 1: MiCA 시행 1년 회고"
+subtitle: 세계 최초 종합 가상자산 법의 1년 데이터 — CASP 등록·스테이블 cap·라이센스 발급
+region: eu
+issue: "R3"
+publishedAt: "2026-09-03"
+category: Regulation
+tags: [mica, eu, casp, stablecoin-cap, regulation-anniversary]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "ESMA — MiCA Implementation Report (2025.12)"
+    url: https://www.esma.europa.eu/policy-activities/digital-finance-and-innovation/markets-crypto-assets-regulation
+  - name: "European Commission — MiCA Regulation 2023/1114"
+    url: https://eur-lex.europa.eu/eli/reg/2023/1114
+  - name: "EBA — Crypto-Asset Service Provider Register (2026.4)"
+    url: https://www.eba.europa.eu/
+  - name: "Circle — EURC EMT Authorization (2024.7)"
+    url: https://www.circle.com/blog/eurc"
+  - name: "Coin Center Europe — MiCA First Year Analysis (2026.1)"
+    url: https://coincenter.eu/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+EU MiCA (Markets in Crypto-Assets Regulation) 는 2024년 6월 30일 시행된 세계 최초 종합 가상자산 법이다. 시행 1년 후 데이터를 보면 (a) CASP 라이센스 약 80개 발급 (b) 스테이블코인 발행 cap 시행 후 USDT 의 EU 거래소 상장 폐지 (c) 미국 GENIUS Act 와 다른 디자인 — 이 case 들이 글로벌 표준 경쟁의 첫 데이터다.
+</Callout>
+
+## 도입 — 세계 최초 종합 가상자산 법
+
+EU MiCA 는 2023년 5월 EU 이사회 채택, 2024년 6월 30일 발효된 27개국 통일 규정이다. 1,400페이지 분량으로 가상자산 발행, 거래, 공시, 시장조작, 스테이블 발행을 모두 포괄한다. 미국이 GENIUS Act + CLARITY Act 두 법안으로 분리 입법하는 것과 달리 EU 는 단일 법안.
+
+MiCA 의 4대 축:
+
+| 축 | 대상 | 의무 |
+|---|------|------|
+| ART | Asset-Referenced Token (자산 가치 참조) | 발행자 라이센스 + 준비금 |
+| EMT | E-Money Token (단일 통화 페그) | EMI 라이센스 의무 |
+| Other crypto | 알트코인·NFT | 발행자 white paper 공시 |
+| CASP | Crypto-Asset Service Provider | 라이센스 + 자본·거버넌스 의무 |
+
+## 1. CASP 라이센스 — 1년 발급 80건
+
+CASP 는 거래소·custody·운영자 모두를 포괄. 2024년 12월 30일까지 18개월 grace period 가 있어, 2025년 12월 30일이 실제 deadline 이었다.
+
+EBA 의 2026년 4월 register 데이터:
+
+- **발급 라이센스** — 약 80건 (27개국 합계)
+- **국가별** — 독일 18, 프랑스 14, 네덜란드 11, 아일랜드 9, 룩셈부르크 7, 기타 21
+- **유형별** — 거래소 27, custody 19, 자문 18, 발행 16
+
+흥미로운 사실은 **글로벌 1위 거래소 Binance 가 EU 본진 라이센스를 받지 못했다**는 점이다. 독일·프랑스 모두 거부. 대신 Binance 는 폴란드·헝가리 등 작은 시장에서 유한 라이센스 운영. 이는 Binance 의 미국 (#E1 합의) 외 두 번째 큰 시장 위축이다.
+
+반대로 Coinbase 는 아일랜드 본진으로 EU 27개국 통일 영업권 (passport) 획득. EU 시장 진입 비용 차이가 분명하다.
+
+## 2. 스테이블 cap — USDT 상장 폐지
+
+MiCA 의 가장 논란이 된 조항은 **EMT 의 일일 거래량 cap** — 하루 €200M (약 $215M) 또는 1M 트랜잭션 초과 시 발행자가 거래 제한 의무. 이는 시스템 리스크 통제 목적이다.
+
+이 cap 의 효과는 즉각적이었다. 2024년 12월 Coinbase Europe, Kraken EU, Bitstamp 모두 USDT 거래 페어 자진 폐지 발표 — Tether 가 EMT 라이센스 미보유 + 일일 거래량이 cap 초과.
+
+| 스테이블 | EMT 라이센스 | EU 거래소 거래 |
+|---------|-----------|------------|
+| USDT (Tether) | 없음 | 폐지 |
+| USDC (Circle) | EMI (2024.7) | 가능 |
+| EURC (Circle EUR) | EMI (2024.7) | 가능 |
+| EUROC | EMI | 가능 |
+| EURT (Tether EUR) | 없음 | 폐지 |
+
+이 결과 EU 시장의 스테이블 점유는 **USDT 0% → USDC + EURC 가 95%+** 로 재편됐다. EU 시장 한정으로는 GENIUS Act 의 결과 (USDT 차별) 와 사실상 동일한 효과가 1년 빨리 일어났다.
+
+## 3. White Paper 공시 의무
+
+MiCA 의 또 다른 특징은 **모든 가상자산 발행자에 white paper 공시 의무**다. SEC 의 등록서류와 비슷하나 형식은 통일.
+
+요구 항목:
+
+- 발행자 정보 + 컨택
+- 토큰 기능·권리 명세
+- 기술 백서
+- 위험 요소
+- 시장 영향 평가
+- 환경 영향 (Energy consumption metric)
+
+마지막 항목이 흥미롭다 — Bitcoin 의 PoW 에너지 소비가 MiCA 안에 명시 우려 사항으로 등록되어 있다. 다만 Bitcoin 자체의 EU 거래는 금지하지 않으며, 발행자 공시 의무에서 면제 (탈중앙화 자산은 발행자 부재).
+
+## 4. 미국 GENIUS Act 와의 비교
+
+<Callout type="opposing-view" title="반대 시각 · MiCA 의 단점">
+MiCA 의 시장 안정화 효과는 분명하지만 비판도 명확하다. (a) CASP 라이센스 발급 80건은 27개국 5억 인구에 비해 매우 적다. EU 가상자산 시장 진입 비용이 미국보다 오히려 높다는 평가. (b) 스테이블 cap 으로 USDT 가 EU 에서 사라진 것은 사용자 선택권 축소. (c) 환경 공시 의무가 PoW 자산을 사실상 차별. (d) 단일 법안 디자인은 빠른 수정이 어려움. EU 의회 통과 절차 1.5년+. 미국의 분리 입법이 향후 변화 적응력에서 더 강할 수 있다.
+</Callout>
+
+EU MiCA 와 미국 입법안의 비교를 정리하면:
+
+| 차원 | EU MiCA | 미국 GENIUS+CLARITY |
+|------|---------|------------------|
+| 시행 | 2024.6 | 2026 통과 예상 |
+| 단일 법안 | 통합 | 분리 |
+| 외국 스테이블 | EMT cap 으로 사실상 차단 | 라이센스 미보유 차단 |
+| 알트코인 분류 | white paper 공시만 | security/commodity 분류 |
+| 환경 공시 | 의무 | 없음 |
+| 탈중앙화 인정 | 발행자 부재 시 면제 | "sufficiently decentralized" 시 commodity |
+
+두 framework 의 핵심 차이는 **EU 는 "결과 통제"** (cap, 라이센스, 공시) **에 집중, 미국은 "분류 명확성"** (security vs commodity) **에 집중**한다는 점이다.
+
+EU MiCA case 의 학술적 의미는 세 가지다.
+
+1. **글로벌 표준 first-mover** — 1년 빠른 시행으로 EU 가 가상자산 입법의 사실상 reference 모델이 됐다. 한국 디지털자산기본법 (#R6), 일본 spot ETF (#R7) 모두 MiCA 참고.
+2. **시장 segmentation 효과** — USDT 의 EU 시장 0% 화는 스테이블 시장이 지역별로 분절될 가능성 시사. 글로벌 단일 스테이블 표준은 어렵다.
+3. **CASP 라이센스의 진입 장벽** — 80개 라이센스의 70% 가 큰 회사 (Coinbase, Kraken, BitStamp 등). 작은 신생 EU 거래소 진입은 사실상 차단.
+
+다음 #R4 편에서 MiCA 의 자매 법인 AMLR (자금세탁) 과 DAC8 (세제) 통합을 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. EU MiCA 1년 회고의 학술적 framework 정리입니다.

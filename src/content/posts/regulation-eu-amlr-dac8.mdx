@@ -1,0 +1,104 @@
+---
+slug: regulation-eu-amlr-dac8
+title: "EU 2: AMLR + DAC8 (자금세탁 + 세제 통합)"
+subtitle: 익명 지갑 한도와 자동 정보교환 — MiCA 의 자매 법안 두 개
+region: eu
+issue: "R4"
+publishedAt: "2026-09-10"
+category: Regulation
+tags: [amlr, dac8, eu-tax, anonymous-wallets, automatic-exchange]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "EU AMLR Regulation 2024/1624"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1624
+  - name: "DAC8 Directive 2023/2226"
+    url: https://eur-lex.europa.eu/eli/dir/2023/2226
+  - name: "OECD — Crypto-Asset Reporting Framework (CARF)"
+    url: https://www.oecd.org/tax/exchange-of-tax-information/crypto-asset-reporting-framework.htm
+  - name: "European Banking Authority — AML Guidelines (2024)"
+    url: https://www.eba.europa.eu/regulation-and-policy/anti-money-laundering"
+  - name: "Coin Center Europe — AMLR Critique (2024.5)"
+    url: https://coincenter.eu/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+EU 의 가상자산 규제는 MiCA 단일 법안이 아니라 **세 법안의 패키지**다. (a) MiCA — 시장구조 (#R3) (b) AMLR — 자금세탁 방지 (c) DAC8 — 세제 자동 정보교환. AMLR 의 가장 논란은 €1,000 초과 익명 지갑 거래 금지 + €10,000 self-custody 거래 한도. DAC8 은 OECD CARF 의 EU 구현이다.
+</Callout>
+
+## 도입 — MiCA 만으로 부족했다
+
+MiCA 는 2024년 6월 시행됐지만 두 가지 핵심을 빠뜨렸다 — (a) AML (자금세탁 방지) 와 (b) 세제. 이를 보완하는 자매 법안이 AMLR (Anti-Money Laundering Regulation, 2024.7 시행) + DAC8 (2026.1 시행) 이다.
+
+세 법안의 관계:
+
+| 법안 | 시행 | 대상 |
+|------|------|------|
+| MiCA | 2024.6 | 발행·거래 시장구조 |
+| AMLR | 2024.7 | 자금세탁 방지 |
+| DAC8 | 2026.1 | 세제 자동 정보교환 |
+
+이 세 법안의 상호작용이 EU 가상자산 시장의 실제 규제 환경을 만든다. 미국이 GENIUS+CLARITY 두 법안으로 분리한 것과 비교하면 EU 는 **3개 법안 패키지로 더 정밀**한 디자인이다.
+
+## 1. AMLR — 익명 지갑 한도
+
+AMLR 의 가장 논란이 된 조항은 두 개다.
+
+(a) **€1,000 초과 익명 지갑 거래 금지** — CASP (#R3) 가 익명 self-custody 지갑과 €1,000 이상 거래 시 KYC 의무. 사실상 모든 큰 거래에 신원 확인.
+
+(b) **€10,000 cash equivalent 거래 한도** — 가상자산이 cash equivalent 로 분류되어, 현금 거래와 동일한 €10,000 한도 적용.
+
+이 조항의 학술적 의미는 **검열저항 (#D4) 과 직접 충돌**한다는 점이다. Tornado Cash 같은 mixer 는 EU 에서 사용 불가능. Bitcoin self-custody 도 €1,000 초과 시 거래소 출금 시 KYC 통과 의무.
+
+다만 "어떤 거래에 KYC 가 적용되는가" 의 해석은 유럽위원회의 추가 가이드라인에 의존한다. 2026년 1월 EBA (European Banking Authority) 가 발표한 가이드라인은 "직접 self-custody 지갑 ↔ self-custody 지갑 거래" 는 KYC 의무 대상이 아니라고 명시. 이는 사용자 부담을 일부 완화.
+
+## 2. DAC8 — 자동 정보교환
+
+DAC8 (Directive on Administrative Cooperation 8) 은 OECD 의 CARF (Crypto-Asset Reporting Framework) 의 EU 구현이다. 핵심:
+
+- **CASP 보고 의무** — 모든 EU CASP 가 사용자 거래 데이터를 사용자 거주국 세무당국에 자동 송부.
+- **연간 정보** — 이름, 주소, TIN (납세자 번호), 거래 금액, 거래일.
+- **27개국 자동 교환** — EU 안에서 사용자 거주국 변경 시 자동 동기.
+- **OECD 협정국 확장** — 미국, 영국, 일본 등 OECD 회원국과 향후 자동 교환 가능.
+
+이 메커니즘은 **세금 탈루의 가상자산 도구 사용을 사실상 불가능**하게 만든다. 1980년대 스위스 비밀계좌가 OECD CRS (Common Reporting Standard, 2017) 로 사실상 종료됐듯, 가상자산도 같은 길을 간다.
+
+<Callout type="info" title="OECD CARF — 글로벌 표준화">
+**(1)** 2022년 10월 OECD 가 CARF 발표.
+**(2)** 50+ 국가가 2027년까지 시행 약속.
+**(3)** EU DAC8 이 첫 본격 시행 (2026.1).
+**(4)** 향후 한국 (KOSIS 가상자산 보고), 일본 (FSA 가상자산 등록) 모두 CARF 호환 framework 도입 예정.
+**(5)** 미국은 IRS Form 1099-DA (2026 시행) 가 사실상 CARF 호환.
+</Callout>
+
+DAC8 의 시행 효과로 EU 거주자가 외국 거래소 (Binance, Coinbase US 등) 에서 거래해도 그 데이터가 EU 세무당국에 자동 송부된다. 가상자산 거래의 "off-shore 회피" 가 사실상 불가능.
+
+## 3. 시너지 효과 — 3개 법안의 결합
+
+세 법안의 결합 효과는 단일 법안의 합보다 크다.
+
+- **MiCA 단독** — 거래소 라이센스 의무.
+- **MiCA + AMLR** — 거래소가 모든 큰 거래에 KYC 의무.
+- **MiCA + AMLR + DAC8** — KYC 정보가 자동으로 세무당국에 송부.
+
+이 결합으로 **EU 가상자산 시장은 전통 금융 시장과 거의 동등한 투명도** 에 도달했다. 이는 검열저항·프라이버시 우선 사용자에게는 비용이지만, 기관 투자자·은행에게는 진입 장벽 감소다.
+
+## 4. 자유와 통제의 trade-off
+
+<Callout type="opposing-view" title="반대 시각 · 모든 거래 추적이 정당한가">
+AMLR + DAC8 의 결합은 가상자산의 prime 가치 중 하나 (privacy) 를 사실상 EU 시장에서 제거한다. 옹호 시각 — 자금세탁·세금 탈루를 막는 정당한 정책. 비판 시각 — 정상 사용자도 모든 거래가 정부에 보고되며, 이는 헌법적 privacy 권리와 충돌. EFF 는 AMLR 을 "사상 최강의 가상자산 감시 framework" 라고 비판한다. 또한 지하 시장 → 비 EU 거래소 (UAE, 동남아) 로의 전환 가능성도 있다 — 즉 자금세탁이 사라지는 것이 아니라 EU 외부로 이동할 수 있다. 본 시리즈 #R10 UAE VARA 편이 이 보완 시장의 예다.
+</Callout>
+
+EU 자매 법안의 학술적 의미는 세 가지다.
+
+1. **3법안 패키지의 정밀성** — MiCA + AMLR + DAC8 의 결합은 미국 단일·이중 법안 framework 보다 정밀. 다만 시행 비용도 더 큼.
+2. **글로벌 정보 교환의 도구** — DAC8 + CARF 의 결합으로 가상자산 세금 추적이 글로벌 표준화. 이는 향후 5–10년의 가장 큰 변화 중 하나.
+3. **Privacy 의 실질 제거** — EU 안에서 가상자산 사용은 이제 은행 계좌 사용과 거의 동등한 추적 대상. 이는 본 시리즈 #D4 검열저항의 직접적 약화.
+
+다음 #R5 편에서 한국 VAUPA 1년 회고와 디지털자산기본법 진행 상황을 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. EU AMLR + DAC8 의 학술적 framework 정리입니다.
