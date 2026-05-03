@@ -23,6 +23,8 @@ export function TOC() {
         text: h.textContent ?? "",
         level: Number(h.tagName.substring(1)),
       }));
+    // DOM 읽고 1회 set — Server Components 렌더 후 hydration 시점에서 결정.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEntries(list);
 
     const observer = new IntersectionObserver(
