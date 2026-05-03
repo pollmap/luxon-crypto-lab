@@ -9,6 +9,11 @@ import { PriceChart } from "@/components/charts/PriceChart";
 import { ETFFlowChart } from "@/components/charts/ETFFlowChart";
 import { HalvingTimeline } from "@/components/charts/HalvingTimeline";
 import { CorrelationHeatmap } from "@/components/charts/CorrelationHeatmap";
+import { MNAVChart } from "@/components/charts/MNAVChart";
+import { TVLBarChart } from "@/components/charts/TVLBarChart";
+import { KoreaPremiumChart } from "@/components/charts/KoreaPremiumChart";
+import { L2TVLChart } from "@/components/charts/L2TVLChart";
+import { LiquidationCascadeChart } from "@/components/charts/LiquidationCascadeChart";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -66,6 +71,11 @@ const components: MDXComponents = {
   ETFFlowChart,
   HalvingTimeline,
   CorrelationHeatmap,
+  MNAVChart,
+  TVLBarChart,
+  KoreaPremiumChart,
+  L2TVLChart,
+  LiquidationCascadeChart,
 };
 
 export function useMDXComponents(): MDXComponents {

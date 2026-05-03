@@ -3,6 +3,7 @@ import { getAllSlugs, getPostBySlug } from "@/lib/posts";
 import { PostHeader } from "@/components/post/PostHeader";
 import { TOC } from "@/components/post/TOC";
 import { SourceFootnote } from "@/components/post/SourceFootnote";
+import { RelatedPosts } from "@/components/post/RelatedPosts";
 import { BlogSidebar } from "@/components/sidebar/BlogSidebar";
 
 export const dynamicParams = false;
@@ -43,6 +44,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <Post />
         </div>
         {meta.sources && meta.sources.length > 0 && <SourceFootnote sources={meta.sources} />}
+        <RelatedPosts currentSlug={slug} category={meta.category} tags={meta.tags} />
       </article>
 
       <aside className="hidden xl:block">
