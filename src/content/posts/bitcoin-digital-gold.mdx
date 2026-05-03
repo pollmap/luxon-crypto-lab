@@ -1,0 +1,132 @@
+---
+slug: bitcoin-digital-gold
+title: 비트코인은 디지털 금인가?
+subtitle: 매크로 사이클 × 온체인 메트릭 × 모멘텀 관점에서 다시 묻는다
+coin: BTC
+issue: 1
+publishedAt: 2026-06-01
+updatedAt: 2026-06-01
+category: L1-PoW
+tags: [bitcoin, halving, ETF, NVT, MVRV, macro]
+estimatedReadTime: 25
+draft: true
+sources:
+  - name: "Grayscale Research — 2024 Halving: This Time It's Different"
+    url: https://www.grayscale.com/research
+  - name: "Glassnode Insights — Mastering MVRV / NVT Ratio"
+    url: https://insights.glassnode.com/
+  - name: "CME Group — Bitcoin Halving 2024"
+    url: https://www.cmegroup.com/insights/economic-research/2024/bitcoin-halving-2024-this-time-its-different.html
+  - name: "Coin Metrics — State of the Network (weekly)"
+    url: https://coinmetrics.io/state-of-the-network/
+  - name: "Farside Investors — BTC ETF Flows"
+    url: https://farside.co.uk/btc/
+  - name: "NY Fed Staff Report 1052 — The Bitcoin–Macro Disconnect"
+    url: https://www.newyorkfed.org/research/staff_reports/sr1052
+  - name: "Lyn Alden — Broken Money"
+    url: https://www.lynalden.com/broken-money/
+  - name: "Pourpourides 2025 — Long-term nexus of macro and crypto"
+    url: https://www.frontiersin.org/journals/blockchain
+  - name: "Saifedean Ammous — The Bitcoin Standard"
+    url: https://saifedean.com/thebitcoinstandard
+---
+
+{/* DRAFT TEMPLATE — 5월 25일까지 본문 채우기. 발행: 2026-06-01 */}
+
+<Callout type="beginner" title="입문자 가이드 · 1분 요약">
+2009년 사토시의 P2P 전자현금 백서에서 시작. 21,000,000개 발행 한도. 약 10분마다 한 블록.
+컴퓨터(채굴자)가 수학 퍼즐을 풀어 블록을 추가하는 작업증명(PoW) 합의. 본문에서 자세히.
+</Callout>
+
+## 도입부 — 왜 지금 BTC인가
+
+{/* TODO: Hook 800-1200자. 2026년 5월 시총 $1.57조, 1월 고점 $126K 대비 38% 조정 → "기술 실패인가, 화폐 사이클인가" */}
+
+이 글에서 답할 5가지 질문:
+
+1. BTC 발행 메커니즘은 어떻게 작동하는가
+2. 합의는 안전한가
+3. 생태계는 살아있는가
+4. 현재 매크로에서 어떤 위치인가
+5. 가치는 어떻게 평가하는가
+
+## 1. 토크노믹스 — 21,000,000과 4번의 반감기
+
+<HalvingTimeline />
+
+{/* TODO: 1500자. 21M cap, 94%+ 발행 완료, 일 신규 450 BTC, 2028년 4월 5차 반감기 */}
+
+## 2. 합의 — PoW · 해시레이트 · 마이너 경제학
+
+{/* TODO: 1500자. 해시레이트 255→516 EH/s (+102%), difficulty adjustment, 마이너 매도압 */}
+
+## 3. 생태계 — Lightning · Ordinals · BTC ETF
+
+<ETFFlowChart />
+
+{/* TODO: 1500자. ETF AUM $102B, IBIT 49-62% 점유, Ordinals/Runes, Lightning 5,300 BTC capacity */}
+
+## 4. 매크로 — DXY · 금리 · M2와 BTC
+
+<CorrelationHeatmap variables={['DXY','US10Y','M2','GOLD','SP500']} />
+
+{/* TODO: 1500자. Fed 3.50-3.75%, DXY 101-102, M2 $22.3T, BTC-Gold 0.68 (2년 최고) */}
+
+<Callout type="opposing-view" title="반대 시각 · NY Fed Staff Report 1052">
+Benigno & Rosa (2024)는 BTC가 short-term rate target에는 통계적으로 무반응이며, path/LSAP에만 부분
+반응한다고 보고합니다. "디지털 골드 가설"의 강한 형태는 학계에서 아직 합의되지 않았습니다.
+</Callout>
+
+## 5. 리스크 — 양자 · 정치 · 채굴 집중도
+
+{/* TODO: 1000자. 양자컴퓨팅(중장기), SAB 121 폐지, 전략적 비축 논쟁, 마이너 지역 편중 */}
+
+## 6. 시그니처 — 화폐론과 디지털 골드 가설 재검증
+
+{/* TODO: 2000-2500자. 본 블로그의 정체성 섹션 */}
+
+### 6-1. 화폐의 4단계 진화론
+
+상품화폐(금) → 대표화폐(금태환 지폐) → 명목화폐(법정통화) → **디지털 희소성 자산**.
+Saifedean Ammous *Bitcoin Standard*, Lyn Alden *Broken Money* 인용.
+
+### 6-2. 금과 BTC 비교
+
+| 기준 | 금 | BTC |
+|------|----|----|
+| Stock-to-Flow | 약 60 | 56 (반감기 후 120+) |
+| 휴대성 | 낮음 | 매우 높음 |
+| 분할성 | 제한적 | 1억분의 1 (sat) |
+| 검증가능성 | 어려움 | 즉시 검증 |
+| 위조 저항성 | 화학적 | 암호학적 |
+
+### 6-3. NVT · MVRV로 본 현재 밸류에이션
+
+{/* TODO: NVT 정의 + 현재 위치, MVRV 사이클 위치 */}
+
+<Callout type="data" title="데이터 한계">
+NVT/MVRV는 거래량 기반 지표라 ETF flow가 OTC로 빠지면 "전송량" 측정이 왜곡됩니다.
+2024년 이후 신뢰 구간 재조정이 학계에서 진행 중입니다.
+</Callout>
+
+### 6-4. ETF 보유분과 디지털 골드 가설
+
+강화론 vs 약화론.
+- 강화: 6.3% 락업 + 영구 보유 + 골드 ETF 점진 축적 패턴
+- 약화: BlackRock 단일 보유 49-62% = BTC 검열저항 정신과의 긴장
+
+## 7. 결론 및 가치평가
+
+{/* TODO: 700-1000자. 3가지 결론 + Fair value range */}
+
+3가지 결론:
+
+1. BTC는 화폐 진화의 4단계로 가장 잘 설명되며, 디지털 골드 가설은 2026년 매크로 환경에서 재검증 중
+2. 2026년 5월 현재 BTC는 cycle 후반 조정 + Fed 인하 사이클 초입 = 역사적으로 강세 setup
+3. 그러나 ETF 집중도와 채굴 경제학의 구조적 변화는 과거 사이클의 단순 반복을 어렵게 만든다
+
+**다음 호 예고**: 7월 이더리움 — Pectra 1주년과 글로벌 분산 컴퓨터 가설.
+
+---
+
+본 글은 분석이며 매수 추천이 아닙니다. 매크로·온체인·모멘텀 관점의 개인 리서치 기록입니다.

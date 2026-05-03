@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# luxon-crypto-lab
 
-## Getting Started
+> Top 10 시가총액 코인을 매크로 사이클 × 온체인 메트릭 × 모멘텀 관점으로 매월 한 편씩 deep dive 하는 한국어 리서치 블로그.
 
-First, run the development server:
+[![Deploy to GitHub Pages](https://github.com/pollmap/luxon-crypto-lab/actions/workflows/deploy.yml/badge.svg)](https://github.com/pollmap/luxon-crypto-lab/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**Live**: https://pollmap.github.io/luxon-crypto-lab/
+
+---
+
+## 무엇
+
+- **자산**: 시가총액 Top 10 (BTC · ETH · SOL · BNB · XRP · TRX · Stables · DOGE · FIGR_HELOC · 신규)
+- **주기**: 월간 1편 deep dive (2026년 6월 1일 BTC 1호 시작 → 2027년 5월 종합 12호)
+- **프레임**: 공통 70%(토크노믹스 · 합의 · 생태계 · 매크로 · 리스크) + 코인별 시그니처 30%
+- **소스**: 영문 1차 (Messari · Glassnode · BIS · NY Fed · 학술 저널)
+
+상세 캘린더 → `/roadmap/`
+
+---
+
+## 분석 프레임 — 3축 결합
+
+| 축 | 사용 지표 |
+|------|---------|
+| **매크로 사이클** | Fed funds · DXY · M2 · 실질금리 · ETF flow |
+| **온체인 메트릭** | NVT · MVRV · 해시레이트 · burn rate · 검증자 경제학 |
+| **산업 턴어라운드 · 모멘텀** | 업그레이드 사이클 · 규제 · 내러티브 전환점 |
+
+작성자 포지셔닝 = 가치투자자 X, **재량형 매크로 추세추종 투자자**. 가치분석은 도구로만 사용.
+
+---
+
+## 스택
+
+```
+Next.js 16 (App Router · static export) · React 19 · TypeScript · Tailwind v4
+MDX (@next/mdx · remark-gfm · rehype-slug)
+recharts · Framer Motion
+GitHub Actions → GitHub Pages
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+폰트: JetBrains Mono (모노 본문) · Inter (긴 본문 보조)
+디자인: 사이버펑크 네온 다크 (`#0a0a0f` 배경 · 시안/마젠타 액센트)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 로컬 빌드
 
-## Learn More
+```bash
+npm install
+npm run dev          # http://localhost:3000
+npm run build        # → out/ 정적 빌드
+```
 
-To learn more about Next.js, take a look at the following resources:
+`next.config.ts` 의 `basePath` 는 `production` 빌드에서만 `/luxon-crypto-lab` 적용 (로컬 dev 영향 없음).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 디렉토리 구조
 
-## Deploy on Vercel
+```
+src/
+├── app/                          # App Router 라우트
+│   ├── page.tsx                  # 홈
+│   ├── posts/[slug]/page.tsx     # 동적 MDX 글
+│   ├── coins/[symbol]/page.tsx   # 코인별 페이지
+│   ├── roadmap/page.tsx          # 12개월 캘린더
+│   └── about/page.tsx            # 시리즈 소개
+├── components/
+│   ├── neon/                     # GlowText·GridBackground·HashBadge·TerminalBox
+│   ├── charts/                   # PriceChart·ETFFlowChart·HalvingTimeline·CorrelationHeatmap
+│   ├── post/                     # PostHeader·TOC·Callout·SourceFootnote
+│   └── nav/                      # Header·Footer
+├── content/posts/                # MDX 본문 (1글 = 1파일)
+├── lib/
+│   ├── coins.ts                  # 12회차 메타 단일 진실원
+│   └── posts.ts                  # MDX frontmatter 로딩 (gray-matter)
+└── mdx-components.tsx            # 글로벌 MDX 컴포넌트 매핑
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 새 글 추가 가이드
+
+상세는 [`docs/CONTENT-GUIDE.md`](docs/CONTENT-GUIDE.md) 참고. 요약:
+
+1. `src/content/posts/<slug>.mdx` 생성
+2. frontmatter (slug · title · subtitle · coin · issue · publishedAt · category · sources · draft) 작성
+3. `draft: true` 면 빌드 결과 비공개. 발행 시 제거
+4. 본문에 `<HalvingTimeline />`, `<ETFFlowChart />`, `<CorrelationHeatmap />`, `<Callout type="opposing-view">` 등 컴포넌트 직접 임베드 가능
+5. push to `main` → GitHub Actions 자동 배포
+
+---
+
+## 보안 / 기여 / 라이센스
+
+- 보안 정책: [`SECURITY.md`](SECURITY.md)
+- 기여 가이드: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- 라이센스: [`LICENSE`](LICENSE) (MIT)
+- 작성자: [@pollmap](https://github.com/pollmap)
+
+---
+
+## 디스클레이머
+
+본 사이트의 모든 글은 분석이며 매수/매도 추천이 아닙니다. 개인 리서치 기록입니다.
