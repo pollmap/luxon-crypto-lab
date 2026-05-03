@@ -1,0 +1,49 @@
+---
+slug: bitcoin-quantum-deep-dive
+title: "Quantum 위협 깊이 분석 — Lattice 전환 시나리오"
+subtitle: RSA 2048 / ECDSA 256 vs 양자 진척도
+coin: BTC
+issue: 1
+publishedAt: "2026-07-27"
+category: L1-PoW
+tags: [bitcoin, quantum, post-quantum, lattice, ecdsa, taproot]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "a16z crypto — Quantum threat assessment (2025)"
+    url: https://a16zcrypto.com/
+  - name: "NIST — Post-Quantum Cryptography Standardization"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+  - name: "IBM Quantum Roadmap"
+    url: https://www.ibm.com/quantum/roadmap
+  - name: "Google Quantum AI — Willow chip (2024)"
+    url: https://quantumai.google/
+---
+
+{/* DRAFT — 2026-07-20까지 본문 작성. 분량 ~3000자 */}
+
+## 도입 — 5-10년 buffer 가설
+
+{/* TODO: ~400자. 양자 위협이 BTC 진영의 가장 큰 long-tail risk. 진짜 5-10년인가, 더 가까운가 */}
+
+## 1. ECDSA 256 / RSA 2048 — 무엇이 깨지는가
+
+{/* TODO: ~700자. Shor's algorithm. 깨려면 ~1M logical qubits. 현재 IBM Condor 1,121, Willow 105 (physical) */}
+
+## 2. NIST Post-Quantum 표준 — Lattice·Hash-based
+
+{/* TODO: ~700자. CRYSTALS-Kyber, CRYSTALS-Dilithium 표준 (2024). signature size·검증 속도 비교 */}
+
+## 3. Bitcoin 전환 시나리오 — Soft fork vs Hard fork
+
+{/* TODO: ~700자. Taproot 후속 BIP. P2QRH (Pay-to-Quantum-Resistant Hash). 합의 도달 시간 */}
+
+<Callout type="data" title="데이터 한계 · 양자 진척도 예측의 불확실성">
+Logical vs physical qubit 차이 1000:1. 현재 1,121 physical = 약 1 logical 추정. 1M logical = 1B physical 필요. 2030 예상 IBM 목표 = 100K physical. 5년 격차.
+</Callout>
+
+## 4. 결론 — 양자가 진짜 위협이 되기 전 시간
+
+{/* TODO: ~500자. 5-10년 buffer가 합리적 추정. 동안 BIP 합의 + 마이그레이션 가능. 시리즈 #1-J 종합 결론으로 연결 */}
+
+<SeriesNav coinSymbol="BTC" currentSlug="bitcoin-quantum-deep-dive" />
