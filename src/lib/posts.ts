@@ -78,3 +78,23 @@ export function getPostsByCoin(symbol: string): PostMeta[] {
 export function getAllSlugs(): string[] {
   return getAllPostsRaw().map((p) => p.slug);
 }
+
+export interface BlogStats {
+  totalPosts: number;
+  publishedPosts: number;
+  draftPosts: number;
+  uniqueCoins: number;
+  uniqueCategories: number;
+}
+
+export function getBlogStats(): BlogStats {
+  const all = getAllPostsRaw();
+  const published = all.filter((p) => !p.draft);
+  return {
+    totalPosts: all.length,
+    publishedPosts: published.length,
+    draftPosts: all.length - published.length,
+    uniqueCoins: new Set(all.map((p) => p.coin)).size,
+    uniqueCategories: new Set(all.map((p) => p.category)).size,
+  };
+}

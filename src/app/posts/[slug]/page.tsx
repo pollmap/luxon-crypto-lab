@@ -3,6 +3,7 @@ import { getAllSlugs, getPostBySlug } from "@/lib/posts";
 import { PostHeader } from "@/components/post/PostHeader";
 import { TOC } from "@/components/post/TOC";
 import { SourceFootnote } from "@/components/post/SourceFootnote";
+import { BlogSidebar } from "@/components/sidebar/BlogSidebar";
 
 export const dynamicParams = false;
 
@@ -29,16 +30,25 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const { default: Post } = await import(`@/content/posts/${slug}.mdx`);
 
   return (
-    <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 xl:grid-cols-[1fr_220px]">
-      <article className="mx-auto w-full max-w-3xl">
+    <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-8 lg:grid-cols-[260px_1fr] xl:grid-cols-[280px_1fr_220px] xl:gap-8 xl:px-6">
+      <div className="hidden lg:block">
+        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
+          <BlogSidebar activeSlug={slug} excludeRecentSlug={slug} />
+        </div>
+      </div>
+
+      <article className="mx-auto w-full max-w-3xl px-2">
         <PostHeader meta={meta} />
         <div className="prose-content">
           <Post />
         </div>
         {meta.sources && meta.sources.length > 0 && <SourceFootnote sources={meta.sources} />}
       </article>
+
       <aside className="hidden xl:block">
-        <TOC />
+        <div className="sticky top-20">
+          <TOC />
+        </div>
       </aside>
     </div>
   );
