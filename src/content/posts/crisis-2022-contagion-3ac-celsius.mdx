@@ -1,0 +1,251 @@
+---
+slug: crisis-2022-contagion-3ac-celsius
+title: "2022 Contagion — 3AC · Voyager · BlockFi · Celsius 도미노"
+subtitle: Three Arrows 청산 → 채권자 도미노 → CeFi 대출 모델 종말 (Crisis 시리즈 #C4)
+publishedAt: "2027-06-07"
+category: Series
+tags: [3ac, three-arrows, voyager, blockfi, celsius, contagion, cefi]
+estimatedReadTime: 18
+draft: true
+sources:
+  - name: "Three Arrows Capital — Liquidation Filing (BVI Court, 2022.7)"
+    url: https://www.bvi.gov.vg/
+  - name: "Voyager Digital — Chapter 11 Bankruptcy Filing (2022.7)"
+    url: https://cases.stretto.com/voyager/
+  - name: "Celsius Network — Bankruptcy Court Examiner's Report (2023)"
+    url: https://cases.stretto.com/celsius
+  - name: "BlockFi — Chapter 11 Bankruptcy Filing (2022.11)"
+    url: https://restructuring.ra.kroll.com/blockfi/
+  - name: "Glassnode — stETH Discount Crisis (2022.6)"
+    url: https://insights.glassnode.com/the-week-onchain-week-25-2022/
+  - name: "Davies, K. — Three Arrows Memoir Interviews (2023-2024)"
+    url: https://podcasts.bloomberg.com/
+  - name: "Faux, Z. — Number Go Up: Inside Crypto's Wild Rise (2023, Penguin)"
+    url: https://www.penguinrandomhouse.com/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2022년 5월 Luna 붕괴 직후 6주 동안 — Three Arrows Capital 청산 → Voyager 파산 → Celsius 파산 → BlockFi 파산 → Genesis 파산. 도미노 효과로 약 $12B 사용자 손실 + CeFi 대출 모델 사실상 멸종. 이 contagion 의 메커니즘과 학술적 의미를 봅니다.
+</Callout>
+
+## 도입 — *"Lehman 모멘트"* 의 가상자산 버전
+
+2008년 9월 Lehman Brothers 파산 후 6주 동안 — Bear Stearns, AIG, Fannie Mae, Freddie Mac 이 차례로 위기. 한 회사의 파산이 다른 회사의 파산을 부르는 *"contagion"* 패턴이 글로벌 금융위기로 확산.
+
+2022년 5월 Luna 붕괴 후 가상자산 산업이 *"가상자산 Lehman 모멘트"* 를 경험했습니다. **Three Arrows Capital(3AC) → Voyager → Celsius → BlockFi → Genesis** 의 도미노. 6주 만에 약 $12B 사용자 손실. 결과 — CeFi (centralized finance) 대출 모델의 사실상 멸종.
+
+본 편은 5단계 도미노를 시간순으로 추적합니다 — (1) 3AC 의 stETH/Luna 노출, (2) 6월 청산, (3) Voyager/Celsius 의 3AC 채권 노출, (4) BlockFi/Genesis 의 후속 파산, (5) CeFi 대출 모델의 종말.
+
+## 1. Three Arrows Capital — *"the kings of crypto"*
+
+### 1-1. 회사
+Three Arrows Capital (3AC). 싱가포르 본사. 창업자 — Su Zhu, Kyle Davies (둘 다 Phillips Academy → Columbia 동기, 1995-2010 Wall Street 경험).
+
+3AC 가 2018년 시작 시점 AUM 약 $30M. 2022년 1월 피크 AUM 약 **$10B**. 4년 만에 333배 가속. 가상자산 헤지펀드 중 가장 큰 규모.
+
+### 1-2. 투자 전략
+3AC 의 *"메가 베타"* 전략 — 가상자산 시장의 일반적 상승에 걸기. 단순한 long bias.
+
+핵심 포지션:
+- **GBTC** (Grayscale Bitcoin Trust) — premium 시기 대량 매수
+- **stETH** (Lido staked ETH) — 1:1 교환 가정
+- **Luna/UST** — Anchor 19.5% yield
+- **AVAX, NEAR, DOT** — *"L1 다양화"*
+
+이 4 포지션 모두 2022 Q2 에 동시 손실. 3AC 의 단일 지점 베팅이 노출.
+
+### 1-3. GBTC premium 의 실패
+3AC 의 첫 번째 큰 손실 — GBTC. 2020-2021 GBTC 가 BTC 가격 대비 +30% premium 으로 거래. 즉 GBTC 1주 = BTC 가격 × 1.3.
+
+3AC 가 *"GBTC 의 ETF 전환"* 가설로 GBTC 매수. 가설 — GBTC 가 ETF 전환되면 premium 이 사라지지만, 그때까지 BTC 가격 상승으로 보상.
+
+실제 — 2021 후반부터 GBTC premium 이 *"discount"* 로 전환 (-50% 까지). GBTC 1주 = BTC 가격 × 0.5. 3AC 의 GBTC 보유 가치가 절반으로 감소.
+
+### 1-4. stETH discount
+3AC 의 두 번째 큰 손실 — stETH. Lido 의 staked ETH. 이론적으로 stETH 1 = ETH 1 (고정 페그). 그러나 2022년 6월 stETH 가격이 ETH 의 약 **94%** 까지 하락 (-6% discount).
+
+이 discount 의 원인 — Ethereum 의 Beacon Chain 출금 미허용 (Shanghai 업그레이드 전). 즉 stETH 보유자가 stETH 를 ETH 로 즉시 변환 불가능. 유동성 부재가 가격 discount 만들었습니다.
+
+3AC 가 stETH 를 *"1:1 페그 자산"* 으로 가정하고 매수. 6% discount 가 작아 보이지만, leverage 5x 로 노출하면 30% 손실.
+
+### 1-5. Luna/UST 노출
+3AC 가 Luna Foundation Guard (LFG) 의 BTC reserve 매수에 참여. 약 **$200M** 어치 LUNA 직접 보유 + UST 약 $400M 보유. Luna 붕괴 후 약 $560M 손실 (당시 추정).
+
+## 2. 3AC 청산 — 6월 timeline
+
+### 2-1. 6월 13일
+stETH discount 가 -8% 까지 확장. 3AC 의 stETH 포지션이 마진 콜 (margin call). 3AC 가 BlockFi 와 Genesis 에서 빌린 USDC 약 $2.5B 의 collateral 부족.
+
+### 2-2. 6월 16일
+BlockFi 와 Genesis 가 3AC 에 마진 콜 통보. 24시간 내 추가 담보 또는 일부 청산 요구.
+
+### 2-3. 6월 17일
+3AC 가 마진 콜 응답 X. BlockFi 와 Genesis 가 3AC 의 담보 자산 약 $400M 청산.
+
+### 2-4. 6월 27일
+3AC 가 BVI (영국령 버진제도) 법원에 청산 신청. 신원 — Su Zhu 와 Kyle Davies 의 보유 자산 동결.
+
+### 2-5. 7월 1일
+3AC 의 미국 자산 (Voyager 등에 빌려준 채권) 이 미국 법원에서 청산 절차 시작. 사실상 3AC 의 글로벌 청산 시작.
+
+### 2-6. 7월 6일
+Su Zhu 와 Kyle Davies 가 도주. 싱가포르 → 두바이 → 발리 → 그리스 → 인도네시아. 2023년 9월 인도네시아에서 체포. 싱가포르 송환 후 2024년 4월 출소 (4개월 형).
+
+도주의 의미 — 3AC 의 자산을 청산 절차에서 보호하려는 시도. 채권자에게 가야 할 자산을 개인이 가져간 가능성. 학술적으로 *"asset hiding fraud"* 의 표준 사례.
+
+## 3. Voyager Digital — 3AC 의 첫 채권자 피해자
+
+### 3-1. Voyager 의 사업 모델
+Voyager 는 미국 *"가상자산 broker"* 회사. 사용자가 USD 를 입금하면 BTC, ETH 등을 매매할 수 있는 서비스. NYSE 상장 회사.
+
+Voyager 의 수익 모델 — 사용자 USD 를 가상자산 헤지펀드에 대출. 그 대출 이자가 Voyager 의 주요 수익. **3AC 가 Voyager 의 가장 큰 단일 채무자** — 약 $670M 대출.
+
+### 3-2. 3AC 청산의 직접 충격
+3AC 가 청산 절차에 들어가면서 Voyager 의 $670M 채권이 회수 불가능. 이는 Voyager 자산 약 $1.5B 의 절반 가까이.
+
+### 3-3. Voyager 파산
+- 2022.7.5 — Voyager 가 사용자 출금 정지
+- 2022.7.7 — Voyager 가 미국 Chapter 11 파산 신청
+- 사용자 자금 약 $1.3B 이 출금 불가 상태
+
+### 3-4. 인수 분쟁
+Voyager 자산을 FTX 가 인수 시도 (2022.9). 그러나 FTX 자체가 2022.11 붕괴. Binance.US 가 차선 인수 시도 (2023.1). 미국 SEC 가 인수 차단 (2023.4) — 결국 Voyager 가 단독 청산.
+
+## 4. Celsius Network — yield 모델의 폰지 구조
+
+### 4-1. Celsius 의 사업 모델
+Celsius 는 *"가상자산 lending platform"*. 사용자가 BTC, ETH 등을 입금하면 **연 8-18% yield** 제공. 이 yield 가 가상자산 산업에서 가장 높은 *"무위험 같은"* 수익률.
+
+### 4-2. yield 의 출처
+Celsius 의 yield 출처 (2022 시점):
+- 가상자산 헤지펀드 대출 (3AC 등) — 약 60%
+- DeFi 프로토콜 (Aave, Compound, Anchor) — 약 25%
+- 자기 운용 (margin lending) — 약 15%
+
+이 중 60% 가 3AC 의존. 3AC 청산 시 Celsius 의 yield engine 이 60% 정지.
+
+### 4-3. Anchor 의존
+Celsius 의 DeFi yield 의 다수가 **Anchor Protocol** (Luna 의 yield 프로토콜) 의존. Luna 붕괴와 함께 Anchor 도 사실상 운영 정지. Celsius 의 두 번째 yield engine 정지.
+
+### 4-4. 회계 결함 (학술적 핵심)
+Examiner Report (2023) 가 밝힌 Celsius 의 회계 결함:
+
+- **Negative net assets** — 2021년 11월부터 이미 부채 > 자산. 즉 *"기술적 파산"* 상태에서 운영 지속.
+- **CEL 토큰 가격 조작** — Celsius 의 자체 토큰 CEL 의 가격을 인위적으로 유지하기 위해 사용자 자금으로 매수.
+- **High-yield Plan B** — 새 사용자 입금으로 기존 사용자 yield 를 지급. 즉 **폰지 구조**.
+
+이 마지막 발견이 가장 중요. Celsius 는 단순 *"대출 플랫폼"* 이 아니라 **폰지 구조의 yield 플랫폼**.
+
+### 4-5. 파산
+- 2022.6.13 — Celsius 가 사용자 출금 정지
+- 2022.7.13 — Chapter 11 파산 신청
+- 2024.1 — 약 $3B 의 사용자 자금 일부 분배 시작
+- 2024.7 — Celsius CEO Alex Mashinsky 가 fraud 혐의 유죄 협조 (plea bargain)
+
+## 5. BlockFi — 다음 도미노
+
+### 5-1. BlockFi 의 사업 모델
+BlockFi 도 Celsius 와 비슷한 *"가상자산 lending"*. 사용자가 BTC 입금하면 연 4-6% yield (Celsius 보다 낮음). BlockFi 의 보수성 — Celsius 보다 낮은 yield 로 더 sustainable 가능성.
+
+### 5-2. 3AC 채권
+BlockFi 가 3AC 에게 약 **$1B** 대출. 3AC 청산으로 회수 불가능. BlockFi 자산의 약 30%.
+
+### 5-3. FTX 의 구원
+2022년 7월, FTX/Alameda 가 BlockFi 에 $400M credit line 제공. 일시적 안정. 그러나 2022년 11월 FTX 자체 붕괴 시 BlockFi 의 FTX 노출이 약 $355M 동시 손실.
+
+이 *"3AC 손실 + FTX 노출"* 의 이중 충격으로 BlockFi 도 파산.
+
+### 5-4. 파산
+- 2022.11.28 — BlockFi 가 Chapter 11 파산 신청 (FTX 붕괴 17일 후)
+- 사용자 자금 약 $1.3B 이 출금 불가
+- 2024.6 — 사용자 자금 약 80% 회수 (가상자산 가격 회복 덕분)
+
+## 6. Genesis — 마지막 도미노
+
+### 6-1. Genesis 의 사업 모델
+Genesis Trading 은 Digital Currency Group (DCG) 자회사. *"기관 가상자산 lending"* 의 가장 큰 회사 — 헤지펀드, 패밀리 오피스, 거래소에 가상자산 대출. 2022년 1월 피크 AUM 약 **$15B**.
+
+### 6-2. 3AC + FTX + Genesis 본사 (DCG) 의 모순
+Genesis 의 3중 노출:
+- **3AC 채권** ~$2.4B (사실상 회수 불가)
+- **FTX 노출** ~$175M
+- **DCG 본사 채권** ~$1.5B (DCG 가 Genesis 에 빌린 자금)
+
+특히 마지막 — **DCG 가 Genesis 에 빌린 $1.5B** — 가 학술적으로 가장 큰 문제. DCG 와 Genesis 가 같은 그룹인데 *"내부 commingling"* 구조.
+
+### 6-3. 파산
+- 2022.11.16 — Genesis 가 사용자 출금 정지
+- 2023.1.19 — Chapter 11 파산 신청
+- 2024.5 — 사용자 자금 약 75% 회수
+- DCG 자체는 파산 안 함 (자회사만 파산)
+
+## 7. 도미노의 종합 손실
+
+| 회사 | 사용자 자금 동결 | 최종 회수율 (2026 Q1) |
+|------|----------------|---------------------|
+| Voyager | $1.3B | 36% |
+| Celsius | $4.7B | 78% (가상자산 가격 회복) |
+| BlockFi | $1.3B | 80% |
+| Genesis | $3.4B | 75% |
+| 3AC (직접 사용자 X, 채권자 다수) | $3.5B (대출) | 14% |
+| **합계** | **$14.2B** | 평균 60% |
+
+회수율 평균 60% 가 의미하는 바 — 사용자 손실의 다수가 결국 회수됐습니다. 그러나 회수까지 약 2-3년 소요 + 그 동안 사용자 자금 사용 불가능. 학술적으로 *"opportunity cost"* 가 큼.
+
+## 8. CeFi 대출 모델의 종말
+
+이 도미노 결과로 **CeFi (centralized finance) 대출 모델 사실상 멸종**:
+
+| 시점 | CeFi lending TVL |
+|------|-----------------|
+| 2022.1 | $58B |
+| 2022.7 (도미노 시작) | $34B |
+| 2023.1 | $8B |
+| 2024.1 | $3B |
+| 2026.1 | $2.4B |
+
+98% 감소. CeFi 가 사실상 멸종.
+
+대체 — **DeFi lending** (Aave, Compound, Maple) 이 가속:
+
+| 시점 | DeFi lending TVL |
+|------|-----------------|
+| 2022.1 | $42B |
+| 2022.7 | $28B |
+| 2023.1 | $14B |
+| 2024.1 | $24B |
+| 2026.1 | $48B |
+
+DeFi 가 회복 + 가속. 학술적으로 *"transparent on-chain lending"* 이 *"opaque CeFi lending"* 을 대체.
+
+<Callout type="opposing-view" title="반대 시각 · 2022 contagion 은 정말 끝이었나">
+2022 contagion 이 CeFi 대출 모델을 종식시켰다는 narrative 가 정설이지만, 비판적 시각도 있습니다.
+
+첫째, **CeFi 의 진정한 종말이 아닐 가능성**. CeFi lending TVL $2.4B (2026) 가 작지만 0 이 아닙니다. Coinbase, Genesis (이름만 유지), Tesseract 같은 회사가 *"새 framework"* 의 CeFi lending 을 시도. 단순히 *"종식"* 이 아니라 *"재탄생"* 가능성.
+
+둘째, **DeFi 가 정말 안전한가**. CeFi 의 commingling 문제가 DeFi 에는 없습니다. 그러나 DeFi 도 다른 위험 — smart contract bug, MEV, oracle manipulation. 2022 contagion 에서 DeFi 도 일부 영향 (Solend, Aave 등에서 oracle 문제 발생). DeFi 가 *"완전히 안전"* 한 게 아닌, *"다른 위험"* 을 갖는 system.
+
+셋째, **3AC 의 책임 vs 시스템적 책임**. Su Zhu 와 Kyle Davies 가 4개월 형으로 끝난 것이 *"개인 처벌의 가벼움"*. 그러나 3AC 의 잘못은 단순 *"개인 사기"* 가 아니라 — *"높은 leverage + 단일 베팅"* 이라는 시스템적 패턴. 다른 헤지펀드들도 비슷한 패턴이지만 운이 좋아 살아남았을 가능성.
+
+넷째, **Anchor 19.5% 의 기여**. Celsius 의 폰지 구조가 *"Anchor 19.5%"* 라는 외부 yield 출처가 있어서 가능. 즉 Luna 의 폰지가 Celsius 의 폰지를 enable. 다층 폰지 구조의 학술적 의의.
+
+다섯째, **사용자 보호의 부재**. 2022 contagion 의 직접 피해자는 Voyager, Celsius, BlockFi 의 사용자 약 100만 명. 이들이 거래소 + lending 의 차이를 이해하지 못한 채 자금을 맡겼습니다. *"financial literacy"* 의 부재 + 회사의 marketing 결합 결과. VAUPA 가 이를 막을 수 있는지 미정.
+
+이 5가지 비판이 의미하는 바 — 2022 contagion 이 단순 *"한 번의 위기"* 가 아니라 **시스템 전체의 학습 기회**. 학습이 충분한지는 미정.
+</Callout>
+
+## 결론 — *"가상자산 Lehman 모멘트"* 의 영구 교훈
+
+본 편이 정리한 5가지 핵심 발견:
+
+1. **3AC → Voyager → Celsius → BlockFi → Genesis 6주 도미노**. 단일 회사 (3AC) 의 채권자 노출이 5개 회사 파산 만듦.
+2. **약 $14B 사용자 자금 동결**. 평균 60% 회수, 그러나 2-3년 시간 소요.
+3. **Celsius 가 *"폰지 구조"***. Examiner Report 가 부채 > 자산 + CEL 가격 조작 + 새 사용자 자금으로 기존 yield 지급 발견.
+4. **CeFi lending 사실상 멸종 (98% 감소)**. DeFi lending 으로 대체 — *"transparent on-chain"* 가 *"opaque off-chain"* 을 이김.
+5. **3AC 창업자 4개월 형 + 미수 자산**. 처벌의 가벼움이 *"financial fraud 의 적정 형"* 의 학술 논쟁.
+
+다음 편(#C5) — The DAO Hack (2016). Reentrancy 공격 + ETH/ETC 분리 + Code is law 논쟁.
