@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://pollmap.github.io/luxon-crypto-lab";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://luxon-crypto-lab.vercel.app";
 
 export const dynamic = "force-static";
 

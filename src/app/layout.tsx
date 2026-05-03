@@ -24,7 +24,7 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pollmap.github.io/luxon-crypto-lab"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://luxon-crypto-lab.vercel.app"),
   title: {
     default: "luxon-crypto-lab — Top 10 cryptocurrency monthly deep-dive",
     template: "%s · luxon-crypto-lab",
