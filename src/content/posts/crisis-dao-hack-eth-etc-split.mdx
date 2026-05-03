@@ -1,0 +1,120 @@
+---
+slug: crisis-dao-hack-eth-etc-split
+title: "The DAO Hack — Reentrancy 와 ETH/ETC 분리"
+subtitle: Reentrancy 공격 코드 분석 · 하드포크 결정 · Code is law 논쟁 (Crisis 시리즈 #C5)
+publishedAt: "2027-06-14"
+category: Series
+tags: [dao-hack, reentrancy, ethereum-classic, hard-fork, vitalik]
+estimatedReadTime: 13
+draft: true
+sources:
+  - name: "Buterin, V. — DAO Hack Hard Fork Vote (2016.7)"
+    url: https://blog.ethereum.org/2016/07/20/hard-fork-completed/
+  - name: "Atzei, N., et al. — Survey of Attacks on Ethereum Smart Contracts (2017)"
+    url: https://eprint.iacr.org/2016/1007.pdf
+  - name: "Ethereum Foundation — DAO Hack Post-Mortem"
+    url: https://blog.ethereum.org/2016/06/17/critical-update-re-dao-vulnerability/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2016년 6월 The DAO 가 reentrancy 공격으로 3.6M ETH (당시 ~$60M, 2026 가치 ~$13B) 도난. 이더리움 커뮤니티가 하드포크로 자금 회수, 이더리움 클래식(ETC) 분리. *"Code is law"* vs *"Social consensus"* 학술 논쟁.
+</Callout>
+
+## 도입 — *"이더리움 사상의 첫 시험"*
+
+이더리움이 2015년 7월 출시. 11개월 후 The DAO Hack 이 발생. 이 사건이 — **이더리움 사상의 첫 시험** + **smart contract 보안의 영원한 교훈** + ***"Code is law"* 논쟁의 표준 사례**.
+
+## 1. The DAO 의 출발
+
+### 1-1. 회사
+The DAO (Decentralized Autonomous Organization) — 2016년 4월 Slock.it 의 Christoph Jentzsch 팀이 launching. *"분산 의사결정 + 투자 펀드"* 의 첫 대규모 시도. ICO 에서 약 **12.7M ETH** ($150M 당시) 모금. 당시 글로벌 최대 ICO.
+
+### 1-2. The DAO 의 작동
+- 사용자가 ETH 를 The DAO 에 입금 → DAO 토큰 받음
+- DAO 토큰 보유자가 *"투자 안건"* 에 투표
+- 다수결로 채택된 안건에 ETH 자동 투입
+
+이 framework 가 *"분산 자율 조직"* 의 초기 모델.
+
+## 2. Reentrancy 공격
+
+### 2-1. 취약점
+The DAO 의 *"split"* 함수에 reentrancy 취약점:
+
+```solidity
+function withdraw(uint amount) {
+  if (balances[msg.sender] >= amount) {
+    msg.sender.call.value(amount)(); // 외부 호출
+    balances[msg.sender] -= amount;  // 잔액 차감
+  }
+}
+```
+
+문제 — `msg.sender.call.value(amount)()` 가 외부 함수 호출. 잔액 차감 *"전"* 에 호출되므로 — 공격자가 fallback 함수에서 다시 `withdraw` 호출 가능. 잔액이 차감되지 않은 상태에서 재인출.
+
+### 2-2. 공격 실행
+2016년 6월 17일, 알 수 없는 공격자가 reentrancy 공격 실행. 약 **3.6M ETH** 가 *"Child DAO"* 로 이동. 28일 *"split delay"* (DAO 토큰 보유자가 인출하기 전 기다리는 기간) 동안 자금 동결.
+
+### 2-3. 공격자 정체
+공격자의 정체가 17년 동안 미정. 일부 학계 분석가가 *"가장 가능성 있는 후보"* 로 언급한 인물도 부정 + 명확한 증거 부재.
+
+## 3. 하드포크 결정
+
+### 3-1. 학습 + 토론
+Vitalik Buterin 과 이더리움 Foundation 이 *"hard fork"* (소프트웨어 강제 업데이트) 검토. 이 fork 가 — DAO 자금을 다시 원래 보유자에게 분배하는 *"reverse"*.
+
+### 3-2. 투표
+2016년 7월 15일 ETH 보유자 투표. 결과 — **89.5% 찬성**. 7월 20일 하드포크 실행. 블록 1,920,000 에서 fork.
+
+### 3-3. ETC 분리
+하드포크에 반대한 일부 보유자가 — *"원래 체인 (DAO 자금이 공격자에게 있는)"* 을 계속 유지. 이게 **Ethereum Classic (ETC)**. 두 체인 분리.
+
+## 4. *"Code is law"* 논쟁
+
+### 4-1. *"Code is law"* 진영 (ETC)
+- *"smart contract 가 작동한 결과는 정당"*
+- *"하드포크는 *"중앙화"* 의 신호"*
+- *"공격이 *"공격"* 이 아니라 *"feature"* 의 활용"*
+
+### 4-2. *"Social consensus"* 진영 (ETH)
+- *"공격이 명백히 의도와 다른 결과"*
+- *"커뮤니티가 합의로 정정 가능"*
+- *"smart contract 의 절대성은 학술적 fiction"*
+
+### 4-3. 결과
+ETH 가 *"social consensus"* 진영. ETC 가 *"code is law"* 진영. 두 체인 모두 살아남.
+
+ETH 시총 $370B (2026 Q1). ETC 시총 $4.2B. 시장이 *"social consensus"* 를 선호하는 결과.
+
+## 5. 학술적 영향
+
+### 5-1. Smart contract 보안 표준
+The DAO Hack 이후 — Solidity 의 *"Checks-Effects-Interactions"* 패턴이 표준. 잔액 차감 *"전"* 에 외부 호출 X.
+
+### 5-2. *"Reentrancy guard"*
+OpenZeppelin 의 `ReentrancyGuard` 라이브러리가 표준. 모든 dApp 이 사용.
+
+### 5-3. 영원한 교훈
+이더리움 보안 학계의 가장 큰 사례. 2016년 이후 reentrancy 공격이 50+건 발생했지만 모두 *"기본 패턴 무지"*. The DAO 패턴 학습으로 다수 방지 가능.
+
+<Callout type="opposing-view" title="반대 시각 · 하드포크 결정의 학술적 정당성">
+첫째, **선례의 위험**. 하드포크가 *"커뮤니티 다수가 코드 결과를 reverse 가능"* 의 선례. 미래 공격 시에도 *"하드포크 로 정정"* 기대 가능.
+
+둘째, **89.5% 투표 의 *"plutocracy"***. 투표가 *"ETH 보유 비중"* 기준. 즉 거대 보유자 (Vitalik 포함) 의 의견이 다수. *"democracy"* 가 아닌 *"plutocracy"*.
+
+셋째, **공격자의 *"정당성"***. 일부 학계 시각 — 공격자가 reentrancy 를 *"feature 활용"* 으로 합법. 하드포크가 *"공격자 권리 침해"*.
+
+이 비판이 의미 — DAO Hack 이 *"단순 사고"* 가 아닌 *"이더리움 사상의 시험"* 입니다.
+</Callout>
+
+## 결론
+
+1. **3.6M ETH ($13B 2026 가치) reentrancy 공격**.
+2. **하드포크 89.5% 찬성 + ETC 분리**.
+3. ***"Code is law"* vs *"Social consensus"* 영원한 논쟁**.
+
+다음 편(#C6) — Bridge Hack 시리즈 (Ronin, Poly, Wormhole, Nomad).

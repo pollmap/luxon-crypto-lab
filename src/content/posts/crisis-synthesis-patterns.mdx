@@ -1,0 +1,161 @@
+---
+slug: crisis-synthesis-patterns
+title: "사태 종합 — 8 케이스의 공통 패턴 학술 분류"
+subtitle: 5 공통 패턴 · NY Fed Staff Report 1066 · 학계 framework (Crisis 시리즈 #C9)
+publishedAt: "2027-07-12"
+category: Series
+tags: [synthesis, patterns, ny-fed, framework, lessons]
+estimatedReadTime: 14
+draft: true
+sources:
+  - name: "NY Fed Staff Report 1066 — Crypto Crises Synthesis (2024)"
+    url: https://www.newyorkfed.org/research/staff_reports/sr1066
+  - name: "BIS Working Paper 1280 — Crypto Stability Lessons (2025)"
+    url: https://www.bis.org/publ/work1280.htm
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+8 사태 (Luna, Mt.Gox, FTX, 2022 Contagion, DAO, Bridges, 거래소 해킹, 한국 케이스) 의 공통 패턴 5가지 + NY Fed 의 학술 분석. 가상자산 산업이 *"학습"* 했는가의 평가.
+</Callout>
+
+## 도입 — *"8 사태 의 공통 패턴"*
+
+#C1-#C8 에서 다룬 8 사태가 각기 다른 형태이지만 — **5가지 공통 패턴** 으로 분류 가능. NY Fed Staff Report 1066 (2024) 가 이를 학술적 framework 로 정리.
+
+## 1. 공통 패턴 5가지
+
+### 1-1. 자산 commingling
+사용자 자산과 회사 자산의 분리 부재.
+- **사례** — FTX (Alameda), Celsius (yield 자금), DELIO
+- **방어** — 사용자 자산 분리 보관 (VAUPA 의 1번 조항)
+
+### 1-2. 단일 운영자 + 이사회 결함
+회사 의사결정 권한이 1-2 인물에 집중.
+- **사례** — FTX (SBF), Mt.Gox (Karpeles), Luna (권도형), DELIO
+- **방어** — 이사회 + CFO + 외부 audit 의무
+
+### 1-3. 자기-collateral
+회사 자체 토큰을 담보로 사용.
+- **사례** — FTT (FTX 자체 토큰), CEL (Celsius), LUNA-UST
+- **방어** — 자기 토큰 거래소 자체 상장 금지 (VAUPA 의 2번 조항)
+
+### 1-4. 검증되지 않은 yield
+지속 가능성 없는 yield 약속.
+- **사례** — Anchor 19.5% (Luna), Celsius 8-18%, DELIO 5-12%
+- **방어** — yield 출처 공시 의무 + risk disclosure
+
+### 1-5. 핫월렛 보안 + 단일 키
+거래소 자산 보안의 기본 패턴 미흡.
+- **사례** — Mt.Gox, Coincheck (XEM), KuCoin
+- **방어** — Hot/Cold 분리 + multisig + Proof of Reserves
+
+## 2. NY Fed Staff Report 1066 의 분석
+
+### 2-1. 종합 손실
+8 사태 의 사용자 손실 합 — 약 **$95B** (2022-2024 가치).
+
+| 사태 | 손실 |
+|------|------|
+| Luna-UST | $60B (시총 차) |
+| FTX | $8B (사용자 자금) |
+| 2022 Contagion (3AC, Voyager, Celsius, BlockFi, Genesis) | $14B |
+| Mt.Gox (사용자 손실, 2024 가치) | $4B (회수 후 잔여) |
+| Bridge Hacks (Ronin, Poly, Wormhole, Nomad) | $1.7B |
+| 거래소 해킹 (Coincheck, Bitfinex, KuCoin, Bybit) | $2.4B (회수 후) |
+| 한국 케이스 (DELIO + 외환 위반 + Klaytn) | $4B |
+| The DAO (회복) | ~$0 (하드포크 회복) |
+| **합계** | **~$95B** |
+
+### 2-2. 회수율
+| 사태 종류 | 평균 회수율 |
+|----------|-----------|
+| 거래소 해킹 (자체 보전) | 95%+ |
+| 알고리즘 스테이블 붕괴 | 5% |
+| Lending 회사 파산 | 60-80% |
+| Bridge hack | 5-30% |
+| 거래소 사기 (FTX, DELIO) | 40-60% |
+
+### 2-3. 회복 시간
+| 사태 | 회복 시간 |
+|------|---------|
+| Mt.Gox | 14년 |
+| Bitfinex | 6년 (회수) |
+| FTX | 진행 중 (~3년 추정) |
+| Celsius | 2년 (78% 회복) |
+| Luna-UST | 영구 손실 |
+
+## 3. 학습의 정량 — 사고 빈도 + 규모
+
+| 시기 | 사고 수 (10K USD+) | 합 손실 ($B) |
+|------|------------------|------------|
+| 2018 | 47 | $2.0 |
+| 2020 | 92 | $3.4 |
+| 2022 | 165 | $79 (Luna + FTX 등) |
+| 2024 | 88 | $4.2 |
+| 2025 | 70 | $3.8 |
+
+2022년 정점 후 사고 수 + 손실 둔화. *"학습 진행 중"* 의 정량.
+
+## 4. 학계 framework — 5 학술 lens
+
+### 4-1. *"trust at scale"* (Bonneau et al. 2015)
+가상자산 산업의 핵심 문제 — *"신뢰 가능 분산 시스템 만들기"*. 8 사태 모두 *"신뢰 부재 + 단일 지점"* 의 결과.
+
+### 4-2. *"reflexivity"* (Soros)
+*"가격 가속 → 자신감 가속 → 더 큰 베팅 → 가격 가속"* 의 self-reinforcing loop. Luna, Celsius 모두 reflexivity 의 사례.
+
+### 4-3. *"information asymmetry"* (Akerlof)
+회사 내부자가 사용자보다 정보 우세. FTX, Luna 모두 information asymmetry 의 사례.
+
+### 4-4. *"bank run dynamics"* (Diamond-Dybvig)
+*"사용자 panic → 출금 가속 → 자금 부족 → 출금 정지"* 의 자기 강화. FTX 8일 뱅크런이 표준 사례.
+
+### 4-5. *"moral hazard"* (Bernanke)
+*"too big to fail"* 의 가정으로 위험 행동 가속. Bybit 의 자기 자금 보전이 *"moral hazard"* 가속 시킬 가능성.
+
+## 5. 미해결 질문
+
+### 5-1. 알고리즘 스테이블의 부활?
+Ethena USDe, Frax 등이 새 framework 시도. 학술적 검증 미정.
+
+### 5-2. ETF 시대의 risk
+ETF 가 *"single point of failure"*. BlackRock IBIT 보안 사고 시 시장 충격.
+
+### 5-3. AI + 가상자산 의 새 위험
+AI 에이전트의 prompt injection + 무한 결제 (#A2). 새 사고 패턴.
+
+### 5-4. 양자 컴퓨터의 위협
+2030-2040 양자 위협이 BTC ECDSA 깰 가능성. 사토시 1.1M BTC 의 risk.
+
+### 5-5. CBDC 와의 경쟁
+미국·EU·중국 CBDC 출시 시 가상자산의 *"화폐 대안"* 위치 변화.
+
+<Callout type="opposing-view" title="반대 시각 · 가상자산 산업이 정말 *학습* 했는가">
+첫째, **사고 수 둔화 vs 손실 절대 규모**. 2022 vs 2025 사고 수는 줄었지만 단일 사고 손실 (Bybit $1.5B) 은 가속. *"학습 부분적"*.
+
+둘째, **VAUPA + GENIUS Act 의 *compliance theatre***. 형식적 준수 + 실제 보안 취약. 표준 시행 후 새 사고 패턴 등장.
+
+셋째, **시스템적 책임 미해결**. 개인 (SBF, 권도형, Karpeles) 처벌은 있지만 — 시스템 (VC, 정치권, 미디어) 책임 미해결.
+
+넷째, **Lazarus 의 진화**. 표준 보안 (Hot/Cold, multisig) 으로 막을 수 없는 새 공격 (UI manipulation, social engineering).
+
+다섯째, **한국 unique 패턴 미해결**. VAUPA 가 외환 통제 + Klaytn 의혹 + DELIO 같은 한국 unique 패턴 일부만 해결.
+
+이 5가지 비판이 의미 — *"학습 진행 중이지만 *"완전 학습"* 아님*.
+</Callout>
+
+## 결론 — Crisis 시리즈 종결
+
+본 시리즈 9편 (#C1-#C9) 이 정리한 5가지:
+
+1. **8 사태 의 공통 패턴 5가지** — commingling, 단일 운영자, 자기-collateral, 검증되지 않은 yield, 핫월렛 보안.
+2. **종합 손실 ~$95B**. 사상 최대 단일 산업 사고 누적.
+3. **회수율 + 회복 시간 spectrum** — 거래소 해킹 95%+, 알고리즘 스테이블 5%, lending 회사 60-80%.
+4. **학계 framework 5 lens** — trust at scale, reflexivity, information asymmetry, bank run, moral hazard.
+5. **미해결 질문 5개** — 알고리즘 스테이블 부활, ETF risk, AI 위험, 양자 위협, CBDC 경쟁.
+
+CRISIS 시리즈 종결. 다음 — Treasury, Research, AI×Crypto, INSTITUTIONAL, 규제 잔여.

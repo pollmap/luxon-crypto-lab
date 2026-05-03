@@ -1,0 +1,119 @@
+---
+slug: crisis-exchange-hacks-asia
+title: "아시아 거래소 해킹 — Coincheck · Bitfinex · KuCoin · Bybit"
+subtitle: Coincheck 핫월렛 · Bitfinex 회수 · Bybit 2025 Lazarus · 일본 FSA 강화 (Crisis 시리즈 #C7)
+publishedAt: "2027-06-28"
+category: Series
+tags: [coincheck, bitfinex, kucoin, bybit, lazarus, asia, fsa]
+estimatedReadTime: 14
+draft: true
+sources:
+  - name: "Coincheck — 2018.1 Hack Post-Mortem"
+    url: https://coincheck.com/info/news"
+  - name: "Bitfinex — 2016 Hack and 2022 Recovery"
+    url: https://www.bitfinex.com/posts/
+  - name: "KuCoin — 2020 Hack Post-Mortem"
+    url: https://www.kucoin.com/news"
+  - name: "Bybit — 2025.2 ETH Hack Post-Mortem"
+    url: https://www.bybit.com/en/announcement-info"
+  - name: "Chainalysis — 2025 Crypto Crime Report"
+    url: https://www.chainalysis.com/reports/2025-crypto-crime-report
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+아시아 거래소 4 대규모 해킹 — Coincheck 2018 ($530M), Bitfinex 2016 (120K BTC), KuCoin 2020 ($281M), Bybit 2025 ($1.5B). Lazarus 의 역할 + 일본 FSA 강화의 직접 동기.
+</Callout>
+
+## 도입 — *"아시아가 거래소 해킹의 중심"*
+
+가상자산 거래소 해킹의 다수가 아시아에서 발생. 일본 (Mt.Gox 2014, Coincheck 2018) + 홍콩 (Bitfinex 2016) + 싱가포르 (KuCoin 2020) + UAE (Bybit 2025). 본 편은 4 사례를 봅니다.
+
+## 1. Coincheck ($530M, 2018.1)
+
+### 1-1. 사건
+일본 거래소 Coincheck 에서 **580M XEM** (NEM 토큰, 당시 $530M) 도난. 핫월렛에 평문 보관. multisig X.
+
+### 1-2. 회복
+Coincheck 가 자기 자금으로 사용자 손실 100% 보전. 그 후 Monex Group 이 인수. 2019년 부활.
+
+### 1-3. 일본 FSA 강화
+Coincheck 사고 직후 FSA 가 — 등록 거래소 전수 검사 + 5개 추가 사고 식별. 일본 거래소 산업의 *"compliance theatre"* 의 한계 노출.
+
+## 2. Bitfinex (120K BTC, 2016.8)
+
+### 2-1. 사건
+Bitfinex (홍콩) 에서 119,756 BTC 도난 (당시 $72M, 2022 회수 시점 가치 $4.5B). multisig 우회.
+
+### 2-2. 사용자 손실 처리
+Bitfinex 가 *"BFX 토큰"* 발행 — 모든 사용자에게 손실액만큼 토큰 분배. 일부는 Bitfinex 회사 주식으로 전환. 점진 회수.
+
+### 2-3. 2022년 추적 + 회수
+2022년 미국 DOJ 가 — Heather Morgan + Ilya Lichtenstein (부부) 체포. 약 $4.5B 회수. **사상 최대 가상자산 회수**. 2024 plea bargain.
+
+## 3. KuCoin ($281M, 2020.9)
+
+### 3-1. 사건
+KuCoin (싱가포르) 핫월렛에서 다양한 토큰 $281M 도난.
+
+### 3-2. 회복
+KuCoin 이 *"보험"* + 자기 자금 + 토큰 발행자 협력으로 사용자 손실 84% 보전. 일부 토큰은 token swap 으로 무효화.
+
+### 3-3. Lazarus 의 역할
+Chainalysis 가 KuCoin hack 의 자금 세탁 추적 — 다수가 Lazarus 패턴.
+
+## 4. Bybit ($1.5B, 2025.2)
+
+### 4-1. 사건
+2025년 2월 21일, Bybit 의 ETH cold wallet 에서 **약 $1.5B (~401K ETH)** 도난. **단일 사건 사상 최대**.
+
+### 4-2. 공격 방법
+Bybit cold wallet 의 multisig 트랜잭션 서명자가 *"가짜 UI"* 로 잘못된 트랜잭션 서명. 즉 *"social engineering + UI manipulation"*. Lazarus 의 진화된 공격.
+
+### 4-3. 사용자 보호
+Bybit 가 자기 자금으로 100% 보전. Bybit Reserve 가 충분 + 외부 자금 조달. 사용자 손실 0.
+
+### 4-4. 시장 충격
+사건 직후 BTC -7%, ETH -12% 단기 하락. 1주일 내 회복.
+
+## 5. 패턴 분석
+
+| 사건 | 손실 | 공격 방법 | 회복 | Lazarus |
+|------|------|----------|------|--------|
+| Coincheck 2018 | $530M | 핫월렛 평문 | 100% 보전 | 추정 |
+| Bitfinex 2016 | $72M (도난) | multisig 우회 | $4.5B 회수 (6년 후) | X |
+| KuCoin 2020 | $281M | 핫월렛 | 84% 보전 | 추정 |
+| Bybit 2025 | $1.5B | UI manipulation | 100% 보전 | 확인 |
+
+**거래소가 자기 자금으로 사용자 손실 보전하는 패턴** 이 산업 표준. 그러나 — 이를 위한 자본 비용 큼.
+
+## 6. 한국 시장
+
+한국 거래소 (업비트, 빗썸, 코빗, 코인원) 해킹 사례:
+- **빗썸 2017** — $30M 도난
+- **빗썸 2018** — $30M 추가 도난
+- **업비트 2019** — 342K ETH ($50M) 도난
+- **코인레일 2018** — $40M 도난
+
+VAUPA 시행 후 한국 거래소가 — Hot/Cold 분리 + multisig + Proof of Reserves 표준 채택. 신규 hack 보고 X (2024-2026).
+
+<Callout type="opposing-view" title="반대 시각 · 거래소 자체 보전의 한계">
+첫째, **자기 자금 보전이 *"crisis preparation"* 가정**. 회사 자본이 충분 X 시 보전 불가.
+
+둘째, **Lazarus 의 진화 공격**. UI manipulation, social engineering 같은 새 패턴 등장. 표준 보안 (Hot/Cold, multisig) 으로 방어 어려움.
+
+셋째, **회수의 어려움**. Bitfinex 6년, Mt.Gox 14년 — 회수까지 막대한 시간.
+
+이 비판이 의미 — 거래소 보안의 *"continuous problem"*.
+</Callout>
+
+## 결론
+
+1. **Coincheck $530M, Bitfinex 120K BTC, KuCoin $281M, Bybit $1.5B**. 사상 최대 4 사건.
+2. **거래소 자체 보전이 표준** — Coincheck, KuCoin, Bybit 모두 사용자 0 손실.
+3. **Lazarus 가 진화** — UI manipulation 같은 새 패턴.
+
+다음 편(#C8) — 한국 케이스 (DELIO, 김치 프리미엄, Klaytn).
