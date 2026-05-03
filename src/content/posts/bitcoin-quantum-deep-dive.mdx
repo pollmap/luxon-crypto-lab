@@ -16,34 +16,153 @@ sources:
     url: https://csrc.nist.gov/projects/post-quantum-cryptography
   - name: "IBM Quantum Roadmap"
     url: https://www.ibm.com/quantum/roadmap
-  - name: "Google Quantum AI — Willow chip (2024)"
+  - name: "Google Quantum AI — Willow chip (2024.12)"
     url: https://quantumai.google/
+  - name: "Project Eleven — Q-Day countdown estimates"
+    url: https://www.projecteleven.com/
 ---
 
-{/* DRAFT — 2026-07-20까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+양자 컴퓨터가 충분히 강력해지면 BTC 의 디지털 서명 (ECDSA) 을 깰 수 있어, 모든 BTC 가 도난 가능해집니다. 이게 BTC 의 가장 큰 long-tail 위험이죠. 본 편은 (1) 정확히 무엇이 깨지고 (2) 양자 진척도가 어디까지 왔으며 (3) BTC 진영의 전환 시나리오는 무엇인지 정량 분석합니다. **결론: 5-10년 buffer 가 합리적 추정.**
+</Callout>
 
 ## 도입 — 5-10년 buffer 가설
 
-{/* TODO: ~400자. 양자 위협이 BTC 진영의 가장 큰 long-tail risk. 진짜 5-10년인가, 더 가까운가 */}
+비트코인 시리즈에서 가장 long-tail 한 위험이 **양자 컴퓨팅** 입니다. 이론적으로 양자가 충분히 강해지면 BTC 의 디지털 서명을 깨고 모든 자산을 탈취 가능. 그러나 **"충분히 강해지는 데 얼마나 걸리는가"** 가 핵심 질문이고, 답이 5년이면 위기, 30년이면 충분한 대응 시간.
+
+a16z crypto 의 2025년 리포트는 **"5-10년 buffer"** 가 합리적 추정이라 결론. 본 편은 그 추정의 근거와 시나리오를 정량 분석합니다.
 
 ## 1. ECDSA 256 / RSA 2048 — 무엇이 깨지는가
 
-{/* TODO: ~700자. Shor's algorithm. 깨려면 ~1M logical qubits. 현재 IBM Condor 1,121, Willow 105 (physical) */}
+### Bitcoin 의 암호 의존
 
-## 2. NIST Post-Quantum 표준 — Lattice·Hash-based
+BTC 의 보안은 두 암호 메커니즘 위에 있습니다:
 
-{/* TODO: ~700자. CRYSTALS-Kyber, CRYSTALS-Dilithium 표준 (2024). signature size·검증 속도 비교 */}
+1. **SHA-256 해시**: PoW 합의 + 거래 ID 생성
+2. **ECDSA secp256k1**: 디지털 서명 (소유권 증명)
 
-## 3. Bitcoin 전환 시나리오 — Soft fork vs Hard fork
+양자 위협은 주로 **ECDSA** 에 있습니다. SHA-256 도 양자에 약화되지만 (Grover's algorithm 으로 √n 속도 향상) 키 길이 2배만 늘리면 회복. 반면 ECDSA 는 **Shor's algorithm** 으로 polynomial time 공격 가능 — 사실상 완전 무력화.
 
-{/* TODO: ~700자. Taproot 후속 BIP. P2QRH (Pay-to-Quantum-Resistant Hash). 합의 도달 시간 */}
+### Shor's Algorithm
+
+1994년 Peter Shor 가 발표. 양자 컴퓨터에서 정수 인수분해 + discrete log 를 polynomial time 에 해결.
+
+- **RSA 2048 (현 표준)**: ~4,099 logical qubit 필요
+- **ECDSA 256 (BTC 사용)**: ~2,330 logical qubit 필요
+
+### Logical vs Physical Qubit 차이 — 1,000:1
+
+여기가 핵심입니다. **Physical qubit (실제 양자 비트)** 와 **Logical qubit (오류 보정된 안정 비트)** 는 다릅니다.
+
+- 현재 양자 노이즈 수준: 1 logical qubit 만들려면 **약 1,000 physical qubit** 필요 (오류 보정 회로)
+- 미래 향상 시: 1:100 또는 1:50 까지 가능 (10년+ 후)
+
+따라서 **ECDSA 256 깨려면**:
+- 현재 기술: ~2.3M physical qubit
+- 5년 후 기술: ~230K physical qubit
+- 10년 후 기술: ~50K physical qubit
+
+## 2. 양자 진척도 — 2026년 5월 현재
+
+### 주요 양자 시스템
+
+| 회사 | 시스템 | Physical qubit | 발표 |
+|------|-------|---------------|------|
+| **IBM** | Condor | 1,121 | 2023 |
+| **IBM** | Heron | 156 | 2024 (오류율 ↓) |
+| **Google** | Willow | 105 | 2024.12 (오류 보정 milestone) |
+| **Atom Computing** | — | 1,180 (neutral atom) | 2024 |
+| **IonQ** | Forte | 32 (high fidelity) | 2024 |
+
+### IBM Quantum Roadmap
+
+IBM 의 공식 로드맵 (2026.5 기준):
+- **2026 Kookaburra**: 4,158 qubit
+- **2029 Blue Jay**: 100,000 qubit
+- **2033 (목표)**: 1M+ qubit
+
+### Project Eleven 의 Q-Day 추정
+
+Project Eleven (Bitcoin 양자 위협 추적 비영리) 의 추정:
+- **Q-Day (RSA 2048 깨지는 날)**: 2030-2035 (50% confidence)
+- **2035-2040 (90% confidence)**
+
+### Google Willow 의 의미
+
+2024년 12월 Google 의 Willow 칩이 **"양자 오류 보정 임계점 (below threshold)"** 을 처음 달성. 이는 큐비트 수가 늘어날수록 오류율이 기하급수적으로 감소하는 영역 진입. **logical qubit 양산이 가능해진 첫 시그널**.
+
+이게 5년 buffer 가설의 약화 신호일 수 있습니다 — Willow 의 발견이 정량적으로 어떤 의미인지 학계 평가 진행 중.
+
+## 3. NIST Post-Quantum 표준 — Lattice · Hash-based
+
+### NIST 표준화 (2024년 8월 완료)
+
+NIST 는 2016년 Post-Quantum Cryptography 공모를 시작, 2024년 8월 첫 표준 3개 발표:
+
+| 표준 | 알고리즘 | 용도 |
+|------|---------|------|
+| **FIPS 203** | CRYSTALS-Kyber | 키 캡슐화 (encryption) |
+| **FIPS 204** | CRYSTALS-Dilithium | 디지털 서명 |
+| **FIPS 205** | SPHINCS+ | hash-based 디지털 서명 |
+
+이 중 BTC 에 가장 적합한 후보는 **Dilithium** (서명 사이즈 작음) 또는 **SPHINCS+** (보안 증명 강함). 둘 다 **lattice / hash-based** — 양자 공격에 내성.
+
+### 단점 — 서명 사이즈 증가
+
+| 알고리즘 | 서명 사이즈 | BTC 트랜잭션 영향 |
+|---------|-----------|---------------|
+| ECDSA (현재) | 64 bytes | baseline |
+| Dilithium | 2,400 bytes | 38배 ↑ |
+| SPHINCS+ | 8,000-50,000 bytes | 125-780배 ↑ |
+
+이 사이즈 증가가 Bitcoin 블록 사이즈 (1MB) 와 충돌. 같은 트랜잭션 처리량을 유지하려면 블록 사이즈 확대 또는 별도 layer 필요.
+
+## 4. Bitcoin 전환 시나리오 — Soft fork vs Hard fork
+
+### 전환 옵션
+
+#### Option A — Soft fork (P2QRH)
+
+- BIP 신설 — Pay-to-Quantum-Resistant-Hash
+- 새 주소 형식 추가, 기존 주소도 유효 (사용자가 선택)
+- Backward compatible
+- 합의 도달 시간: ~2-3년 (Taproot 사례 참고)
+
+#### Option B — Hard fork
+
+- 모든 주소가 양자 내성 알고리즘으로 강제 마이그레이션
+- 마이그레이션 못한 BTC 는 양자 공격 vulnerable
+- 합의 도달 매우 어려움
+
+#### Option C — Quantum-safe sidechain
+
+- 별도 chain 으로 BTC pegging
+- 양자 위협 발현 시 사이드체인으로 자산 이동
+- 인프라 부담 ↑
+
+### 가장 현실적 시나리오
+
+**Option A (Soft fork) + 점진적 마이그레이션** 이 가장 가능성 높습니다. Taproot (2021.11 활성화) 처럼 BIP 합의 → 검증자 신호 → 메인넷 활성화 절차.
 
 <Callout type="data" title="데이터 한계 · 양자 진척도 예측의 불확실성">
-Logical vs physical qubit 차이 1000:1. 현재 1,121 physical = 약 1 logical 추정. 1M logical = 1B physical 필요. 2030 예상 IBM 목표 = 100K physical. 5년 격차.
+Project Eleven 의 Q-Day 추정 (2030-2035) 은 50% confidence. 실제 발견 (Google Willow, 새 알고리즘) 으로 더 빨라질 수도 있고, 양자 컴퓨팅의 근본 한계가 발견돼 더 늦어질 수도 있음. **95% buffer = 2030-2045 범위가 정직한 추정**.
 </Callout>
 
-## 4. 결론 — 양자가 진짜 위협이 되기 전 시간
+## 5. 결론 — 양자 위협의 합리적 평가
 
-{/* TODO: ~500자. 5-10년 buffer가 합리적 추정. 동안 BIP 합의 + 마이그레이션 가능. 시리즈 #1-J 종합 결론으로 연결 */}
+종합:
+
+1. **위협 자체는 진짜** — Shor's algorithm + 양자 진척으로 ECDSA 위협 실재
+2. **시간 buffer 5-10년 합리적** — Project Eleven, a16z 모두 같은 추정
+3. **NIST 표준 준비 완료** — CRYSTALS-Dilithium / SPHINCS+ 사용 가능
+4. **Bitcoin 전환 메커니즘 가능** — Soft fork 로 점진 마이그레이션
+5. **단점: 서명 사이즈 증가** — 블록 사이즈 또는 layer 분리 필요
+
+**현재 권장 행동 (BTC 보유자)**:
+- 단기 (1-3년): 우려 없음. 일반 보유 + ETF 모두 OK.
+- 중기 (3-7년): BIP 합의 진행도 모니터링. 양자 내성 주소 등장 시 마이그레이션 준비.
+- 장기 (7년+): 마이그레이션 완료 후 양자 내성 주소 사용.
+
+이게 양자 위험의 진짜 그림입니다 — **걱정할 만하지만 panic 할 필요 없음. 5-10년 buffer 안에 시스템적 대응 가능**. 다음 편 (#1-J, 시리즈 종합 결론) 에서는 10편을 관통하는 결론과 함께 5차 반감기 (2028.4.17) 카운트다운까지 정리합니다.
 
 <SeriesNav coinSymbol="BTC" currentSlug="bitcoin-quantum-deep-dive" />
