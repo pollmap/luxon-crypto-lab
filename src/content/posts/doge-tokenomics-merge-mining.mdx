@@ -1,0 +1,128 @@
+---
+slug: doge-tokenomics-merge-mining
+title: "토크노믹스 — 무한공급 + Litecoin 머지마이닝의 의미"
+subtitle: Scrypt PoW · 연 4% 인플레 · LTC 머지마이닝 보안
+coin: DOGE
+issue: 3
+publishedAt: "2026-10-26"
+category: Meme
+tags: [doge, tokenomics, litecoin, merge-mining, scrypt, inflation]
+estimatedReadTime: 10
+draft: true
+sources:
+  - name: "Dogecoin Foundation — Official documentation"
+    url: https://dogecoin.com/
+  - name: "BlockchainCenter — DOGE supply tracker"
+    url: https://www.blockchaincenter.net/dogecoin-supply/
+  - name: "Litecoin Foundation — Merge mining FAQ"
+    url: https://litecoin.com/
+  - name: "Coin Metrics — DOGE/LTC hashrate analytics"
+    url: https://coinmetrics.io/
+  - name: "Dogecoin core dev — Scrypt parameters"
+    url: https://github.com/dogecoin/dogecoin
+---
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+DOGE 가 Schelling point 자산이라는 가설은 (#3-A) 정성적입니다. 그러나 토크노믹스 — 발행량, 채굴 메커니즘, 보안 모델 — 는 정량 측정 가능합니다. 본 편은 DOGE 의 (1) 무한공급 + 연 4% 인플레이션 (2) Scrypt PoW + Litecoin 머지마이닝 (3) 보안 의존도 를 분석합니다. 결론: **DOGE 는 LTC 의 보안에 free-ride** 하며, 그것이 양면(장점·취약점)입니다.
+</Callout>
+
+## 도입 — 가치 포착 0 자산의 공급 분석
+
+#3-A 에서 DOGE 가 Schelling point 자산이고 정량 valuation 이 불가능하다는 결론을 봤습니다. 그러나 **공급 메커니즘 자체는 정량 측정 가능**합니다 — 채굴 보상 수식, 인플레이션율, 해시레이트, 보안 비용 모두 블록체인 위에 기록되기 때문.
+
+본 편은 DOGE 의 토크노믹스를 세 갈래로 봅니다:
+1. 발행량 + 인플레이션
+2. Scrypt PoW + Litecoin 머지마이닝
+3. 보안 의존도와 그 함의
+
+## 1. 발행량 — 무한공급 + 연 4% 인플레이션
+
+DOGE 의 발행 구조:
+- **블록 시간**: 1분 (BTC 의 1/10)
+- **블록 보상**: 10,000 DOGE (고정, 반감기 없음)
+- **블록 240,000 (2014년 9월)** 부터 보상 고정 (이전엔 무작위)
+- **발행 한도**: **없음** (무한공급)
+- **연간 신규 발행**: 약 5,256,000,000 DOGE (블록당 10,000 × 일 1,440 × 365)
+
+**2026년 5월 현재 누적 발행량 약 1,490억 DOGE**. 연 신규 발행률:
+- 2026: 5.26B / 149B = **3.5%**
+- 2027 예상: 5.26B / 154.3B = **3.4%**
+- 2030 예상: 5.26B / 170B = **3.1%**
+
+시간이 갈수록 **인플레이션율은 점근적으로 감소** (분모 증가). 그러나 **누적 공급은 무한 증가** — BTC 의 21M cap 과 정반대 디자인.
+
+### 인플레이션의 함의
+
+ETH 와 비교:
+
+| 자산 | 발행률 (2026.5) | 가치 포착 |
+|------|----------------|----------|
+| BTC | ~1.5% (반감기 후) | 21M cap (deterministic) |
+| ETH | ~0.5% (PoS) | EIP-1559 burn (조건부 디플레이션) |
+| **DOGE** | **~3.5%** | **없음** |
+
+DOGE 는 **공급 측면에서 가치 저장 자산의 정반대**입니다. 매년 시장에 새 DOGE 5.26B 개가 풀리고, 그것을 흡수할 매수 수요가 없으면 가격 하락이 자연스러운 베이스라인입니다.
+
+이게 #3-A 의 Schelling point 가설을 더 어렵게 만듭니다 — **인플레이션 압력에도 불구하고 사회적 합의가 가격을 유지해야** 합니다.
+
+## 2. Scrypt PoW — Litecoin 과 같은 합의
+
+DOGE 는 Bitcoin fork 가 아니라 **Litecoin (Scrypt) fork** 입니다. 합의 알고리즘은 Scrypt — Bitcoin 의 SHA-256 과 다른 메모리 집약적 PoW.
+
+**Scrypt vs SHA-256 차이**:
+| 항목 | SHA-256 (BTC) | Scrypt (DOGE/LTC) |
+|------|-------------|------------------|
+| 메모리 요구 | 낮음 | 높음 |
+| ASIC 효율 | 매우 높음 | 중간 (메모리 병목) |
+| GPU 채굴 | 비효율 | 한때 가능 (현재는 ASIC) |
+| 분산화 | ASIC 클러스터 집중 | 약간 더 분산 |
+
+원래 Scrypt 는 GPU 채굴 가능성을 보존해 분산화를 유지하려는 의도였습니다. 그러나 2014년 Innosilicon, Bitmain 이 Scrypt ASIC 출시 후 GPU 는 비경쟁이 됐고, 현재 Scrypt 채굴도 ASIC 클러스터 중심 (BTC 와 유사한 집중 구조).
+
+## 3. Litecoin Merge Mining — 가장 중요한 보안 메커니즘
+
+**여기가 DOGE 의 가장 흥미로운 디자인** 입니다. 2014년 9월 (블록 371,337) 부터 DOGE 는 **Litecoin 머지마이닝(merge mining)** 을 활성화했습니다.
+
+### 머지마이닝 작동 원리
+
+**같은 작업으로 두 체인을 동시에 채굴**:
+- LTC 채굴자가 Scrypt PoW 를 풀면, 그 PoW 가 LTC 블록과 DOGE 블록 양쪽에 동시 사용
+- LTC 채굴자는 추가 비용 0 으로 DOGE 블록 보상도 획득
+- 결과: LTC 채굴자의 약 95%+ 가 DOGE 도 동시 채굴
+
+### 효과 — DOGE 의 보안이 LTC 에 의존
+
+2026년 5월 기준:
+- LTC 해시레이트: 약 1,200 TH/s (LTC 채굴자 = DOGE 채굴자)
+- 만약 DOGE 가 단독 채굴이었다면 해시레이트는 약 1/10 수준 (DOGE 자체 보상이 LTC 에 비해 작음)
+- **머지마이닝 덕분에 DOGE 가 LTC 보안의 free-ride** 효과
+
+이게 양면입니다.
+
+### 장점 — 보안 비용 절감
+
+DOGE 자체 채굴 인센티브만으로는 51% 공격에 취약했을 것. LTC 머지마이닝으로 LTC 와 동등한 보안 수준 확보. **DOGE 시총 $17B 자산을 LTC 보안 인프라로 보호** — 효율적.
+
+### 취약점 — LTC 운명에 종속
+
+만약 LTC 자체가 채굴 경제학 붕괴 시 (LTC 가격 하락 → 채굴 적자 → 마이너 이탈), DOGE 보안도 함께 붕괴. **DOGE 는 LTC 가 살아있는 동안만 안전**.
+
+또 LTC 채굴자가 마음만 먹으면 DOGE 만 51% 공격 가능 (LTC 보상은 그대로 받으면서). 이론적으로 가능하지만 인센티브 0 — DOGE 공격으로 얻는 이득보다 LTC/DOGE 공동 명성 손실이 더 큼.
+
+<Callout type="data" title="데이터 한계 · LTC-DOGE 채굴 결합 정확도">
+실제 LTC-DOGE 머지마이닝 결합 비율은 마이닝 풀별로 다릅니다. F2Pool, ViaBTC, Litecoinpool 같은 풀이 데이터 공개. 정확한 결합도는 풀별 차이로 80-100% 범위. 본 편은 평균 95% 가정.
+</Callout>
+
+## 4. 결론 — 무한공급 + LTC 의존의 의미
+
+종합:
+
+1. **인플레이션 3.5%** — 가치 저장 자산의 반대 디자인. 매년 5.26B DOGE 새로 시장에 진입.
+2. **LTC 머지마이닝 free-ride** — 단독으로는 보안 못 만드는 자산이 LTC 인프라로 보호받음.
+3. **장기 생존은 LTC 와 운명 공동체** — LTC 가 살아있는 한 DOGE 는 안전. LTC 가 죽으면 DOGE 도 위험.
+
+이 토크노믹스가 DOGE 가격에 미치는 영향은 단순합니다 — **인플레이션 압력 + 효율적 보안 + LTC 운명 공동체**. 그러나 가격 수준 자체는 #3-A 의 사회적 합의 강도가 결정합니다.
+
+다음 편(#3-C) 에서는 그 사회적 합의의 가장 강력한 트리거 — **X (Twitter) 결제 통합 가설과 Elon Musk effect** — 를 정량 분석합니다.
+
+<SeriesNav coinSymbol="DOGE" currentSlug="doge-tokenomics-merge-mining" />

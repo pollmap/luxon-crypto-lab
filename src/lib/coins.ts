@@ -87,8 +87,10 @@ export const COINS: readonly CoinMeta[] = [
     description: "PoW Scrypt, 무한공급 연 4% 인플레, Litecoin 머지마이닝",
     macroEvent: "신년 risk-on 회복 시즌성",
     subIssues: [
-      { slug: "doge-schelling-money", label: "#3-A", title: "가치 없는 자산이 가격을 갖는 이유 — 셸링 포인트 화폐론", publishedAt: "2026-10-19", scope: "EMH vs 케인즈 미인대회 · 사회적 합의 · 밈 머니 프리미엄" },
-      { slug: "doge-x-payment-integration", label: "#3-B", title: "X 결제 통합 가설과 DOGE 모멘텀", publishedAt: "2026-10-26", scope: "트위터 결제 · 머지마이닝 · 변동성 베타 · Musk effect" },
+      { slug: "doge-schelling-money", label: "#3-A", title: "가치 없는 자산이 가격을 갖는 이유 — 셸링 포인트 화폐론", publishedAt: "2026-10-19", scope: "EMH vs 케인즈 미인대회 · 사회적 합의 · 공동 지식" },
+      { slug: "doge-tokenomics-merge-mining", label: "#3-B", title: "토크노믹스 — 무한공급 + Litecoin 머지마이닝의 의미", publishedAt: "2026-10-26", scope: "Scrypt PoW · 연 4% 인플레 · LTC 머지마이닝 보안" },
+      { slug: "doge-x-payment-musk", label: "#3-C", title: "X 결제 통합 가설과 Musk effect — 모멘텀 베팅", publishedAt: "2026-11-02", scope: "트위터 결제 · 변동성 베타 · 사회적 신호 의존" },
+      { slug: "doge-meme-cycle-portfolio", label: "#3-D", title: "밈코인 사이클과 portfolio 위치 (시리즈 결론)", publishedAt: "2026-11-09", scope: "1차/2차 밈 사이클 비교 · 비대칭 베팅 setup · 결론" },
     ],
   },
   {
@@ -102,25 +104,25 @@ export const COINS: readonly CoinMeta[] = [
     description: "주당 22억 트랜잭션, SIMD-0411 인플레이션 30% 추가 감축",
     macroEvent: "Alpenglow / SIMD-0411",
     subIssues: [
-      { slug: "solana-throughput-firedancer", label: "#4-A", title: "주당 22억 트랜잭션 — 처리량의 의미", publishedAt: "2026-11-02", scope: "도입 + Firedancer + PoH 합의" },
-      { slug: "solana-value-capture", label: "#4-B", title: "가치 포착 논쟁 — Scale is proven, value capture is not", publishedAt: "2026-11-09", scope: "21Shares 2026 보고서 + 애플리케이션 fee vs 프로토콜" },
-      { slug: "solana-simd-0411", label: "#4-C", title: "SIMD-0411 — 인플레이션 30% 감축 거버넌스", publishedAt: "2026-11-16", scope: "토크노믹스 변경 + SOL 실질 수익률 재산출" },
+      { slug: "solana-throughput-firedancer", label: "#4-A", title: "주당 22억 트랜잭션 — 처리량의 의미", publishedAt: "2026-11-16", scope: "도입 + Firedancer + PoH 합의" },
+      { slug: "solana-value-capture", label: "#4-B", title: "가치 포착 논쟁 — Scale is proven, value capture is not", publishedAt: "2026-11-23", scope: "21Shares 2026 보고서 + 애플리케이션 fee vs 프로토콜" },
+      { slug: "solana-simd-0411", label: "#4-C", title: "SIMD-0411 — 인플레이션 30% 감축 거버넌스", publishedAt: "2026-11-30", scope: "토크노믹스 변경 + SOL 실질 수익률 재산출" },
     ],
   },
   {
     symbol: "BNB",
     name: "BNB",
     issue: 5,
-    scheduledMonth: "2026-11",
+    scheduledMonth: "2026-12",
     category: "CEX-L1",
     signature: "Burn yield = Buyback yield",
     marketCapBillion: 83,
     description: "분기 Auto-Burn + BEP-95 실시간 burn, 100M 목표",
     macroEvent: "Q3 분기 burn (10월 중순)",
     subIssues: [
-      { slug: "bnb-burn-yield-model", label: "#5-A", title: "Burn yield = Buyback yield — 디플레이션 토큰 모델", publishedAt: "2026-11-23", scope: "분기 Auto-Burn + BEP-95 + 자사주매입 유사 P/E" },
-      { slug: "bnb-bsc-ecosystem", label: "#5-B", title: "BSC 생태계 — 거래소 토큰을 넘어선 L1", publishedAt: "2026-11-30", scope: "TVL · 스테이블 · opBNB · Greenfield" },
-      { slug: "bnb-regulatory-risk", label: "#5-C", title: "Binance 규제 리스크와 PoSA 중앙화 비판", publishedAt: "2026-12-07", scope: "CFTC 합의 잔존 리스크 + 41 검증자 구조" },
+      { slug: "bnb-burn-yield-model", label: "#5-A", title: "Burn yield = Buyback yield — 디플레이션 토큰 모델", publishedAt: "2026-12-07", scope: "분기 Auto-Burn + BEP-95 + 자사주매입 유사 P/E" },
+      { slug: "bnb-bsc-ecosystem", label: "#5-B", title: "BSC 생태계 — 거래소 토큰을 넘어선 L1", publishedAt: "2026-12-14", scope: "TVL · 스테이블 · opBNB · Greenfield" },
+      { slug: "bnb-regulatory-risk", label: "#5-C", title: "Binance 규제 리스크와 PoSA 중앙화 비판", publishedAt: "2026-12-21", scope: "CFTC 합의 잔존 리스크 + 41 검증자 구조" },
     ],
   },
   {
@@ -134,9 +136,9 @@ export const COINS: readonly CoinMeta[] = [
     description: "현물 ETF 7개 출시, RLUSD 결제 정착, ODL 실수요 검증",
     macroEvent: "11월 XRP 현물 ETF 1주년",
     subIssues: [
-      { slug: "xrp-etf-1-year", label: "#6-A", title: "XRP 현물 ETF 1년 — 제도화의 명과 암", publishedAt: "2026-12-14", scope: "7개 ETF · $1.4B AUM · 가격 -43% 디커플 분석" },
-      { slug: "xrp-xrpl-rwa-rlusd", label: "#6-B", title: "XRPL의 RWA · RLUSD 결제 사용 현황", publishedAt: "2026-12-21", scope: "RWA $474M · 일 트랜잭션 3M · ODL 실수요" },
-      { slug: "xrp-ripple-concentration", label: "#6-C", title: "Ripple Labs 보유 집중도와 거버넌스 리스크", publishedAt: "2026-12-28", scope: "에스크로 1B 분기 락업 · UNL 노드 신뢰 모델" },
+      { slug: "xrp-etf-1-year", label: "#6-A", title: "XRP 현물 ETF 1년 — 제도화의 명과 암", publishedAt: "2026-12-28", scope: "7개 ETF · $1.4B AUM · 가격 -43% 디커플 분석" },
+      { slug: "xrp-xrpl-rwa-rlusd", label: "#6-B", title: "XRPL의 RWA · RLUSD 결제 사용 현황", publishedAt: "2027-01-04", scope: "RWA $474M · 일 트랜잭션 3M · ODL 실수요" },
+      { slug: "xrp-ripple-concentration", label: "#6-C", title: "Ripple Labs 보유 집중도와 거버넌스 리스크", publishedAt: "2027-01-11", scope: "에스크로 1B 분기 락업 · UNL 노드 신뢰 모델" },
     ],
   },
   {
@@ -150,23 +152,23 @@ export const COINS: readonly CoinMeta[] = [
     description: "USDT $79B 발행, 신흥국 송금 메카, GENIUS Act 영향",
     macroEvent: "GENIUS·CLARITY Act 시행",
     subIssues: [
-      { slug: "tron-usdt-rails", label: "#7-A", title: "TRON은 어떻게 USDT 결제 백본이 됐나", publishedAt: "2027-01-04", scope: "$79B USDT · 신흥국 송금 메카 · BIS WP 1335" },
-      { slug: "tron-genius-act-impact", label: "#7-B", title: "GENIUS Act 시행과 TRON-USDT 채널 영향", publishedAt: "2027-01-11", scope: "미국 스테이블 규제 · OFAC 리스크 · USDD 디페그" },
+      { slug: "tron-usdt-rails", label: "#7-A", title: "TRON은 어떻게 USDT 결제 백본이 됐나", publishedAt: "2027-01-18", scope: "$79B USDT · 신흥국 송금 메카 · BIS WP 1335" },
+      { slug: "tron-genius-act-impact", label: "#7-B", title: "GENIUS Act 시행과 TRON-USDT 채널 영향", publishedAt: "2027-01-25", scope: "미국 스테이블 규제 · OFAC 리스크 · USDD 디페그" },
     ],
   },
   {
     symbol: "STABLES",
     name: "Stablecoins 특집",
     issue: 8,
-    scheduledMonth: "2027-01",
+    scheduledMonth: "2027-02",
     category: "Stable",
     signature: "디지털 머니마켓 vs 그림자은행",
     description: "USDT·USDC·USDS·PYUSD 통합. 미국 단기국채 수요 채널",
     macroEvent: "12월 FOMC, 연말 단기국채 점검",
     subIssues: [
-      { slug: "stables-issuer-anatomy", label: "#8-A", title: "USDT vs USDC — 발행사 준비금 구조 해부", publishedAt: "2027-01-18", scope: "Tether $190B · Circle $77B · 준비금·감사" },
-      { slug: "stables-treasury-channel", label: "#8-B", title: "스테이블코인은 디지털 머니마켓펀드인가", publishedAt: "2027-01-25", scope: "미국 단기국채 수요 채널 · IMF·BIS 시각" },
-      { slug: "stables-yield-bearing", label: "#8-C", title: "Yield-bearing 스테이블의 등장 — USDS·USDe·YLDS", publishedAt: "2027-02-01", scope: "MakerDAO/Sky · Ethena · Figure SEC 등록" },
+      { slug: "stables-issuer-anatomy", label: "#8-A", title: "USDT vs USDC — 발행사 준비금 구조 해부", publishedAt: "2027-02-01", scope: "Tether $190B · Circle $77B · 준비금·감사" },
+      { slug: "stables-treasury-channel", label: "#8-B", title: "스테이블코인은 디지털 머니마켓펀드인가", publishedAt: "2027-02-08", scope: "미국 단기국채 수요 채널 · IMF·BIS 시각" },
+      { slug: "stables-yield-bearing", label: "#8-C", title: "Yield-bearing 스테이블의 등장 — USDS·USDe·YLDS", publishedAt: "2027-02-15", scope: "MakerDAO/Sky · Ethena · Figure SEC 등록" },
     ],
   },
   {
@@ -180,21 +182,21 @@ export const COINS: readonly CoinMeta[] = [
     description: "Provenance 위 토큰화 HELOC. $18B 토큰 vs $45M 검증 TVL 논쟁",
     macroEvent: "RWA 시장 $20T 전망 점검",
     subIssues: [
-      { slug: "figr-rwa-tokenization-case", label: "#9-A", title: "FIGR_HELOC — 토큰화 RWA의 첫 케이스 스터디", publishedAt: "2027-02-08", scope: "Provenance 체인 · HELOC 구조 · Figure Markets" },
-      { slug: "figr-data-controversy", label: "#9-B", title: "$18B 토큰 vs $45M 검증 TVL — Morpheus 공매도 논쟁", publishedAt: "2027-02-15", scope: "RWA.xyz Distributed vs Represented · SEC S-1 분석" },
+      { slug: "figr-rwa-tokenization-case", label: "#9-A", title: "FIGR_HELOC — 토큰화 RWA의 첫 케이스 스터디", publishedAt: "2027-02-22", scope: "Provenance 체인 · HELOC 구조 · Figure Markets" },
+      { slug: "figr-data-controversy", label: "#9-B", title: "$18B 토큰 vs $45M 검증 TVL — Morpheus 공매도 논쟁", publishedAt: "2027-03-01", scope: "RWA.xyz Distributed vs Represented · SEC S-1 분석" },
     ],
   },
   {
     symbol: "REVIEW1",
     name: "종합 1편",
     issue: 10,
-    scheduledMonth: "2027-02",
+    scheduledMonth: "2027-03",
     category: "Series",
     signature: "1년 회고 — 매크로 사이클과 가치 포착",
     description: "12개월 데이터셋 종합 + BTC 5차 반감기 카운트다운",
     macroEvent: "BTC 5차 반감기 12개월 카운트다운",
     subIssues: [
-      { slug: "review1-year-retrospective", label: "#10-A", title: "1년 회고 — 9 자산 종합 비교", publishedAt: "2027-02-22", scope: "발행 38편 종합 + 자산별 핵심 발견" },
+      { slug: "review1-year-retrospective", label: "#10-A", title: "1년 회고 — 9 자산 종합 비교", publishedAt: "2027-03-08", scope: "발행 40편 종합 + 자산별 핵심 발견" },
     ],
   },
   {
@@ -207,7 +209,7 @@ export const COINS: readonly CoinMeta[] = [
     description: "P/F · NVT · MVRV · Burn yield 통합 백테스트 결과",
     macroEvent: "KDA 키움 4기 수료 결산",
     subIssues: [
-      { slug: "review2-valuation-backtest", label: "#11-A", title: "가치 포착 모형 통합 백테스트", publishedAt: "2027-03-01", scope: "P/F · NVT · MVRV · Burn yield 9 자산 백테스트" },
+      { slug: "review2-valuation-backtest", label: "#11-A", title: "가치 포착 모형 통합 백테스트", publishedAt: "2027-03-15", scope: "P/F · NVT · MVRV · Burn yield 9 자산 백테스트" },
     ],
   },
 ] as const;
