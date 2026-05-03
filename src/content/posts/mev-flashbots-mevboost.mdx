@@ -1,0 +1,118 @@
+---
+slug: mev-flashbots-mevboost
+coin: NONE
+issue: 0
+title: "MEV — Flashbots + MEV-Boost 학술 framework"
+subtitle: Maximal Extractable Value · 검증자 수익 · MEV-Boost 인프라 (MEV 시리즈 #MEV1)
+publishedAt: "2026-05-04"
+category: MEV
+tags: [mev, flashbots, mev-boost, ethereum]
+estimatedReadTime: 8
+draft: false
+author: 이찬희
+sources:
+  - name: "Flashbots"
+    url: https://www.flashbots.net/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 MEV 학술 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+MEV (Maximal Extractable Value) 가 무엇인지, Flashbots + MEV-Boost 가 어떻게 작동하는지를 학술적으로 정리.
+</Callout>
+
+## 1. MEV 가 무엇인가
+
+**MEV = Maximal Extractable Value**. 검증자 (마이너) 가 — 트랜잭션 정렬을 통해 추가 수익 획득.
+
+작동:
+- 트랜잭션이 mempool 에 대기
+- 검증자가 — 어느 트랜잭션을 먼저 처리할지 결정
+- 수익이 큰 트랜잭션 (예: 차익 거래) 을 — 자기 트랜잭션과 결합해 처리
+- 추가 수익 획득
+
+학술적 의미:
+- *"검증자가 일반 사용자보다 정보 우위"*
+- 사용자에게 — *"숨은 비용"*
+- 분산 시스템의 *"공정성"* 학술 토론 주제
+
+## 2. MEV 의 사용 사례
+
+### 2-1. Sandwich 공격
+
+- 사용자 A 가 — Uniswap 에서 큰 매수 주문
+- 검증자가 — 사용자 A 매수 전에 자기 매수 (front-run)
+- 사용자 A 매수 후 가격 상승, 검증자 매도 (back-run)
+- 사용자 A = 손실, 검증자 = 수익
+
+### 2-2. 차익 거래 (Arbitrage)
+
+- DEX 간 가격 차이 활용
+- 검증자가 — 자기 트랜잭션 우선 처리
+
+### 2-3. 청산 (Liquidation)
+
+- DeFi 청산 가능 포지션 발견
+- 검증자가 — 자기 청산 트랜잭션 우선 처리
+- 청산 보너스 수익
+
+## 3. Flashbots — *"MEV 의 학술 인프라"*
+
+2020년 — Flashbots 가 출범. MEV 의 *"투명한 시장화"*.
+
+작동:
+- Flashbots 가 — *"private mempool"* 운영
+- 사용자 (Searcher) 가 — MEV 기회 식별 + Flashbots 에 전송
+- Flashbots 가 — 검증자에게 그 번들 전달
+- 검증자 + Searcher 가 수익 분배
+
+이게 MEV 의 *"공식적 시장"* 화. 학술적으로 우아.
+
+## 4. MEV-Boost — *"이더리움 PoS 의 MEV 인프라"*
+
+2022 The Merge 후 — Flashbots 가 *"MEV-Boost"* 출시. PoS 검증자의 MEV 표준 인프라.
+
+작동:
+- 검증자가 — MEV-Boost 통해 블록 제작자 (block builder) 와 연결
+- Block builder 가 — 가장 수익 큰 블록 구성
+- 검증자가 — 그 블록 채택, 수익 받음
+
+### 4-1. 시장 점유
+
+- 이더리움 검증자 95%+ 가 MEV-Boost 사용
+- 사실상 *"표준 인프라"*
+
+### 4-2. 학술적 의미
+
+MEV-Boost 가 — 분산 시스템에서 *"신뢰 가능한 중간자"* 가 등장한 사례. 분산 vs 효율 trade-off.
+
+## 5. 한국 영향
+
+한국 사용자도 — MEV 영향 받음:
+- DEX 거래 (Uniswap, PancakeSwap) 시 sandwich 위험
+- 자가 지갑 거래의 숨은 비용
+- 한국 거래소 (CEX) 는 MEV 영향 X
+
+## 6. 학술적 평가
+
+MEV 가 — *"분산 시스템의 가장 큰 학술 미해결 문제"* 중 하나. Cornell IC3 + Stanford CBR 의 학술 분석 활발.
+
+<Callout type="opposing-view" title="반대 시각 · MEV 의 *불공정성*">
+MEV 비판:
+
+첫째, ***"사용자 손실"***. Sandwich 공격 + front-run 이 — 사용자에게 숨은 비용.
+
+둘째, ***"검증자 집중"***. MEV-Boost 에 의존하면서 — 검증자 + Block builder 의 중앙화.
+
+셋째, ***"학술적 공정성 위협"***. 분산 시스템의 *"공정한 거래"* 가 위협.
+
+이 비판이 의미하는 바 — MEV 가 *"피할 수 없는 학술 현상"* 으로는 인정하되, *"공정성 + 사용자 보호"* 의 학술 도전 큼.
+</Callout>
+
+## 결론
+
+**MEV = 검증자 트랜잭션 정렬 수익. Flashbots + MEV-Boost 가 학술 표준. 사용자 보호 학술 도전.**
+
+다음 편(#MEV2) — Private mempool / OFA / Searcher 경제학으로 이어집니다.

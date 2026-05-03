@@ -1,0 +1,111 @@
+---
+slug: mev-private-mempool
+coin: NONE
+issue: 0
+title: "Private Mempool / OFA / Searcher 경제학"
+subtitle: 사용자 보호 framework · OFA 경매 · Searcher 의 경제학 (MEV 시리즈 #MEV2)
+publishedAt: "2026-05-04"
+category: MEV
+tags: [mev, private-mempool, ofa, searcher]
+estimatedReadTime: 7
+draft: false
+author: 이찬희
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 MEV 보호 framework 학술 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+사용자가 MEV 의 *"피해자"* 에서 *"수익자"* 로 전환하는 학술 framework — Private Mempool + OFA (Order Flow Auction) + Searcher 의 경제학.
+</Callout>
+
+## 1. Private Mempool
+
+기존 mempool 의 문제:
+- 모든 트랜잭션이 — 공개 mempool 에 대기
+- 검증자 + Searcher 가 모두 볼 수 있음
+- 사용자가 — sandwich 공격 노출
+
+Private Mempool 해결:
+- 사용자 트랜잭션이 — *"private"* mempool 로 직접 전송
+- 검증자만 볼 수 있음
+- Sandwich 공격 차단
+
+### 1-1. 사례
+
+- **Flashbots Protect** (사용자용)
+- **MEV Blocker** (RPC 통합)
+- **Cowswap** (DEX 의 private mempool)
+
+## 2. OFA (Order Flow Auction)
+
+OFA 가 — *"사용자가 MEV 수익을 받는 framework"*.
+
+작동:
+- 사용자가 — 자기 트랜잭션을 OFA 시스템에 제출
+- Searcher 들이 — 그 트랜잭션 처리 권한 경매
+- 가장 높은 입찰가 의 Searcher 가 권한 획득
+- 그 입찰가의 일부가 — 사용자에게 환원
+
+이게 — *"MEV 수익의 사용자 환원"* 학술 framework.
+
+### 2-1. 사례
+
+- **Cowswap** — 첫 OFA 모델
+- **MEV Share** (Flashbots) — 더 일반화된 OFA
+- **Anoma** — 의도 기반 거래
+
+## 3. Searcher 의 경제학
+
+Searcher 가 누구이고 어떻게 수익을 내는가?
+
+### 3-1. Searcher 의 역할
+
+- MEV 기회 식별 (sandwich, arbitrage, liquidation)
+- 자기 자본 + 알고리즘 운영
+- 검증자에게 수익 분배
+
+### 3-2. Searcher 의 수익
+
+- 글로벌 Searcher 약 100+ entity
+- 일부는 — 수십억 달러 자본 운영
+- 학술적으로 — *"MEV 시장의 시장 조성자"*
+
+### 3-3. 학술적 진화
+
+Searcher 가 — *"악의적"* 에서 *"필수 시장 인프라"* 로 학술 평가 변화. 사용자 보호 + 시장 효율성의 결합.
+
+## 4. 학술적 평가
+
+MEV 보호 framework 의 학술 의미:
+- 사용자 손실 → 사용자 수익으로 전환
+- 분산 시스템의 *"공정성"* 학술 진화
+- 그러나 — 완전한 해결 X
+
+## 5. 한국 영향
+
+한국 사용자가 — MEV 보호 framework 활용 가능:
+- MetaMask + Flashbots Protect 통합
+- 자가 지갑 사용 시 — Private mempool 활용 권장
+- 한국 거래소 (CEX) 는 영향 X
+
+<Callout type="opposing-view" title="반대 시각 · OFA 의 *복잡성*">
+OFA 비판:
+
+첫째, ***"사용자 인지 어려움"***. 일반 사용자가 OFA framework 이해 어려움.
+
+둘째, ***"중앙집중 위험"***. Flashbots 가 — OFA 시장 지배.
+
+셋째, ***"완전한 해결 X"***. MEV 자체는 — 분산 시스템에 본질적.
+
+이 비판이 의미하는 바 — OFA 가 *"학술 진화"* 이지만, *"근본적 해결"* 은 미완.
+</Callout>
+
+## 결론 — MEV 시리즈 (#MEV1-#MEV2) 종결
+
+1. **MEV = 검증자 트랜잭션 정렬 수익, Flashbots 학술 인프라**.
+2. **Private Mempool + OFA = 사용자 보호 framework**.
+3. **Searcher = MEV 시장의 시장 조성자, 학술 진화**.
+
+MEV 시리즈 2편 완결. 다음 — Game-Fi + DePIN.
