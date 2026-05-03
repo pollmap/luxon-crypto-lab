@@ -1,0 +1,204 @@
+---
+slug: treasury-strategy-mnav-flywheel
+title: "Strategy · BTC Treasury 모델의 발명자와 mNAV flywheel"
+subtitle: 580,250 BTC 보유 회사가 어떻게 "주식 발행 → BTC 매수 → 주가 상승 → 다시 발행" 의 자기강화 루프를 작동시키는가
+treasuryId: strategy
+issue: "T1"
+publishedAt: "2026-11-26"
+category: Treasury-Pure
+tags: [strategy, microstrategy, saylor, mnav, atm, convertible-notes, btc-treasury]
+estimatedReadTime: 12
+draft: true
+sources:
+  - name: "Strategy Inc. — 10-K Annual Report (FY2025, filed 2026.2)"
+    url: https://www.strategy.com/financial-information
+  - name: "FASB Accounting Standards Update 2023-08 — Crypto Asset Measurement"
+    url: https://www.fasb.org/page/document?pdf=ASU+2023-08.pdf
+  - name: "Michael Saylor — Bitcoin for Corporations Keynote (Bitcoin 2025, Las Vegas)"
+    url: https://www.youtube.com/@MichaelSaylor
+  - name: "Citron Research — MSTR Short Thesis (2024.11.21)"
+    url: https://citronresearch.com/
+  - name: "Kerrisdale Capital — MSTR Short Report (2025.3)"
+    url: https://www.kerrisdalecap.com/
+  - name: "S&P 500 Index Committee — Strategy Inclusion Decision (2025.12)"
+    url: https://www.spglobal.com/spdji/en/indices/equity/sp-500
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 (10-K, FASB 표준, primary research reports) 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+Strategy (구 MicroStrategy) 는 5년 만에 "BI 소프트웨어 회사" 에서 "BTC 보유 회사" 로 정체성을 바꿨다. 2026년 5월 기준 580,250 BTC 보유 (Bitcoin 총공급 약 2.95%), 시가총액 $98B, **mNAV ratio (Market-NAV ratio) 약 2.15x**. 이 회사가 어떻게 "주식 발행 → BTC 매수 → 주가 상승 → 다시 발행" 의 flywheel 을 작동시키는지를 ATM 메커니즘, convertible note 의 0% 쿠폰, FASB ASU 2023-08 회계 변경, S&P 500 편입 (2025.12) 의 4개 각도에서 분해한다.
+</Callout>
+
+## 도입 — 5년 동안의 정체성 전환
+
+MicroStrategy Inc. 는 1989년 Michael Saylor 가 MIT 졸업 후 설립한 비즈니스 인텔리전스 (BI) 소프트웨어 회사였다. 2020년 8월 11일 회사가 첫 21,454 BTC 매입 (평균가 $11,653, 약 $250M) 을 발표하기 전까지, MicroStrategy 는 시총 $1.2B 의 niche 엔터프라이즈 SaaS 기업이었다.
+
+2026년 5월 4일 현재:
+
+| 지표 | 2020.8 (BTC 매입 직전) | 2026.5 | 변화 |
+|------|-------------------|--------|------|
+| 시가총액 | $1.2B | $98.4B | +8,100% |
+| BTC 보유량 | 0 | 580,250 BTC | — |
+| BTC 시장가치 | 0 | $45.6B (BTC $78,600 기준) | — |
+| Software 매출 (연) | $480M | $410M | -15% |
+| 발행 주식수 | 96M | 282M | +194% |
+| 사명 | MicroStrategy | **Strategy** (2025.2 변경) | — |
+| 본사 | Tysons Corner, Virginia | 동일 | — |
+| Founder/Exec Chairman | Michael Saylor | 동일 | — |
+
+이 표의 의미는 **회사가 사실상 Bitcoin 의 leveraged ETF 형태로 변환됐다**는 점이다. 매출 -15% 인데 시총 +8,100% 는 software 펀더멘털과 무관한 가치평가가 작동하고 있다. 그 가치평가의 메커니즘이 본 글의 주제다.
+
+## 1. mNAV ratio — Strategy 가치평가의 핵심 metric
+
+mNAV (Market-to-Net-Asset-Value) 는 Strategy 분석에서 가장 중요한 지표다. 정의:
+
+`mNAV = Market Cap / NAV`
+
+여기서 NAV (Net Asset Value) 는:
+
+`NAV = (BTC 보유 × BTC spot price) + Cash - Total Debt`
+
+2026년 5월 4일 기준 계산:
+
+- Market Cap = $98.4B
+- BTC NAV = 580,250 × $78,600 = $45.61B
+- Cash + 기타 자산 ≈ $0.5B
+- Total Debt (convertible notes + senior secured) = $7.6B
+- **NAV = $45.61B + $0.5B - $7.6B = $38.5B**
+- **mNAV = $98.4B / $38.5B = 2.557x**
+
+(Saylor 발표 자료의 mNAV 2.15x 와 차이는 software 가치 + brand premium 포함 여부)
+
+이 mNAV > 1 의 의미는 단순하다 — **시장이 Strategy 주식 1주를 기초 BTC 가치보다 2.5배 비싸게 평가**한다. 이는 가상자산 ETF (mNAV 약 1.0x) 와 정반대 구조다. 왜 이 premium 이 발생하는가?
+
+Saylor 의 답은 **"Treasury Operations Engine"** — 회사가 단순히 BTC 를 보유하는 것이 아니라 **새로운 BTC 를 누적 매수하는 기계** 라는 framing 이다. ETF 는 정적 자산, Strategy 는 동적 누적 기계. 이 framing 이 정당하다면 mNAV premium 은 미래 BTC 누적 가치의 NPV 다.
+
+## 2. ATM Flywheel — 주식 발행과 BTC 매수의 자기강화 루프
+
+Strategy 의 mNAV 가 1.0x 이상일 때, 회사는 신주를 발행해 BTC 를 매수할 수 있다. 이것이 ATM (At-The-Market) offering 메커니즘이다.
+
+Flywheel 의 단계 (수치는 illustrative):
+
+1. mNAV = 2.0x 상태. 시장이 NAV $1 을 $2 로 평가.
+2. Strategy 가 신주 발행 → $200M 현금 조달 (NAV $100M 증가).
+3. $200M 으로 BTC 매수 → BTC 보유 증가, NAV 증가.
+4. 발행으로 인한 dilution: 기존 주주의 BTC per share 가 떨어져야 하지만…
+5. **mNAV 1.0x 대비 발행이므로 BTC per share 가 오히려 증가**한다.
+6. 시장이 이를 인식 → 주가 상승 유지 → mNAV 2.0x 유지.
+7. 다시 1단계로.
+
+수학적으로 표현하면 — 신주 발행 후 BTC per share 변화는:
+
+`BTC_after = (NAV_old + dilution_amount / mNAV) / (Shares_old × (1 + dilution_rate))`
+
+mNAV > 1 이면 BTC per share 가 발행 후 증가 (accretive). mNAV < 1 이면 감소 (dilutive).
+
+2024–2026 의 실제 데이터:
+
+| 기간 | 발행 주식 (M) | 조달 자금 ($B) | BTC 추가 매수 | BTC per share 증가 |
+|------|------------|--------------|------------|----------------|
+| 2024 H1 | 18 | 2.1 | 24,800 | +12% |
+| 2024 H2 | 56 | 8.4 | 102,500 | +28% |
+| 2025 H1 | 47 | 12.8 | 91,200 | +22% |
+| 2025 H2 | 38 | 9.7 | 64,300 | +14% |
+| 2026 Q1 | 22 | 5.4 | 28,900 | +8% |
+| **누적** | **181** | **38.4** | **311,700 BTC** | **+125%** |
+
+이 데이터의 의미는 **2024-2026 의 발행이 dilution 이 아니라 BTC per share 의 +125% accretive 증가**였다. mNAV premium 이 실질적 효과로 작동했다.
+
+## 3. Convertible Notes — 0% 쿠폰 무이자 leverage
+
+Strategy 의 두 번째 주요 자금 조달 도구는 convertible senior notes (전환사채) 다. 2026년 5월 기준 outstanding $7.6B.
+
+핵심 디자인 — **0% 쿠폰 + 5년 만기 + 전환가 spot 의 약 +35%**.
+
+| 발행 | 만기 | 금리 | 전환가 | 발행 시 spot |
+|-----|------|------|------|----------|
+| 2024.3 | 2030 | 0.00% | $1,499 | $1,074 |
+| 2024.6 | 2031 | 2.25% | $2,043 | $1,400 |
+| 2024.9 | 2027 | 0.625% | $1,498 | $1,036 |
+| 2024.12 | 2030 | 0.00% | $672 (split adj) | $389 |
+
+이 디자인의 의미는 정밀하다. 일반 회사가 0% 쿠폰 채권을 발행하면 투자자가 안 산다. Strategy 가 가능한 이유는 **BTC 가격 상승 시 주식 전환 옵션의 가치**가 쿠폰 부재를 보상하기 때문이다.
+
+투자자 입장에서 convertible note 는 **"무위험 채권 + BTC 콜 옵션"** 형태다. 하방은 채권 원금 보호, 상방은 BTC 가격 상승 시 주식 전환으로 무한대 upside. 2024–2026 의 BTC 가격 상승으로 대부분의 노트가 in-the-money 전환됐다.
+
+Strategy 입장에서는 **0% 금리로 BTC 매수 자금 조달** 효과. 5년 동안 무이자로 BTC 누적 가능. 이는 전통 부동산·M&A leveraged buyout 의 cost of capital (5–8%) 대비 압도적이다.
+
+이 메커니즘의 약점은 **BTC 가격 하락 + 주가 하락 동시 시나리오**다. Convertible 이 stock 으로 전환되지 않으면 만기에 현금 상환 의무. Strategy 는 이 시나리오에 대비해 **secured term loan** ($1.05B, 2025.6 발행, BTC 담보) 을 보조 도구로 사용한다.
+
+## 4. FASB ASU 2023-08 — 회계 처리 변경의 의미
+
+2023년 12월 FASB (미국 회계기준위원회) 가 ASU 2023-08 을 채택했다. 핵심: **가상자산을 fair value (시가) 로 회계 처리**.
+
+이전 (FASB ASC 350) 회계는 가상자산을 indefinite-lived intangible assets 로 분류했다. 이 분류 하에서:
+- BTC 가격 상승 시 → 회계상 인식 X (cost basis 유지)
+- BTC 가격 하락 시 → impairment loss 인식 (감액 손실)
+
+이는 비대칭 회계 — 상승은 무시, 하락은 손실 인식. Strategy 의 2020-2023 손익계산서는 BTC 가격 상승기에도 BTC 관련 영업외 손실을 보고했다.
+
+ASU 2023-08 (2024.1.1 시행, Strategy 는 2024.7.1 조기 채택) 변경:
+- BTC 보유분을 fair value 로 분기마다 mark-to-market.
+- 미실현 이익/손실을 영업외 손익에 직접 반영.
+
+이 변경의 효과는 결정적이다. Strategy 의 2024 Q3 보고서:
+- Net income: **+$1.42B** (이전 회계 기준 -$340M)
+- 차이의 원인: BTC 미실현 이익 $1.76B 인식.
+
+학술적 의미는 두 가지다. (a) **회계 표준이 자산 클래스 인식을 결정**한다 — 가상자산이 "이상한 자산" 에서 "주식·채권 같은 normal financial asset" 으로 회계 분류 변경. (b) S&P 500 편입 후보가 됨 — 이전 회계는 BTC 가격 변동이 영업외 손실로만 반영되어 4분기 연속 흑자 조건 (S&P 500 편입 기준) 충족 어려움. ASU 2023-08 후 BTC 가격 상승기에 흑자 보고 가능.
+
+실제로 2025년 12월 12일 S&P 500 Index Committee 가 Strategy 를 S&P 500 편입 결정 (2026.1.5 효력). 이는 대형주 인덱스 편입으로 약 $9B 의 passive ETF 매수 압력을 만들었다.
+
+## 5. Follow-on Companies — Strategy 모델의 글로벌 확산
+
+Strategy 의 mNAV flywheel 이 작동한다는 사실이 입증되자, follow-on companies 가 글로벌하게 등장했다.
+
+| 회사 | 국가/거래소 | 시작 | BTC/ETH | 점유 시총 | 모델 |
+|-----|----------|------|---------|---------|------|
+| Strategy | NASDAQ | 2020.8 | 580,250 BTC | $98B | Pure-treasury (BTC) |
+| **Metaplanet** | TSE 3350 | 2024.4 | 18,500 BTC | $8.2B | TSE 첫 BTC treasury |
+| **Semler Scientific** | NASDAQ SMLR | 2024.5 | 4,890 BTC | $0.9B | Medical 회사 → BTC pivot |
+| **KULR Technology** | NYSE KULR | 2024.12 | 1,140 BTC | $0.4B | Battery 회사 → BTC treasury |
+| **BitMine Immersion** | NYSE BMNR | 2025.7 | 925,000 ETH | $4.2B | **첫 ETH treasury 1위** |
+| **DeFi Technologies** | TSXV DEFI | 2025.9 | 35K BTC + 200K ETH | $1.8B | Multi-asset |
+
+이 list 는 2026년 5월까지 약 47개 상장사로 확장됐다 (BitcoinTreasuries.NET 추적). 평균 mNAV 1.4–2.5x. 이는 Strategy 의 model 이 "단일 회사의 anomaly" 가 아니라 **재현 가능한 corporate finance pattern** 임을 보여준다.
+
+특히 BitMine 의 ETH treasury (Tom Lee 가 Chairman) 모델은 다음 #T2 편의 주제다. ETH 의 staking yield (4–5% 연) 가 BTC 와 다른 cash flow 를 만들어 mNAV 정당성에 다른 차원을 추가한다.
+
+## 6. mNAV Premium 의 정당성 논쟁
+
+<Callout type="opposing-view" title="반대 시각 · Citron · Kerrisdale 의 short thesis">
+Citron Research (2024.11.21) 와 Kerrisdale Capital (2025.3) 의 short report 는 mNAV premium 정당성을 정면 비판한다. 핵심 주장:
+
+**(1)** **순환 논리** — mNAV 가 BTC accumulation 의 NPV 라면, 회사가 미래 발행을 멈추면 mNAV → 1.0x 로 수렴해야 한다. premium 은 영구 발행 가정에 의존.
+
+**(2)** **반사적 가치평가 (reflexive valuation)** — 주가가 BTC 가격이 아니라 자기 자신의 발행 능력에 의존. 약세장 시작 시 premium 이 음수 (mNAV < 1) 로 떨어지면 발행 불가능 → flywheel 멈춤 → premium 더 떨어짐. 자기강화 → 자기파괴 가능성.
+
+**(3)** **희석 cumulative** — 5년 누적 발행 +194% 주식수 증가. BTC per share 가 +125% 늘었지만 이는 BTC 가격 +900% 상승기였기에 가능. BTC 횡보·하락기에는 dilution 만 남는다.
+
+**(4)** **시스템 위험** — Strategy 가 580,250 BTC 보유 (Bitcoin 총공급의 2.95%). 강제 매도 시나리오 (margin call, debt covenant breach) 가 발동되면 BTC 시장 전체에 -20-30% 충격 가능.
+
+**(5)** **회계 leverage** — ASU 2023-08 이 BTC 가격 상승기 흑자 인식 가능하게 했지만, 하락기에는 같은 mark-to-market 이 즉시 손실 인식. S&P 500 편입 4분기 흑자 조건이 BTC 약세장에서 무효화.
+
+이 비판이 정확한지는 다음 BTC 약세장 (2027–2028 가능성) 의 데이터로 시험된다. mNAV premium 이 BTC 가격 하락 시 어떻게 행동하는지가 모델의 실질 검증.
+</Callout>
+
+Strategy case 의 학술적 의미는 다섯 가지로 정리된다.
+
+1. **회계 + 자본구조의 새 조합** — ATM 발행 + 0% convertible + ASU 2023-08 fair value 의 결합이 corporate finance 에 새 패턴을 만들었다. 학계가 아직 이론화하지 못한 영역.
+
+2. **반사적 가치평가의 sustained 사례** — Soros 의 reflexivity 개념이 자본시장에서 sustained 5년+ 작동한 드문 case. 학계 finance 논문 (e.g., Greenwood-Nagel 2009 "Inexperienced Investors and Bubbles") 의 framework 와 어떻게 정합되는지가 향후 연구 주제.
+
+3. **Bitcoin 의 corporate adoption 매개체** — 47개 follow-on 회사가 Strategy 모델을 복제하면서 BTC 의 corporate balance sheet 침투가 가속. 이는 BTC 의 "기관 자산" 정체성 확립의 핵심 메커니즘.
+
+4. **시스템 위험 vector** — 47개 회사가 모두 같은 메커니즘으로 작동하므로 BTC 약세장에 동시 매도 압력 가능. 2008 banks 의 mortgage CDO 와 구조적 유사성.
+
+5. **재현 가능성 검증 진행 중** — ETH (BitMine, #T2), 일본 (Metaplanet, #T3), 마이너 (#T4 MARA, #T5 Riot) 모델이 같은 framework 를 다른 자산·지역·산업에서 재현하는 자연 실험.
+
+다음 #T2 편에서 BitMine 의 ETH treasury 모델이 BTC treasury 모델과 어떻게 다른지 (특히 staking yield 의 cash flow 효과) 를 다룬다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. Treasury company 모델과 mNAV 메커니즘의 학술적 framework 정리입니다.
