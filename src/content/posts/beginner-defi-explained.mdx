@@ -1,0 +1,125 @@
+---
+slug: beginner-defi-explained
+coin: NONE
+issue: 0
+title: "DeFi 입문 — 대출·교환·수익률 농사"
+subtitle: Aave · Uniswap · yield farming · APY 의 진실 (Beginner #G7)
+publishedAt: "2026-05-04"
+category: Beginner
+tags: [defi, beginner, yield, lending]
+estimatedReadTime: 6
+draft: false
+author: 이찬희
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 DeFi 입문 가이드입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+DeFi (Decentralized Finance) 가 무엇인지, *"수익률 농사 (yield farming)"* 가 어떻게 작동하는지, 그리고 *"APY 100%"* 같은 광고가 왜 위험한지 5분에 이해.
+</Callout>
+
+## 1. DeFi 가 무엇인가
+
+**DeFi = Decentralized Finance (탈중앙화 금융)**. 스마트 컨트랙트 기반 금융 서비스.
+
+전통 금융과의 차이:
+- 은행 X, 중개자 X
+- 24/7 작동
+- 글로벌 누구나 접근 (이론상)
+- 자가 보관
+
+## 2. DeFi 의 4 핵심 사용 사례
+
+### 2-1. 대출 + 차용 (Lending + Borrowing)
+
+**Aave, Compound, Morpho** 가 대표.
+- 대주: 자산 예치 → 이자 받음
+- 차주: 담보 입력 → 자산 빌림
+- 모두 자동 (스마트 컨트랙트)
+
+학술 framework — *"trustless overcollateralized lending"*.
+
+### 2-2. 교환 (Swap / DEX)
+
+**Uniswap, Curve, Aerodrome** 가 대표.
+- AMM (Automated Market Maker) 기반
+- 호가창 X, 수학 공식만
+- 자가 지갑 ↔ 자가 지갑 직접 교환
+
+### 2-3. 수익률 농사 (Yield Farming)
+
+**작동**: 사용자가 자기 자산을 — DeFi 프로토콜에 예치 → 수익 + 토큰 보상 받음.
+
+예시:
+- Aave 에 USDC 예치 → 5% 이자 + AAVE 토큰 보상
+- Curve 에 LP 제공 → 거래 수수료 + CRV 토큰 + Convex 추가 보상
+
+이게 *"yield farming"*. 2020 *"DeFi Summer"* 의 도화선.
+
+### 2-4. 스테이킹 (Staking)
+
+**Lido, Rocket Pool, Pendle** 가 대표.
+- 사용자가 ETH 예치 → 검증자 보상
+- LST (Liquid Staking Token) 받음
+- DeFi 에서 추가 활용 가능
+
+## 3. APY 의 진실
+
+DeFi 광고에 자주 등장하는 *"APY 100%"*. 이게 *"진짜 100%"* 가 아닐 수 있습니다.
+
+### 3-1. APY 의 구성
+
+APY = 실제 수익률 + 토큰 보상
+
+예:
+- 실제 거래 수수료 수익 = 5%
+- 추가 토큰 보상 (예: AAVE) = 95%
+- 합계 APY = 100%
+
+문제 — *"토큰 보상의 가치가 변동"*. AAVE 가격이 -50% 되면 — 실제 수익은 — 5% + 47.5% = 52.5%.
+
+### 3-2. 임시 손실 (Impermanent Loss)
+
+DEX LP 의 — 가격 변동으로 인한 *"임시 손실"*. 예시:
+
+- 사용자가 ETH/USDC 풀에 50:50 입금
+- ETH 가격 +50% 상승
+- AMM 자동 조정으로 — LP 보유량이 변경
+- 같은 자산 가격 상승 시 LP 가 받는 가치 < 그냥 보유 시
+
+이 IL 이 — *"숨은 비용"*.
+
+## 4. DeFi 의 5 위험
+
+1. **스마트 컨트랙트 버그** — 코드 오류로 자산 손실 (수십 사례)
+2. **임시 손실** — LP 의 숨은 비용
+3. **청산 cascade** — 가격 폭락 시 연쇄 청산
+4. **러그풀** — 개발자가 자금 가지고 도망 (사기)
+5. **규제 위험** — VAUPA, MiCA 등 점진 강화
+
+## 5. 한국 사용자 가이드
+
+한국에서 DeFi 사용:
+- 합법이지만 — 세제 + 규제 회색지대
+- 자가 지갑 (MetaMask) → DeFi 직접 접근
+- 한국 거래소 → 자가 지갑 → DeFi 흐름
+- 양도소득세 신고 의무 (2027 시행 추정)
+
+## 6. DeFi 의 학술적 평가
+
+DeFi 가 — *"전통 금융의 대체"* 인가, *"보완"* 인가?
+
+학술 framework:
+- BIS Working Paper 1133 — DeFi 대출 분석
+- IMF Working Paper — 시스템 안정성
+- KCMI 보고서 — 한국 시각
+
+자세한 분석은 — DeFi 시리즈 #DF1-#DF10 참조.
+
+## 결론
+
+**DeFi = 스마트 컨트랙트 기반 금융. 4 사용 사례 (대출 + DEX + Yield Farming + 스테이킹). APY 의 진실 + 5 위험 인지.**
+
+다음 편(#G8) — NFT 입문으로 이어집니다.
