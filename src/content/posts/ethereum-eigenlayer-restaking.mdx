@@ -12,36 +12,114 @@ draft: true
 sources:
   - name: "EigenLayer Whitepaper — Restaking primer"
     url: https://www.eigenlayer.xyz/
-  - name: "Galaxy Research — Restaking landscape"
+  - name: "Galaxy Research — Restaking landscape (2025)"
     url: https://www.galaxy.com/insights/
-  - name: "Paradigm — Restaking risks (2024)"
+  - name: "Paradigm — The risks of restaking (2024)"
     url: https://www.paradigm.xyz/
+  - name: "DefiLlama — Restaking TVL"
+    url: https://defillama.com/protocols/Restaking
+  - name: "Karak / Symbiotic — competing restaking protocols"
+    url: https://karak.network/
 ---
 
-{/* DRAFT — 2026-07-27까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+스테이킹된 ETH 는 이미 락업되어 합의 보안에 사용 중입니다. 그런데 이걸 "한 번 더" 다른 보안 모듈에 빌려줄 수 있다는 게 EigenLayer 의 발상입니다 — Restaking. 자본 효율의 정점이지만, 슬래싱 조건이 누적되면서 시스템 리스크가 cascading 으로 증폭됩니다. 본 편은 그 이론과 실제 위험을 정량적으로 봅니다.
+</Callout>
 
 ## 도입 — 한 ETH 를 여러 번 사용한다
 
-{/* TODO: ~400자. Restaking = 이미 staked 된 ETH 를 추가 보안 모듈에 재담보. EigenLayer 가 시장 정의 */}
+#2-D 에서 LST (Lido stETH) 가 락업된 ETH 를 토큰화해 DeFi 에 다시 쓸 수 있게 했다는 것을 봤습니다. EigenLayer 는 그 다음 단계입니다 — **stETH 를 또 다른 보안 모듈(AVS)에 재담보**하는 것.
 
-## 1. EigenLayer 작동 원리 — Pooled Security
+비유로 표현하면, ETH 를 한 번 스테이킹하면 ETH 합의 보안에 기여합니다. Restaking 을 하면 그 ETH 가 EigenDA 의 데이터 가용성 보안 + Hyperlane 의 cross-chain 메시지 보안 + AltLayer 의 rollup 보안에 동시 기여합니다. 한 자본이 여러 시스템을 보안.
 
-{/* TODO: ~700자. AVS (Actively Validated Service) 개념. operator pool. slashing 조건 누적 */}
+자본 효율 측면에서는 혁신이지만, **각 시스템에 슬래싱 조건이 따로 있습니다**. 한 시스템에서 슬래싱 발동되면 그 자본이 다른 시스템에서도 빠짐 → cascading slash 위험.
+
+## 1. EigenLayer 작동 원리 — Pooled Security 모델
+
+EigenLayer 는 2023년 메인넷 출시, 2024년 본격 운영. 2026년 5월 TVL 약 $19B (Lido 다음으로 ETH 생태계 2위).
+
+핵심 메커니즘 (3단계):
+
+### 1-1. ETH 또는 LST 입금
+
+사용자가 ETH (native restaking) 또는 stETH/cbETH/rETH (LST restaking) 을 EigenLayer 에 입금. EigenLayer 가 그 자산의 슬래싱 권한을 받음.
+
+### 1-2. Operator 위임
+
+입금자는 자기 자본을 운영할 Operator 를 선택. Operator 는 어떤 AVS 를 운영할지 결정.
+
+### 1-3. AVS 운영 + 슬래싱 합의
+
+AVS (Actively Validated Service) 는 EigenLayer 보안을 빌려 자체 시스템 운영. AVS 자체 합의 룰 위반 시 운영 Operator 의 위임 자본 슬래싱.
+
+**구조 그림**:
+```
+사용자 ETH/stETH
+      ↓ (입금)
+EigenLayer pool
+      ↓ (위임)
+Operator (예: P2P, Stakefish)
+      ↓ (운영)
+AVS 1, AVS 2, AVS 3 ...
+```
+
+한 Operator 가 동시에 여러 AVS 를 운영할 수 있습니다 — **그래서 한 ETH 의 슬래싱 위험이 여러 AVS 에 누적**됩니다.
 
 ## 2. AVS 생태계 — 무엇이 ETH 보안을 빌리는가
 
-{/* TODO: ~700자. EigenDA (DA layer), AVS 종류, TVL. Karak / Symbiotic 경쟁 */}
+2026년 5월 기준 주요 AVS:
 
-## 3. 시스템 리스크 누적 — Paradigm 의 분석
+| AVS | 분야 | 위탁 자본 (ETH) | 비고 |
+|-----|------|---------------|------|
+| **EigenDA** | Data Availability | ~$8B | EigenLayer 자체 first-party AVS |
+| **AltLayer** | Restaked rollups | ~$2B | App-specific rollup 인프라 |
+| **Hyperlane** | Cross-chain messaging | ~$1.5B | 모듈러 interop |
+| **Lagrange** | ZK coprocessor | ~$1B | ZK proof aggregation |
+| **Espresso** | Shared sequencer | ~$0.8B | L2 시퀀서 분산화 |
+| 기타 (50+ AVS) | — | ~$5.7B | DePIN, oracle 등 |
 
-{/* TODO: ~700자. Restaking 의 cascading slash. Lido stETH → EigenLayer → AVS 3중 위험 누적. 위기 시 unwinding 시나리오 */}
+총 위탁 자본 ~$19B. 이는 **ETH 합의 보안 자본 (~$130B 스테이킹) 의 약 14%** 가 동시에 다른 AVS 보안에 빌려진 셈입니다.
 
-<Callout type="warning" title="리스크 · Cascading Slash 시나리오">
-LST 디페그 → 담보 부족 → AVS 슬래싱 → 추가 디페그 → 더 큰 슬래싱. 한 번도 검증되지 않은 시스템 위험.
+**경쟁 프로토콜**:
+- **Karak**: 멀티체인 restaking (BNB, Arbitrum 지원)
+- **Symbiotic**: 더 유연한 AVS 등록 모델
+- **Babylon**: BTC restaking (다른 자산)
+
+EigenLayer 는 여전히 시장 점유율 1위지만, 단일 점유는 70% 수준에서 안정화.
+
+## 3. 시스템 리스크 누적 — Cascading Slash 시나리오
+
+<Callout type="warning" title="리스크 · Cascading Slash 시나리오 (Paradigm 2024 분석)">
+Paradigm 의 2024년 페이퍼는 다음 시나리오를 경고합니다:
+**(1) AVS 1 운영 중 큰 슬래싱 발동 → (2) Operator 위임 자본 부족 → (3) AVS 2/3 도 운영 불능 → (4) 그 AVS 들이 의존하는 DeFi 프로토콜 connectivity 끊김 → (5) DeFi 디페그·청산 cascade**.
 </Callout>
+
+위험의 핵심은 세 가지 누적입니다:
+
+### 3-1. LST + Restaking 이중 의존
+
+Lido stETH 를 EigenLayer 에 restake 하면, 그 자본은 (1) Lido 노드 운영자 슬래싱 (2) EigenLayer Operator 슬래싱 (3) AVS 자체 슬래싱 — **세 차원의 슬래싱 위험**에 동시 노출.
+
+### 3-2. AVS 슬래싱 조건의 검증 부재
+
+ETH 합의의 슬래싱 조건은 18+ 년 검증 (PoW 시절부터 합의 메커니즘). AVS 의 슬래싱 조건은 아직 신생 — 공격 벡터가 충분히 발견 안 됨. **알려지지 않은 known unknowns**.
+
+### 3-3. 자본 회수 시 시스템적 충격
+
+EigenLayer 위탁 자본의 unwind 시간은 7일 (보안 윈도우). 위기 시 7일 동안 자본이 묶여 있으면서 LST 디페그 → Aave 청산 → 추가 디페그 cascade 가능.
+
+**역사적 stress test 0건** — Restaking 시스템은 본격 위기 사이클을 아직 한 번도 거치지 않았습니다.
 
 ## 4. 결론 — 자본 효율의 한계
 
-{/* TODO: ~400자. Restaking = 자본 효율의 정점. 그러나 시스템 단순화 X, 복잡성 증가. 다음 편(#2-F) L2 가치 누수와 함께 ETH 토큰 가치 명제의 위협 요인 */}
+Restaking 은 ETH 자본 효율을 새 차원으로 끌어올렸습니다 — 한 자본이 여러 보안 시스템에 기여. 그러나 그 효율은 **시스템 단순화가 아니라 복잡성 증가** 위에서 만들어졌습니다.
+
+세 가지 결론:
+
+1. **Restaking 은 ETH 가치 명제에 양면 효과** — ETH 의 사용처를 늘리지만 시스템 위험도 증폭
+2. **검증되지 않은 cascading 시나리오** — 한 번도 stress test 안 됨
+3. **Lido + EigenLayer 누적 의존** — 두 단일 프로토콜에 ETH 보안 자본의 ~25%+ 가 묶임
+
+다음 편(#2-F) 에서는 또 다른 ETH 가치 명제 위협 — **L2 가치 누수** — 를 봅니다. Pectra 의 EIP-7691 가 만든 양날의 검입니다.
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-eigenlayer-restaking" />
