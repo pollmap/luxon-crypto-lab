@@ -29,7 +29,7 @@ sources:
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Satoshi Nakamoto 의 2008년 9페이지 백서는 진공에서 나온 발명이 아니다. 1992년부터 16년간 cypherpunk 메일링 리스트가 축적한 5개의 학술 줄기 — (1) 디지털 서명 (2) Hashcash PoW (3) Wei Dai b-money (4) Nick Szabo Bit Gold (5) Hal Finney RPOW — 의 결합이다. 본 글은 백서 9페이지를 이 5개 줄기 위에 위치시켜 어떤 부분이 기존 아이디어이고 어떤 부분이 진정한 발명인지를 분리한다.
+Satoshi Nakamoto 의 2008년 9페이지 백서는 진공에서 나온 발명이 아니다. 1992년부터 16년간 사이퍼펑크 메일링 리스트가 축적한 5개의 학술 줄기 — (1) 디지털 서명 (2) Hashcash PoW (3) Wei Dai b-money (4) Nick Szabo Bit Gold (5) Hal Finney RPOW — 의 결합이다. 본 글은 백서 9페이지를 이 5개 줄기 위에 위치시켜 어떤 부분이 기존 아이디어이고 어떤 부분이 진정한 발명인지를 분리한다.
 </Callout>
 
 ## 도입 — 백서가 진공에서 나오지 않았다
@@ -38,7 +38,7 @@ Satoshi Nakamoto 의 2008년 9페이지 백서는 진공에서 나온 발명이 
 
 이 메일이 받은 첫 반응은 회의적이었다. 메일링 리스트의 시니어 회원 James A. Donald 는 답장에서 *"the way you describe the project, it does not seem to scale to the required size"* 라고 적었다. 1990년대부터 digital cash 시도가 모두 실패한 역사 때문이었다 — DigiCash (1990, Chaum), CyberCash (1996), e-gold (1996, 사기로 종료). 모두 trusted third party 의존이 single point of failure 가 됐다.
 
-그러나 백서가 진공에서 나온 것은 아니다. 1990년대 중반부터 cypherpunk 운동은 trustless digital cash 의 5개 부분 해법을 축적해왔다. Bonneau 외 (2015) 의 *SoK (Systematization of Knowledge): Research Perspectives and Challenges for Bitcoin and Cryptocurrencies* IEEE S&P paper 가 이 계보를 정리한 표준 학술 reference 다.
+그러나 백서가 진공에서 나온 것은 아니다. 1990년대 중반부터 사이퍼펑크 운동은 trustless digital cash 의 5개 부분 해법을 축적해왔다. Bonneau 외 (2015) 의 *SoK (Systematization of Knowledge): Research Perspectives and Challenges for Bitcoin and Cryptocurrencies* IEEE S&P paper 가 이 계보를 정리한 표준 학술 reference 다.
 
 본 글은 이 5개 줄기를 차례로 따라가며 백서의 어떤 부분이 reference 되었고, 어떤 부분이 Satoshi 의 새로운 합성인지를 분리한다.
 
@@ -63,15 +63,15 @@ Satoshi 의 **새로운 합성**은 두 가지다. (a) Hashcash 의 PoW 를 **�
 
 ## 2. Wei Dai b-money (1998) — 분산 ledger 의 첫 명시
 
-Wei Dai 의 1998년 cypherpunks 메일링 리스트 글 *b-money* 는 Bitcoin 백서가 인용하는 두 번째 paper 다. b-money 의 두 protocol:
+Wei Dai 의 1998년 사이퍼펑크 메일링 리스트 글 *b-money* 는 Bitcoin 백서가 인용하는 두 번째 paper 다. b-money 의 두 protocol:
 
-**Protocol 1** — 모든 참여자가 ledger 사본을 보유. 누군가 송금 시 broadcast → 모두가 자기 사본 업데이트. *(Bitcoin 의 broadcast + 노드 ledger 와 사실상 동일)*
+**Protocol 1** — 모든 참여자가 ledger 사본을 보유. 누군가 송금 시 브로드캐스트 → 모두가 자기 사본 업데이트. *(Bitcoin 의 브로드캐스트 + 노드 ledger 와 사실상 동일)*
 
 **Protocol 2** — *"servers"* 라 불리는 부분 집합이 ledger 를 보유. 서버가 deposit 을 걸고 잘못된 행동 시 deposit 몰수. *(현대 PoS 와 유사)*
 
-Bitcoin 백서가 차용한 부분 — **Protocol 1 의 broadcast + 분산 ledger 구조**. b-money 가 "분산 합의" 의 개념을 처음 명시한 글이다.
+Bitcoin 백서가 차용한 부분 — **Protocol 1 의 브로드캐스트 + 분산 ledger 구조**. b-money 가 "분산 합의" 의 개념을 처음 명시한 글이다.
 
-Satoshi 의 **새로운 합성**은 두 가지다. (a) b-money 는 *"how exactly do all participants agree on which transactions are valid and in which order?"* 라는 합의 문제를 해결하지 못했다. b-money Protocol 1 은 broadcast 를 가정하지만 conflicting broadcast 시 누구를 믿을지 답이 없다. **Bitcoin 은 PoW + longest chain rule 로 이를 해결**. (b) Wei Dai 자신이 2013년 LessWrong 댓글에서 *"...I had not realized at the time that Bitcoin's PoW could solve the consensus problem that b-money left open"* 이라고 인정했다.
+Satoshi 의 **새로운 합성**은 두 가지다. (a) b-money 는 *"how exactly do all participants agree on which transactions are valid and in which order?"* 라는 합의 문제를 해결하지 못했다. b-money Protocol 1 은 브로드캐스트를 가정하지만 conflicting 브로드캐스트 시 누구를 믿을지 답이 없다. **Bitcoin 은 PoW + longest chain rule 로 이를 해결**. (b) Wei Dai 자신이 2013년 LessWrong 댓글에서 *"...I had not realized at the time that Bitcoin's PoW could solve the consensus problem that b-money left open"* 이라고 인정했다.
 
 ## 3. Nick Szabo Bit Gold (2005) — 디지털 희소성의 직계 선조
 
@@ -84,19 +84,19 @@ Bit Gold 의 메커니즘:
 3. 새 string 이 이전 string 의 hash 를 input 으로 사용 → 시간 순서 chain.
 4. 가치는 string 생성에 든 계산 비용으로 결정.
 
-이 디자인은 Bitcoin 의 직접적 선조이며, Szabo 가 "Satoshi 본인이 아닌가" 라는 추측이 강하게 도는 이유 (Szabo 는 부인). Bonneau 외는 "Bit Gold 는 Bitcoin 의 99% 이지만 마지막 1% — Sybil-resistant 합의 — 가 빠졌다" 고 평가한다.
+이 디자인은 Bitcoin 의 직접적 선조이며, Szabo 가 "Satoshi 본인이 아닌가" 라는 추측이 강하게 도는 이유 (Szabo 는 부인). Bonneau 외는 "Bit Gold 는 Bitcoin 의 99% 이지만 마지막 1% — Sybil 저항 합의 — 가 빠졌다" 고 평가한다.
 
 Satoshi 의 **새로운 합성** — Bit Gold 의 Byzantine fault tolerance 부재 해결. Bit Gold 는 *"distributed timestamp service"* 라는 외부 신뢰 서비스를 가정. Bitcoin 은 timestamp 자체를 PoW 로 합의 처리 (블록 = timestamp + tx 묶음).
 
 ## 4. Hal Finney RPOW (2004) — 재사용 가능 PoW
 
-Hal Finney 는 PGP 의 Phil Zimmermann 협력자였고, cypherpunk 운동의 핵심 인물이었다 (2014.8 사망). 2004년 Finney 가 발표한 *RPOW (Reusable Proof of Work)* 는 Hashcash 의 한계 (한 번 사용 후 폐기) 를 극복하려는 시도였다.
+Hal Finney 는 PGP 의 Phil Zimmermann 협력자였고, 사이퍼펑크 운동의 핵심 인물이었다 (2014.8 사망). 2004년 Finney 가 발표한 *RPOW (Reusable Proof of Work)* 는 Hashcash 의 한계 (한 번 사용 후 폐기) 를 극복하려는 시도였다.
 
 RPOW 의 메커니즘 — Hashcash 토큰을 "사용" 하면 서버가 새 토큰을 발급. 이전 토큰은 폐기. 사용자 입장에서 토큰을 잔액처럼 보유 가능.
 
 RPOW 의 한계 — Finney 의 RPOW 서버가 trusted third party 였다. 사용자가 서버를 신뢰해야 함.
 
-Bitcoin 과의 관계 — Finney 는 Satoshi 백서 발표 (2008.10) 직후 cypherpunk 메일링 리스트에 가장 적극적으로 응답한 인물이었다. 2009년 1월 12일 Bitcoin 1번 transaction 의 수신자 (Satoshi → Finney 10 BTC) 였다. Finney 의 본인 글 (2014, 사후 공개) 에서 *"When Satoshi announced Bitcoin on the cryptography mailing list, he got a skeptical reception at best. Cryptographers have seen too many grand schemes by clueless newbies. They tend to have a knee-jerk reaction. I was more positive."*
+Bitcoin 과의 관계 — Finney 는 Satoshi 백서 발표 (2008.10) 직후 사이퍼펑크 메일링 리스트에 가장 적극적으로 응답한 인물이었다. 2009년 1월 12일 Bitcoin 1번 transaction 의 수신자 (Satoshi → Finney 10 BTC) 였다. Finney 의 본인 글 (2014, 사후 공개) 에서 *"When Satoshi announced Bitcoin on the cryptography mailing list, he got a skeptical reception at best. Cryptographers have seen too many grand schemes by clueless newbies. They tend to have a knee-jerk reaction. I was more positive."*
 
 Satoshi 의 **새로운 합성** — RPOW 의 trusted server 를 제거. PoW 자체가 ledger 합의이므로 별도 서버 불필요.
 
@@ -108,7 +108,7 @@ Satoshi 의 **새로운 합성** — RPOW 의 trusted server 를 제거. PoW 자
 
 **Byzantine Generals Problem (1982)** — Lamport, Shostak, Pease. 일부 노드가 악의적일 때 정직한 노드들이 합의에 도달할 수 있는가. 답: 3분의 2 이상 정직한 노드 필요.
 
-Bitcoin 은 이 두 paper 의 결합을 **PoW 라는 새로운 sybil-resistance** 메커니즘으로 해결한다. Lamport 의 Byzantine 합의가 "노드 ID 가 알려진 환경" 에서만 작동한다면, Bitcoin 은 "ID 가 익명·무한 생성 가능" 환경에서 작동.
+Bitcoin 은 이 두 paper 의 결합을 **PoW 라는 새로운 Sybil 저항** 메커니즘으로 해결한다. Lamport 의 Byzantine 합의가 "노드 ID 가 알려진 환경" 에서만 작동한다면, Bitcoin 은 "ID 가 익명·무한 생성 가능" 환경에서 작동.
 
 이는 학계 distributed systems 분야에서 1982년 이후 첫 본격 진보였다. 그래서 Bitcoin 이 그저 발명이 아니라 30년 묶여 있던 학술 문제의 해법이라는 평가가 가능하다.
 
@@ -116,7 +116,7 @@ Bitcoin 은 이 두 paper 의 결합을 **PoW 라는 새로운 sybil-resistance*
 
 Bitcoin 백서가 발표된 후 학계의 첫 본격 비판은 Eyal & Sirer (2014) 의 *Majority Is Not Enough: Bitcoin Mining Is Vulnerable* (Financial Cryptography 2014, DOI: 10.1007/978-3-662-45472-5_28) 였다.
 
-Selfish Mining 공격의 핵심 — **마이너가 새 블록을 발견해도 즉시 broadcast 하지 않고 비공개 chain 을 키운다**. 다른 마이너가 따라잡기 시작하면 그때 비공개 chain 을 broadcast 해 다른 마이너의 작업을 무효화.
+Selfish Mining 공격의 핵심 — **마이너가 새 블록을 발견해도 즉시 브로드캐스트하지 않고 비공개 chain 을 키운다**. 다른 마이너가 따라잡기 시작하면 그때 비공개 chain 을 브로드캐스트해 다른 마이너의 작업을 무효화.
 
 Eyal & Sirer 의 수학적 결과 — **단일 마이너 풀이 33% 해시레이트만 가져도 selfish mining 으로 51% 보다 큰 비례 보상을 받을 수 있다**. Bitcoin 의 "51% 가 임계점" 가정을 학술적으로 깬 첫 결과.
 
@@ -125,7 +125,7 @@ Eyal & Sirer 의 수학적 결과 — **단일 마이너 풀이 33% 해시레이
 ## 7. 백서 9페이지의 새로운 합성
 
 <Callout type="opposing-view" title="반대 시각 · Bitcoin 은 발명이 아니라 합성이다">
-본 글의 framework 가 시사하는 비판도 명확하다. **Bitcoin 백서의 어떤 단일 아이디어도 진정한 발명이 아니다**. PoW = Hashcash, 분산 ledger = b-money, 디지털 희소성 = Bit Gold, 합의 = Lamport. 그렇다면 Satoshi 의 contribution 은 무엇인가? 답은 "synthesis (합성)" — 5개 줄기를 정확한 비율로 결합한 디자인 결정. 이 시각에서 Bitcoin 은 19세기 전기 (electricity) 발명과 비슷하다 — Volta, Faraday, Maxwell, Edison 모두 부분을 만들었지만, 실용적 시스템으로 합성한 사람이 진짜 발명자로 인정된다. Satoshi 는 cypherpunk 운동 16년 축적의 합성자이지 단독 발명자가 아니다. 이는 contribution 을 줄이지 않고 정확하게 인식하는 것이다.
+본 글의 프레임워크가 시사하는 비판도 명확하다. **Bitcoin 백서의 어떤 단일 아이디어도 진정한 발명이 아니다**. PoW = Hashcash, 분산 ledger = b-money, 디지털 희소성 = Bit Gold, 합의 = Lamport. 그렇다면 Satoshi 의 contribution 은 무엇인가? 답은 "synthesis (합성)" — 5개 줄기를 정확한 비율로 결합한 디자인 결정. 이 시각에서 Bitcoin 은 19세기 전기 (electricity) 발명과 비슷하다 — Volta, Faraday, Maxwell, Edison 모두 부분을 만들었지만, 실용적 시스템으로 합성한 사람이 진짜 발명자로 인정된다. Satoshi 는 사이퍼펑크 운동 16년 축적의 합성자이지 단독 발명자가 아니다. 이는 contribution 을 줄이지 않고 정확하게 인식하는 것이다.
 </Callout>
 
 5개 학술 줄기와 Satoshi 합성의 mapping 을 정리하면:
@@ -136,16 +136,16 @@ Eyal & Sirer 의 수학적 결과 — **단일 마이너 풀이 33% 해시레이
 | b-money (Dai 1998) | 분산 ledger | PoW 로 합의 해결 |
 | Bit Gold (Szabo 2005) | 디지털 희소성 | timestamp 내재화 |
 | RPOW (Finney 2004) | 토큰 재사용 | 신뢰 서버 제거 |
-| Lamport (1978/1982) | 분산 합의 이론 | sybil-resistance |
+| Lamport (1978/1982) | 분산 합의 이론 | Sybil 저항 |
 
 Satoshi 백서의 학술적 의미는 세 가지로 정리된다.
 
-1. **합성의 가치** — 5개 줄기 모두 1990년대-2005년 사이 cypherpunk 메일링 리스트에 존재했다. Bitcoin 의 contribution 은 발명이 아니라 정확한 합성이며, 이는 분산 시스템 분야의 최대 contribution 중 하나로 평가받는다.
+1. **합성의 가치** — 5개 줄기 모두 1990년대-2005년 사이 사이퍼펑크 메일링 리스트에 존재했다. Bitcoin 의 contribution 은 발명이 아니라 정확한 합성이며, 이는 분산 시스템 분야의 최대 contribution 중 하나로 평가받는다.
 
 2. **익명 발표의 결과** — Satoshi 가 익명을 유지한 결정은 Bitcoin 의 political decentralization (#D1 Vitalik 3축) 의 출발점. 만약 Satoshi 가 식별된 인물이었다면 미국 정부의 처벌·압박 대상이 됐을 가능성. 익명성이 검열저항 (#D4) 의 sustained 작동을 가능하게 했다.
 
 3. **학술 분야의 출발** — 백서 직후 Bonneau 외 (2015) SoK paper, Eyal-Sirer (2014) Selfish Mining, Garay-Kiayias-Leonardos (2015) backbone protocol analysis 등이 Bitcoin 을 학술 분야로 정착시켰다. 2026년 현재 cryptocurrency 관련 학술 논문 누적 약 35,000+편 (Google Scholar).
 
-다음 #P2 편에서 학술 cryptocurrency 분야의 두 번째 거인 Vitalik Buterin 의 *Endgame* (2021) 과 *Scaling Trilemma* 의 framework 를 다룬다. Satoshi 의 합성이 PoW 기반이라면, Vitalik 의 합성은 PoS + L2 rollup 기반이다.
+다음 #P2 편에서 학술 cryptocurrency 분야의 두 번째 거인 Vitalik Buterin 의 *Endgame* (2021) 과 *Scaling Trilemma* 의 프레임워크를 다룬다. Satoshi 의 합성이 PoW 기반이라면, Vitalik 의 합성은 PoS + L2 rollup 기반이다.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. Satoshi 백서의 학술 계보 추적과 cryptocurrency 학계의 출발점에 대한 framework 정리입니다.
+본 글은 분석이며 매수/매도 추천이 아닙니다. Satoshi 백서의 학술 계보 추적과 cryptocurrency 학계의 출발점에 대한 프레임워크 정리입니다.

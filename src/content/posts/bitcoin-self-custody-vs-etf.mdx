@@ -23,20 +23,20 @@ sources:
 ---
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-"Not your keys, not your coins" — 비트코인 진영의 가장 유명한 격언입니다. 그러나 2026년 5월 기준 BTC 의 6.3% 가 ETF 형태로 BlackRock 같은 단일 발행자에 위탁됐고, 추가로 거래소 보유분까지 합치면 **약 20% 가 사실상 위탁 형태**입니다. 본 편은 self-custody 와 ETF 위탁의 trade-off, 그리고 portfolio 적정 비율을 다룹니다.
+"Not your keys, not your coins" — 비트코인 진영의 가장 유명한 격언입니다. 그러나 2026년 5월 기준 BTC 의 6.3% 가 ETF 형태로 BlackRock 같은 단일 발행자에 위탁됐고, 추가로 거래소 보유분까지 합치면 **약 20% 가 사실상 위탁 형태**입니다. 본 편은 self-custody 와 ETF 위탁의 트레이드오프, 그리고 portfolio 적정 비율을 다룹니다.
 </Callout>
 
 ## 도입 — Not your keys, not your coins
 
 사토시 백서 (#1-E) 의 핵심 원칙 중 하나가 "trustless" 였습니다. 어떤 단일 주체에도 신뢰 의존 X. 비트코인 진영은 이 원칙을 한 격언으로 압축했습니다 — **"Not your keys, not your coins"**. 자기 private key 를 통제하지 않는 BTC 는 진정한 의미의 BTC 가 아니라는 주장.
 
-그러나 2024년 1월 spot BTC ETF 출시 후 풍경이 크게 변했습니다. 2026년 5월 기준:
+그러나 2024년 1월 현물 BTC ETF 출시 후 풍경이 크게 변했습니다. 2026년 5월 기준:
 - **BTC ETF 보유분**: 약 1.25M BTC (유통량의 6.3%)
 - **거래소 보유분 (콜드 + 핫)**: 약 2.5M BTC (12.6%)
 - **WBTC + cbBTC**: 약 0.3M BTC (1.5%)
 - **합계 위탁 형태**: **약 4M BTC (20.4%)**
 
-전체 유통량의 1/5 이 사실상 IOU (I-Owe-You) 형태로 존재합니다. 사토시의 trustless vision 과 정면 충돌하는 추세죠. 본 편은 이 trade-off 를 정량 분석합니다.
+전체 유통량의 1/5 이 사실상 IOU (I-Owe-You) 형태로 존재합니다. 사토시의 trustless vision 과 정면 충돌하는 추세죠. 본 편은 이 트레이드오프를 정량 분석합니다.
 
 ## 1. Self-custody 옵션 — 단일서명 · 멀티시그 · 하드웨어
 
@@ -74,7 +74,7 @@ Self-custody 의 기술적 구현 방식:
 
 ## 2. ETF 위탁의 매력 — 세제 · 편의성 · 기관 접근
 
-미국 spot BTC ETF 의 매력:
+미국 현물 BTC ETF 의 매력:
 
 ### 세제 통합
 
@@ -96,7 +96,7 @@ Self-custody 의 기술적 구현 방식:
 
 ### IBIT 의 우월 — 49-62% 점유
 
-미국 11개 spot BTC ETF 중 BlackRock IBIT 가 단독 49-62% 점유. 이유:
+미국 11개 현물 BTC ETF 중 BlackRock IBIT 가 단독 49-62% 점유. 이유:
 - 가장 낮은 fee (0.12-0.25%)
 - 가장 큰 유동성 (일 거래량 압도적)
 - BlackRock 브랜드 신뢰
@@ -124,7 +124,7 @@ Self-custody 보유분은 **사실상 영구 보유 (HODL)** 로 행동. ETF 는
 | ETF (BlackRock) | OFAC 제재 시 가능 | 가능 |
 | 거래소 | 매우 높음 | 매우 높음 |
 
-이게 **사토시 trustless 원칙**과 **현실 사용** 의 trade-off 입니다.
+이게 **사토시 trustless 원칙**과 **현실 사용** 의 트레이드오프 입니다.
 
 <Callout type="opposing-view" title="반대 시각 · 양립 가능">
 Self-custody 와 ETF 는 zero-sum 이 아닙니다. **두 가지 다 활용**이 정답입니다 — Self-custody 는 sovereignty / 검열저항 / 영구 보유, ETF 는 트레이딩 / 세제 / 기관 통합. 같은 자산을 다른 layer 에서 사용. 어느 한 쪽에 100% 도 비합리적.
@@ -133,15 +133,15 @@ Self-custody 와 ETF 는 zero-sum 이 아닙니다. **두 가지 다 활용**이
 ## 4. 학술적 분류 — 보유 형태별 사례
 
 <Callout type="warning" title="투자 자문 아님">
-본 섹션의 분류는 **보유 형태별 학술적 trade-off 분석**이며 투자 권유가 아닙니다. 어떤 비율 사례도 일반화된 권고로 해석되어서는 안 되며, 실제 결정은 자격 있는 전문가와 상의 후 본인 책임 하에 이루어져야 합니다.
+본 섹션의 분류는 **보유 형태별 학술적 트레이드오프 분석**이며 투자 권유가 아닙니다. 어떤 비율 사례도 일반화된 권고로 해석되어서는 안 되며, 실제 결정은 자격 있는 전문가와 상의 후 본인 책임 하에 이루어져야 합니다.
 </Callout>
 
-각 보유 형태가 어떤 trade-off 함수를 가지는지의 학술적 분류:
+각 보유 형태가 어떤 트레이드오프 함수를 가지는지의 학술적 분류:
 
 ### Case 1 — 소액 보유 시나리오 (< 1 BTC)
 
-- ETF 위탁의 trade-off: 학습 비용 ↓, 세제/규제 통합 ↑
-- Self-custody 의 trade-off: sovereignty 가치 vs 운영 학습 비용
+- ETF 위탁의 트레이드오프: 학습 비용 ↓, 세제/규제 통합 ↑
+- Self-custody 의 트레이드오프: sovereignty 가치 vs 운영 학습 비용
 - 학술적 관찰: 이 구간에서는 **운영 효율성** 변수가 가장 큰 가중치
 - 사례: 401(k) / IRA 같은 세제 우대 계정과의 통합 가능성
 
@@ -156,12 +156,12 @@ Self-custody 와 ETF 는 zero-sum 이 아닙니다. **두 가지 다 활용**이
 
 - Multisig (Casa, Unchained Capital) 의 거버넌스 모델
 - 상속 설계의 법적 frameworks
-- 기관 custody (Coinbase Prime) vs self-managed multisig 의 trade-off
+- 기관 custody (Coinbase Prime) vs self-managed multisig 의 트레이드오프
 - 학술적 관찰: 이 구간에서는 **거버넌스 + 상속 설계** 변수가 가장 큰 가중치
 
 ### 학술적 우려 사례
 
-- **단일 거래소 100% 보유**: FTX, Mt.Gox, Celsius 사례에서 본 systemic risk
+- **단일 거래소 100% 보유**: FTX, Mt.Gox, Celsius 사례에서 본 시스템 리스크
 - **단일 ETF 100% 보유 (큰 자산)**: BlackRock IBIT 같은 single point of failure 학술적 우려
 
 ### 절대 X 시나리오

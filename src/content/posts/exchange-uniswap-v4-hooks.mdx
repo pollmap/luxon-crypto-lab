@@ -23,7 +23,7 @@ sources:
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
@@ -45,7 +45,7 @@ Uniswap 은 2018년 출시 이래 6년 동안 AMM (Automated Market Maker) 패�
 | v3 | 2021.5 | Concentrated Liquidity | 가격 구간 지정, LP 자본효율 4000x |
 | **v4** | 2025.1 | **Hooks** | 풀 단위 커스텀 로직 |
 
-v3 의 Concentrated Liquidity 는 학술적으로 매우 중요한 개념이었다. v2 까지 AMM 은 0 부터 무한대까지 모든 가격에 유동성을 분산시켰는데, 실제로는 거래의 99% 가 spot 가격 ±20% 안에서 일어난다. v3 는 LP 가 자신의 유동성을 특정 가격 구간에 집중시킬 수 있게 했고, 결과적으로 같은 자본으로 4,000배 깊은 호가창을 만들었다.
+v3 의 Concentrated Liquidity 는 학술적으로 매우 중요한 개념이었다. v2 까지 AMM 은 0 부터 무한대까지 모든 가격에 유동성을 분산시켰는데, 실제로는 거래의 99% 가 현물 가격 ±20% 안에서 일어난다. v3 는 LP 가 자신의 유동성을 특정 가격 구간에 집중시킬 수 있게 했고, 결과적으로 같은 자본으로 4,000배 깊은 호가창을 만들었다.
 
 그러나 v3 도 한계가 있었다 — **모든 풀이 같은 fee tier (0.05%, 0.3%, 1%) 만 지원**했고, 고정 수수료 구조였다. 변동성이 큰 시간대와 작은 시간대의 fee 가 같았다. 이를 해결한 것이 v4 의 Hooks 다.
 
@@ -62,7 +62,7 @@ v4 의 핵심 디자인은 모든 풀이 자체 **Hook 컨트랙트** 를 가질
 
 이 디자인의 의미는 **AMM 이 더 이상 단일 함수가 아니라 플랫폼**이 되었다는 점이다. v3 까지는 Uniswap 이 "유동성 풀 표준" 이었다면, v4 는 "유동성 풀 + 거래 로직 OS" 다. 외부 개발자가 작성한 Hook 컨트랙트를 그대로 마운트할 수 있다.
 
-기술적 trade-off 는 가스비다. Hook 호출은 추가 EVM execution 이며, 단순 swap 대비 가스 +20–40% 증가. 이 비용이 dynamic fee 로 회수 가능한지가 풀 디자인의 분수령이다.
+기술적 트레이드오프는 가스비다. Hook 호출은 추가 EVM execution 이며, 단순 swap 대비 가스 +20–40% 증가. 이 비용이 dynamic fee 로 회수 가능한지가 풀 디자인의 분수령이다.
 
 ## 3. UNI Fee Switch — DAO 거버넌스의 시험대
 
@@ -88,12 +88,12 @@ UNI 토큰의 디자인은 거버넌스 의결권만 부여한다. 토큰 보유
 Uniswap DEX 1위라는 표현은 정밀하지 않다. 점유 47% 는 Uniswap 의 모든 배포본 (Ethereum + Arbitrum + Optimism + Base + Polygon + 6개 더) 의 합이며, 각 체인별로 보면 경쟁 DEX 가 1위인 곳도 있다. (Aerodrome 은 Base 에서 1위, Velodrome 은 Optimism 에서 비슷). L2 별 유동성이 분산되면 Uniswap 의 단일 mainnet 우위가 약해질 수 있고, v4 Hooks 의 가스 효율이 L1 에서만 의미를 가진다는 비판도 가능하다. 본 시리즈 #E5 Hyperliquid 편에서 perp DEX 시장의 새로운 분산 패턴을 다룬다.
 </Callout>
 
-Uniswap case 의 학술적 의미는 세 가지다.
+Uniswap 사례의 학술적 의미는 세 가지다.
 
 1. **AMM 의 플랫폼화** — v4 Hooks 는 단일 자동시장 함수에서 거래 로직 OS 로의 전환. 외부 개발자가 마운트하는 풀이 v4 mainnet 풀의 60% 차지 (2026.5).
-2. **DAO 거버넌스의 실제 한계** — fee switch 논쟁이 4년 넘게 지속된다는 사실 자체가, "탈중앙화 거버넌스" 가 의사결정 속도를 어떻게 trade-off 하는지를 보여준다.
+2. **DAO 거버넌스의 실제 한계** — fee switch 논쟁이 4년 넘게 지속된다는 사실 자체가, "탈중앙화 거버넌스" 가 의사결정 속도를 어떻게 트레이드오프 하는지를 보여준다.
 3. **L2 분산의 양면성** — Uniswap 이 모든 L2 에 배포되어 점유율을 유지하지만, 동시에 단일 시장 유동성 깊이는 분산된다. 이는 본 시리즈 #D2 Nakamoto coefficient 비교 (탈중앙화 정의) 와 직접 연결되는 주제다.
 
-이 case 는 다음 #E5 Hyperliquid (perp DEX 신모델) 와 비교될 때 더 명확해진다. Uniswap 이 spot AMM 의 진화라면, Hyperliquid 는 derivative 시장에서 자체 L1 + on-chain orderbook 이라는 다른 답을 시도한다.
+이 사례는 다음 #E5 Hyperliquid (perp DEX 신모델) 와 비교될 때 더 명확해진다. Uniswap 이 현물 AMM 의 진화라면, Hyperliquid 는 derivative 시장에서 자체 L1 + on-chain orderbook 이라는 다른 답을 시도한다.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. AMM 진화와 DEX 거버넌스 case 의 학술적 framework 정리입니다.
+본 글은 분석이며 매수/매도 추천이 아닙니다. AMM 진화와 DEX 거버넌스 사례의 학술적 프레임워크 정리입니다.

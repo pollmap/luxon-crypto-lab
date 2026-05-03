@@ -23,7 +23,7 @@ sources:
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
@@ -47,11 +47,11 @@ NVT (Network Value to Transactions) 는 2017년 Willy Woo 가 제안한 지표�
 직관적으로는 "1달러 일일 거래에 시장이 몇 달러를 부여하는가" — 기업의 P/E 와 유사한 발상. 거래량이 활발한데 시총이 낮으면 NVT 낮음(저평가), 거래량 약한데 시총 높으면 NVT 높음(고평가).
 
 **역사적 임계값**:
-- NVT 30+ : 고평가 영역 (cycle top 근접)
-- NVT 15- : 저평가 영역 (cycle bottom 근접)
+- NVT 30+ : 고평가 영역 (사이클 top 근접)
+- NVT 15- : 저평가 영역 (사이클 bottom 근접)
 - NVT signal (90일 MA) 이 더 안정적
 
-**2026년 5월 현재 NVT**: 약 60-70 (cycle 후반 범위, 그러나 ETF flow 미반영)
+**2026년 5월 현재 NVT**: 약 60-70 (사이클 후반 범위, 그러나 ETF flow 미반영)
 
 여기서 **결정적 한계**가 등장합니다. ETF 매수가 OTC desk 에서 처리되면 온체인 transfer 로 안 보입니다. BlackRock IBIT 가 일평균 $208M 매수해도 그 거래는 Coinbase Prime / Cumberland 같은 OTC 채널에서 일어나고, 온체인엔 단순 ETF 보관 지갑으로의 inbound transfer 로만 기록됩니다. 즉 **분모(transfer volume) 가 실제 경제활동을 과소측정**.
 
@@ -63,17 +63,17 @@ MVRV (Market Value to Realized Value) 는 NVT 보다 더 정교한 지표입니�
 
 **Realized Cap** 은 각 BTC 가 마지막으로 이동된 시점의 가격을 합산한 값입니다. 즉 "전체 BTC 보유자의 평균 cost basis 근사" 라고 볼 수 있습니다.
 
-- MVRV > 3.5 : cycle top 영역 (대부분 보유자가 큰 미실현 이익)
-- MVRV < 1 : cycle bottom 영역 (대부분 보유자가 손실)
-- MVRV 1.5-2.5 : mid-cycle 정상 범위
+- MVRV > 3.5 : 사이클 top 영역 (대부분 보유자가 큰 미실현 이익)
+- MVRV < 1 : 사이클 bottom 영역 (대부분 보유자가 손실)
+- MVRV 1.5-2.5 : mid-사이클 정상 범위
 
-**과거 cycle 사례**:
+**과거 사이클 사례**:
 - 2017년 12월 top: MVRV ~4.5
 - 2018년 12월 bottom: MVRV ~0.7
 - 2021년 11월 top: MVRV ~4.0
 - 2022년 11월 bottom: MVRV ~0.8
 - 2025년 10월 top ($126K): MVRV ~3.2 (역사적 top 보다 낮음)
-- **2026년 5월 현재**: MVRV ~2.0-2.3 (mid-cycle 조정 구간)
+- **2026년 5월 현재**: MVRV ~2.0-2.3 (mid-사이클 조정 구간)
 
 흥미로운 패턴은 **4번째 사이클의 MVRV 정점이 과거보다 낮다**는 점입니다. 가설 두 개:
 1. ETF 흡수로 cost basis 가 빠르게 위로 이동 → realized cap 도 같이 상승 → MVRV ratio 압축
@@ -91,7 +91,7 @@ NVT 와 MVRV 는 모두 거래량·UTXO 기반이라 ETF OTC flow 가 측정에�
 |------|----------|----------------|
 | NVT 정상화 | 90일 MA NVT 평균 회귀 | $65K-$90K |
 | MVRV 정상화 | MVRV 1.8-2.2 구간 | $70K-$95K |
-| Realized Price | cycle floor 근사 | ~$48K |
+| Realized Price | 사이클 floor 근사 | ~$48K |
 | **종합 박스** | 세 추정의 교집합 | **$70K-$90K** |
 
 현재가 $78,600 는 박스 중앙. 강한 매수도 매도도 아닌 **"중립" 구간**이라는 게 정량 모델의 시그널입니다.

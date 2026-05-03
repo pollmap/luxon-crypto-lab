@@ -23,11 +23,11 @@ sources:
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Hyperliquid 는 2023년 6월 출시된 perp (perpetual futures) DEX 다. 2년 만에 일 거래대금 $5.2B 로 perp DEX 시장 1위, 전체 derivative 시장 (CEX 포함) 에서 약 12% 점유에 도달했다. 핵심은 **자체 L1 + on-chain orderbook** — Uniswap 의 AMM 모델과 다른 길이다. 본 글은 이 아키텍처의 trade-off, HYPE 토크노믹스, 그리고 기관 진입 데이터를 다룬다.
+Hyperliquid 는 2023년 6월 출시된 perp (perpetual futures) DEX 다. 2년 만에 일 거래대금 $5.2B 로 perp DEX 시장 1위, 전체 derivative 시장 (CEX 포함) 에서 약 12% 점유에 도달했다. 핵심은 **자체 L1 + on-chain orderbook** — Uniswap 의 AMM 모델과 다른 길이다. 본 글은 이 아키텍처의 트레이드오프, HYPE 토크노믹스, 그리고 기관 진입 데이터를 다룬다.
 </Callout>
 
 ## 도입 — 2년 만에 점유 12% 도달한 perp DEX
@@ -60,7 +60,7 @@ Hyperliquid 는 이를 **자체 L1 (Hyperliquid Chain)** 으로 해결했다. �
 **Orderbook 단점**: 매칭 엔진이 무거움, L1 수준의 처리량 필요.
 **AMM 장점**: 컨트랙트 단순, 어떤 체인에도 배포 가능.
 **AMM 단점**: 큰 주문 슬리피지 큼, oracle 의존.
-Perp 시장은 leverage 가 높아 슬리피지 비용이 핵심 → orderbook 이 우위. Spot 시장은 그 반대 → AMM 이 우위.
+Perp 시장은 레버리지가 높아 슬리피지 비용이 핵심 → orderbook 이 우위. Spot 시장은 그 반대 → AMM 이 우위.
 </Callout>
 
 이 디자인은 **CEX 와 DEX 의 중간**이라는 평가를 받는다. 기술적으로는 32개 validator 가 있는 PoS L1 이지만, 운영적으로는 단일 팀 (Hyperliquid Labs) 이 코드와 validator set 을 통제한다. 이는 본 시리즈 #D1 Vitalik 정의 편의 architectural / political 축에서 다시 분석된다.
@@ -84,9 +84,9 @@ Perp 시장은 leverage 가 높아 슬리피지 비용이 핵심 → orderbook �
 - **API 호환성** — Hyperliquid API 가 Binance API 와 90% 호환. 기존 자동매매 봇 그대로 이전 가능.
 - **호가 깊이** — BTC/USD perp 의 1% market depth 약 $80M, Bybit ($110M) 대비 73% 수준. 기관 주문 가능 규모.
 - **자기 수탁** — 거래소에 자산을 맡기지 않음. FTX 사태 (#E6) 후 기관 수탁 리스크 회피 수요.
-- **regulatory ambiguity** — DEX 분류가 불명확해 기관 입장에서 OFAC 컴플라이언스 부담이 CEX 보다 작은 case 가 많음 (단, 미국 법인은 사용 안 함).
+- **regulatory ambiguity** — DEX 분류가 불명확해 기관 입장에서 OFAC 컴플라이언스 부담이 CEX 보다 작은 사례가 많음 (단, 미국 법인은 사용 안 함).
 
-다만 기관 진입의 비대칭성도 있다. 한 사용자 ("hyperhf" 지갑) 가 2025년 한 해 동안 누적 손실 약 $200M 을 기록한 case 는 perp 시장의 leverage 위험을 보여준다.
+다만 기관 진입의 비대칭성도 있다. 한 사용자 ("hyperhf" 지갑) 가 2025년 한 해 동안 누적 손실 약 $200M 을 기록한 사례는 perp 시장의 레버리지 위험을 보여준다.
 
 ## 4. CEX 모델에 도전할 수 있는가
 
@@ -94,12 +94,12 @@ Perp 시장은 leverage 가 높아 슬리피지 비용이 핵심 → orderbook �
 Hyperliquid 의 32개 validator 가 모두 단일 팀에 의해 운영된다는 점에서, 이는 진짜 탈중앙화 거래소가 아니라 "스마트 컨트랙트로 감싼 CEX" 라는 비판이 가능하다. 실제 검열저항 (#D4) 테스트는 OFAC 제재 지갑의 거래가 차단되는지 여부인데, 2025년 12월 Hyperliquid 는 OFAC 제재 지갑 차단을 코드 레벨에서 시행했다. 이는 Uniswap v4 (스마트 컨트랙트 자체는 검열 불가) 와 다른 디자인 결정이다. Hyperliquid 가 "DEX" 인지 "프로토콜화된 CEX" 인지는 정의 문제 — 본 시리즈 #D1 Vitalik 3축 정의에서 다시 다룬다.
 </Callout>
 
-Hyperliquid case 의 학술적 의미는 세 가지다.
+Hyperliquid 사례의 학술적 의미는 세 가지다.
 
 1. **Perp 시장의 DEX 화 가능성 입증** — CEX 가 99% 점유였던 시장에서 2년 만에 12% 도달. AMM 이 아닌 orderbook 모델이 perp 에 더 적합함을 데이터로 보임.
 2. **사용자 31% 토큰 분배 모델** — VC 의존이 아닌 사용자 보상 우선 토크노믹스가 가능함을 실험. 이 모델이 Tinder, Robinhood 같은 web2 플랫폼에 영향을 줄 가능성도 논의됨.
 3. **CEX 와 DEX 의 경계 재정의** — 32 validator + 단일 팀 운영은 어디부터 탈중앙화인가. 이 정의 문제가 본 시리즈 탈중앙화 편의 출발점이다.
 
-이 case 는 다음 #E6 거래소 실패 case study 와 비교될 때 더 명확해진다. FTX·Mt.Gox 가 자기 수탁 + 단일 운영자의 함정을 보여준다면, Hyperliquid 는 그 함정을 부분적으로 해결하려는 시도다.
+이 사례는 다음 #E6 거래소 실패 사례 분석 와 비교될 때 더 명확해진다. FTX·Mt.Gox 가 자기 수탁 + 단일 운영자의 함정을 보여준다면, Hyperliquid 는 그 함정을 부분적으로 해결하려는 시도다.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. Perp DEX 신모델과 토크노믹스 case 의 학술적 framework 정리입니다.
+본 글은 분석이며 매수/매도 추천이 아닙니다. Perp DEX 신모델과 토크노믹스 사례의 학술적 프레임워크 정리입니다.

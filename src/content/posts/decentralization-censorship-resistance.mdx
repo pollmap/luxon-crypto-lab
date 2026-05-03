@@ -23,16 +23,16 @@ sources:
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-2022년 8월 미국 재무부 OFAC 가 **Tornado Cash 스마트 컨트랙트 자체** 를 제재 명단에 추가했다. 사람도, 회사도 아닌 코드를 제재한 첫 case 였다. 2023년 개발자 Roman Storm 이 자금세탁 혐의로 기소됐고, 2024년 Coin Center 의 Van Loon v. Treasury 소송에서 Fifth Circuit 은 OFAC 결정을 무효화했다. 본 글은 이 4년의 사건을 검열저항이라는 framework 로 분석한다.
+2022년 8월 미국 재무부 OFAC 가 **Tornado Cash 스마트 컨트랙트 자체** 를 제재 명단에 추가했다. 사람도, 회사도 아닌 코드를 제재한 첫 사례였다. 2023년 개발자 Roman Storm 이 자금세탁 혐의로 기소됐고, 2024년 Coin Center 의 Van Loon v. Treasury 소송에서 Fifth Circuit 은 OFAC 결정을 무효화했다. 본 글은 이 4년의 사건을 검열저항이라는 프레임워크 로 분석한다.
 </Callout>
 
 ## 도입 — 코드를 제재할 수 있는가
 
-검열저항 (censorship resistance) 은 가상자산 시스템의 핵심 가치 중 하나다. 그러나 이 가치가 실제로 시험되는 case 는 드물다 — 정부가 특정 거래나 사용자를 차단하라고 요구하는 경우다.
+검열저항 (censorship resistance) 은 가상자산 시스템의 핵심 가치 중 하나다. 그러나 이 가치가 실제로 시험되는 사례는 드물다 — 정부가 특정 거래나 사용자를 차단하라고 요구하는 경우다.
 
 2022년 8월 8일 미국 재무부 외환관리청 (OFAC, Office of Foreign Assets Control) 은 Tornado Cash 라는 Ethereum 스마트 컨트랙트를 제재 명단 (SDN list) 에 추가했다. 명단의 통상 대상은 개인 또는 회사인데, 이번에는 **자율 실행되는 코드 자체** 가 대상이었다. Tornado Cash 는 거래 추적을 차단하는 zero-knowledge 기반 mixer 였고, OFAC 는 이를 사용한 북한 Lazarus Group 의 $7B+ 자금세탁을 이유로 들었다.
 
@@ -83,7 +83,7 @@ OFAC 제재 후 24시간 안에 미국 기반 Ethereum staking pool 들이 Torna
 ## 4. 검열저항의 경제학 + 자산별 위치
 
 <Callout type="opposing-view" title="반대 시각 · 검열저항이 정말 가치인가">
-검열저항은 가상자산 옹호 측의 핵심 주장이지만, 비판도 명확하다. (a) 북한 Lazarus Group 이 Tornado Cash 로 $7B+ 자금세탁한 사실은 부인 불가능. 검열저항이 범죄 자금의 도구로 작동한 case 다. (b) 미국·EU 등의 시각에서는 "OFAC 제재 우회" 가 곧 정당성 약화 — 합법 시장 진입 비용을 키운다. (c) Bitcoin·Monero 의 강한 검열저항이 일반 사용자에게 일상적 효용을 주는지 의문. 즉 검열저항은 "0 또는 1" 이 아니라 비용/편익 trade-off 의 한 차원이며, 본 시리즈 #D5 편에서 다시 다룬다.
+검열저항은 가상자산 옹호 측의 핵심 주장이지만, 비판도 명확하다. (a) 북한 Lazarus Group 이 Tornado Cash 로 $7B+ 자금세탁한 사실은 부인 불가능. 검열저항이 범죄 자금의 도구로 작동한 사례다. (b) 미국·EU 등의 시각에서는 "OFAC 제재 우회" 가 곧 정당성 약화 — 합법 시장 진입 비용을 키운다. (c) Bitcoin·Monero 의 강한 검열저항이 일반 사용자에게 일상적 효용을 주는지 의문. 즉 검열저항은 "0 또는 1" 이 아니라 비용/편익 트레이드오프의 한 차원이며, 본 시리즈 #D5 편에서 다시 다룬다.
 </Callout>
 
 검열저항의 자산별 위치를 정리하면:
@@ -96,8 +96,8 @@ OFAC 제재 후 24시간 안에 미국 기반 Ethereum staking pool 들이 Torna
 | BNB Chain | 21 validator 검열 가능 | Binance 통제 | 약 |
 | Tornado Cash | N/A | Van Loon 후 회복 | 강 (컨트랙트 차원) |
 
-이 표의 의미는 **검열저항은 architectural + political + 법적 보호 의 결합**이라는 것이다. Tornado Cash case 는 법적 보호가 architectural 보호를 강화한 드문 사례.
+이 표의 의미는 **검열저항은 architectural + political + 법적 보호 의 결합**이라는 것이다. Tornado Cash 사례는 법적 보호가 architectural 보호를 강화한 드문 사례.
 
-다음 #D5 편에서 5편 시리즈 종합 — 분산화 vs 효율성 trade-off 가 어떻게 자산 선택의 framework 가 되는지를 다룬다.
+다음 #D5 편에서 5편 시리즈 종합 — 분산화 vs 효율성 트레이드오프가 어떻게 자산 선택의 프레임워크가 되는지를 다룬다.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. 검열저항 case study 의 학술적 framework 정리입니다.
+본 글은 분석이며 매수/매도 추천이 아닙니다. 검열저항 사례 분석 의 학술적 프레임워크 정리입니다.

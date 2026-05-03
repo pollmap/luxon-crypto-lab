@@ -23,18 +23,18 @@ sources:
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-가상자산 프로토콜의 거버넌스는 크게 세 모델로 나뉜다 — (a) **DAO** (Lido, Uniswap) (b) **Foundation** (Ethereum Foundation, Solana Foundation) (c) **Anonymous** (Bitcoin, Monero). 각 모델은 의사결정 속도, 책임 분산, 정당성에서 다른 trade-off 를 가진다. 본 글은 세 모델의 메커니즘과 실제 의사결정 case 를 비교한다.
+가상자산 프로토콜의 거버넌스는 크게 세 모델로 나뉜다 — (a) **DAO** (Lido, Uniswap) (b) **Foundation** (Ethereum Foundation, Solana Foundation) (c) **Anonymous** (Bitcoin, Monero). 각 모델은 의사결정 속도, 책임 분산, 정당성에서 다른 트레이드오프를 가진다. 본 글은 세 모델의 메커니즘과 실제 의사결정 사례를 비교한다.
 </Callout>
 
 ## 도입 — 누가 코드를 변경하는가
 
 블록체인 프로토콜의 핵심 질문은 단순하다 — **누가 코드를 변경할 권한을 가지는가**. 이 답에 따라 자산의 정치적 분산화 (#D1 political axis) 가 결정된다.
 
-세 모델로 분류되며 각각 대표 case 가 명확하다:
+세 모델로 분류되며 각각 대표 사례가 명확하다:
 
 | 모델 | 대표 자산 | 의사결정 주체 | 응답 속도 |
 |------|---------|------------|----------|
@@ -42,9 +42,9 @@ sources:
 | Foundation | Ethereum, Solana | 비영리 재단 + 개발자 | 중간 (수주) |
 | Anonymous | Bitcoin, Monero | 무명 + 다중 dev team | 매우 느림 (수년) |
 
-## 1. DAO 모델 — Lido 의 case
+## 1. DAO 모델 — Lido 의 사례
 
-DAO (Decentralized Autonomous Organization) 는 토큰 보유자가 protocol 변경을 직접 의결하는 모델이다. 가장 활발한 case 는 Lido — Ethereum staking pool 28% 점유 (#D2 참조).
+DAO (Decentralized Autonomous Organization) 는 토큰 보유자가 protocol 변경을 직접 의결하는 모델이다. 가장 활발한 사례는 Lido — Ethereum staking pool 28% 점유 (#D2 참조).
 
 Lido 의 거버넌스 메커니즘:
 
@@ -64,7 +64,7 @@ Vitalik 은 2017년 *Notes on Blockchain Governance* 에서 이를 예측했다:
 
 ## 2. Foundation 모델 — Ethereum Foundation
 
-Foundation 모델은 비영리 재단이 개발 조정을 담당하는 구조다. 대표 case 는 Ethereum Foundation (EF, Switzerland 본부).
+Foundation 모델은 비영리 재단이 개발 조정을 담당하는 구조다. 대표 사례는 Ethereum Foundation (EF, Switzerland 본부).
 
 EF 의 운영:
 
@@ -77,7 +77,7 @@ EF 모델의 특징은 **토큰 보유자 직접 투표가 없다**는 점이다
 
 이 모델의 강점은 의사결정 속도 + 기술적 일관성. 약점은 EF 가 사실상 단일 entity 라는 political centralization 우려 — Vitalik 자신도 *Endgame* (2021) 에서 EF 의존을 줄여야 한다고 명시했다. 2024–2025년 EF 는 grant 분산, client team 독립화 (Geth → Lighthouse → Reth) 등으로 의존도를 낮추고 있다.
 
-## 3. Anonymous 모델 — Bitcoin 의 case
+## 3. Anonymous 모델 — Bitcoin 의 사례
 
 Bitcoin 의 거버넌스는 가장 독특하다 — **창업자가 사라졌다**.
 
@@ -94,13 +94,13 @@ Bitcoin 거버넌스의 메커니즘:
 
 약점은 의사결정 극단적 보수성. 2017년 SegWit 활성에 약 2년 논쟁이 필요했고, "Block size war" 는 Bitcoin Cash 분기로 이어졌다.
 
-## 4. 세 모델의 trade-off + 자산별 위치
+## 4. 세 모델의 트레이드오프 + 자산별 위치
 
 <Callout type="opposing-view" title="반대 시각 · 모든 자산이 결국 Foundation 으로 수렴한다">
-DAO 가 이상이지만 실제 작동 시 약점이 명확하고 (Lido 33% 사례), Anonymous 는 의사결정 속도가 느리다는 측면에서, 결국 모든 가상자산이 사실상 Foundation 모델로 수렴한다는 비판이 있다. Solana Foundation, Sui Foundation, Aptos Foundation 등이 모두 같은 형태. 이 시각에서 보면 "탈중앙화 거버넌스" 는 마케팅 단어이며 실제 의사결정은 항상 소수에 집중된다. 본 시리즈 #D5 trade-off 편에서 이 비판의 정당성을 다시 평가한다.
+DAO 가 이상이지만 실제 작동 시 약점이 명확하고 (Lido 33% 사례), Anonymous 는 의사결정 속도가 느리다는 측면에서, 결국 모든 가상자산이 사실상 Foundation 모델로 수렴한다는 비판이 있다. Solana Foundation, Sui Foundation, Aptos Foundation 등이 모두 같은 형태. 이 시각에서 보면 "탈중앙화 거버넌스" 는 마케팅 단어이며 실제 의사결정은 항상 소수에 집중된다. 본 시리즈 #D5 트레이드오프 편에서 이 비판의 정당성을 다시 평가한다.
 </Callout>
 
-세 모델의 trade-off 정리:
+세 모델의 트레이드오프 정리:
 
 | 차원 | DAO | Foundation | Anonymous |
 |------|-----|-----------|-----------|
@@ -115,4 +115,4 @@ DAO 가 이상이지만 실제 작동 시 약점이 명확하고 (Lido 33% 사�
 
 다음 #D4 편은 이 거버넌스 모델 차이가 가장 극단적으로 드러나는 사례 — 검열저항 (OFAC 제재 테스트) 을 다룬다.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. 거버넌스 모델 비교의 학술적 framework 정리입니다.
+본 글은 분석이며 매수/매도 추천이 아닙니다. 거버넌스 모델 비교의 학술적 프레임워크 정리입니다.

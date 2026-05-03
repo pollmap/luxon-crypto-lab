@@ -1,0 +1,143 @@
+---
+slug: treasury-bitmine-eth-model
+title: "BitMine · ETH Treasury 모델과 Tom Lee 의 ETH staking 명제"
+subtitle: ETH staking 4-5% yield 가 현금 흐름을 만들어 mNAV 정당성에 새 차원을 추가하는 메커니즘
+treasuryId: bitmine
+issue: "T2"
+publishedAt: "2026-12-03"
+category: Treasury-Hybrid
+tags: [bitmine, bmnr, eth-treasury, tom-lee, fundstrat, eth-staking]
+estimatedReadTime: 11
+draft: true
+sources:
+  - name: "BitMine Immersion Technologies — Q1 2026 10-Q (filed 2026.5)"
+    url: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001829769
+  - name: "Tom Lee — Fundstrat Wall Street Wizards (2025 ETH 명제 발표)"
+    url: https://fundstrat.com/
+  - name: "Ethereum Foundation — Validator Yield Statistics (2026.4)"
+    url: https://ethereum.org/en/staking/
+  - name: "Beaconcha.in — Validator Effective Yield (2026)"
+    url: https://beaconcha.in/charts/validator_income
+  - name: "BitcoinTreasuries.NET — Public Companies ETH Holdings (2026.5)"
+    url: https://bitcointreasuries.net/eth
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+BitMine Immersion Technologies (NYSE: BMNR) 는 첫 본격 ETH treasury 회사다. 2026년 5월 기준 925,000 ETH ($1.85B) 보유, ETH 기업 보유 시장 점유 1위. Tom Lee (Fundstrat 창립자) 가 2025년 7월 Chairman 합류 후 ETH 매집 가속. **ETH treasury 모델이 BTC treasury 모델 (#T1 Strategy) 과 결정적으로 다른 점은 스테이킹 수익률 (4-5% 연) 가 회계상 현금 흐름을 만든다**는 것이다. 이는 mNAV 정당성에 BTC 모델에 없는 새 차원을 추가한다.
+</Callout>
+
+## 도입 — ETH Treasury 가 BTC Treasury 와 다른 이유
+
+Strategy (#T1) 가 BTC 580,250 개를 보유하면서 0% 직접 현금 흐름을 받는다. BTC 는 staking 도 dividend 도 없다. mNAV premium 의 정당성은 **미래 BTC 누적 매수의 NPV** 에만 의존한다.
+
+ETH 는 다르다. PoS (Proof-of-Stake) 합의 메커니즘이라 stake 한 ETH 에 약 4-5% 연 yield 가 자동 발생한다. 이는 회계상 매년 현금 흐름 인식 가능한 자산이다.
+
+| 차원 | BTC Treasury (Strategy) | ETH Treasury (BitMine) |
+|------|---------------------|--------------------|
+| 자산 | 580,250 BTC | 925,000 ETH |
+| 시장가치 (2026.5) | $45.6B | $1.85B |
+| 직접 현금 흐름 | 없음 | 4-5% 연 스테이킹 수익률 |
+| 보유 자산 회계 | Fair value (FASB ASU 2023-08) | Fair value + Staking income |
+| Annual yield | 0% | $74-92M (4-5% × $1.85B) |
+
+이 차이가 단순한 부수효과가 아니다. **mNAV premium 의 정당성을 평가하는 프레임워크가 다르다**. BTC treasury 는 *"BTC 가격이 오를 것이다"* 단일 명제. ETH treasury 는 *"ETH 가격 + 스테이킹 수익률이 둘 다 가치"* 이중 명제.
+
+## 1. BitMine 의 5년 진화 — 마이너에서 ETH treasury 로
+
+BitMine 은 원래 2020년 8월 설립된 immersion-cooled BTC mining 회사였다. immersion cooling 이란 ASIC 마이너를 dielectric fluid 에 담그는 냉각 기술로, 풍속 냉각 대비 전력 효율 +30% + ASIC 수명 +50% 효과.
+
+| 시기 | 단계 | BTC/ETH 보유 | 시총 |
+|------|------|----------|------|
+| 2020.8 | 설립, BTC mining | 0 | $5M |
+| 2022.6 | NYSE 상장 (BMNR) | 280 BTC | $42M |
+| 2024.3 | ETH 매수 시작 | 280 BTC + 12,000 ETH | $180M |
+| **2025.7** | **Tom Lee Chairman 합류** | 280 BTC + 145,000 ETH | $720M |
+| 2025.12 | ETH 본격 매집 가속 | 50 BTC + 412,000 ETH | $2.1B |
+| 2026.5 | ETH treasury 1위 | 0 BTC + 925,000 ETH | $4.2B |
+
+이 진화의 의미는 **마이너 → ETH-only treasury 로의 정체성 전환**이다. 2025년 7월 Tom Lee 합류 발표 후 회사가 BTC mining 사업을 사실상 정리하고 ETH 매집에 전환했다. 1년 만에 ETH 보유량 12K → 925K (+77배).
+
+## 2. Tom Lee 의 ETH staking 명제
+
+Tom Lee (Thomas Lee) 는 Fundstrat Global Advisors 의 Managing Partner 로, 1990년대 JPMorgan 수석 stratagist 출신이다. 2025년 BitMine Chairman 합류 시 발표한 *ETH staking 명제* 의 핵심:
+
+<Callout type="info" title="Tom Lee, Wall Street Wizards 인터뷰 (2025.7.10)">
+*"Bitcoin is digital gold. Ethereum is digital oil. Gold has value but produces nothing. Oil produces value through use. ETH staking is the ongoing yield that comes from being the settlement layer of the digital economy. A treasury that holds ETH and stakes it captures both — the asset appreciation AND the yield. That's a structurally different proposition than holding BTC."*
+</Callout>
+
+이 명제의 학술적 프레임워크는 두 가지다.
+
+**(a) 자산 분류 차이** — BTC 는 *non-productive store of value* (생산 없는 가치저장). ETH 는 *productive money* (생산하는 화폐). 비유 — BTC 는 금, ETH 는 인프라 토지 (rent 발생).
+
+**(b) Cash flow 의 회계 효과** — Strategy 가 BTC 매수 후 현금 흐름 0 인 동안, BitMine 은 925,000 ETH × 4-5% × ETH 가격 = **연 $74-92M** 의 staking income 인식. 이는 회계상 "운영 수익" 으로 잡히며, P/E ratio 같은 전통 밸류에이션 지표 에 직접 영향.
+
+다만 Tom Lee 명제의 약점도 있다 — 스테이킹 수익률이 ETH 가격으로 계산되므로 ETH 가격 하락 시 yield 가치도 동시 하락. 즉 yield 는 현금 흐름 이지만 ETH 의 변동성을 헤지하지는 않는다.
+
+## 3. ETH staking 의 메커니즘 + BitMine 의 운영
+
+ETH staking 은 32 ETH 를 staking contract 에 lock 하고 validator 를 운영하면 약 4-5% 연 yield 를 받는 메커니즘이다. 925,000 ETH 의 staking 은 약 **28,900개 validator** (925K / 32 = 28,906) 를 운영한다는 의미다.
+
+BitMine 의 staking 운영은 직접 운영 + 외부 staking-as-a-service 의 혼합이다.
+
+| 운영 형태 | 점유 | 수수료 |
+|---------|------|------|
+| 직접 validator 운영 | 35% | 0% (자체) |
+| Coinbase Cloud | 25% | 25% (yield) |
+| Lido (LST) | 20% | 10% (yield) |
+| Figment | 15% | 25% |
+| 기타 | 5% | 다양 |
+
+이 분산은 **slashing 위험 헤징** 목적이다. Validator 가 misbehavior 시 stake 의 일부 (최대 100%) 가 burn 되는 처벌이 있다. BitMine 같은 큰 staker 가 단일 운영자에 모두 위탁하면 운영자 사고 시 동시 slashing 위험이 크다.
+
+2026.4 BitMine 분기 보고서에 따르면, staking 의 **순 yield (after fees)** 는 약 3.7% 연 — 직접 35% × 4.5% + Coinbase 25% × 3.4% + Lido 20% × 4.1% + Figment 15% × 3.4% + 기타 5% × 4.0% ≈ 3.7%.
+
+## 4. BTC vs ETH Treasury 의 mNAV 비교
+
+2026년 5월 기준 두 모델의 mNAV 비교:
+
+| 지표 | Strategy (BTC) | BitMine (ETH) |
+|------|--------------|--------------|
+| 보유 자산 시장가치 | $45.6B | $1.85B |
+| 총 부채 | $7.6B | $0.18B |
+| NAV | $38.5B | $1.67B |
+| 시가총액 | $98.4B | $4.2B |
+| **mNAV** | **2.56x** | **2.51x** |
+| Annual yield (자산 기준) | 0% | 3.7% |
+| 5년 누적 yield (예상) | 0% | ~17% (복리) |
+
+mNAV 가 거의 같다는 점이 흥미롭다. 시장이 BitMine 의 스테이킹 수익률을 추가 가치로 인식한다면 BitMine 의 mNAV 가 더 높아야 정상. 그러나 시장은 두 회사를 **거의 동등한 레버리지가상자산 익스포저 도구로 본다**.
+
+이는 두 가능한 해석이다. (a) 시장이 ETH 스테이킹 수익률을 충분히 가격에 반영하지 못함 (아직 잘 알려지지 않은 모델). (b) 시장이 ETH 의 미래 monetary premium 을 BTC 보다 낮게 평가하여 yield 추가가 차이를 상쇄.
+
+Tom Lee 의 명제가 정확하다면 시간이 지나며 BitMine 의 mNAV 가 Strategy 보다 높아야 한다. 이것이 향후 1-2년의 자연 실험 결과로 검증될 것이다.
+
+## 5. ETH Treasury 시장의 후속 기업
+
+<Callout type="opposing-view" title="반대 시각 · ETH Treasury 모델의 5가지 약점">
+ETH Treasury 모델이 BTC 모델 대비 우위라는 명제는 명확하지 않다. (a) **Staking 의 시스템 리스크** — Lido 점유 28% (#D2) 등 ETH staking 시장의 집중. ETH foundation 의 33% self-limit 우려. (b) **Slashing 위험** — BTC 는 보유만으로 0 위험. ETH staking 은 validator 사고가능. (c) **EIP-7251 같은 미래 변경 위험** — ETH staking 의 디자인이 프로토콜 변경에 의존. Strategy 는 프로토콜 변경에 의존 X. (d) **monetary premium 약함** — BTC 는 "디지털 금" 이라는 글로벌 내러티브이 10년 누적. ETH 는 "디지털 오일" 이 더 최근, 검증 안 됨. (e) **공급 인플레이션** — BTC 발행 한도 21M (#1-A). ETH 는 EIP-1559 burn 이 있지만 동적, 이론상 인플레이션 가능. ETH treasury 가 Strategy 모델을 따라잡을지 또는 자체 한계에 머물지는 향후 데이터로 결정.
+</Callout>
+
+BitMine 외에도 ETH treasury 모델을 따르는 회사들:
+
+| 회사 | 거래소 | ETH 보유 | 시총 |
+|-----|------|---------|------|
+| BitMine | NYSE BMNR | 925,000 | $4.2B |
+| SharpLink Gaming | NASDAQ SBET | 215,000 | $0.8B |
+| BTCS Inc | NASDAQ BTCS | 142,000 | $0.5B |
+| Ether Reserve (구상) | (미상장) | — | — |
+
+ETH treasury 시장은 BTC 와 비교하면 초기 단계다. Strategy + 47 follow-on (#T1) 대비 BitMine + 3-4 follow-on. 그러나 ETH 가격 안정 + 스테이킹 수익률의 지속가능성 가 입증되면 BTC treasury 시장과 같은 확산 가능성.
+
+BitMine 사례의 학술적 의미는 세 가지로 정리된다.
+
+1. **Productive vs non-productive money** — Tom Lee 의 프레임워크가 학계 monetary theory 의 *capital good* (productive) vs *consumer good* (non-productive) 분류를 가상자산에 적용한 첫 사례.
+
+2. **Staking yield 의 회계 효과** — staking 이 회계상 인식 가능한 현금 흐름 라는 점이 ETH treasury 의 P/E 같은 전통 밸류에이션이능성을 의미. BTC treasury 는 이 차원 없음.
+
+3. **자산 클래스 분기 evidence** — BTC 와 ETH 가 같은 가상자산 카테고리이지만, 기업 보유 측면에서는 본질적으로 다른 자산 클래스로 진화 중. 다음 #T3 편 (Metaplanet 일본 BTC treasury) 과 비교될 때 더 명확.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. ETH Treasury 모델과 스테이킹 수익률의 학술적 프레임워크 정리입니다.
