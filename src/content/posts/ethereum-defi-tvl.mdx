@@ -1,7 +1,7 @@
 ---
 slug: ethereum-defi-tvl
 title: "DeFi 생태계 — TVL $50B 인프라"
-subtitle: Aave · Maker · Uniswap · Stablecoin · RWA
+subtitle: Aave · Maker(Sky) · Uniswap · Stablecoin · RWA
 coin: ETH
 issue: 2
 publishedAt: "2026-09-21"
@@ -16,28 +16,105 @@ sources:
     url: https://tokenterminal.com/
   - name: "RWA.xyz — RWA on Ethereum"
     url: https://app.rwa.xyz/
+  - name: "Aave Governance — V4 spec"
+    url: https://governance.aave.com/
+  - name: "Sky (Maker) — Endgame plan"
+    url: https://sky.money/
 ---
 
-{/* DRAFT — 2026-08-10까지 본문 작성. 분량 ~3000자 */}
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+이더리움이 단순 토큰이 아니라 "글로벌 분산 컴퓨터" 라면, 그 컴퓨터 위에 무엇이 돌아가고 있을까요? 답은 약 $50B 규모의 DeFi 생태계입니다 — Aave (대출), Sky/Maker (스테이블코인), Uniswap (DEX), 그리고 BlackRock BUIDL 같은 RWA. 본 편은 ETH 위에서 실제로 작동하는 경제와, 그 경제가 ETH 토큰 가치에 어떻게 환원되는지를 봅니다.
+</Callout>
 
 ## 도입 — ETH 위에 무엇이 돌아가는가
 
-{/* TODO: ~400자. Ethereum DeFi TVL ~$50B. L1 + L2 합치면 더 큼. ETH 가치 명제의 핵심 = 그 위에 살아있는 경제 */}
+DefiLlama 기준 2026년 5월 Ethereum L1 DeFi TVL 약 $52B. L2 합치면 (Arbitrum $18B + Base $14B + Optimism $8B + 기타) 약 **$95B** — 이더리움 생태계 전체 DeFi 자본.
 
-## 1. Lending — Aave · Maker(Sky)
+이 숫자가 ETH 토큰의 가치 명제 핵심입니다. **ETH 가 의미 있으려면 그 위에서 실제로 작동하는 경제가 있어야 하기 때문**. 본 편은 그 경제를 4개 카테고리로 봅니다 — Lending, DEX, Stablecoin, RWA.
 
-{/* TODO: ~700자. Aave $XX B 자산 운용. Maker → Sky 리브랜딩 + USDS. RWA 통합 */}
+## 1. Lending — Aave · Sky(Maker)
+
+### Aave (V4)
+
+2026년 5월 기준 Aave V4 가 Ethereum L1 lending 의 **약 65%** 점유. 자산 운용 약 $18B, 대출 잔고 $9B.
+
+**핵심 변화**:
+- 2025 Q4 Aave V4 메인넷 활성화 — Hub-and-Spoke 아키텍처 (멀티체인 통합 유동성)
+- GHO (Aave 자체 스테이블) 발행 ~$300M
+- Bluechip 자산 (WBTC, wstETH) LTV 80%+
+
+**수익 구조**:
+- 대출 이자의 약 5% 가 Aave DAO 에 귀속
+- 일부는 stkAAVE 보유자에게 배분
+- ETH 직접 burn 기여는 0 (가스 사용은 ETH 로 결제 → 일부 base fee burn)
+
+### Sky (구 Maker)
+
+2024-2025 리브랜딩 후 **Sky**. DAI 대신 **USDS** (Sky Dollar) 발행. 2026년 5월 기준 USDS 시총 약 $11B.
+
+**핵심 메커니즘**:
+- ETH·wstETH·LST·RWA 담보로 USDS 발행
+- 담보 비율 150-200%
+- Stability fee (담보 기반 대출 이자) 가 Sky 토큰 holder 에게
+
+**RWA 통합**: Sky 의 담보 중 **약 40% 가 미국 단기국채 토큰** (Monetalis, BlockTower 통한 BUIDL/USYC). 전통 금융 자산이 ETH 합의 위에서 직접 담보로 사용되는 첫 본격 사례.
 
 ## 2. DEX — Uniswap v4 · Curve
 
-{/* TODO: ~700자. Uniswap v4 hooks. Curve stablecoin AMM. 일 거래량 데이터 */}
+### Uniswap v4
 
-## 3. Stablecoin & RWA on Ethereum
+2024년 출시, **Hooks 메커니즘** 도입. Pool 생성 시 onChain 콜백 함수 등록 가능 → 동적 수수료, MEV 방지, 한정판 액세스 등.
 
-{/* TODO: ~700자. Ethereum 위 USDC ~$30B+. RWA 토큰화 비중 (BlackRock BUIDL, Ondo, Franklin Templeton) */}
+2026년 5월 기준 일 거래량 약 $3-5B (Ethereum L1 + L2 합산). UNI 토큰 fee switch 활성화 안 됨 — 거버넌스 논쟁 진행 중.
+
+### Curve
+
+스테이블코인 specialized AMM. 2026년 5월 TVL 약 $4B. **stETH/ETH pool ~$2B** (LST 시장의 가장 깊은 유동성).
+
+crvUSD 자체 스테이블 발행 약 $200M. Curve 의 ve(3,3) 토크노믹스가 DeFi governance battle 의 표준이 됨.
+
+## 3. Stablecoin on Ethereum
+
+2026년 5월 Ethereum L1 스테이블코인 시총 분포:
+
+| 스테이블 | 시총 (Ethereum 기준) | 발행사 |
+|---------|--------------------|------|
+| **USDC** | ~$32B | Circle |
+| **USDT** | ~$28B | Tether |
+| **USDS** | ~$11B | Sky/Maker |
+| **DAI (legacy)** | ~$3B | Sky |
+| **PYUSD** | ~$2B | PayPal |
+| **FRAX** | ~$0.6B | Frax |
+| **GHO** | ~$0.3B | Aave |
+
+**Ethereum L1 스테이블 합계 약 $77B** — Ethereum 전체 시총의 28%. 이는 L2/Solana 등 합치면 글로벌 스테이블코인 시총 ~$280B 의 27% 수준.
+
+**중요한 함의**: Ethereum 은 "분산된 디지털 달러 인프라" 의 메인 정착지입니다. 스테이블코인 거래량 증가 = ETH 가스 수요 증가 = base fee burn 기여.
+
+## 4. RWA on Ethereum
+
+RWA.xyz 기준 2026년 5월 Ethereum 위 토큰화 RWA 시총 (스테이블 제외):
+
+| RWA 자산 | Ethereum TVL | 발행사 |
+|---------|------------|------|
+| **BUIDL** (US Treasury) | ~$2.8B | BlackRock |
+| **USYC** (US Treasury) | ~$1.2B | Hashnote |
+| **Ondo OUSG/USDY** | ~$0.9B | Ondo Finance |
+| **Franklin BENJI** | ~$0.6B | Franklin Templeton |
+| **Backed Finance** (주식) | ~$0.3B | Backed |
+
+**RWA 합계 약 $6B+ on Ethereum L1**. 빠르게 성장 중 — 1년 전 (2025.5) 약 $2B 에서 3배.
+
+이게 의미하는 건 단순합니다 — **전통 금융 기관이 Ethereum 합의 위에 자산을 직접 토큰화하기 시작**. BlackRock BUIDL 의 출시 (2024.3) 가 결정적 변곡점. 시리즈 #9 FIGR_HELOC 에서 RWA 토큰화의 명과 암을 깊이 다룹니다.
 
 ## 4. 결론 — DeFi 가 ETH 가치에 환원되는가
 
-{/* TODO: ~500자. DeFi fees → ETH burn 일부. 그러나 protocol fee 의 대부분은 토큰 보유자에게. 다음 편(#2-H) 매크로 환경 분석 */}
+종합:
+
+1. **Ethereum 위 경제 규모는 명확** — DeFi $95B + 스테이블 $77B + RWA $6B = **약 $178B 의 활성 자본**
+2. **ETH 토큰 직접 환원은 부분적** — 대부분 fee 가 protocol 토큰 (UNI, AAVE, SKY) 에 귀속, ETH burn 은 base fee 일부만
+3. **간접 환원이 핵심** — ETH 가스 수요 자체가 모든 DeFi 활동에 비례
+
+이 구조는 **"ETH = 글로벌 정유사"** 비유 (#2-A) 의 정량 baseline 입니다. ETH 자체는 fee 의 100% 를 받지 않지만, **모든 정유 활동이 ETH 가스를 사용**하므로 활동량 자체가 ETH 가치를 결정. 다음 편(#2-H) 에서는 그 가치가 매크로 환경 (DXY · Fed · ETH/BTC ratio) 과 어떻게 연결되는지 봅니다.
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-defi-tvl" />
