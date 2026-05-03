@@ -1,0 +1,243 @@
+---
+slug: crisis-ftx-alameda-commingling
+title: "FTX — Alameda Commingling 과 SBF 25년 형"
+subtitle: FTT 자전 매수 · 사용자 자금 도용 · 8일 뱅크런 · SBF 형사 재판 (Crisis 시리즈 #C3)
+publishedAt: "2027-05-31"
+category: Series
+tags: [ftx, alameda, sbf, ftt, fraud, sec, doj]
+estimatedReadTime: 18
+draft: true
+sources:
+  - name: "CoinDesk — Divisions in Sam Bankman-Fried's Crypto Empire (2022.11.2)"
+    url: https://www.coindesk.com/business/2022/11/02/divisions-in-sam-bankman-frieds-crypto-empire/
+  - name: "DOJ — United States v. Samuel Bankman-Fried, Sentencing (2024.3)"
+    url: https://www.justice.gov/usao-sdny/press-release/file/1942141/dl
+  - name: "FTX Bankruptcy Court — Examiner's Report (John J. Ray III, 2023-2024)"
+    url: https://restructuring.ra.kroll.com/ftx/
+  - name: "Caroline Ellison — Sentencing Hearing Transcript (2024.9)"
+    url: https://www.courtlistener.com/docket/
+  - name: "Lewis, M. — Going Infinite: The Rise and Fall of a New Tycoon (2023)"
+    url: https://wwnorton.com/books/9781324074335
+  - name: "Faux, Z. — Number Go Up: Inside Crypto's Wild Rise and Staggering Fall (2023)"
+    url: https://www.penguinrandomhouse.com/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+2022년 11월, 시가총액 $32B 였던 FTX 거래소가 8일 만에 붕괴했습니다. SBF (Sam Bankman-Fried) 가 25년 형. Caroline Ellison · Gary Wang · Nishad Singh 이 협조 증언. 사용자 자금 $8B 가 Alameda Research 로 commingling 된 구조의 학술적 의미와 거버넌스 결함을 봅니다.
+</Callout>
+
+## 도입 — 효과적 이타주의의 끝
+
+FTX 붕괴는 2022년 11월의 단순 거래소 사고가 아니라 — **글로벌 가상자산 산업 전체의 전환점**. SBF (Sam Bankman-Fried) 는 27세에 *"effective altruism (효과적 이타주의)"* 를 표방하며 가상자산 산업의 *"규제 친화적 인물"* 로 등장. 그러나 그가 운영한 거래소가 종전 어떤 가상자산 사고보다 명백한 사기 구조였습니다.
+
+학술적으로 FTX 사건은 — **거래소 거버넌스의 표준 사례**가 됐습니다. *"왜 거래소를 신뢰할 수 없는가"* 의 가장 명확한 정량 증거. Mt.Gox 가 *"무능"* 의 사례라면 FTX 는 *"의도적 사기"* 의 사례.
+
+본 편은 7개 섹션 — (1) FTX 의 부상, (2) Alameda 와의 commingling 구조, (3) FTT 자전 매수, (4) 11월 2-11일 8일 뱅크런, (5) SBF 형사 재판, (6) 협조 증언자들, (7) 한국 시장 영향 — 으로 추적합니다.
+
+## 1. FTX 의 부상 — 4년의 가속
+
+### 1-1. 창업
+2019년 5월 Sam Bankman-Fried 가 홍콩에서 FTX 창업. 그 전 SBF 는 — MIT 졸업 (2014) → Jane Street Capital (2014-2017) → Alameda Research 창업 (2017). Alameda 가 *"비트코인 김치 프리미엄 차익거래"* 로 약 $20M 수익을 만들면서 SBF 가 가상자산 시장에 진입.
+
+FTX 는 *"perp DEX 의 CEX 버전"* — Bitfinex, Deribit 같은 derivatives 거래소를 더 사용자 친화적으로 만든 모델. 빠른 청산, 다양한 derivatives 상품, 고배율 leverage (최대 100x).
+
+### 1-2. AUM 가속
+| 시점 | FTX 시가총액 (회사 가치) | 일 거래량 |
+|------|------------------------|---------|
+| 2019.5 (창업) | $0 | 0 |
+| 2020.12 | $1.2B | $300M |
+| 2021.7 | $18B | $9B |
+| 2021.10 | $25B | $14B |
+| **2022.1 (피크)** | **$32B** | **$22B** |
+| 2022.11.2 (균열) | ~$32B | ~$15B |
+| 2022.11.11 (붕괴) | $0 | 0 |
+
+3년 만에 $0 → $32B. 종전 가상자산 회사 중 가장 빠른 가속. 단순 시가총액이 아니라 *"실제 거래량"* 도 수반된 가속.
+
+### 1-3. SBF 의 정치 ·미디어 영향력
+- 미국 민주당 정치 기부 — 2022년 약 $40M (정치인 개인으로는 4번째 큰 기부자)
+- Tom Brady, Gisele Bundchen 등 셀럽 광고
+- Congress hearing 전문가 증언 (가상자산 규제)
+- *"Effective Altruism"* 운동의 대표 인물
+
+이 영향력이 FTX 의 *"믿음 자산"* 을 만들었습니다. 사용자가 FTX 에 자금을 맡긴 이유 다수가 *"SBF 가 신뢰할 만한 사람"* 이라는 인식. 이 인식이 사기 구조를 가능하게 한 직접적 토대.
+
+## 2. Alameda 와의 commingling — 핵심 사기 구조
+
+### 2-1. 두 회사의 분리
+공식적으로 FTX 와 Alameda Research 는 별도 회사:
+- **FTX** — 거래소 (사용자 자산 보관)
+- **Alameda Research** — 헤지펀드 (자기 자금으로 거래)
+
+이 두 회사가 *"공식적으로"* 분리됐고, 사용자에게도 그렇게 광고됐습니다.
+
+### 2-2. 실제 자금 흐름
+2023년 5월 FTX Bankruptcy Examiner (John J. Ray III) 의 보고서가 밝힌 실제 구조:
+
+```
+사용자 → FTX 입금
+       ↓
+FTX → North Dimension (FTX 자회사) 계좌
+       ↓
+North Dimension → Alameda Research 계좌
+       ↓
+Alameda → 자체 거래·투자에 사용
+```
+
+핵심 — **사용자 자금이 Alameda 의 trading capital 로 commingling**. 사용자가 FTX 에 비트코인 1 BTC 입금하면, Alameda 가 그 1 BTC 를 자기 거래에 사용. 사용자는 모름.
+
+이 commingling 의 규모 — 약 **$8B** (2022.11 기준). 즉 사용자 자산 $8B 가 Alameda 의 trading 손실로 사라졌습니다.
+
+### 2-3. 어떻게 이게 가능했나
+3가지 구조적 결함:
+
+1. **CFO 부재** — FTX 가 회사 가치 $32B 인데 CFO 가 없었습니다. 사용자 자금 vs 회사 자금의 회계 분리가 사실상 부재.
+
+2. **이사회 부재** — FTX 이사회는 SBF + Caroline Ellison + Gary Wang 3명. 즉 *"이사회 = 경영진"*. 외부 감독 자체가 없었습니다.
+
+3. **감사 부실** — FTX 의 감사를 맡은 회사가 *"Prager Metis"* (작은 회계법인). 가상자산 산업 전문성 X. 감사 보고서가 사실상 형식적.
+
+이 3 결함이 결합돼 commingling 이 4년 동안 발견되지 않았습니다.
+
+## 3. FTT 자전 매수 — 가격 조작의 정량
+
+### 3-1. FTT 토큰의 본질
+FTT 는 FTX 거래소 토큰. BNB 와 비슷한 *"거래소 자체 토큰"*. 수수료 할인 + Burn 모델.
+
+그러나 FTT 의 핵심 결함 — **FTX 가 FTT 의 약 80% 를 보유**. 즉 시장에 유통되는 FTT 가 전체의 약 20% 만 — 매우 낮은 *"free float"*.
+
+### 3-2. Alameda 의 FTT 보유
+2022년 11월 폭로된 Alameda 대차대조표:
+
+| 자산 | 가치 | 비중 |
+|------|------|------|
+| FTT | $5.8B | 36% |
+| SOL | $1.2B | 8% |
+| 기타 가상자산 | $4.0B | 25% |
+| 현금 + 단기국채 | $0.5B | 3% |
+| 기타 (회수 어려운 대출) | $4.5B | 28% |
+| **합계** | **$16.0B** | 100% |
+
+Alameda 자산의 36% 가 FTT. 그러나 FTT 의 *"실제 시장 가치"* 는 의문 — Alameda 가 FTT 를 매도하면 시장 유동성이 부족해 가격이 폭락. 즉 $5.8B 의 FTT 는 *"liquidation value"* 가 아니라 *"mark-to-market"* 가치.
+
+### 3-3. 자전 매수
+FTX 와 Alameda 가 FTT 가격을 유지하기 위해 자전 매수:
+- FTX 가 FTT 를 *"수수료 할인"* 으로 사용자에게 매도
+- Alameda 가 시장에서 FTT 를 매수
+- 결과 — FTT 가격 유지 + 거래량 fake
+
+이 자전 매수가 *"market manipulation"* 의 표준 사례. SEC 의 SBF 기소 charge 중 하나.
+
+## 4. 11월 2-11일 — 8일 뱅크런
+
+### 4-1. 11월 2일 — CoinDesk 폭로
+2022년 11월 2일, CoinDesk 의 Ian Allison 이 *"Divisions in Sam Bankman-Fried's Crypto Empire"* 라는 기사 발표. Alameda 의 대차대조표가 누출. 핵심 — Alameda 자산의 36% 가 FTT.
+
+이 폭로가 의미하는 바 — Alameda 가 *"실제 자산"* 보다 *"종이 자산"* 을 더 많이 보유. 즉 Alameda 의 solvency (지급 능력) 에 의문.
+
+### 4-2. 11월 6일 — CZ 트윗
+바이낸스 CEO Changpeng Zhao (CZ) 가 11월 6일 트윗 — *"As part of Binance's exit from FTT equity last year, Binance received roughly $2.1B USD equivalent in cash and FTT. Due to recent revelations that have come to light, we have decided to liquidate any remaining FTT on our books."*.
+
+Binance 가 보유한 ~$580M 어치 FTT 를 매도하겠다는 발표. 이는 Alameda 에게 치명타 — 가장 큰 단일 holder 가 매도하면 FTT 가격 폭락 → Alameda 자산 -$1B 직접 손실.
+
+### 4-3. 11월 7-8일 — 사용자 출금 가속
+CZ 트윗 후 24시간 동안 FTX 사용자 출금 약 **$6B**. 비트코인 출금 약 30,000 BTC. FTX 의 Hot Wallet 잔액이 빠르게 고갈.
+
+11월 8일 오전, FTX 가 출금 일시 정지. 공식 이유 — *"높은 트래픽으로 인한 시스템 점검"*. 실제로는 출금 가능한 자산이 없었습니다.
+
+### 4-4. 11월 9일 — Binance 인수 협상
+SBF 가 CZ 에게 긴급 도움 요청. CZ 가 *"non-binding LOI (intent to acquire)"* 발표. 인수가 성사되면 FTX 사용자 자금이 보장될 가능성. 일시적으로 시장 안정.
+
+그러나 같은 날 저녁 CZ 가 인수 철회 — *"due to recent reports regarding mishandled customer funds and alleged US agency investigations"*. 즉 CZ 의 due diligence 결과 FTX 의 회계가 너무 망가져서 인수 불가능.
+
+### 4-5. 11월 11일 — 파산 신청
+FTX 가 미국 델라웨어 법원에 Chapter 11 파산 신청. SBF 가 CEO 사임. John J. Ray III (Enron 파산 처리한 베테랑 회계사) 가 신임 CEO 로 임명.
+
+John Ray 의 첫 발표 — *"Never in my career have I seen such a complete failure of corporate controls and such a complete absence of trustworthy financial information"*. Enron 보다 훨씬 망가진 회사라는 평가.
+
+## 5. SBF 형사 재판 — 25년 형
+
+### 5-1. 체포
+2022년 12월 12일 SBF 가 바하마에서 체포. 미국 인도 후 보석으로 가택연금. 2023년 8월 보석 취소 (증인 협박 혐의).
+
+### 5-2. 재판 timeline
+- 2023.10.4 — 재판 시작 (뉴욕 남부 지방법원)
+- 2023.11.2 — 배심원 평결 — **7개 charge 모두 유죄**:
+  - Wire fraud against FTX customers
+  - Wire fraud against Alameda lenders
+  - Conspiracy to commit wire fraud
+  - Conspiracy to commit commodities fraud
+  - Conspiracy to commit securities fraud
+  - Conspiracy to commit money laundering
+  - Conspiracy to defraud the US (campaign finance)
+
+- 2024.3.28 — 형 선고 — **25년 형**
+
+### 5-3. 형의 의미
+25년이 가벼운지 무거운지에 대한 학계 평가가 갈립니다:
+
+- **무거움 시각** — 직접 살해가 아닌 financial fraud 로 25년은 미국 역사상 최고급. 비교 — Bernard Madoff 150년 (피해 규모 $65B), Theranos Elizabeth Holmes 11년.
+- **가벼움 시각** — SBF 의 사기 규모 $8B + 가상자산 산업 전체에 미친 영향이 25년보다 훨씬 큰 무게.
+
+학술적으로 *"financial fraud 의 적정 형"* 의 표준이 미국 법학에서도 미해결 문제.
+
+## 6. 협조 증언자들 — Caroline Ellison, Gary Wang, Nishad Singh
+
+### 6-1. Caroline Ellison
+Alameda 의 CEO. SBF 의 전 여자친구. 재판에서 SBF 에 대한 핵심 증언자. 2024년 9월 자체 형 선고 — **2년 형 + 보호관찰**. 즉 협조 증언으로 형이 25년 → 2년으로 감형.
+
+Ellison 의 증언 핵심 — *"SBF directed me to misuse FTX customer funds for Alameda's own purposes"*. 이게 SBF 유죄의 가장 강력한 증거.
+
+### 6-2. Gary Wang
+FTX 의 CTO + 공동 창업자. SBF 의 MIT 룸메이트. 협조 증언으로 미정 (보류 중). 코드 수정으로 *"Alameda 의 계좌만 마진 콜에서 면제"* 한 사실을 직접 증언.
+
+### 6-3. Nishad Singh
+FTX 의 엔지니어링 책임자. 협조 증언. 자체 형 — 미정 (보류). 정치 기부의 자금 출처 (FTX/Alameda 자금) 를 증언.
+
+### 6-4. Ryan Salame
+FTX Digital Markets 의 공동 CEO. 비협조 입장 유지. 자체 형 — **7.5년**.
+
+이 협조/비협조의 차이가 5+년의 형 차이로 나타남. 미국 법체계의 *"plea bargain"* 의 정량 효과.
+
+## 7. 한국 시장의 영향
+
+### 7-1. 한국 사용자 자산
+FTX 의 한국 사용자 약 **8만 명**. 평균 보유 약 $40K. 총 한국 손실 약 **$3.2B** (한국 가구 약 0.3% 가 FTX 사용자였다는 추정). Luna 사태 ($14B) 보다 작지만 의미 있는 규모.
+
+### 7-2. VAUPA 의 직접 동기
+2024년 7월 시행 가상자산이용자보호법(VAUPA)의 *"사용자 자산 분리 보관 + 거래소 자체 토큰 거래 금지"* 조항이 FTX/FTT 의 직접 교훈. Luna 와 함께 VAUPA 의 두 핵심 동기.
+
+### 7-3. 한국 거래소의 Proof of Reserves 채택
+FTX 붕괴 직후 한국 4대 거래소가 모두 *"Proof of Reserves"* 발표. 다만 *"자산"* 만 검증, *"부채"* 는 검증 X. 글로벌 표준의 한계 그대로.
+
+<Callout type="opposing-view" title="반대 시각 · FTX 의 독특한 사기 vs 산업 구조적 결함">
+SBF 의 25년 형이 *"개인의 죄"* 로 마무리됐다는 시각이 정설이지만, 비판적 시각도 있습니다.
+
+첫째, **시스템적 결함**. FTX 의 commingling 이 4년 동안 발견되지 않은 것은 SBF 개인의 능력이 아니라 — *"가상자산 거래소 규제 부재 + 감사 부실 + 이사회 결함"* 의 결합 결과. 즉 *"시스템이 SBF 같은 사람을 만들었다"* 는 시각.
+
+둘째, **VC 의 책임**. FTX 의 후기 투자자 — Sequoia Capital, Tiger Global, BlackRock, Ontario Teachers' Pension. 이들이 due diligence 를 제대로 했다면 FTX 의 commingling 을 발견했어야. 그러나 발견 못 함. *"VC 의 due diligence 시스템"* 의 결함이 학술적으로 큰 문제.
+
+셋째, **미국 정부의 책임**. SBF 가 미국 민주당에 $40M 정치 기부를 한 시점에 SEC, CFTC, DOJ 가 FTX 를 조사하지 않았습니다. *"규제 포획(regulatory capture)"* 의 의혹. 정치적 영향력이 FTX 의 사기를 더 오래 가능하게 했다는 가설.
+
+넷째, **효과적 이타주의의 의문**. SBF 가 *"효과적 이타주의"* 를 명분으로 사기를 정당화했습니다. *"내 사기 이익을 더 큰 선에 사용한다"* 는 논리. 이는 utilitarianism 의 표준 비판 — *"means justify ends"* 의 윤리적 결함. SBF 사건이 *"effective altruism"* 운동 자체에 큰 타격.
+
+다섯째, **CZ 의 역할 vs 책임**. CZ 의 11월 6일 트윗이 FTX 붕괴의 직접 trigger. 그가 *"가상자산 산업의 보호자"* 였는지, 아니면 *"경쟁사 제거"* 였는지 학술적 논쟁. CZ 자신도 2023년 11월 미국 정부와 합의 ($4.3B 벌금 + 4개월 형). 즉 *"동시 부패한 두 인물의 충돌"* 이라는 framework.
+
+이 5가지 비판이 의미하는 바 — FTX 사건은 *"한 사람의 사기"* 가 아닌 **시스템 전체의 실패**. SBF 25년 형으로 끝나는 게 아니라 산업 구조 개혁이 필요.
+</Callout>
+
+## 결론 — 8일 뱅크런이 가르친 것
+
+본 편이 정리한 5가지 핵심 발견:
+
+1. **FTX 4년 0 → $32B 가속이 사기 구조에 기반**. Alameda commingling $8B 가 4년 동안 발견되지 않음.
+2. **3 거버넌스 결함** — CFO 부재, 이사회 부재, 감사 부실. 이게 commingling 을 가능하게 한 구조.
+3. **FTT 자전 매수가 *"market manipulation"* 의 표준 사례**. 80% 보유 + 자전 매수가 결합.
+4. **11월 2-11일 8일 뱅크런이 *"information cascade"* 의 학술 사례**. CoinDesk 폭로 → CZ 트윗 → 사용자 출금 → 파산.
+5. **SBF 25년 형 + 협조 증언자 감형**. 미국 법체계의 plea bargain 의 정량 효과.
+
+다음 편(#C4) — 2022 Q2 Contagion. Three Arrows Capital 청산 → Voyager · BlockFi · Celsius 도미노. CeFi 대출 모델의 종말.
