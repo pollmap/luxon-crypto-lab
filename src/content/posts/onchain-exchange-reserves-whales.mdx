@@ -1,0 +1,152 @@
+---
+slug: onchain-exchange-reserves-whales
+title: "거래소 Reserve + Whale 추적"
+subtitle: Reserve 변화 · Whale 1K+ BTC 추적 · MTGox/사토시 모니터링 (On-Chain 시리즈 #O4)
+publishedAt: "2027-09-06"
+category: Series
+tags: [exchange-reserves, whale, cryptoquant, glassnode, mt-gox]
+estimatedReadTime: 11
+draft: true
+sources:
+  - name: "CryptoQuant — Exchange Reserve Dashboard"
+    url: https://cryptoquant.com/asset/btc/chart/exchange-flows
+  - name: "Glassnode — Whale Cohort Holdings"
+    url: https://insights.glassnode.com/
+  - name: "Arkham Intelligence — Wallet Tracker"
+    url: https://www.arkhamintelligence.com/
+---
+
+<Callout type="warning" title="투자 자문 아님">
+본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+</Callout>
+
+<Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
+거래소 reserve 변화가 어떻게 시장 매도/매수 압력을 신호하나요? Whale (1,000+ BTC 보유) wallet 의 추적 방법. MTGox + 사토시 ancient wallet 의 이동 모니터링.
+</Callout>
+
+## 도입 — *"on-chain 의 가장 큰 투명성"*
+
+비트코인의 가장 큰 강점 중 하나 — **모든 트랜잭션이 public**. 누구나 wallet 잔액 + 트랜잭션 추적 가능. 이게 *"on-chain analytics"* 의 토대.
+
+본 편은 두 분석 — (1) 거래소 reserve, (2) whale 추적 — 을 봅니다.
+
+## 1. 거래소 Reserve
+
+### 1-1. 정의
+거래소 reserve = 거래소 wallet 의 BTC 잔액. Coinbase, Binance, Kraken 등의 wallet 을 식별 + 합산.
+
+CryptoQuant + Glassnode + Arkham 등이 거래소 wallet 식별 후 reserve 추적.
+
+### 1-2. 시간 변화
+| 시점 | 글로벌 거래소 BTC reserve |
+|------|--------------------------|
+| 2020.3 | ~3.1M BTC |
+| 2021.4 | ~2.7M |
+| 2022.11 (FTX 후) | ~2.2M |
+| 2024.4 (반감기) | ~2.5M |
+| 2026.1 | **~2.4M** |
+
+거래소 reserve 가 2020-2022 큰 감소 (-29%). 이유 — 사용자가 BTC 를 *"self-custody"* (자가수탁) 으로 이동.
+
+### 1-3. Reserve 흐름의 의미
+- **Reserve 가속** = 사용자가 BTC 를 거래소로 입금 = 매도 압력
+- **Reserve 감소** = 사용자가 BTC 를 거래소에서 출금 = self-custody = 보수 (강세)
+
+이 패턴이 *"smart money flow"* 신호.
+
+### 1-4. 사례
+- 2022.6 (Luna 후 + 3AC) — Reserve 가속 (사용자 매도) → 가격 -50%
+- 2023.6 — Reserve 감소 시작 (회복 신호)
+- 2024.1 (ETF) — Reserve 감소 가속 (ETF 가 BTC custody, 거래소 X) → 가격 +60%
+
+## 2. Whale 추적
+
+### 2-1. Whale 정의
+- **Shrimp** — < 1 BTC
+- **Crab** — 1 - 10 BTC
+- **Octopus** — 10 - 50 BTC
+- **Fish** — 50 - 100 BTC
+- **Dolphin** — 100 - 500 BTC
+- **Shark** — 500 - 1,000 BTC
+- **Whale** — 1,000 - 10,000 BTC
+- **Humpback** — 10,000+ BTC
+
+### 2-2. Whale 보유 BTC 추세
+| 시점 | Whale + Humpback 보유 |
+|------|---------------------|
+| 2017 | ~6.2M BTC |
+| 2020 | ~7.8M |
+| 2022 | ~8.1M |
+| 2024 | **~8.4M** |
+| 2026 Q1 | **~8.3M** |
+
+Whale 보유가 시간에 따라 가속. 이는 *"기관 + 부유한 보유자가 점차 BTC 흡수"* 의 신호.
+
+### 2-3. Ancient Wallet 추적
+**Ancient Wallet** — 5년+ 비활성 wallet. 다수가 사토시 (1.1M BTC) + Mt.Gox (200K BTC) + 영구 분실.
+
+Glassnode 의 *"HODL Waves"* 가 ancient wallet 의 이동 추적. 갑자기 ancient BTC 가 이동하면 — *"오래 된 보유자가 매도"* 신호 + 시장 충격 가능.
+
+2024.7 Mt.Gox 채권자 분배 시작 — ancient wallet 200K BTC 일부 이동. 시장에 약 -8% 단기 충격 (#C2 에서 자세히).
+
+## 3. 사토시 wallet 의 미스터리
+
+### 3-1. 사토시 추정 wallet
+사토시 (Satoshi Nakamoto) 의 추정 wallet — 약 **1.1M BTC** (2026 가치 ~$110B). 사토시가 2010년 사라진 후 이 wallet 이 한 번도 이동 X.
+
+### 3-2. 사토시 이동의 의미
+만약 사토시 wallet 이 이동하면:
+1. *"사토시가 살아 있다"* 의 증거
+2. *"매도 가능성"* 의 시장 충격 (-15-30% 예상)
+3. *"key person risk"* 의 가시화
+
+학계 일부의 추정 — *"사토시가 사망했을 가능성"* (Hal Finney 같은 후보). 그러면 1.1M BTC 가 영원히 잠금.
+
+### 3-3. 모니터링
+Arkham Intelligence + Glassnode + WhaleAlert 가 사토시 추정 wallet 매일 모니터링. 만약 이동 시 — 즉시 알림.
+
+## 4. 한국 사용자의 wallet 추적
+
+### 4-1. Crypto.com Korea
+Crypto.com 이 2024-2025 한국 사용자의 wallet 분석:
+- 평균 보유 — 0.42 BTC
+- 90% 사용자 — < 1 BTC (Shrimp)
+- 5% — 1-10 BTC (Crab)
+- 1% — 10-100 BTC (Octopus-Fish)
+- 0.05% — 100+ BTC (Whale)
+
+**한국 사용자의 다수가 small holder**. Whale 비중 매우 작음.
+
+### 4-2. 한국 거래소 reserve
+업비트 + 빗썸 + 코인원 + 코빗 합산 reserve — 약 280K BTC (2026 Q1). 글로벌 거래소 reserve 의 약 12%.
+
+### 4-3. VAUPA 의 *"사용자 자산 분리 보관"*
+VAUPA 시행 후 한국 거래소가 *"사용자 자산"* 을 별도 wallet 에 분리. 이로 인해 *"한국 거래소 own reserve"* 와 *"사용자 자산"* 의 분리 가시화. CryptoQuant 등이 이를 별도 추적.
+
+<Callout type="opposing-view" title="반대 시각 · Reserve + Whale 신호의 한계">
+거래소 reserve + whale 추적이 표준 도구이지만, 비판적 시각도 있습니다.
+
+첫째, **거래소 wallet 식별의 한계**. CryptoQuant 등이 *"확률적 식별"* 하지만 100% 정확 X. 일부 wallet 이 거래소 외 다른 사용으로 분류 가능.
+
+둘째, **OTC + cold storage 의 미반영**. 거래소가 OTC 거래 + 별도 cold wallet 사용 시 — reserve 통계에 안 반영. 실제 매수/매도 압력과 차이.
+
+셋째, **Whale = 단일 인물 가정**. 여러 wallet 이 한 사람일 수도, 한 wallet 이 여러 사람 (custodial)일 수도. *"whale 행동 = 의도적 결정"* 가정 약함.
+
+넷째, **ETF 의 reserve 의미 변화**. 2024 ETF 출시 후 — IBIT/FBTC 등이 BTC 보유. 이는 *"whale custody"* 와 비슷하지만 *"기관"* 과 *"개인"* 의 구별이 모호.
+
+다섯째, **사토시 wallet 의 영구 모니터링 한계**. 17년 동안 모니터링 했지만 이동 없음. *"이동 없음 = 사토시 사망"* 가정의 학술적 검증 어려움.
+
+이 5가지 비판이 의미하는 바 — Reserve + Whale 신호가 *"강한 신호"* 이지만 *"completeness"* 가 부족합니다.
+</Callout>
+
+## 결론 — 투명성의 framework
+
+본 편이 정리한 5가지 핵심 발견:
+
+1. **거래소 Reserve 의 시간 추세** — 2020 3.1M → 2026 2.4M (사용자 self-custody 가속).
+2. **Whale + Humpback 보유 8.3M (40% 발행량)**. 기관 + 부유한 보유자의 점진 가속.
+3. **Ancient wallet 추적** — 사토시 1.1M BTC 17년 미이동. 영구 잠금 가능성.
+4. **한국 사용자 평균 0.42 BTC + Whale 비중 0.05%**. 글로벌 대비 small holder 위주.
+5. **VAUPA 후 한국 거래소 자산 분리 가시화**.
+
+다음 편(#O6) — NUPL + SOPR + 단기/장기 보유자.
