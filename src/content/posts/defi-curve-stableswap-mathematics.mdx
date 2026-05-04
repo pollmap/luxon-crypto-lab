@@ -24,20 +24,20 @@ sources:
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Curve 가 어떻게 *"스테이블코인 + 비슷한 가격 자산"* 의 DEX 로 자리잡았는지, Stableswap 수학이 무엇인지, 그리고 CRV 토큰 전쟁 (Convex Wars) 의 학술적 의미를 봅니다.
+Curve 가 어떻게 "스테이블코인 + 비슷한 가격 자산" 의 DEX 로 자리잡았는지, Stableswap 수학이 무엇인지, 그리고 CRV 토큰 전쟁 (Convex Wars) 의 학술적 의미를 봅니다.
 </Callout>
 
 <TVLBarChart />
 
-## 도입 — *"스테이블코인 DEX 의 본질"*
+## 도입 — "스테이블코인 DEX 의 본질"
 
-자, Curve 강의를 시작합시다. *"왜 스테이블코인 전용 DEX 가 필요한가?"*
+자, Curve 강의를 시작합시다. "왜 스테이블코인 전용 DEX 가 필요한가?"
 
-Uniswap 의 x × y = k 공식이 — 가격 차이가 큰 두 자산 (예: ETH ↔ USDC) 에는 잘 작동합니다. 그런데 — *"비슷한 가격의 두 자산"* (예: USDC ↔ USDT, 둘 다 $1) 에는 비효율이에요.
+Uniswap 의 x × y = k 공식이 — 가격 차이가 큰 두 자산 (예: ETH ↔ USDC) 에는 잘 작동합니다. 그런데 — "비슷한 가격의 두 자산" (예: USDC ↔ USDT, 둘 다 $1) 에는 비효율이에요.
 
-왜냐. x × y = k 공식이 — *"가격이 변하면 풀이 자동 조정"* 인데, USDC 와 USDT 는 가격이 거의 안 변합니다. 그러면 자본 효율이 매우 낮아져요. 100 만 달러 풀에서 1만 달러 거래하려고 해도 — 가격 슬리피지가 1% 이상 발생.
+왜냐. x × y = k 공식이 — "가격이 변하면 풀이 자동 조정" 인데, USDC 와 USDT 는 가격이 거의 안 변합니다. 그러면 자본 효율이 매우 낮아져요. 100 만 달러 풀에서 1만 달러 거래하려고 해도 — 가격 슬리피지가 1% 이상 발생.
 
-Curve 의 천재성이 — 이 문제를 풀려고 *"새로운 수학 공식"* 을 발견한 거예요.
+Curve 의 천재성이 — 이 문제를 풀려고 "새로운 수학 공식" 을 발견한 거예요.
 
 ## 1. Stableswap 의 수학
 
@@ -47,23 +47,23 @@ Curve 의 핵심 공식 (Stableswap):
 
 **A · n^n · sum(x_i) + D = A · D · n^n + D^(n+1) / (n^n · prod(x_i))**
 
-복잡해 보이죠? 핵심 아이디어는 단순합니다 — *"가격이 거의 같은 두 자산 사이에서는, x × y = k 보다 x + y = constant 에 가깝게 작동"*.
+복잡해 보이죠? 핵심 아이디어는 단순합니다 — "가격이 거의 같은 두 자산 사이에서는, x × y = k 보다 x + y = constant 에 가깝게 작동".
 
 ### 1-2. 학술적 의미
 
-Stableswap 공식이 — Uniswap V1/V2 의 x × y = k 와 동일 가치 자산 사이의 *"x + y = constant"* 의 *"하이브리드"* 입니다.
+Stableswap 공식이 — Uniswap V1/V2 의 x × y = k 와 동일 가치 자산 사이의 "x + y = constant" 의 "하이브리드" 입니다.
 
 - 가격이 거의 같을 때: x + y = constant 처럼 작동 (자본 효율 매우 높음)
 - 가격이 크게 차이날 때: x × y = k 처럼 작동 (price slippage 자연스러움)
 - 두 모드 사이 부드러운 전환
 
-이 framework 이 — *"동일 가치 자산"* 의 DEX 학술 표준이 됐습니다. USDC ↔ USDT, stETH ↔ ETH, WBTC ↔ renBTC 등 — Curve 풀이 가장 효율적.
+이 framework 이 — "동일 가치 자산" 의 DEX 학술 표준이 됐습니다. USDC ↔ USDT, stETH ↔ ETH, WBTC ↔ renBTC 등 — Curve 풀이 가장 효율적.
 
 ### 1-3. Michael Egorov 의 학술 배경
 
-Curve 의 창립자 Michael Egorov 가 — *"러시아 출신 물리학자"*. 박사학위가 *"이론 물리학"*. 이 학술적 배경이 — Stableswap 공식의 수학적 정교함의 근거가 됐어요.
+Curve 의 창립자 Michael Egorov 가 — "러시아 출신 물리학자". 박사학위가 "이론 물리학". 이 학술적 배경이 — Stableswap 공식의 수학적 정교함의 근거가 됐어요.
 
-학술적으로 — *"DEX 의 수학적 발견"* 분야에서 Curve 가 가장 큰 기여 중 하나로 평가됩니다.
+학술적으로 — "DEX 의 수학적 발견" 분야에서 Curve 가 가장 큰 기여 중 하나로 평가됩니다.
 
 ## 2. Curve 의 시장 위치
 
@@ -75,13 +75,13 @@ Curve 의 창립자 Michael Egorov 가 — *"러시아 출신 물리학자"*. �
 
 ### 2-2. 학술적 영향
 
-Curve 가 — DeFi 학계에서 가장 많이 인용되는 *"동일 가치 자산 DEX"*. Stableswap 수학이 — 다수 후속 프로토콜 (Balancer Stable Pools, Saddle Finance 등) 의 학술 기반.
+Curve 가 — DeFi 학계에서 가장 많이 인용되는 "동일 가치 자산 DEX". Stableswap 수학이 — 다수 후속 프로토콜 (Balancer Stable Pools, Saddle Finance 등) 의 학술 기반.
 
-## 3. veCRV — *"vote-escrowed 토큰"*
+## 3. veCRV — "vote-escrowed 토큰"
 
 ### 3-1. veCRV 가 무엇인가
 
-Curve 가 *"veCRV"* 라는 새 토큰 모델을 도입. 사용자가 — CRV 를 최대 4년 잠그면, 그 비율로 *"veCRV"* 를 받음.
+Curve 가 "veCRV" 라는 새 토큰 모델을 도입. 사용자가 — CRV 를 최대 4년 잠그면, 그 비율로 "veCRV" 를 받음.
 
 - 1 CRV 를 4년 잠금 → 1 veCRV
 - 1 CRV 를 1년 잠금 → 0.25 veCRV
@@ -94,7 +94,7 @@ veCRV 의 권한:
 
 ### 3-2. veToken 모델의 학술적 의미
 
-이 *"vote-escrowed token (veToken)"* 모델이 — DeFi 거버넌스 토큰의 새 학술 표준이 됐습니다.
+이 "vote-escrowed token (veToken)" 모델이 — DeFi 거버넌스 토큰의 새 학술 표준이 됐습니다.
 
 기존 거버넌스 토큰의 문제:
 - AAVE, UNI 같은 토큰이 — 단기 보유자가 다수
@@ -104,61 +104,61 @@ veCRV 의 권한:
 veToken 의 해결:
 - 4년 잠금 → 장기 보유자만 의사결정 권한
 - 거버넌스가 — 장기 시스템 발전 위주로 정렬
-- *"long-term aligned governance"*
+- "long-term aligned governance"
 
-이 framework 이 — Curve 이후 다수 프로토콜 (Balancer, Frax 등) 이 채택. *"Curve 모델"* 또는 *"veToken 모델"* 이라는 학술 용어가 됐습니다.
+이 framework 이 — Curve 이후 다수 프로토콜 (Balancer, Frax 등) 이 채택. "Curve 모델" 또는 "veToken 모델" 이라는 학술 용어가 됐습니다.
 
-## 4. Convex Wars — *"meta-governance"*
+## 4. Convex Wars — "meta-governance"
 
 ### 4-1. Convex Finance 의 등장
 
-2021년 *"Convex Finance"* 가 등장. 이게 — Curve veCRV 의 *"수익 극대화 도구"*.
+2021년 "Convex Finance" 가 등장. 이게 — Curve veCRV 의 "수익 극대화 도구".
 
 작동:
 - 사용자가 — CRV 를 Convex 에 입금
 - Convex 가 — CRV 를 4년 잠금 + veCRV 획득
-- Convex 가 — 사용자에게 *"cvxCRV"* 발행
+- Convex 가 — 사용자에게 "cvxCRV" 발행
 - cvxCRV 보유자가 — Curve 의 모든 veCRV 보상 + Convex 추가 보상 받음
 
-이게 — *"Curve veCRV 를 Convex 가 통제"* 하는 구조. 시간이 지나며 Convex 가 — Curve veCRV 의 50%+ 를 통제하게 됐어요.
+이게 — "Curve veCRV 를 Convex 가 통제" 하는 구조. 시간이 지나며 Convex 가 — Curve veCRV 의 50%+ 를 통제하게 됐어요.
 
 ### 4-2. Curve Wars
 
-이 단계에서 — *"Curve Wars"* 가 시작. 다수 프로토콜이 — *"Convex 토큰 (CVX)"* 을 매수해서 — Curve 풀의 보상 분배에 영향력을 행사하려는 경쟁.
+이 단계에서 — "Curve Wars" 가 시작. 다수 프로토콜이 — "Convex 토큰 (CVX)" 을 매수해서 — Curve 풀의 보상 분배에 영향력을 행사하려는 경쟁.
 
 참여자:
 - MakerDAO 가 CVX 매수 (DAI/USDC 풀 보상 강화)
 - Frax Finance 가 CVX 매수 (FRAX 풀 보상 강화)
 - Yearn, Stake DAO 등 다수
 
-이 *"meta-governance"* 가 — DeFi 거버넌스 학계의 가장 흥미로운 학술 사례. NY Fed Staff Report + Stanford CBR 에서 정기 분석.
+이 "meta-governance" 가 — DeFi 거버넌스 학계의 가장 흥미로운 학술 사례. NY Fed Staff Report + Stanford CBR 에서 정기 분석.
 
 ### 4-3. 학술적 의미
 
-Curve Wars 가 학술적으로 — *"DAO 거버넌스의 시장화"*. 거버넌스 권한이 — *"매수 가능한 자산"* 이 됐습니다. 이게 학술적으로 정당한지, 위험한지 — 학계 토론 활발.
+Curve Wars 가 학술적으로 — "DAO 거버넌스의 시장화". 거버넌스 권한이 — "매수 가능한 자산" 이 됐습니다. 이게 학술적으로 정당한지, 위험한지 — 학계 토론 활발.
 
-## 5. Curve 의 위기 — *"2023 Vyper 사고"*
+## 5. Curve 의 위기 — "2023 Vyper 사고"
 
 ### 5-1. 사고 발생
 
-2023년 7월 — Curve 의 일부 풀이 *"Vyper 컴파일러 버그"* 로 해킹. 약 $70M 자산 손실.
+2023년 7월 — Curve 의 일부 풀이 "Vyper 컴파일러 버그" 로 해킹. 약 $70M 자산 손실.
 
 ### 5-2. 학술적 의미
 
 이 사건이 학술적으로 중요한 이유:
-- *"DeFi 의 가장 견고한 프로토콜도 컴파일러 버그로 위험"*
-- 스마트 컨트랙트 보안의 *"외부 의존성"* 위험
+- "DeFi 의 가장 견고한 프로토콜도 컴파일러 버그로 위험"
+- 스마트 컨트랙트 보안의 "외부 의존성" 위험
 - 회복 메커니즘 (white hat hackers + Curve DAO 협력)
 
 이 사건이 — Cornell IC3 + Stanford CBR 의 보안 학술 분석에 표준 사례가 됨.
 
-## 6. CRV 토큰 — *"가치 포착 + 거버넌스"*
+## 6. CRV 토큰 — "가치 포착 + 거버넌스"
 
 ### 6-1. CRV 의 가치 포착
 
 CRV 의 가치 포착 메커니즘 (UNI 와 다름):
 - 거래 수수료의 50% 가 — veCRV 보유자에게 직접 분배
-- 즉, *"실질 수익"* 이 있는 거버넌스 토큰
+- 즉, "실질 수익" 이 있는 거버넌스 토큰
 
 이게 — UNI (Fee Switch 미활성화) 와 다른 학술적 강점입니다.
 
@@ -172,15 +172,15 @@ CRV 의 가치 포착 메커니즘 (UNI 와 다름):
 <Callout type="opposing-view" title="반대 시각 · Curve 의 *과도한 복잡성*">
 Curve 의 비판:
 
-첫째, ***"과도한 복잡성"***. veCRV + Convex + Curve Wars 가 — 일반 사용자 이해하기 어려운 *"DeFi 의 미궁"*.
+첫째, "과도한 복잡성". veCRV + Convex + Curve Wars 가 — 일반 사용자 이해하기 어려운 "DeFi 의 미궁".
 
-둘째, ***"인플레이션 위험"***. CRV 의 6%/년 인플레이션이 — 토큰 가격에 부정적 압력.
+둘째, "인플레이션 위험". CRV 의 6%/년 인플레이션이 — 토큰 가격에 부정적 압력.
 
-셋째, ***"meta-governance 위험"***. 거버넌스 권한이 — Convex 같은 외부 entity 에 집중.
+셋째, "meta-governance 위험". 거버넌스 권한이 — Convex 같은 외부 entity 에 집중.
 
-넷째, ***"보안 사고 위험"***. 2023 Vyper 사고가 — 시스템 견고성 의문 제기.
+넷째, "보안 사고 위험". 2023 Vyper 사고가 — 시스템 견고성 의문 제기.
 
-이 비판이 의미하는 바 — Curve 가 *"동일 가치 DEX 학술 표준"* 으로는 가치 있되, *"운영 복잡성"* 이 학술적 개선 영역.
+이 비판이 의미하는 바 — Curve 가 "동일 가치 DEX 학술 표준" 으로는 가치 있되, "운영 복잡성" 이 학술적 개선 영역.
 </Callout>
 
 ## 결론

@@ -36,9 +36,9 @@ Satoshi Nakamoto 의 2008년 9페이지 백서는 진공에서 나온 발명이 
 
 ## 도입 — 백서가 진공에서 나오지 않았다
 
-2008년 10월 31일 18:10 UTC, "Satoshi Nakamoto" 라는 익명은 cryptography 메일링 리스트 (가입자 약 100명) 에 9페이지 PDF 와 함께 한 줄을 보냈다 — *"I've been working on a new electronic cash system that's fully peer-to-peer, with no trusted third party."*
+2008년 10월 31일 18:10 UTC, "Satoshi Nakamoto" 라는 익명은 cryptography 메일링 리스트 (가입자 약 100명) 에 9페이지 PDF 와 함께 한 줄을 보냈다 — "I've been working on a new electronic cash system that's fully peer-to-peer, with no trusted third party."
 
-이 메일이 받은 첫 반응은 회의적이었다. 메일링 리스트의 시니어 회원 James A. Donald 는 답장에서 *"the way you describe the project, it does not seem to scale to the required size"* 라고 적었다. 1990년대부터 digital cash 시도가 모두 실패한 역사 때문이었다 — DigiCash (1990, Chaum), CyberCash (1996), e-gold (1996, 사기로 종료). 모두 trusted third party 의존이 single point of failure 가 됐다.
+이 메일이 받은 첫 반응은 회의적이었다. 메일링 리스트의 시니어 회원 James A. Donald 는 답장에서 "the way you describe the project, it does not seem to scale to the required size" 라고 적었다. 1990년대부터 digital cash 시도가 모두 실패한 역사 때문이었다 — DigiCash (1990, Chaum), CyberCash (1996), e-gold (1996, 사기로 종료). 모두 trusted third party 의존이 single point of failure 가 됐다.
 
 그러나 백서가 진공에서 나온 것은 아니다. 1990년대 중반부터 사이퍼펑크 운동은 trustless digital cash 의 5개 부분 해법을 축적해왔다. Bonneau 외 (2015) 의 *SoK (Systematization of Knowledge): Research Perspectives and Challenges for Bitcoin and Cryptocurrencies* IEEE S&P paper 가 이 계보를 정리한 표준 학술 reference 다.
 
@@ -69,11 +69,11 @@ Wei Dai 의 1998년 사이퍼펑크 메일링 리스트 글 *b-money* 는 Bitcoi
 
 **Protocol 1** — 모든 참여자가 ledger 사본을 보유. 누군가 송금 시 브로드캐스트 → 모두가 자기 사본 업데이트. *(Bitcoin 의 브로드캐스트 + 노드 ledger 와 사실상 동일)*
 
-**Protocol 2** — *"servers"* 라 불리는 부분 집합이 ledger 를 보유. 서버가 deposit 을 걸고 잘못된 행동 시 deposit 몰수. *(현대 PoS 와 유사)*
+**Protocol 2** — "servers" 라 불리는 부분 집합이 ledger 를 보유. 서버가 deposit 을 걸고 잘못된 행동 시 deposit 몰수. *(현대 PoS 와 유사)*
 
 Bitcoin 백서가 차용한 부분 — **Protocol 1 의 브로드캐스트 + 분산 ledger 구조**. b-money 가 "분산 합의" 의 개념을 처음 명시한 글이다.
 
-Satoshi 의 **새로운 합성**은 두 가지다. (a) b-money 는 *"how exactly do all participants agree on which transactions are valid and in which order?"* 라는 합의 문제를 해결하지 못했다. b-money Protocol 1 은 브로드캐스트를 가정하지만 conflicting 브로드캐스트 시 누구를 믿을지 답이 없다. **Bitcoin 은 PoW + longest chain rule 로 이를 해결**. (b) Wei Dai 자신이 2013년 LessWrong 댓글에서 *"...I had not realized at the time that Bitcoin's PoW could solve the consensus problem that b-money left open"* 이라고 인정했다.
+Satoshi 의 **새로운 합성**은 두 가지다. (a) b-money 는 "how exactly do all participants agree on which transactions are valid and in which order?" 라는 합의 문제를 해결하지 못했다. b-money Protocol 1 은 브로드캐스트를 가정하지만 conflicting 브로드캐스트 시 누구를 믿을지 답이 없다. **Bitcoin 은 PoW + longest chain rule 로 이를 해결**. (b) Wei Dai 자신이 2013년 LessWrong 댓글에서 "...I had not realized at the time that Bitcoin's PoW could solve the consensus problem that b-money left open" 이라고 인정했다.
 
 ## 3. Nick Szabo Bit Gold (2005) — 디지털 희소성의 직계 선조
 
@@ -81,14 +81,14 @@ Nick Szabo 의 2005년 12월 블로그 글 *Bit Gold* 는 Bitcoin 백서가 명�
 
 Bit Gold 의 메커니즘:
 
-1. *"client puzzle"* (Hashcash 와 유사 PoW) 를 풀어 *"bit gold string"* 생성.
+1. "client puzzle" (Hashcash 와 유사 PoW) 를 풀어 "bit gold string" 생성.
 2. 이 string 을 분산 timestamp 서비스에 등록.
 3. 새 string 이 이전 string 의 hash 를 input 으로 사용 → 시간 순서 chain.
 4. 가치는 string 생성에 든 계산 비용으로 결정.
 
 이 디자인은 Bitcoin 의 직접적 선조이며, Szabo 가 "Satoshi 본인이 아닌가" 라는 추측이 강하게 도는 이유 (Szabo 는 부인). Bonneau 외는 "Bit Gold 는 Bitcoin 의 99% 이지만 마지막 1% — Sybil 저항 합의 — 가 빠졌다" 고 평가한다.
 
-Satoshi 의 **새로운 합성** — Bit Gold 의 Byzantine fault tolerance 부재 해결. Bit Gold 는 *"distributed timestamp service"* 라는 외부 신뢰 서비스를 가정. Bitcoin 은 timestamp 자체를 PoW 로 합의 처리 (블록 = timestamp + tx 묶음).
+Satoshi 의 **새로운 합성** — Bit Gold 의 Byzantine fault tolerance 부재 해결. Bit Gold 는 "distributed timestamp service" 라는 외부 신뢰 서비스를 가정. Bitcoin 은 timestamp 자체를 PoW 로 합의 처리 (블록 = timestamp + tx 묶음).
 
 ## 4. Hal Finney RPOW (2004) — 재사용 가능 PoW
 
@@ -98,7 +98,7 @@ RPOW 의 메커니즘 — Hashcash 토큰을 "사용" 하면 서버가 새 토�
 
 RPOW 의 한계 — Finney 의 RPOW 서버가 trusted third party 였다. 사용자가 서버를 신뢰해야 함.
 
-Bitcoin 과의 관계 — Finney 는 Satoshi 백서 발표 (2008.10) 직후 사이퍼펑크 메일링 리스트에 가장 적극적으로 응답한 인물이었다. 2009년 1월 12일 Bitcoin 1번 transaction 의 수신자 (Satoshi → Finney 10 BTC) 였다. Finney 의 본인 글 (2014, 사후 공개) 에서 *"When Satoshi announced Bitcoin on the cryptography mailing list, he got a skeptical reception at best. Cryptographers have seen too many grand schemes by clueless newbies. They tend to have a knee-jerk reaction. I was more positive."*
+Bitcoin 과의 관계 — Finney 는 Satoshi 백서 발표 (2008.10) 직후 사이퍼펑크 메일링 리스트에 가장 적극적으로 응답한 인물이었다. 2009년 1월 12일 Bitcoin 1번 transaction 의 수신자 (Satoshi → Finney 10 BTC) 였다. Finney 의 본인 글 (2014, 사후 공개) 에서 "When Satoshi announced Bitcoin on the cryptography mailing list, he got a skeptical reception at best. Cryptographers have seen too many grand schemes by clueless newbies. They tend to have a knee-jerk reaction. I was more positive."
 
 Satoshi 의 **새로운 합성** — RPOW 의 trusted server 를 제거. PoW 자체가 ledger 합의이므로 별도 서버 불필요.
 

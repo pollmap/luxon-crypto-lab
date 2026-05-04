@@ -35,17 +35,17 @@ author: 이찬희
 2022년 5월, 한국인이 만든 알고리즘 스테이블코인 UST 가 일주일 만에 -99.9% 폭락하며 글로벌 가상자산 시장에서 약 $60B 의 가치가 사라졌습니다. 이 붕괴의 수학적 결함은 무엇이었고, Anchor Protocol 의 19.5% APY 는 왜 폰지 구조였으며, 권도형(Do Kwon)이 어떻게 송환 절차에 들어갔나요? 사실로만 본 5월 7일-12일의 기록.
 </Callout>
 
-## 도입 — *"한국 가상자산 역사의 가장 큰 사건"*
+## 도입 — "한국 가상자산 역사의 가장 큰 사건"
 
 2022년 5월 9일 오전, UST(TerraUSD) 가격이 1.00 USD 페그에서 0.987 USD 로 처음 이탈. 그날 오후 0.97 USD. 다음날 0.85. 그다음날 0.30. 일주일 후 0.05. 한 주 만에 글로벌 시가총액 약 $40B (UST 약 $18B + LUNA 약 $40B 중 일부 회복) 가 증발. 이 사건이 **인류 가상자산 역사상 가장 빠른 가치 파괴** 입니다.
 
-특별히 한국에 의미가 있는 이유 — Terraform Labs 의 창업자 권도형(Do Kwon)과 신현성(Daniel Shin)이 한국인. 그래서 한국 검찰의 수사가 글로벌 차원에서 진행됐고, 권도형의 한국·몬테네그로·미국 송환 분쟁이 2023-2026 의 글로벌 가상자산 규제 핫이슈가 됐습니다. 이 사건이 *"가상자산이용자보호법(VAUPA, 2024.7 시행)"* 의 직접적 동기 중 하나.
+특별히 한국에 의미가 있는 이유 — Terraform Labs 의 창업자 권도형(Do Kwon)과 신현성(Daniel Shin)이 한국인. 그래서 한국 검찰의 수사가 글로벌 차원에서 진행됐고, 권도형의 한국·몬테네그로·미국 송환 분쟁이 2023-2026 의 글로벌 가상자산 규제 핫이슈가 됐습니다. 이 사건이 "가상자산이용자보호법(VAUPA, 2024.7 시행)" 의 직접적 동기 중 하나.
 
 본 편은 5월 7-12일의 5일을 분 단위로 추적하면서 — (1) algorithmic stablecoin 의 수학적 구조, (2) Anchor Protocol 의 19.5% 의 출처, (3) 죽음의 나선의 작동 메커니즘, (4) Terraform Labs 의 거버넌스 결함, (5) 권도형 송환 절차의 현재 — 5가지를 봅니다.
 
 ## 1. UST 의 작동 원리 — Mint-Burn 메커니즘
 
-UST 는 USDC, USDT 같은 *"담보 기반 스테이블코인"* 이 아닙니다. 미국 단기국채 같은 reserve 를 갖지 않습니다. 대신 LUNA 라는 자체 토큰과의 mint-burn 으로 페그를 유지합니다.
+UST 는 USDC, USDT 같은 "담보 기반 스테이블코인" 이 아닙니다. 미국 단기국채 같은 reserve 를 갖지 않습니다. 대신 LUNA 라는 자체 토큰과의 mint-burn 으로 페그를 유지합니다.
 
 ### 1-1. 단순 메커니즘
 - UST 가 1.00 USD 보다 비쌀 때 (예: 1.05 USD) — 사용자가 1 USD 어치 LUNA 를 burn 하고 1 UST 를 mint. 시장에서 1.05 USD 에 매도. 차익 0.05 USD.
@@ -56,16 +56,16 @@ UST 는 USDC, USDT 같은 *"담보 기반 스테이블코인"* 이 아닙니다.
 ### 1-2. 수학적 결함
 이 메커니즘의 결함은 **신뢰가 사라질 때만 드러납니다**. UST 가격이 떨어질 때 LUNA 가 mint 됩니다. mint 된 LUNA 가 매도 압력으로 작용해 LUNA 가격이 떨어집니다. LUNA 가격이 떨어지면 UST 1 단위를 만들기 위해 더 많은 LUNA 가 필요. 결국 LUNA 공급이 무한으로 폭증하고 가격이 0 으로 수렴.
 
-이 패턴이 *"죽음의 나선(death spiral)"* 입니다. 학술적으로 Routledge & Zetlin-Jones (CMU 2023) 의 논문이 정량 분석. 그들의 결론 — *"algorithmic stablecoin without external collateral is mathematically unsustainable"*.
+이 패턴이 "죽음의 나선(death spiral)" 입니다. 학술적으로 Routledge & Zetlin-Jones (CMU 2023) 의 논문이 정량 분석. 그들의 결론 — "algorithmic stablecoin without external collateral is mathematically unsustainable".
 
-이 결함을 권도형도 알고 있었을 가능성이 큽니다. 그러나 외부 담보 없이도 작동하는 *"순수 algorithmic"* 모델을 고집한 이유 — 이데올로기적 자유 + 자본 효율성 + LUNA 가치 포착의 결합. Bernstein Research 2022 보고서가 이를 *"the elegance fallacy"* 라고 표현.
+이 결함을 권도형도 알고 있었을 가능성이 큽니다. 그러나 외부 담보 없이도 작동하는 "순수 algorithmic" 모델을 고집한 이유 — 이데올로기적 자유 + 자본 효율성 + LUNA 가치 포착의 결합. Bernstein Research 2022 보고서가 이를 "the elegance fallacy" 라고 표현.
 
 ## 2. Anchor Protocol 의 19.5% — 폰지의 본질
 
 UST 의 사용처 중 가장 큰 것이 Anchor Protocol — Terra 블록체인 위 lending 프로토콜. UST 를 예치하면 **연 19.5%** 의 수익. 이게 UST 채택의 가장 큰 동력.
 
 ### 2-1. 19.5% 의 출처
-정상적 lending 시장에서 yield 는 borrower 의 이자에서 나옵니다. Anchor 의 borrower 는 누구였는가? 답 — bLUNA, bETH 같은 *"liquid staked tokens"* 를 담보로 UST 를 빌리는 사람들. Borrower 이자 약 12-15%.
+정상적 lending 시장에서 yield 는 borrower 의 이자에서 나옵니다. Anchor 의 borrower 는 누구였는가? 답 — bLUNA, bETH 같은 "liquid staked tokens" 를 담보로 UST 를 빌리는 사람들. Borrower 이자 약 12-15%.
 
 여기서 이미 큰 문제 — depositor yield 19.5% 가 borrower 이자 12-15% 보다 큽니다. 차이 약 5-7%. 이 차이는 누가 메우는가? 답 — **Terraform Labs 가 Anchor Reserve 에 LUNA 를 무한 공급**.
 
@@ -80,7 +80,7 @@ UST 의 사용처 중 가장 큰 것이 Anchor Protocol — Terra 블록체인 �
 
 마지막 시점 Anchor Reserve 가 일 -$10M 의 출혈. 그 추세대로면 Reserve 가 약 33일 후 0 에 도달. 즉 **Anchor 의 19.5% 는 33일 시한부 폰지** 였던 것.
 
-이게 명백한 폰지 구조라는 점이 SEC 가 2023년 2월 Terraform Labs 와 권도형을 fraud 로 기소한 핵심 근거. SEC 의 표현 — *"Kwon and Terraform marketed a financially impossible yield as if it were sustainable"*.
+이게 명백한 폰지 구조라는 점이 SEC 가 2023년 2월 Terraform Labs 와 권도형을 fraud 로 기소한 핵심 근거. SEC 의 표현 — "Kwon and Terraform marketed a financially impossible yield as if it were sustainable".
 
 ### 2-3. UST 시총의 가속
 Anchor 19.5% 의 결과로 UST 시총이 2021-2022 폭증:
@@ -92,21 +92,21 @@ Anchor 19.5% 의 결과로 UST 시총이 2021-2022 폭증:
 | 2022.3 | $16.0B | $13.6B |
 | 2022.5.7 (붕괴 직전) | $18.7B | $14.0B |
 
-Anchor 가 UST 의 약 75% 를 흡수. 즉 UST 의 다수 사용자가 *"19.5% yield 를 위한 보유자"* 였습니다. 그들이 yield 가 사라지면 즉시 매도할 *"flighty capital"*.
+Anchor 가 UST 의 약 75% 를 흡수. 즉 UST 의 다수 사용자가 "19.5% yield 를 위한 보유자" 였습니다. 그들이 yield 가 사라지면 즉시 매도할 "flighty capital".
 
 ## 3. 5월 7-12일 — 분 단위 추적
 
 붕괴의 5일 timeline:
 
 ### 5월 7일 (토요일) — 첫 균열
-오후 9시 UTC, Curve Finance 의 UST/3Pool (UST + USDT + USDC + DAI) 에서 약 $85M 의 UST 가 한 번에 매도. UST 페그가 0.987 로 일시 이탈. 24시간 안에 회복했지만, 시장 일부에서 *"누가 의도적으로 흔들었나"* 라는 의심 시작.
+오후 9시 UTC, Curve Finance 의 UST/3Pool (UST + USDT + USDC + DAI) 에서 약 $85M 의 UST 가 한 번에 매도. UST 페그가 0.987 로 일시 이탈. 24시간 안에 회복했지만, 시장 일부에서 "누가 의도적으로 흔들었나" 라는 의심 시작.
 
-학계 추정 — Citadel Securities, BlackRock, 또는 익명의 헤지펀드. 그러나 Chainalysis 의 on-chain 추적으로는 단일 엔티티 식별 어려움. *"the 7 wallets"* 라고 불리는 7개 지갑이 동시 매도.
+학계 추정 — Citadel Securities, BlackRock, 또는 익명의 헤지펀드. 그러나 Chainalysis 의 on-chain 추적으로는 단일 엔티티 식별 어려움. "the 7 wallets" 라고 불리는 7개 지갑이 동시 매도.
 
 ### 5월 8일 (일요일) — 신뢰 균열
 일요일 오전, Anchor 에서 UST 인출 가속. 24시간 동안 약 $1.4B 가 인출. Anchor TVL 이 $14B → $12.6B 로 감소. UST 페그 0.985 → 0.972 로 추가 이탈.
 
-권도형이 트위터에서 *"calm, friends"* 트윗. 하지만 시장은 진정 안 됨.
+권도형이 트위터에서 "calm, friends" 트윗. 하지만 시장은 진정 안 됨.
 
 ### 5월 9일 (월요일) — Mint-Burn 가속
 오전 6시 UTC, UST 가 0.97 → 0.94 로 추가 이탈. mint-burn arbitrage 가 가속해 LUNA mint 량 폭증. LUNA 가격 $63 → $52 로 하락 시작. 같은 날 오후 LUNA $39.
@@ -116,12 +116,12 @@ Luna Foundation Guard (LFG, 권도형이 만든 reserve 재단) 가 보유 BTC ~
 ### 5월 10일 (화요일) — 죽음의 나선
 LFG BTC reserve 가 사실상 소진. UST 가 0.85 → 0.65 로 급락. LUNA 가 $39 → $20 → $4 로 폭락. mint-burn 으로 LUNA 공급량이 한 시간 만에 +400% 폭증.
 
-UST 는 *"dollar"* 가 아니라 *"가치 없는 토큰"* 으로 인식. Anchor 인출이 *"bank run"* 형태로 진행. 24시간 동안 약 $11B 가 인출.
+UST 는 "dollar" 가 아니라 "가치 없는 토큰" 으로 인식. Anchor 인출이 "bank run" 형태로 진행. 24시간 동안 약 $11B 가 인출.
 
 ### 5월 11일 (수요일) — 사실상 붕괴
 UST 0.65 → 0.30. LUNA $4 → $0.10. 이 시점 LUNA 공급량이 약 6.5T LUNA (약 5천 배 증가). 사실상 가치 0 으로 수렴.
 
-권도형이 *"Recovery Plan"* 을 제안 — Terra 체인을 fork 해 새로운 LUNA (LUNA 2.0) 를 발행하고 기존 보유자에게 비례 배분. 그러나 이 plan 의 학술적 의미 — *"기존 보유자의 손실은 영구"*. 단순 형식적 보상.
+권도형이 "Recovery Plan" 을 제안 — Terra 체인을 fork 해 새로운 LUNA (LUNA 2.0) 를 발행하고 기존 보유자에게 비례 배분. 그러나 이 plan 의 학술적 의미 — "기존 보유자의 손실은 영구". 단순 형식적 보상.
 
 ### 5월 12일 (목요일) — 종결
 UST 0.05, LUNA $0.0001. 종합 손실 약 $60B (시총 차이). Terra 체인 거래 정지.
@@ -147,7 +147,7 @@ UST 0.05, LUNA $0.0001. 종합 손실 약 $60B (시총 차이). Terra 체인 거
 | 2025.7-2026 | 미국 형사 재판 진행 중 |
 
 ### 4-3. 미국 형사 기소 내용
-- Securities fraud (UST 를 *"stable"* 이라고 marketing)
+- Securities fraud (UST 를 "stable" 이라고 marketing)
 - Wire fraud (투자자 기만)
 - Commodities fraud (LUNA 가격 조작)
 - Money laundering ($100M 이상의 자금 세탁)
@@ -168,36 +168,36 @@ Luna-UST 붕괴가 한국 시장에 미친 영향:
 - 시세 조작 + inside trading 처벌
 - 알고리즘 스테이블코인 + 자체 발행 stablecoin 의 한국 내 영업 규제
 
-특히 4번째 — 알고리즘 스테이블 규제 — 가 직접 Luna-UST 를 겨냥. VAUPA 의 입법 과정에서 *"제2의 Luna 사태 방지"* 가 명시적 동기로 인용됨.
+특히 4번째 — 알고리즘 스테이블 규제 — 가 직접 Luna-UST 를 겨냥. VAUPA 의 입법 과정에서 "제2의 Luna 사태 방지" 가 명시적 동기로 인용됨.
 
 ### 5-3. 한국 가상자산 시장의 신뢰 추락
-2022.5 붕괴 직후 6개월간 한국 거래소 거래량 -78%. 이게 단순 가격 하락이 아니라 *"신뢰 추락"* 의 정량 증거. 회복까지 약 18개월 소요.
+2022.5 붕괴 직후 6개월간 한국 거래소 거래량 -78%. 이게 단순 가격 하락이 아니라 "신뢰 추락" 의 정량 증거. 회복까지 약 18개월 소요.
 
 ## 6. 학계의 분석 — Algorithmic Stablecoin 의 미래
 
 Luna 붕괴 이후 학계의 algorithmic stablecoin 평가:
 
 ### 6-1. 비판적 시각
-Routledge & Zetlin-Jones (CMU 2023) — *"the algorithmic stablecoin paradigm is fundamentally unstable"*. 외부 담보 없는 algorithmic 모델은 수학적으로 지속 불가능.
+Routledge & Zetlin-Jones (CMU 2023) — "the algorithmic stablecoin paradigm is fundamentally unstable". 외부 담보 없는 algorithmic 모델은 수학적으로 지속 불가능.
 
 ### 6-2. 수정 시각
-Frax Finance 등 일부 프로젝트가 *"hybrid algorithmic + collateralized"* 모델 시도. 약 70% 담보 + 30% algorithmic 의 결합. 이 모델이 작동하는지는 학계에서 논쟁 중.
+Frax Finance 등 일부 프로젝트가 "hybrid algorithmic + collateralized" 모델 시도. 약 70% 담보 + 30% algorithmic 의 결합. 이 모델이 작동하는지는 학계에서 논쟁 중.
 
 ### 6-3. 신규 시도
-Ethena 의 USDe (#8-C 에서 다룸) 가 새로운 형태의 *"synthetic dollar"* 로 등장. 그러나 이게 algorithmic stablecoin 의 부활인지, 아니면 다른 카테고리인지는 학술적으로 미해결.
+Ethena 의 USDe (#8-C 에서 다룸) 가 새로운 형태의 "synthetic dollar" 로 등장. 그러나 이게 algorithmic stablecoin 의 부활인지, 아니면 다른 카테고리인지는 학술적으로 미해결.
 
 <Callout type="opposing-view" title="반대 시각 · Luna 붕괴는 실패한 실험인가, 성공적 폭로인가">
-Luna-UST 붕괴를 *"실패한 사기"* 로만 보는 시각이 정설이지만, 다른 해석도 학계에 존재합니다.
+Luna-UST 붕괴를 "실패한 사기" 로만 보는 시각이 정설이지만, 다른 해석도 학계에 존재합니다.
 
-첫째, **algorithmic stablecoin 의 한계를 학술적으로 입증한 *"비싼 실험"***. Luna 붕괴가 없었다면 algorithmic stablecoin 의 수학적 결함이 학술적으로 명확히 드러나지 않았을 가능성. 이 사건이 *"$60B 짜리 학술 논증"* 이 됐다는 시각. Vitalik Buterin 의 2022년 인터뷰가 비슷한 입장 — *"the failure was educational"*.
+첫째, **algorithmic stablecoin 의 한계를 학술적으로 입증한 "비싼 실험"**. Luna 붕괴가 없었다면 algorithmic stablecoin 의 수학적 결함이 학술적으로 명확히 드러나지 않았을 가능성. 이 사건이 "$60B 짜리 학술 논증" 이 됐다는 시각. Vitalik Buterin 의 2022년 인터뷰가 비슷한 입장 — "the failure was educational".
 
-둘째, **권도형 단독 책임 vs 시스템적 책임의 균형**. 권도형이 단독으로 UST 를 *"stable"* 이라 marketing 한 책임이 있지만, **그를 옹호한 VC, 거래소, 인플루언서들의 공동 책임**도 학술적으로 인정해야 합니다. 권도형만 처벌하면 *"the system that enabled him"* 이 그대로 남습니다. 한국 검찰이 신현성, 김민재, 한창준 등 공동 창업자도 기소한 이유.
+둘째, **권도형 단독 책임 vs 시스템적 책임의 균형**. 권도형이 단독으로 UST 를 "stable" 이라 marketing 한 책임이 있지만, **그를 옹호한 VC, 거래소, 인플루언서들의 공동 책임**도 학술적으로 인정해야 합니다. 권도형만 처벌하면 "the system that enabled him" 이 그대로 남습니다. 한국 검찰이 신현성, 김민재, 한창준 등 공동 창업자도 기소한 이유.
 
-셋째, **한국 정부의 책임도 작지 않음**. 2022년 5월 붕괴 시점까지 한국 정부는 algorithmic stablecoin 에 대한 명시적 규제가 없었습니다. UST 가 한국 거래소에 상장된 이상 한국 사용자의 보호 의무가 있었지만, 사실상 *"caveat emptor (구매자 위험 부담)"* 원칙으로 방치. VAUPA 가 사후약방문이라는 비판이 의미 있습니다.
+셋째, **한국 정부의 책임도 작지 않음**. 2022년 5월 붕괴 시점까지 한국 정부는 algorithmic stablecoin 에 대한 명시적 규제가 없었습니다. UST 가 한국 거래소에 상장된 이상 한국 사용자의 보호 의무가 있었지만, 사실상 "caveat emptor (구매자 위험 부담)" 원칙으로 방치. VAUPA 가 사후약방문이라는 비판이 의미 있습니다.
 
-넷째, **algorithmic stablecoin 의 사상적 매력은 여전히 살아 있음**. Frax, Ethena 같은 신규 프로젝트가 등장하는 이유 — *"외부 담보 없이 작동하는 stablecoin"* 의 매력은 학술적으로 여전히 흥미롭습니다. Luna 가 그 매력을 잘못 구현했을 뿐, 사상 자체가 죽지 않았다는 카운터.
+넷째, **algorithmic stablecoin 의 사상적 매력은 여전히 살아 있음**. Frax, Ethena 같은 신규 프로젝트가 등장하는 이유 — "외부 담보 없이 작동하는 stablecoin" 의 매력은 학술적으로 여전히 흥미롭습니다. Luna 가 그 매력을 잘못 구현했을 뿐, 사상 자체가 죽지 않았다는 카운터.
 
-이 4가지 시각이 의미하는 바 — Luna 붕괴는 단순히 *"한 사람의 사기"* 가 아니라 **시스템적 사건**이고, 학술적·법적·정책적 의미가 다층적입니다.
+이 4가지 시각이 의미하는 바 — Luna 붕괴는 단순히 "한 사람의 사기" 가 아니라 **시스템적 사건**이고, 학술적·법적·정책적 의미가 다층적입니다.
 </Callout>
 
 ## 결론 — $60B 의 학술 논증
@@ -210,6 +210,6 @@ Luna-UST 붕괴를 *"실패한 사기"* 로만 보는 시각이 정설이지만,
 4. **권도형 미국 송환 + 형사 재판 진행 중**. 100년 이상 형 가능성, 그러나 plea bargain 가능.
 5. **VAUPA 의 직접 동기**. 한국 가상자산 시장의 알고리즘 스테이블 + 자체 발행 토큰 규제는 Luna 사태의 직접 결과.
 
-본 시리즈는 Luna 사태를 *"한 사람의 사기"* 로 단순화하지 않습니다. **시스템적 사건**으로 보고, 그 시스템에 참여한 모든 행위자(권도형 + VC + 거래소 + 정부)의 책임을 학술적으로 분리해 봅니다.
+본 시리즈는 Luna 사태를 "한 사람의 사기" 로 단순화하지 않습니다. **시스템적 사건**으로 보고, 그 시스템에 참여한 모든 행위자(권도형 + VC + 거래소 + 정부)의 책임을 학술적으로 분리해 봅니다.
 
 다음 편(#C2) — Mt.Gox 850K BTC 해킹과 14년 채권자 보상. 가상자산 산업의 첫 대규모 해킹의 영구 교훈.

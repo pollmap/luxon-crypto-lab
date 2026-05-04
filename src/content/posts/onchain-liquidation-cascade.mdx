@@ -26,16 +26,16 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-강제 청산이 어떻게 가격을 *liquidity magnet zone* 으로 끌어당기나요? Coinglass Liquidation Heatmap 의 작동. 2021년 5월 19일 *"$8B 한 시간 청산 cascade"* 의 분석. 한국 사용자 perp 거래의 청산 위험.
+강제 청산이 어떻게 가격을 *liquidity magnet zone* 으로 끌어당기나요? Coinglass Liquidation Heatmap 의 작동. 2021년 5월 19일 "$8B 한 시간 청산 cascade" 의 분석. 한국 사용자 perp 거래의 청산 위험.
 </Callout>
 
 <LiquidationCascadeChart />
 
-## 도입 — *"가격이 leverage 를 따라간다"*
+## 도입 — "가격이 leverage 를 따라간다"
 
-가상자산 시장의 가장 흥미로운 현상 — *"가격이 펀더멘털 보다 leverage cluster 에 끌려간다"*. 즉 *"많은 long 청산 가격이 모인 지점"* 으로 가격이 자기력처럼 끌립니다. 이게 **liquidity magnet** 가설.
+가상자산 시장의 가장 흥미로운 현상 — "가격이 펀더멘털 보다 leverage cluster 에 끌려간다". 즉 "많은 long 청산 가격이 모인 지점" 으로 가격이 자기력처럼 끌립니다. 이게 **liquidity magnet** 가설.
 
-Coinglass 의 *"Liquidation Heatmap"* 이 이 magnet zone 을 시각화. 본 편은 메커니즘 + 사례 + 한계를 봅니다.
+Coinglass 의 "Liquidation Heatmap" 이 이 magnet zone 을 시각화. 본 편은 메커니즘 + 사례 + 한계를 봅니다.
 
 ## 1. Liquidation 의 메커니즘
 
@@ -52,7 +52,7 @@ Perp 거래의 leverage — 사용자가 1 BTC 가치만큼 자본 (margin) 으�
 높은 leverage = 좁은 청산 거리.
 
 ### 1-3. Heatmap 작동
-Coinglass 가 모든 거래소의 청산 가격을 aggregate. 그래프에 *"가격 vs 청산량"* 표시. *"hot zone"* (밝은 색) = 많은 청산 cluster.
+Coinglass 가 모든 거래소의 청산 가격을 aggregate. 그래프에 "가격 vs 청산량" 표시. "hot zone" (밝은 색) = 많은 청산 cluster.
 
 ## 2. Liquidity Magnet 가설
 
@@ -64,10 +64,10 @@ Coinglass 가 모든 거래소의 청산 가격을 aggregate. 그래프에 *"가
 
 이 cascade 가 가속되면 — 5-10분 사이 -10-20% 폭락 가능.
 
-### 2-2. *"smart money"* 의 활용
-일부 trader 가 magnet zone 인근에서 의도적 매도 → cascade 유발 → 청산 후 저가 매수. 이 패턴이 *"market manipulation"* 의 의혹.
+### 2-2. "smart money" 의 활용
+일부 trader 가 magnet zone 인근에서 의도적 매도 → cascade 유발 → 청산 후 저가 매수. 이 패턴이 "market manipulation" 의 의혹.
 
-학계의 평가 — *"Hyperliquid 같은 perp DEX 에서 더 명확"*. CEX 는 일부 보호 (price impact limit 등).
+학계의 평가 — "Hyperliquid 같은 perp DEX 에서 더 명확". CEX 는 일부 보호 (price impact limit 등).
 
 ## 3. Case Study — 2021.5.19 Cascade
 
@@ -100,23 +100,23 @@ BitMEX Research 의 분석:
 ### 4-2. 청산 사례 다수
 한국 사용자가 청산으로 잃은 자금 — 정확한 통계 X 지만 추정 — 2024 한 해 약 ~$2B (한국가상자산보호원 추정). 그러나 — 한국 정부 통제 외부 (Bybit/OKX 등) 거래소이므로 보호 X.
 
-### 4-3. *"고배율 + 김치 프리미엄"* 의 결합
-한국 사용자가 — *"김치 프리미엄으로 글로벌 대비 비싸게 매수"* + *"perp 고배율 leverage"* 결합 시 가장 큰 위험. 한국 거래소 spot 매수 + Bybit 25x perp 의 결합 사용자 다수.
+### 4-3. "고배율 + 김치 프리미엄" 의 결합
+한국 사용자가 — "김치 프리미엄으로 글로벌 대비 비싸게 매수" + "perp 고배율 leverage" 결합 시 가장 큰 위험. 한국 거래소 spot 매수 + Bybit 25x perp 의 결합 사용자 다수.
 
 <Callout type="opposing-view" title="반대 시각 · Liquidation Heatmap 의 사용 한계">
 Coinglass Heatmap 이 인기 도구이지만, 비판적 시각도 있습니다.
 
 첫째, ***synthetic data* 위험**. Coinglass 의 aggregated 데이터가 모든 거래소에서 동등하게 정확하지 않음. 일부 거래소의 청산 데이터 불투명.
 
-둘째, ***self-fulfilling*** 위험. Heatmap 을 보고 trader 가 magnet zone 으로 의도적 가격 이동 시도. 즉 *"식별 도구"* 가 *"manipulation 도구"* 가 됨.
+둘째, **self-fulfilling** 위험. Heatmap 을 보고 trader 가 magnet zone 으로 의도적 가격 이동 시도. 즉 "식별 도구" 가 "manipulation 도구" 가 됨.
 
-셋째, **Hyperliquid 의 부상**. Perp DEX (Hyperliquid 등) 의 청산 메커니즘이 CEX 와 다름. *"on-chain liquidation"* 이 더 투명하지만 더 빠른 cascade.
+셋째, **Hyperliquid 의 부상**. Perp DEX (Hyperliquid 등) 의 청산 메커니즘이 CEX 와 다름. "on-chain liquidation" 이 더 투명하지만 더 빠른 cascade.
 
 넷째, **leverage 한도 인하의 효과**. 100x → 20x 변경 후 cascade 빈도 감소. 그러나 magnet zone 자체는 여전히 작동.
 
-다섯째, **시장 구조의 진화**. 2024-2026 시장에서 *"institutional 비중 가속"* + *"ETF 출시"* 로 leverage 시장의 영향력 약화. liquidation cascade 의 가격 영향이 점차 작아질 가능성.
+다섯째, **시장 구조의 진화**. 2024-2026 시장에서 "institutional 비중 가속" + "ETF 출시" 로 leverage 시장의 영향력 약화. liquidation cascade 의 가격 영향이 점차 작아질 가능성.
 
-이 5가지 비판이 의미하는 바 — Liquidation Heatmap 이 유용하지만 *"silver bullet"* 이 아닙니다.
+이 5가지 비판이 의미하는 바 — Liquidation Heatmap 이 유용하지만 "silver bullet" 이 아닙니다.
 </Callout>
 
 ## 결론 — Cascade 위험의 정량 framework

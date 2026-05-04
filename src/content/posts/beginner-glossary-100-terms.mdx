@@ -7,7 +7,7 @@ subtitle: NVT · MVRV · mNAV · restaking · ZK · L2 · CDP 등 100 용어 (Be
 publishedAt: "2026-05-04"
 category: Beginner
 tags: [glossary, beginner, terms]
-estimatedReadTime: 18
+estimatedReadTime: 22
 draft: false
 author: 이찬희
 sources:
@@ -22,142 +22,204 @@ sources:
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-luxon-crypto-lab 의 학술 글에 등장하는 100 용어를 한 곳에 정리. 처음 읽는 분들이 학술 글을 이해하기 위한 *"필독"* 사전. 카테고리별로 분류 + 간결한 정의 + 관련 글 링크.
+luxon-crypto-lab 의 학술 글에 등장하는 100 용어를 한 곳에 정리. 처음 읽는 분들이 학술 글을 이해하기 위한 "필독" 사전. 카테고리별로 분류 + 간결한 정의 + 관련 글 링크.
 </Callout>
 
-## 도입
+## 들어가며 — 왜 100개인가
 
-자, 가상자산 학술 글을 읽으려면 — 100 용어 정도는 알아야 합니다. 모두 검색해보면서 읽으면 시간이 오래 걸리죠. 그래서 이 사전을 만들었습니다.
+가상자산 분야의 글이 어려운 이유는 단 하나입니다. 같은 페이지 안에 전통 금융 용어, 컴퓨터 과학 용어, 거시경제 용어, 그리고 가상자산 고유 용어가 뒤섞여 등장하기 때문이죠. 한국 독자가 NY Fed Staff Report 한 편을 펼치면 첫 두 페이지에서만 평균 30개 이상의 약어가 쏟아진다는 통계가 있습니다. 이걸 그때그때 검색하다 보면 글의 흐름을 잃고, 잃으면 다음에는 그 글 자체를 펼치지 않게 됩니다.
 
-용어를 — 12 카테고리로 분류했습니다. 학술 글에서 자주 등장하는 순서. 한국어 + 원어 표기 + 1-3줄 정의.
+이 사전은 luxon-crypto-lab 시리즈의 모든 학술 글에서 인용 빈도가 높은 100개 용어를 12개 카테고리로 묶어 정리한 것입니다. 한국어 표기 + 원어 표기 + 짧은 정의 + 한국 시장 맥락(필요한 경우). 처음에는 한 번 빠르게 훑고, 학술 글을 읽다가 막히면 이 사전으로 돌아오는 식으로 활용하시면 됩니다.
+
+용어 분류 순서는 학술 글 등장 빈도 기준입니다. 토크노믹스와 합의 알고리즘이 가장 많이 등장하므로 1, 2번에 배치했고, 정책과 매크로 분야가 뒤로 갔습니다. 한국 사용자가 자주 만나는 용어는 끝부분의 12번 카테고리에 별도로 모았습니다.
 
 ---
 
 ## 1. 토크노믹스 (Tokenomics)
 
-- **토크노믹스 (Tokenomics)** — 토큰 + 경제학. 토큰의 발행, 분배, 가치 포착 메커니즘 분석.
-- **시가총액 (Market Cap)** — 유통량 × 가격. 가상자산의 *"기업 가치"* 비유.
-- **유통량 (Circulating Supply)** — 시장에서 거래 가능한 토큰 수.
-- **총 공급량 (Total Supply)** — 발행된 모든 토큰 (잠금 포함).
-- **최대 공급량 (Max Supply)** — 영구 발행 가능한 한도. BTC 의 21M 이 대표 사례.
-- **인플레이션 / 디플레이션 (Inflation / Deflation)** — 토큰 발행이 늘어나는지 (인플레이션) 줄어드는지 (디플레이션).
-- **반감기 (Halving)** — 비트코인의 마이너 보상이 4년마다 반으로 줄어드는 메커니즘.
-- **에어드랍 (Airdrop)** — 사용자에게 토큰을 무료 분배하는 마케팅.
+토큰의 발행 구조와 가치 포착 메커니즘을 다루는 분야입니다. 주식의 기업 분석에 해당하는 부분으로, 가상자산 분석의 출발점이라 할 수 있습니다.
+
+- **토크노믹스 (Tokenomics)** — 토큰 + 경제학의 합성어. 토큰의 발행, 분배, 소각, 가치 포착 메커니즘을 종합 분석하는 영역. 전통 금융의 "재무 분석"과 가장 가까운 위치에 있습니다.
+- **시가총액 (Market Cap)** — 유통량 × 가격. 가상자산의 "기업 가치" 비유로 흔히 쓰지만, 유통량 기준이냐 총공급량 기준이냐에 따라 결과가 크게 달라집니다.
+- **유통량 (Circulating Supply)** — 시장에서 거래 가능한 토큰 수. 락업되어 있는 토큰은 제외합니다. 한국 거래소는 보통 이 기준으로 시총을 표기합니다.
+- **총 공급량 (Total Supply)** — 발행된 모든 토큰 수, 락업 + 팀 보유 + 미배포 분 포함. 유통량과 차이가 클수록 향후 락업 해제(unlock) 압력이 큽니다.
+- **최대 공급량 (Max Supply)** — 영구히 발행될 수 있는 한도. 비트코인의 21,000,000개가 대표 사례. 이더리움은 max supply가 정해져 있지 않습니다.
+- **인플레이션 / 디플레이션 (Inflation / Deflation)** — 토큰 발행이 늘어나는지(인플레이션), 소각으로 줄어드는지(디플레이션) 여부. 이더리움은 EIP-1559 도입 후 사용량에 따라 양쪽을 오가는 구조가 되었습니다.
+- **반감기 (Halving)** — 비트코인 마이너 보상이 약 4년마다 절반으로 줄어드는 메커니즘. 2024년 4월 4차 반감기로 블록당 보상이 6.25 → 3.125 BTC로 감소했습니다.
+- **에어드랍 (Airdrop)** — 사용자에게 토큰을 무상 분배하는 마케팅. Uniswap의 UNI 에어드랍(2020), Arbitrum의 ARB 에어드랍(2023)이 대표 사례.
+- **베스팅 (Vesting)** — 팀 + 투자자에게 배정된 토큰이 일정 기간에 걸쳐 점진적으로 풀리는 구조. 1년 cliff + 3년 linear가 표준입니다.
+- **TGE (Token Generation Event)** — 토큰이 처음 발행되는 시점. 이때 배포 비율과 락업 일정이 결정됩니다.
 
 ## 2. 합의 (Consensus)
 
-- **PoW (Proof of Work)** — 작업 증명. 비트코인이 채택. 마이너가 계산을 통해 합의.
-- **PoS (Proof of Stake)** — 지분 증명. 이더리움이 The Merge 후 채택. 검증자가 ETH 스테이킹.
-- **검증자 (Validator)** — PoS 에서 블록 생성 + 검증을 담당하는 entity.
-- **스테이킹 (Staking)** — 검증자가 자기 토큰을 잠그고 블록 생성 권한 획득.
-- **슬래싱 (Slashing)** — 검증자가 잘못된 행동 시 — 자기 스테이킹된 토큰 일부 몰수.
-- **마이닝 (Mining)** — PoW 에서 채굴. 컴퓨터 계산으로 블록 생성.
-- **51% 공격 (51% Attack)** — 단일 entity 가 — 네트워크 해시레이트의 51%+ 점유 시 공격 가능.
-- **PBFT (Practical Byzantine Fault Tolerance)** — 분산 시스템의 합의 알고리즘 표준.
+블록체인이 "누가 다음 블록을 만드는가"를 결정하는 알고리즘 분야입니다. 비트코인의 PoW와 이더리움의 PoS가 양대 산맥입니다.
 
-## 3. 온체인 메트릭 (On-chain Metrics)
+- **PoW (Proof of Work)** — 작업 증명. 컴퓨팅 자원을 소모해 합의에 도달. 비트코인이 채택. 에너지 소비가 크다는 비판이 있지만, 보안 모델로는 가장 검증된 방식입니다.
+- **PoS (Proof of Stake)** — 지분 증명. 검증자가 자기 토큰을 잠그고 합의에 참여. 이더리움이 2022년 The Merge로 전환. 에너지 소비가 PoW 대비 99% 이상 감소했습니다.
+- **검증자 (Validator)** — PoS에서 블록 생성과 검증을 담당하는 노드 운영자. 이더리움 검증자가 되려면 32 ETH가 필요합니다.
+- **스테이킹 (Staking)** — 검증자가 자기 토큰을 락업하고 블록 생성 권한을 얻는 행위. 보상으로 토큰을 받습니다.
+- **슬래싱 (Slashing)** — 검증자가 잘못된 행동(이중 서명 등)을 했을 때 스테이킹된 토큰 일부가 몰수되는 페널티.
+- **마이닝 (Mining)** — PoW 환경에서 채굴자가 컴퓨팅 자원을 동원해 블록을 만드는 행위.
+- **51% 공격 (51% Attack)** — 단일 주체가 네트워크 해시레이트(또는 스테이킹) 51% 이상을 점유했을 때 가능한 공격 벡터. 비트코인에서는 현실적으로 불가능에 가깝습니다.
+- **PBFT (Practical Byzantine Fault Tolerance)** — 분산 시스템의 합의 알고리즘 표준. Cosmos, Tendermint 계열에서 활용.
+- **Finality (최종성)** — 블록이 되돌릴 수 없게 확정되는 시점. 비트코인은 약 6 confirmation(약 1시간), 이더리움 PoS는 약 12-15분.
+- **Fork (포크)** — 체인이 두 갈래로 나뉘는 현상. Soft fork(이전 노드도 호환)와 Hard fork(호환 안 됨)로 구분.
 
-- **NVT (Network Value to Transactions)** — 네트워크 가치 / 일일 거래량. 주식의 P/E 와 비슷한 framework.
-- **MVRV (Market Value to Realized Value)** — 시가총액 / 실현가치 (Realized Cap). 사이클 정점/저점 판단.
-- **Realized Cap** — 각 토큰이 마지막 이동된 시점의 가격 합. 사용자 평균 cost basis 근사.
-- **HODL Waves** — 보유 기간별 코인 분포 시각화.
-- **NUPL (Net Unrealized Profit/Loss)** — 미실현 손익 비율. 시장 심리 측정.
-- **SOPR (Spent Output Profit Ratio)** — 코인 매도 시점의 수익률 측정.
-- **Fear & Greed Index** — 시장 심리 지표 (0-100).
-- **Hash Rate** — 비트코인 네트워크의 총 계산 능력.
+## 3. 비트코인 핵심 (Bitcoin Core)
 
-## 4. 가치평가 (Valuation)
+비트코인을 이해하기 위한 고유 용어입니다. UTXO 모델은 이더리움의 account 모델과 본질적으로 다르므로 별도 학습이 필요합니다.
 
-- **P/E (Price/Earnings)** — 주식의 가치평가. 가상자산에는 직접 적용 어려움.
-- **P/F (Price/Fees)** — 가격 / 수수료 수익. 이더리움 가치평가에 사용.
-- **P/S (Price/Sales)** — 가격 / 매출. DeFi 프로토콜 평가.
-- **mNAV (modified Net Asset Value)** — Treasury 회사의 시가총액 / 보유 자산. Strategy 의 1.65x 등.
-- **DCF (Discounted Cash Flow)** — 미래 현금흐름의 현재가치. 전통 가치투자.
-- **Stock-to-Flow (S2F)** — 기존 공급 / 새 공급 비율. PlanB 모델로 유명.
+- **UTXO (Unspent Transaction Output)** — 비트코인의 자산 표현 방식. 잔액 = "쓰지 않은 출력값"의 합. 이더리움의 account 모델과 본질적으로 다른 framework.
+- **Hash Rate (해시레이트)** — 비트코인 네트워크의 총 계산 능력. EH/s(엑사해시) 단위. 2026년 현재 약 700 EH/s 수준.
+- **Block Reward (블록 보상)** — 마이너가 블록을 만들 때 받는 신규 발행 BTC. 4차 반감기 후 블록당 3.125 BTC.
+- **Difficulty (난이도)** — 블록 생성에 필요한 계산량. 약 2주마다 자동 조정되어 평균 10분 블록 시간을 유지합니다.
+- **Mempool (멤풀)** — 아직 블록에 포함되지 않은 대기 중인 트랜잭션 풀.
+- **Lightning Network (라이트닝 네트워크)** — 비트코인의 L2 결제 네트워크. 채널 기반 오프체인 결제로 즉시 송금이 가능합니다.
+- **Ordinals (오디널스)** — 사토시(BTC의 최소 단위) 단위에 데이터를 새기는 framework. 비트코인 NFT의 출발점이자 논쟁의 시작.
+- **Taproot (탭루트)** — 2021년 활성화된 비트코인 업그레이드. 프라이버시와 스마트 컨트랙트 기능을 강화.
+- **Stock-to-Flow (S2F)** — 기존 공급 / 신규 공급 비율. PlanB의 BTC 가격 모델로 유명. 학술적으로는 회귀의 함정이 지적된 바 있습니다.
 
-## 5. DeFi (Decentralized Finance)
+## 4. 이더리움 핵심 (Ethereum Core)
 
-- **DeFi** — 탈중앙화 금융. 스마트 컨트랙트 기반 금융.
-- **TVL (Total Value Locked)** — DeFi 프로토콜에 잠긴 자산 총량.
-- **AMM (Automated Market Maker)** — 자동화된 시장 조성. Uniswap 의 x×y=k 공식.
-- **CDP (Collateralized Debt Position)** — 담보부 부채 포지션. MakerDAO 의 framework.
-- **Lending / Borrowing** — DeFi 대출 / 차용. Aave, Compound 의 주 사업.
-- **Liquidation** — 청산. 차주의 담보가 임계값 아래로 떨어지면 자동 회수.
-- **Slippage** — 슬리피지. 거래 시 예상 가격과 실제 가격의 차이.
-- **Impermanent Loss (IL)** — 임시 손실. LP 가 가격 변동으로 입는 손실.
+스마트 컨트랙트 생태계의 표준 용어들입니다. ERC 표준은 토큰 인터페이스를 정의하는 규약입니다.
 
-## 6. L2 (Layer 2)
+- **EVM (Ethereum Virtual Machine)** — 이더리움의 가상 컴퓨터. 모든 검증자가 동일한 코드를 실행해 같은 결과를 도출합니다.
+- **Smart Contract (스마트 컨트랙트)** — 블록체인 위에서 자동 실행되는 코드. "if X then Y" 형식의 규칙이 영구히 작동.
+- **Gas (가스)** — 이더리움의 컴퓨팅 비용 단위. 각 연산마다 정해진 gas가 소모됩니다.
+- **Gas Fee (가스비)** — gas 가격(gwei) × 사용량. 트랜잭션 수수료로 ETH로 지불합니다.
+- **EIP (Ethereum Improvement Proposal)** — 이더리움 개선 제안. EIP-1559(수수료 burn), EIP-4844(Blob), EIP-7702(account abstraction) 등이 대표.
+- **EIP-1559** — 2021년 도입된 수수료 구조. base fee가 자동 소각되어 ETH 공급을 줄이는 메커니즘.
+- **EIP-4844 (Proto-Danksharding)** — 2024년 도입. L2 데이터 비용을 약 90% 절감. "Blob"이라는 임시 데이터 슬롯 도입.
+- **The Merge (머지)** — 2022년 9월 이더리움이 PoW에서 PoS로 전환한 사건. 가상자산 역사상 가장 큰 인프라 변경.
+- **Pectra (펙트라)** — 2025년 이더리움 업그레이드. Account Abstraction과 검증자 효율 개선이 핵심.
+- **ERC-20** — 대체성 토큰 표준. USDC, UNI, AAVE 등 거의 모든 ERC 토큰이 따르는 규약.
+- **ERC-721** — 비대체성 토큰(NFT) 표준. 각 토큰마다 고유 ID를 가집니다.
+- **ERC-1155** — 다중 토큰 표준. 한 컨트랙트에서 여러 종류 토큰을 동시에 관리. 게임 아이템에 주로 활용.
+- **ERC-4337 (Account Abstraction)** — 스마트 계약 지갑 표준. 가스비를 제3자가 대신 내거나, 다중 서명을 자유롭게 구성할 수 있게 합니다.
 
-- **L1 / L2** — 메인넷 (이더리움) / L2 (Arbitrum, Base 등).
-- **Rollup** — 트랜잭션을 모아 메인넷에 게시하는 framework.
-- **Optimistic Rollup** — *"기본 valid"* 가정 + 7일 challenge 기간.
-- **ZK Rollup** — ZK proof 로 즉시 valid 검증.
-- **Sequencer** — L2 에서 트랜잭션을 정렬 + 처리하는 entity.
-- **Data Availability (DA)** — L2 데이터를 어디에 저장하는가. 이더리움 메인넷 또는 외부 layer.
-- **EIP-4844 (Proto-Danksharding)** — L2 데이터 비용 절감 framework. *"Blob"* 도입.
-- **Superchain** — Optimism + Base + 다수 OP Stack chain 의 통합 framework.
+## 5. 온체인 메트릭 (On-chain Metrics)
 
-## 7. ZK (Zero-Knowledge)
+블록체인 데이터에서 직접 도출되는 가치 평가 지표들. Glassnode, Coin Metrics가 대표적인 데이터 제공자입니다.
 
-- **ZK proof** — 자기가 진실을 알고 있다는 것을 — 진실 자체를 공개하지 않고 증명.
-- **zkEVM** — ZK proof 로 검증 가능한 EVM.
-- **PLONK / Halo2 / STARK** — ZK proof 알고리즘.
-- **Type 1-4 zkEVM** — Vitalik 의 zkEVM 분류 (이더리움 호환도 기준).
-- **Circuit** — ZK proof 가 계산되는 *"전기 회로"* 비유.
+- **NVT (Network Value to Transactions)** — 네트워크 가치 / 일일 거래량. 주식의 P/E 와 유사한 valuation 지표.
+- **MVRV (Market Value to Realized Value)** — 시가총액 / Realized Cap. 사이클 정점/저점 판단에 자주 활용됩니다.
+- **Realized Cap (실현 시가총액)** — 각 토큰이 마지막으로 이동된 시점의 가격을 합산한 값. 사용자들의 평균 cost basis 근사치.
+- **HODL Waves** — 보유 기간(1d-7d, 7d-1m, 1m-3m, ...)별 코인 분포 시각화. 장기 홀더 비중을 추적.
+- **NUPL (Net Unrealized Profit/Loss)** — 시장 전체의 미실현 손익 비율. 0 이상이면 평균적으로 흑자, 0 이하면 적자.
+- **SOPR (Spent Output Profit Ratio)** — 매도된 코인의 평균 수익률. 1 이상이면 차익 실현, 1 이하면 손절 매도.
+- **Fear & Greed Index** — 시장 심리 지수(0-100). Alternative.me가 BTC 기준으로 매일 산출합니다.
+- **Coin Days Destroyed (CDD)** — 오래된 코인이 움직일 때 가산되는 지표. 장기 홀더의 행동 변화를 포착합니다.
+- **Active Addresses (활성 주소)** — 일일 송수신에 참여한 고유 주소 수. 네트워크 사용 강도의 척도.
 
-## 8. 스테이블코인 (Stablecoin)
+## 6. 가치평가 (Valuation)
 
-- **스테이블코인 (Stablecoin)** — 가격 변동성이 적은 가상자산. USD 페그가 가장 많음.
-- **Fiat-Backed** — USDC, USDT 같은 법정 통화 담보 스테이블코인.
-- **Crypto-Backed** — DAI, USDS 같은 가상자산 담보.
-- **Algorithmic** — Luna UST 같은 알고리즘 기반 (대부분 실패).
-- **Depeg** — 스테이블코인이 1 USD 페그를 잃는 사건.
-- **PSM (Peg Stability Module)** — DAI 의 USDC 와 1:1 교환 메커니즘.
+전통 금융의 valuation framework를 가상자산에 적용한 지표들. 직접 적용이 어려운 경우가 많아 적응형 변종이 발전해 왔습니다.
 
-## 9. NFT + RWA
+- **P/E (Price/Earnings)** — 전통 주식의 가치평가 지표. 가상자산 대부분에는 직접 적용이 어렵습니다(수익 정의의 모호함).
+- **P/F (Price/Fees)** — 가격 / 수수료 수익. 이더리움 같은 수수료 발생 자산의 valuation.
+- **P/S (Price/Sales)** — 가격 / 매출. DeFi 프로토콜 평가에 자주 사용. Token Terminal이 대표 데이터 제공자.
+- **mNAV (modified Net Asset Value)** — Treasury 회사의 시가총액 / 보유 자산. Strategy의 mNAV가 1.65x 수준에서 거래되는 식.
+- **DCF (Discounted Cash Flow)** — 미래 현금흐름의 현재가치. 전통 가치투자 framework이지만 가상자산에 적용 시 가정의 임의성이 큽니다.
+- **NPV (Net Present Value)** — 순현재가치. DCF와 함께 묶여 등장.
+- **Treasury Premium** — 가상자산을 보유한 상장사 주가가 보유 자산 가치 대비 받는 프리미엄(또는 디스카운트).
 
-- **NFT (Non-Fungible Token)** — 비대체성 토큰. 디지털 소유권.
-- **ERC-721** — 이더리움 NFT 표준.
-- **ERC-1155** — 다중 토큰 표준.
-- **RWA (Real-World Asset)** — 실물자산 토큰화. BlackRock BUIDL 등.
-- **STO (Security Token Offering)** — 토큰증권. 한국 자본시장연구원 표준.
+## 7. DeFi (Decentralized Finance)
 
-## 10. 거래소 + 시장
+스마트 컨트랙트로 구현된 금융 서비스 영역입니다. 2020년 "DeFi Summer" 이후 본격적으로 학술 분야로 자리 잡았습니다.
 
-- **CEX (Centralized Exchange)** — 중앙집중형 거래소. Binance, Coinbase, 업비트.
-- **DEX (Decentralized Exchange)** — 분산 거래소. Uniswap, Curve.
-- **Order Book** — 호가창. CEX 의 매칭 방식.
-- **Liquidity Pool** — 유동성 풀. AMM 의 자산 풀.
-- **Market Maker** — 시장 조성자. 호가 제공자.
-- **Funding Rate** — Perp 시장의 펀딩 수수료.
-- **Open Interest (OI)** — 미결제 약정 총량.
+- **DeFi (Decentralized Finance)** — 탈중앙화 금융. 은행 + 중개자 없이 스마트 컨트랙트로 구현된 금융 서비스.
+- **TVL (Total Value Locked)** — DeFi 프로토콜에 잠긴 자산 총량. 2026년 현재 약 $130B 수준.
+- **AMM (Automated Market Maker)** — 자동화된 시장 조성. Uniswap의 x×y=k 공식이 대표.
+- **Liquidity Pool (유동성 풀)** — 두 자산이 묶여 있는 풀. LP가 자산을 예치하고 수수료를 받습니다.
+- **LP (Liquidity Provider)** — 유동성 공급자. AMM에 자산을 예치하고 거래 수수료를 받는 사용자.
+- **CDP (Collateralized Debt Position)** — 담보부 부채 포지션. MakerDAO가 도입한 framework.
+- **Lending / Borrowing** — DeFi 대출과 차용. Aave, Compound, Morpho가 대표.
+- **Liquidation (청산)** — 차주의 담보 가치가 임계치 아래로 떨어지면 담보가 자동 매각되는 메커니즘.
+- **Slippage (슬리피지)** — 주문 시 예상 가격과 실제 체결 가격의 차이. 거래 규모가 클수록 커집니다.
+- **Impermanent Loss (IL, 임시 손실)** — LP가 가격 변동으로 입는 비용. "그냥 보유"보다 LP 수익이 적을 때 발생.
+- **Yield Farming (수익률 농사)** — 자산을 DeFi에 예치하고 이자 + 토큰 보상을 받는 행위.
+- **APY / APR** — 연이율. APY는 복리 반영, APR은 단리. 같은 의미로 혼용되지만 수치는 다를 수 있습니다.
 
-## 11. 거버넌스 + 보안
+## 8. L2 + 확장성 (Layer 2 & Scaling)
 
-- **DAO (Decentralized Autonomous Organization)** — 탈중앙화 자율 조직.
-- **Governance Token** — 거버넌스 토큰. UNI, AAVE 등.
-- **veToken** — vote-escrowed token. Curve veCRV 모델.
-- **Multisig** — 다중 서명. 자산 보호 framework.
-- **Cold Wallet / Hot Wallet** — 콜드 / 핫 지갑. 보안 vs 편의 trade-off.
-- **Self-Custody** — 자가 보관. 사용자가 직접 키 관리.
-- **Hardware Wallet** — 하드웨어 지갑. Ledger, Trezor.
-- **Seed Phrase** — 시드 구문. 12-24 단어 백업.
+이더리움 메인넷의 처리량 제약을 해결하기 위한 보조 레이어들. 2024-2026년 가상자산 학계의 최대 토론 주제 중 하나입니다.
 
-## 12. 매크로 + 정책
+- **L1 / L2** — Layer 1(메인넷) / Layer 2(보조 레이어). 이더리움이 L1, Arbitrum + Base + Optimism이 L2.
+- **Rollup (롤업)** — 트랜잭션을 L2에서 처리하고 결과를 L1에 게시하는 framework.
+- **Optimistic Rollup** — "기본적으로 valid" 가정 + 7일 challenge 기간을 통한 부정 거래 도전. Arbitrum, Optimism이 채택.
+- **ZK Rollup** — Zero-Knowledge proof로 즉시 valid 검증. zkSync, Linea, Scroll, Starknet 등.
+- **Sequencer (시퀀서)** — L2에서 트랜잭션을 정렬하고 처리하는 entity. 중앙화 이슈가 자주 지적됩니다.
+- **Data Availability (DA)** — L2 데이터를 어디에 저장하는가. 이더리움 메인넷 또는 Celestia, EigenDA 같은 외부 layer.
+- **Blob (블롭)** — EIP-4844로 도입된 임시 데이터 슬롯. L2 비용 절감의 핵심.
+- **Superchain (슈퍼체인)** — Optimism의 OP Stack을 공유하는 L2 집합. Base, Mode, Zora 등이 참여.
 
-- **CBDC (Central Bank Digital Currency)** — 중앙은행 디지털화폐. e-CNY, 디지털 유로 등.
-- **MiCA** — EU 가상자산 규제 (Markets in Crypto-Assets).
-- **GENIUS Act** — 미국 스테이블코인 입법.
-- **VAUPA** — 한국 가상자산이용자보호법.
-- **Travel Rule** — 자금세탁방지를 위한 송수신자 정보 공유.
-- **CARF** — OECD 가상자산 정보교환 framework.
-- **AML / CFT** — 자금세탁방지 / 자금조달방지.
-- **KYC** — 고객 신원확인.
+## 9. ZK + 프라이버시 (Zero-Knowledge & Privacy)
+
+수학적으로 가장 진보한 영역이지만, 실용 단계에 진입한 것은 비교적 최근입니다.
+
+- **ZK proof (Zero-Knowledge proof)** — 정보 자체를 공개하지 않고 그 정보를 알고 있다는 사실만 증명하는 framework.
+- **zkEVM** — ZK proof로 검증 가능한 EVM. Polygon zkEVM, zkSync, Scroll, Linea가 대표.
+- **PLONK / Halo2 / STARK** — ZK proof 알고리즘 종류. STARK는 양자 저항이 있다는 점이 차별화.
+- **Type 1-4 zkEVM** — Vitalik이 제안한 zkEVM 분류. 이더리움 호환도가 높을수록 Type 1에 가까움.
+- **Circuit (회로)** — ZK proof가 계산되는 가상의 전기 회로 비유. 프로그램의 ZK-friendly 표현.
+
+## 10. 스테이블코인 (Stablecoin)
+
+가격 변동성을 제거한 가상자산. 2024-2026년 글로벌 결제와 송금 영역의 핵심 인프라로 부상했습니다.
+
+- **Stablecoin (스테이블코인)** — 가격 변동성이 적도록 설계된 가상자산. 대부분 1 USD 페그.
+- **Fiat-Backed (법정 통화 담보)** — USDT, USDC처럼 법정 통화 + 미국 단기국채를 담보로 하는 모델.
+- **Crypto-Backed (가상자산 담보)** — DAI, USDS처럼 ETH 등을 과담보로 발행하는 모델.
+- **Algorithmic (알고리즘)** — 알고리즘만으로 페그를 유지하는 모델. Luna UST의 실패 후 대부분의 사용자가 회피합니다.
+- **Depeg (디페그)** — 스테이블코인이 1 USD 페그를 잃는 사건. 2023년 3월 USDC가 SVB 사태로 일시 디페그.
+- **PSM (Peg Stability Module)** — DAI가 USDC와 1:1 교환을 보장하는 메커니즘.
+- **GENIUS Act** — 2025년 미국 스테이블코인 입법. 발행자 자격과 준비금 요건을 정의합니다.
+
+## 11. NFT + RWA
+
+비대체성 토큰과 실물자산 토큰화. 2021년 거품, 2022-2023 침체, 2024년 이후 RWA 중심 정착 단계.
+
+- **NFT (Non-Fungible Token)** — 비대체성 토큰. 디지털 소유권의 첫 표준 표현.
+- **PFP (Profile Picture)** — 프로필 이미지용 NFT. CryptoPunks, BAYC가 대표.
+- **Floor Price (플로어 가격)** — NFT 컬렉션에서 가장 낮은 호가.
+- **Royalty (로열티)** — 2차 거래마다 창작자에게 가는 수수료. 2023년 이후 강제성이 약화되며 논쟁이 있습니다.
+- **RWA (Real-World Asset)** — 실물자산 토큰화. 미국 단기국채(BlackRock BUIDL), 부동산, 미술품 등.
+- **STO (Security Token Offering)** — 토큰증권 발행. 한국에서는 자본시장연구원 가이드라인이 표준.
+- **SBT (Soulbound Token)** — 양도 불가 NFT. 자격증, 학위, 신원 인증 등에 활용 가능.
+
+## 12. 한국 + 거래소 + 정책 (Korea & Markets & Policy)
+
+한국 사용자가 자주 만나는 용어와 글로벌 정책 framework입니다.
+
+- **CEX (Centralized Exchange)** — 중앙집중형 거래소. 업비트, 빗썸, Binance 등.
+- **DEX (Decentralized Exchange)** — 분산 거래소. Uniswap, Curve, Aerodrome 등.
+- **Order Book (호가창)** — CEX의 매칭 방식. 매수 + 매도 호가가 만나면 거래 체결.
+- **Funding Rate (펀딩 레이트)** — Perp 시장에서 long과 short 사이 수수료를 주고받는 레이트.
+- **Open Interest (OI)** — 미결제 약정 총량. 시장 참여 강도의 지표.
+- **Perpetual (Perp, 무기한 선물)** — 만기가 없는 선물. 펀딩 레이트로 spot과 가격 차이를 좁힙니다.
+- **Leverage (레버리지)** — 자기 자본 대비 포지션 배율. 한국 거래소는 spot만 가능.
+- **Kimchi Premium (김치 프리미엄)** — 한국 거래소 가격이 글로벌 거래소 대비 받는 프리미엄. 외환 통제와 자금 이동 마찰의 결과.
+- **VAUPA (가상자산이용자보호법)** — 한국의 가상자산 이용자 보호 입법. 2024년 7월 시행.
+- **트래블룰 (Travel Rule)** — 자금세탁방지(AML)를 위한 송수신자 정보 공유 의무. 한국은 100만원 이상이 임계값.
+- **DAO (Decentralized Autonomous Organization)** — 탈중앙화 자율 조직. 투표로 운영되는 사용자 커뮤니티.
+- **Governance Token (거버넌스 토큰)** — 프로토콜 의사결정 권한을 가진 토큰. UNI, AAVE, MKR 등.
+- **veToken (vote-escrowed token)** — 락업 기간이 길수록 투표 + 보상 가중치가 커지는 모델. Curve veCRV가 원조.
+- **Multisig (다중 서명)** — 여러 사용자가 함께 서명해야 자산이 움직이는 framework.
+- **Cold Wallet / Hot Wallet** — 오프라인 / 온라인 지갑. 보안과 편의의 trade-off.
+- **Self-Custody (자가 보관)** — 거래소가 아닌 자기 지갑에 직접 자산을 보관.
+- **Hardware Wallet (하드웨어 지갑)** — Ledger, Trezor 같은 콜드월렛 디바이스.
+- **Seed Phrase (시드 구문)** — 12-24단어의 지갑 백업 키. 분실 시 자산 영구 손실.
+- **CBDC (Central Bank Digital Currency)** — 중앙은행 디지털 화폐. 중국 e-CNY, 디지털 유로 등.
+- **MiCA** — EU 가상자산 규제(Markets in Crypto-Assets Regulation). 2024년 12월 전면 시행.
+- **CARF** — OECD 가상자산 정보교환 framework. 2027년 발효 예정.
+- **AML / CFT** — 자금세탁방지 / 테러자금조달방지.
+- **KYC (Know Your Customer)** — 고객 신원 확인. 한국 거래소 가입 시 필수.
+- **DXY (US Dollar Index)** — 달러 지수. 가상자산 가격과 역상관 관계가 자주 관찰됩니다.
 
 ---
 
-## 학술 글 읽기 가이드
+## 학술 글 읽기 가이드 — 다음 단계
 
-이 100 용어를 — 한 번 훑어보고 학술 글을 시작하시면 됩니다. 모르는 용어가 등장하면 — 이 사전으로 돌아오세요.
+이 100개 용어는 luxon-crypto-lab의 거의 모든 학술 글에서 등장하는 핵심 어휘입니다. 모두 한 번에 외우려고 하지 마시고, 처음에는 "어디에 무엇이 있다" 정도만 파악해 두면 충분합니다. 학술 글을 읽다가 막히는 용어가 있으면 이 페이지로 돌아와 해당 카테고리를 펼치는 식으로 사용하세요.
 
-다음 편(#G2) — 비트코인 5분 입문으로 이어집니다.
+다음 글은 비트코인 5분 입문(#G2)입니다. 위 용어 중 1, 2, 3번 카테고리(토크노믹스, 합의, 비트코인 핵심)를 한 번 훑고 진입하시면 훨씬 수월합니다.

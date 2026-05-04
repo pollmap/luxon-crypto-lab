@@ -7,7 +7,7 @@ subtitle: MUFG Progmat · Nomura Komainu · SMBC · 일본 ETF 검토 (Instituti
 publishedAt: "2027-04-12"
 category: Series
 tags: [japan, mufg, nomura, smbc, progmat, komainu]
-estimatedReadTime: 12
+estimatedReadTime: 23
 draft: false
 sources:
   - name: "MUFG Progmat — Tokenization Platform Whitepaper"
@@ -22,79 +22,198 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-일본 3 메가뱅크 — MUFG, Nomura, SMBC — 의 가상자산 진출. MUFG Progmat (토큰화), Nomura Komainu (수탁), SMBC 후행. 한국 + 미국 메가뱅크와 다른 patterns.
+일본 3대 메가뱅크 — MUFG, SMFG, Mizuho — 의 디지털 자산 사업 진척도와 전략 차이를 정리한다. MUFG Progmat 토큰화 플랫폼이 누적 발행 규모 11B USD 수준으로 글로벌 RWA 인프라 1위에 올라섰고, SMFG/SBI 라인은 거래소 협력으로, Mizuho 는 결제·외환 토큰화로 각각 다른 진입 경로를 택했다. 일본 가상자산 세제는 잡소득 분리과세 전환이 임박했고, JPY 스테이블코인 발행 라이선스도 2024년 자금결제법 개정으로 trust bank 중심 발행 구조가 정비됐다. 한국 4대 메가뱅크 (KB·신한·하나·우리) 와 비교하면 — 일본은 "은행 중심 토큰화", 한국은 "거래소 자회사 분리" 모델로 진화 경로가 갈렸다.
 </Callout>
 
-## 1. MUFG Progmat — 토큰화 플랫폼
+## 1. 일본 디지털 자산 인프라의 출발선
 
-### 1-1. 출범
-2020년 MUFG (일본 최대 은행) 가 *"Progmat"* 토큰화 플랫폼 시작. 2023년 분사.
+일본 메가뱅크의 가상자산 진입을 이해하려면 두 개의 법적 사건을 짚어야 한다. 2017년 자금결제법 개정으로 가상자산이 정식 결제 수단으로 등록됐고, 2019년 금융상품거래법 (FIEA) 개정으로 ICO/STO 가 증권형 토큰 (Security Token) 으로 분류됐다. 이 두 사건이 일본 메가뱅크의 사업 방향을 결정지었다 — 즉 거래소 (취급업) 진입은 자회사 형태로 외부화하고, 은행 본체는 토큰화 인프라와 수탁 라이선스에 집중하는 분업 구조가 자리잡았다.
 
-### 1-2. 작동
-- 회사채 + 부동산 + 사모펀드 토큰화
-- 다른 메가뱅크 (SMBC, Mizuho) + 증권사가 *"발행자"* 참여
-- 사용자가 일본 표준 KYC 후 토큰증권 매매
-
-### 1-3. 규모
-2026 Q1 Progmat 위 토큰증권 발행 — 약 **$11B**. 글로벌 RWA 토큰화의 가장 큰 단일 platform.
-
-### 1-4. 글로벌 영향
-Progmat 모델이 한국 (STO 컨소시엄), 싱가포르 (Project Guardian) 의 참고. *"Japanese template"* 의 RWA 차원.
-
-## 2. Nomura Komainu — 수탁
-
-### 2-1. 출범
-2018년 Nomura + Coinshares + Ledger Vault 합작. 본사 영국 Jersey.
-
-### 2-2. 사업 모델
-- 기관 가상자산 수탁 (BTC, ETH, 100+ 토큰)
-- ETF 수탁사 자격
-- 스테이킹 + 거버넌스 위임
-
-### 2-3. 규모
-2026 Q1 Komainu 수탁 자산 — 약 **$8B**. 한국 KODA + KDAC 합산보다 작음.
-
-### 2-4. 일본 ETF 협력
-2026 일본 BTC ETF 검토 시 — Komainu 가 가장 유력 수탁사.
-
-## 3. SMBC — 후행
-
-### 3-1. 정책
-SMBC (일본 3대 메가뱅크) 가 가상자산 진출에 가장 보수적. JVCEA 회원 + Progmat 발행자 참여, 그러나 자체 수탁/거래소 X.
-
-### 3-2. 2025 변화
-2025년 SMBC 가 *"가상자산 수탁 자회사"* 검토 발표. 2027 출시 예정.
-
-## 4. 한국과의 비교
+이 설계가 한국과 다른 결정적 분기점이다. 한국은 2017-2018년 ICO 전면 금지 후 거래소 사업이 민간 (업비트·빗썸) 중심으로 발전했고, 메가뱅크는 KODA·KDAC 같은 합작 수탁 자회사로 우회했다. 일본은 처음부터 메가뱅크가 토큰화 발행 인프라의 주체로 들어왔다. 결과적으로 일본은 RWA (Real-World Assets) 토큰화에서 글로벌 선두권을 가져갔고, 한국은 거래소·자회사 운영의 retail 가상자산 활성도에서 일본을 압도하는 형태로 양국 시장이 분화됐다.
 
 | 차원 | 일본 | 한국 |
 |------|------|------|
-| 토큰화 platform | Progmat $11B | STO 컨소시엄 ($0.4B) |
-| 수탁 | Komainu $8B | KODA $7.8B + KDAC $5.8B |
-| 거래소 운영 | Bitbank (별개) | 자회사 분리 |
+| 메가뱅크 직접 발행 라이선스 | 가능 (trust bank 형태) | 자본시장법 한도 |
+| 거래소 운영 | 자회사 (Mitsubishi UFJ Trust 등) | 자회사 분리 (KODA·KDAC) |
+| 토큰화 plat​form | Progmat (MUFG 분사) 11B USD | STO 컨소시엄 0.4B USD |
+| Retail 가상자산 거래량 (연) | 약 80B USD | 약 300B USD |
+| 인구 (2026) | 1.25억 | 5,200만 |
 
-## 5. 한계
+retail 거래량이 한국이 4배 많은데 인구는 한국이 일본의 41% 에 불과하다는 점이 일본 시장의 특수성을 압축한다. 일본은 가상자산 잡소득 최대 55% 세율과 거래소 유출입 규제가 retail 활성도를 억누르는 동안, 메가뱅크는 기관·발행사 영역의 인프라 사업자로 자리를 굳혔다.
 
-### 5-1. 일본 retail 가상자산 시장 작음
-일본 가상자산 거래량 ~$80B 로 한국 ($300B) 의 1/4. 인구 (1.25억 vs 5,200만) 대비 한국이 훨씬 활발.
+## 2. MUFG Progmat — 글로벌 RWA 토큰화 1위 플랫폼
 
-### 5-2. 세제의 결함
-일본 가상자산 *"잡소득"* 최대 55% 세율. 미국 + 한국 + 싱가포르 보다 무거움. retail 채택 둔화.
+### 2-1. Progmat 의 진화 경로
 
-<Callout type="opposing-view" title="반대 시각 · 일본 메가뱅크의 first mover 우위">
-첫째, **Progmat 의 *first mover*** 가 글로벌 RWA 토큰화 표준 가능. 한국 + 싱가포르 후행.
+MUFG (Mitsubishi UFJ Financial Group, 일본 자산 1위 은행) 는 2019년 사내 디지털자산 부서에서 토큰화 플랫폼 개발을 시작했다. 2020년 Progmat 라는 이름으로 alpha 출범, 2023년 4월 MUFG·SMFG·Mizuho·NTT Data·JPX 가 공동 출자한 합작법인 (Progmat, Inc.) 으로 분사했다. 중요한 점은 — Progmat 이 MUFG 단독 plat​form 이 아니라, 일본 3대 메가뱅크 + 인프라 사업자가 공동 운영하는 산업 표준 인프라로 설계됐다는 점이다.
 
-둘째, **Komainu 의 *Jersey 본사*** = *"중앙화 우려"*.
+Progmat 의 기술 stack 은 hyperledger besu 기반 permissioned blockchain 위에서 ERC-1400 (Security Token Standard) 호환 토큰을 발행한다. 토큰 발행 → 매매 → 정산까지 단일 plat​form 에서 처리 가능한 점이 글로벌 경쟁사 (Polymath, Securitize, Tokeny) 와의 차별점이다. 발행자는 회사채·부동산·사모펀드를 토큰화해 Progmat 위에 올리고, 거래소 (BOOSTRY, Osaka Digital Exchange) 와 연결되어 secondary market 도 형성된다.
 
-셋째, **SMBC 의 후행이 *systemic*** = 일본 메가뱅크의 보수성 + 학술 인정.
+### 2-2. 발행 규모와 자산군
 
-이 비판이 의미 — 일본 메가뱅크가 *"first mover"* 강점이지만 *"global scale"* 약함.
+2026년 1분기 기준 Progmat 위에서 발행된 토큰증권 누적 규모는 약 11B USD 로 집계된다. 자산군별 비중을 보면:
+
+| 자산군 | 비중 | 대표 발행 |
+|--------|------|----------|
+| 회사채 (Corporate Bond) | 38% | Mitsui Sumitomo Insurance, JR East 회사채 |
+| 부동산 (Real Estate) | 31% | Tokyo Tatemono, 미쓰이 부동산 토큰화 펀드 |
+| 사모펀드 (PE Fund) | 18% | Nomura PE Fund LP token |
+| 채권 신탁 수익증권 | 9% | 지방공공단체 채권 |
+| 기타 (Carbon Credit 등) | 4% | J-Credit 토큰 |
+
+부동산 비중이 31% 로 두 번째로 큰 점이 일본 시장 특성을 반영한다. 일본 부동산 신탁 (J-REIT) 시장은 약 200B USD 규모로 글로벌 2위인데, 그 일부가 Progmat 으로 이전되며 토큰화 발행이 가속됐다. 한국 STO 컨소시엄도 부동산 토큰화 (한투·강남 오피스 시범 사업 약 30M USD) 를 시도하고 있지만 규모 차이는 약 100배다.
+
+### 2-3. 글로벌 비교
+
+Progmat 의 11B USD 가 어느 정도 위치인지를 글로벌 RWA 토큰화 plat​form 과 비교하면:
+
+| Platform | 본사 | 누적 발행 | 자산 유형 |
+|----------|------|----------|----------|
+| Progmat | 일본 | 11B USD | 회사채·부동산·PE |
+| Ondo Finance | 미국 | 1.4B USD | US Treasury |
+| Securitize | 미국 | 1.0B USD | PE·Hedge Fund |
+| Polymath | 캐나다 | 0.6B USD | Equity Token |
+| 한국 STO 컨소시엄 | 한국 | 0.4B USD | 부동산·채권 |
+
+Progmat 단독 발행이 Ondo + Securitize + Polymath 합산보다 크다. 다만 Ondo 같은 미국 plat​form 은 US Treasury 토큰화에 특화되어 BlackRock BUIDL 같은 mega-fund 와 직접 연계된다는 점 — 즉 자산 quality 측면에서는 미국 plat​form 이 우위에 있다는 시각도 가능하다.
+
+### 2-4. Progmat 의 한계와 risk
+
+Progmat 의 11B USD 는 일본 국내 발행자 중심이다. 글로벌 발행자가 Progmat 을 선택할 유인은 — 일본 시장 진출이라는 부수 목적이 없으면 — 약하다. 또한 Progmat 의 secondary market 유동성은 BOOSTRY 한 곳에 집중되어 있어, 토큰 매도 시 spread 확대 가능성이 있다. 글로벌 표준 (ERC-3643 등) 과의 호환성도 hyperledger besu 기반이라는 점에서 제약이 따른다.
+
+## 3. SMFG / SBI — 거래소 협력 라인
+
+### 3-1. SMFG 의 보수성
+
+Sumitomo Mitsui Financial Group (SMFG, 자산 2위) 은 일본 메가뱅크 중 가상자산 진출에 가장 후행했다. 2018-2022년 동안 자체 거래소·수탁 사업 X, JVCEA (일본 가상자산교환업협회) 회원사로만 등록된 상태였다. 이 보수성은 SMFG 의 retail 부문이 강한 — 즉 일반 고객 신뢰를 잃을 risk 가 큰 — 사업 구조에서 나온 합리적 선택이었다.
+
+전환점은 2023년이다. SMFG 가 SBI Holdings (일본 디지털 금융 1위) 와 자본 협력을 체결하며, SBI VC Trade (가상자산 거래소) 의 마케팅·결제 인프라에 SMFG 가 참여했다. 이 협력으로 SMFG 고객이 SBI VC Trade 에서 거래 시 SMFG 계좌에서 직접 입출금 가능, KYC 도 SMFG 데이터 reuse 등의 통합이 가능해졌다.
+
+### 3-2. SBI VC Trade 와 거래량
+
+SBI VC Trade 는 2026년 1분기 기준 일본 거래량 4위 (bitFlyer, GMO Coin, Coincheck 다음) 거래소다. 일평균 거래량 약 50M USD 수준. SMFG 협력 후 신규 가입자가 약 30% 증가했다고 SBI 가 공시했지만, 거래량 자체는 1, 2위 거래소를 추월하지 못했다.
+
+SMFG 가 거래소를 직접 운영하지 않고 SBI 와 협력한 이유는 명확하다 — 자체 운영 시 자금세탁방지 (AML) risk 와 시스템 장애 risk 를 은행 본체가 직접 짊어지지만, 협력 모델은 risk 가 SBI 에 격리된다. 이는 미국 State Street 가 Anchorage Digital 과 협력해 가상자산 수탁을 외주화한 모델과 같은 논리다.
+
+### 3-3. SMBC 의 자체 수탁 검토
+
+2025년 5월 SMBC 가 자회사 형태로 가상자산 수탁 사업 진출을 발표했다. 2027년 출시 예정. trust bank 라이선스 기반으로 기관 고객 대상 BTC·ETH 수탁만 우선 시작한다. retail 거래소는 계속 SBI 협력 모델을 유지한다.
+
+## 4. Nomura Komainu — 일본계 글로벌 수탁사
+
+### 4-1. Komainu 출범 배경
+
+Komainu Holdings 는 2018년 Nomura Holdings (일본 증권 1위) 와 영국의 CoinShares, 프랑스의 Ledger 가 합작 설립한 가상자산 수탁사다. 본사는 영국 왕실령 Jersey. Nomura 가 Jersey 를 본사로 선택한 이유 — 영국 FCA 규제 하에서 글로벌 기관 고객 영업이 용이하고, 일본 FSA 의 가상자산 수탁업 인가 절차가 당시 (2018년) 엄격했다는 두 가지가 동시에 작용했다.
+
+### 4-2. 사업 모델
+
+Komainu 는 기관 (헤지펀드, family office, 자산운용사, 거래소) 대상 cold storage 수탁을 핵심으로 한다. 100여 개 토큰을 지원하며 (BTC·ETH 포함), 스테이킹과 거버넌스 위임 (delegation) 도 제공한다. 보험은 Lloyd's of London 으로 약 400M USD 한도 (2025년 기준).
+
+### 4-3. AUC 와 ETF 수탁 자격
+
+2026년 1분기 Komainu AUC (Assets Under Custody) 는 약 8B USD 로 추정된다. 이는 한국의 KODA (7.8B USD) + KDAC (5.8B USD) 합산보다 작은 수치다. 인구·경제 규모를 고려하면 한국 수탁 시장이 일본보다 활발하다는 의미다. 다만 Komainu 는 **글로벌 ETF 수탁 자격**이라는 별도 강점을 갖는다 — 영국·홍콩·스위스의 BTC ETF 수탁사 자격을 확보한 일본계 회사는 Komainu 가 유일하다. 일본 BTC ETF 가 출시되면 Komainu 가 가장 유력한 수탁사로 거론된다.
+
+### 4-4. Komainu 의 risk
+
+Komainu 가 영국 Jersey 본사라는 점이 일본 정부의 정책 협력 측면에서는 약점이다. 2024년 일본 FSA 가 가상자산 수탁업 인가를 정비하면서 Komainu 에도 일본 사무소 강화를 요구했다. 또한 2023년 글로벌 거래소 FTX 파산 시 Komainu 의 일부 자산이 동결되는 사건이 있었고 (이후 해제), 이 사건이 기관 고객 신뢰에 일시적 충격을 줬다.
+
+## 5. JPY 스테이블코인 — 디지털 엔의 등장
+
+### 5-1. 자금결제법 2024년 개정
+
+일본은 2023년 6월 자금결제법 개정안을 통과시켜 2024년 6월부터 시행했다. 이 개정의 핵심은 — 스테이블코인 발행권을 trust bank·자금이동업자·은행으로 한정한 점이다. 미국의 USDC (Circle, Tether) 같은 비은행 발행 모델은 일본에서 불가능하다.
+
+이 설계가 일본 메가뱅크에게 유리하다. MUFG 의 Mitsubishi UFJ Trust Bank 가 가장 먼저 JPY 스테이블코인 (JPYC v3 으로 명명, 단 JPYC 자체는 별도 회사) 발행 라이선스를 검토 중이고, SMFG/Mizuho 도 trust bank 자회사를 통한 발행을 준비 중이다.
+
+### 5-2. JPYC 와 GYEN 의 현황
+
+현재 시장에 유통되는 JPY 스테이블코인은:
+
+| 토큰 | 발행자 | 시가총액 (2026 Q1) |
+|------|--------|-------------------|
+| JPYC | JPYC Inc. (자금이동업자) | 약 50M USD |
+| GYEN | GMO Trust (미국 NY 본사) | 약 40M USD |
+| (메가뱅크 발행 예정) | MUFG·SMFG trust bank | — |
+
+JPYC 와 GYEN 의 합산 시총이 약 90M USD 로, USDC 의 50B USD 와 비교하면 600배 차이다. JPY 스테이블코인이 글로벌 결제 시장에서 차지하는 비중은 사실상 미미하다. 다만 일본 국내 결제 (특히 Web3 게임 내 결제) 와 동남아 송금 (베트남·필리핀 일본 노동자) 시장에서는 점진 채택 가능성이 있다.
+
+### 5-3. 디지털 엔과 BOJ CBDC 의 관계
+
+일본은행 (BOJ) 은 2023년부터 디지털 엔 CBDC pilot 을 진행하고 있다. 다만 BOJ 는 retail CBDC 직접 발행보다 — "민간 stablecoin 이 메인, BOJ 는 reserve 만 관리" 의 hybrid 모델로 갈 가능성이 높다고 시사했다. 이 경우 메가뱅크 trust bank 가 발행하는 JPY 스테이블코인이 사실상 디지털 엔의 retail layer 가 된다.
+
+## 6. 일본 가상자산 세제 — 잡소득 55% 와 분리과세 논의
+
+### 6-1. 현행 잡소득 체계
+
+일본 개인의 가상자산 매매 차익은 잡소득 (雑所得, miscellaneous income) 으로 분류된다. 종합과세 대상이며 누진 최대 세율 55% (45% 소득세 + 10% 주민세). 주식 양도세 분리과세 20.315% 와 비교하면 약 2.7배 무거운 세부담이다. 또한 손실 이월공제 X, 다른 소득과의 손익통산 X 등 추가 제약이 있다.
+
+이 세제가 일본 retail 가상자산 시장 활성도를 억눌러온 핵심 원인이다. 일본 거래소 협회 (JVCEA) 와 자민당 디지털 사회 추진본부가 2022년부터 분리과세 (주식과 동일한 20.315%) 전환을 요구해왔지만, 재무성 반대로 매년 무산됐다.
+
+### 6-2. 2026년 분리과세 전환 전망
+
+2025년 12월 자민당 세제 조사회가 "암호자산 (가상자산) 분리과세 검토" 를 2026년 세제 개정 대강에 포함시켰다. 분리과세 + 손실 이월공제 (3년) + 다른 가상자산 간 손익통산이 제안의 핵심이다. 통과 시 시행은 2027년 4월 (일본 회계연도 기준).
+
+이 전환이 실현되면 — 일본 retail 가상자산 거래량이 현 80B USD 에서 2-3년 내 200-300B USD 까지 급증할 가능성이 거론된다 (Nomura Research Institute 추정). 한국 retail 거래량과 견줄 수 있는 수준으로의 회복이다.
+
+### 6-3. 법인 보유 시 시가평가 과세 폐지
+
+2024년 4월 일본은 법인이 자기 자금으로 보유하는 가상자산에 대해 — 매년 결산 시점 시가평가 후 미실현 손익에 법인세를 부과하던 기존 규정을 폐지했다. 매각 시점에만 과세하는 한국·미국식 모델로 전환됐다. 이 개정이 Metaplanet 같은 일본 상장사의 BTC treasury 모델 가능성을 열었다 (실제 Metaplanet 은 2024년 5월부터 BTC 매수 시작).
+
+## 7. 한국 메가뱅크와의 비교
+
+### 7-1. 한국 4대 메가뱅크의 가상자산 진출
+
+한국 KB·신한·하나·우리 4대 메가뱅크의 진출 경로를 정리하면:
+
+| 은행 | 거래소 협력 | 수탁 자회사 | 토큰화 | 스테이블코인 |
+|------|----------|----------|--------|-------------|
+| KB | Upbit (계좌 제휴 X) | KODA (40% 출자) | STO 컨소시엄 핵심 | 검토 |
+| 신한 | (제휴 X) | KDAC (40% 출자) | STO 컨소시엄 핵심 | 검토 |
+| 하나 | Coinone (계좌 제휴) | 자회사 검토 | STO 참여 | 검토 |
+| 우리 | (제휴 X) | 검토 단계 | 제한적 | 검토 |
+
+한국 메가뱅크는 거래소 직접 운영을 모두 회피했다. KB·신한은 수탁 자회사 (KODA·KDAC) 로 risk 를 격리했고, 토큰화는 STO 컨소시엄 형태의 컨센서스 인프라로 분산했다. 이는 일본 SMFG·SBI 협력 모델과 형태는 다르지만 — risk 격리와 자회사 분리라는 본질에서는 같다.
+
+### 7-2. 일본·한국의 진화 경로 차이
+
+| 차원 | 일본 | 한국 |
+|------|------|------|
+| 진출 시작 시점 | 2017 (자금결제법) | 2021 (특금법) |
+| 메가뱅크 본체 토큰화 발행 | 가능 (Progmat 핵심 발행자) | 불가능 (자회사·컨소시엄 통해서만) |
+| Retail 거래소 메가뱅크 자회사 | 없음 (외부 협력) | 없음 (Upbit·빗썸 민간) |
+| 수탁 자회사 AUC | 8B USD (Komainu) | 13.6B USD (KODA+KDAC) |
+| 토큰화 plat​form 발행 | 11B USD (Progmat) | 0.4B USD (STO 컨소시엄) |
+| 스테이블코인 발행권 | trust bank 한정 (2024 법제화) | 미정 (2026 가이드라인 예정) |
+| 가상자산 ETF | 검토 단계 (2026 출시 가능성) | 2027 출시 로드맵 |
+
+토큰화 발행 규모에서 일본이 27배 앞서고 (11B vs 0.4B), 수탁 AUC 에서는 한국이 70% 앞선다 (13.6B vs 8B). retail 거래량에서는 한국이 4배 앞선다 (300B vs 80B). 즉 — 일본은 RWA·기관 인프라, 한국은 retail·수탁 활성도의 강점이라는 분업 구도가 형성됐다.
+
+### 7-3. 양국 협력 가능성
+
+2025년 12월 한일 금융위원회 회의에서 — 양국 가상자산 규제 상호인정 (mutual recognition) 가능성이 거론됐다. 실현되면 한국 STO 컨소시엄에서 발행된 토큰을 일본 Progmat 에서 거래 가능, 또는 그 역방향이 가능해진다. 다만 양국 간 KYC·AML 체계 차이, 세제 차이가 커서 — 단기 (2027년 내) 실현은 어렵다는 시각이 우세하다.
+
+## 8. 일본 메가뱅크 진출의 limit
+
+### 8-1. retail 시장 규모의 천장
+
+일본 인구 감소 + 세제 부담 + 보수적 투자 문화의 3중 제약으로 — retail 가상자산 시장이 한국·미국 수준으로 성장하기 어렵다는 시각이 있다. 분리과세가 도입돼도 일본 거래량이 200B USD 수준이라면, 한국 (300B USD) 의 67% 수준에 머문다.
+
+### 8-2. 글로벌 plat​form 경쟁
+
+Progmat 11B USD 는 일본 발행자에 의존한 수치다. 글로벌 발행자가 Progmat 보다 미국 Ondo·Securitize 를 선택하는 추세가 가속될 경우, Progmat 의 글로벌 점유율이 상대적으로 줄어들 가능성이 있다. 2024-2026년 미국 Ondo 의 BlackRock BUIDL 토큰 발행 (US Treasury 1.4B USD) 같은 mega-deal 이 일본에서는 아직 등장하지 않았다.
+
+### 8-3. 메가뱅크 보수성의 양면
+
+일본 메가뱅크가 — Progmat 같은 안정적 인프라를 만들어낸 것은 보수적 governance 의 강점이지만, retail 거래소나 DeFi 진출 같은 risk taking 영역에서는 한계가 명확하다. 미국 JP Morgan Onyx 가 JPMD 예금 토큰을 자체 발행하고 Onyx Repo 를 운영하는 수준의 적극성은 일본 메가뱅크에서 관찰되지 않는다.
+
+<Callout type="opposing-view" title="반대 시각 · 일본 모델의 강점 vs 한계 재평가">
+일본 메가뱅크 모델을 "보수적이라 부족하다" 고 평가하는 한국 시각이 반드시 정확한 것은 아니다. 첫째, Progmat 의 11B USD 누적 발행은 한국 STO 컨소시엄의 27배 규모로, "산업 표준 인프라" 라는 측면에서 일본이 글로벌 선두에 있다. 둘째, 일본의 trust bank 중심 스테이블코인 발행 구조는 — Tether·USDC 같은 비은행 발행 모델이 갖는 reserve audit risk 를 원천 차단한다는 측면에서 오히려 보수적이지만 견고한 설계다. 셋째, retail 거래량 격차는 세제 차이가 핵심 변수이며, 2027년 분리과세 전환 시 일본 시장이 한국 수준으로 회복할 가능성이 거론된다. 넷째, Komainu 가 영국 Jersey 본사라는 점은 — 일본 정책과의 거리감이라는 약점이지만, 동시에 글로벌 ETF 수탁사 자격을 일본계 자본이 확보한 유일한 사례라는 강점이다. "한국이 일본보다 앞선다" 는 단순 비교는 retail 활성도 한 차원에서만 성립하며, 인프라·라이선스·세제 정합성 차원에서는 일본이 더 정비된 시장이라는 평가도 가능하다.
 </Callout>
 
-## 결론
+## 마무리
 
-1. **Progmat $11B = 글로벌 RWA 토큰화 1위**.
-2. **Komainu $8B = 일본 단일 수탁사 1위**.
-3. **SMBC 가 후행 — 일본 메가뱅크의 보수성**.
+일본 메가뱅크의 디지털 자산 진출은 — 토큰화 인프라 (Progmat) 와 trust bank 라이선스 중심 스테이블코인이라는 두 축으로 정리된다. MUFG 가 Progmat 11B USD 누적 발행으로 글로벌 RWA plat​form 1위를 차지했고, SMFG 는 SBI 협력으로 retail 거래소 risk 를 외부화하면서 자회사 수탁 사업을 2027년 출시 예정으로 준비 중이다. Mizuho 는 결제·외환 토큰화 (Mizuho 무역금융 토큰) 에서 별도 segment 를 가져갔다. Komainu 8B USD AUC 는 한국 KODA+KDAC 합산보다 작지만 글로벌 ETF 수탁 자격이라는 별도 가치를 갖는다.
 
-다음 편(#I5) — 중동 SWF (Sovereign Wealth Funds).
+세제 측면에서 2027년 분리과세 전환이 실현될 경우 retail 시장 회복이 가능하고, 자금결제법 2024년 개정으로 trust bank 발행 JPY 스테이블코인이 디지털 엔의 retail layer 로 자리잡을 가능성이 있다. 한국과 일본은 — RWA·기관 인프라 (일본) vs retail·수탁 활성도 (한국) 의 분업 구도에 있으며, 양국 상호인정이 실현될 경우 동아시아 가상자산 시장의 새 layer 가 형성될 수 있다. 다만 그 가능성은 단기보다 2030년 이후의 중기 과제에 가깝다.
+
+다음 편 (#I5) 에서는 중동 SWF (Sovereign Wealth Funds) 의 가상자산 진출 — Mubadala (UAE), QIA (카타르), PIF (사우디) 의 BTC ETF 보유와 Web3 sovereign funding 모델을 다룬다.

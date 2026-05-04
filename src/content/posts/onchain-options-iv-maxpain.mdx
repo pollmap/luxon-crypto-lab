@@ -27,31 +27,31 @@ author: 이찬희
 Deribit (옵션 시장 점유율 90%+) 의 Max Pain (만기일 대량 청산 가격) + IV (Implied Volatility, 내재 변동성) 의 trading 신호. 기관 trader 의 sentiment 정량.
 </Callout>
 
-## 도입 — *"기관 sentiment 의 가장 정밀한 정량"*
+## 도입 — "기관 sentiment 의 가장 정밀한 정량"
 
-가상자산 옵션 시장이 다른 시장과 다른 점 — **거래자의 다수가 기관**. 헤지펀드, 자산운용사, MM (market maker) 가 옵션 시장의 90%. 이 *"기관 dominated"* 시장의 데이터가 *"기관 sentiment"* 의 정량.
+가상자산 옵션 시장이 다른 시장과 다른 점 — **거래자의 다수가 기관**. 헤지펀드, 자산운용사, MM (market maker) 가 옵션 시장의 90%. 이 "기관 dominated" 시장의 데이터가 "기관 sentiment" 의 정량.
 
 Deribit 이 글로벌 옵션 거래의 90%+ 점유. CME 가 두 번째 (~7%), OKX/Binance 가 작은 점유. 본 편은 Deribit 데이터 위주로 분석.
 
 ## 1. Max Pain
 
 ### 1-1. 정의
-**Max Pain** = 옵션 만기일에 *"가장 많은 옵션이 가치 없이 만료되는 가격"*. 즉 옵션 매도자 (MM) 가 가장 많은 수익을 얻는 가격.
+**Max Pain** = 옵션 만기일에 "가장 많은 옵션이 가치 없이 만료되는 가격". 즉 옵션 매도자 (MM) 가 가장 많은 수익을 얻는 가격.
 
 ### 1-2. 메커니즘
-옵션 매도자가 옵션 매수자보다 영향력 큰 시장 (옵션 시장의 일반 패턴) — 매도자가 만기일에 가격을 *"max pain"* 으로 끌어가려는 인센티브.
+옵션 매도자가 옵션 매수자보다 영향력 큰 시장 (옵션 시장의 일반 패턴) — 매도자가 만기일에 가격을 "max pain" 으로 끌어가려는 인센티브.
 
-학술적으로 *"pinning"* — 만기일 가격이 max pain 근처로 수렴하는 패턴. 검증된 통계.
+학술적으로 "pinning" — 만기일 가격이 max pain 근처로 수렴하는 패턴. 검증된 통계.
 
 ### 1-3. 사례
 2025년 12월 26일 (월말 만기) BTC 옵션 max pain — $98K. 만기일 BTC 실제 가격 $97.5K (max pain 의 0.5% 이내). 정확한 pinning.
 
-이 패턴이 — *"만기일 직전에 가격이 max pain 으로 수렴"* 의 trading 시그널.
+이 패턴이 — "만기일 직전에 가격이 max pain 으로 수렴" 의 trading 시그널.
 
 ## 2. Implied Volatility (IV)
 
 ### 2-1. 정의
-IV = 옵션 가격에서 역산한 *"시장이 기대하는 미래 변동성"*. Black-Scholes 공식 inversion.
+IV = 옵션 가격에서 역산한 "시장이 기대하는 미래 변동성". Black-Scholes 공식 inversion.
 
 ### 2-2. IV vs RV
 - **IV** — Implied Volatility (옵션에서 역산)
@@ -73,13 +73,13 @@ IV < RV — 시장이 미래 변동성 감소 기대 (안정)
 IV 30% 미만 = 매우 낮은 기대 변동성. 50%+ = 정상. 70%+ = 높음. 100%+ = 광풍.
 
 ### 2-4. IV term structure
-*"IV term structure"* = 만기별 IV. 정상 시장:
+"IV term structure" = 만기별 IV. 정상 시장:
 - 1주 IV — 35%
 - 1개월 IV — 45%
 - 3개월 IV — 55%
 - 6개월 IV — 60%
 
-이 *"upward slope"* = 정상 (contango). *"downward slope"* (단기가 더 높음) = 단기 위험 가속 신호.
+이 "upward slope" = 정상 (contango). "downward slope" (단기가 더 높음) = 단기 위험 가속 신호.
 
 ## 3. Put/Call Ratio
 
@@ -118,13 +118,13 @@ Deribit 옵션 데이터가 표준이지만, 비판적 시각도 있습니다.
 
 둘째, **CME 점유율의 가속**. 2024 ETF 출시 후 CME 옵션 거래 가속. Deribit 점유율이 점차 줄 가능성. 단일 거래소 의존의 위험.
 
-셋째, **IV 의 *"forward-looking"* 가정**. IV 가 *"시장이 기대하는 미래"* 라는 가정이 약함. 실제 — IV 가 *"current emotion"* 의 반영 가능성.
+셋째, **IV 의 "forward-looking" 가정**. IV 가 "시장이 기대하는 미래" 라는 가정이 약함. 실제 — IV 가 "current emotion" 의 반영 가능성.
 
-넷째, **Max Pain pinning 의 학계 회의**. *"pinning"* 이 통계적으로 강한지 학계 논쟁. 일부 연구가 pinning 을 *"우연한 일치"* 로 평가.
+넷째, **Max Pain pinning 의 학계 회의**. "pinning" 이 통계적으로 강한지 학계 논쟁. 일부 연구가 pinning 을 "우연한 일치" 로 평가.
 
-다섯째, **한국 시장 적용 어려움**. 한국 사용자가 Deribit 사용 시 — VAUPA 외부 거래소 + 외환 통제. 정상적 사용 매우 어려움. 옵션 시장이 사실상 *"외국 기관 only"*.
+다섯째, **한국 시장 적용 어려움**. 한국 사용자가 Deribit 사용 시 — VAUPA 외부 거래소 + 외환 통제. 정상적 사용 매우 어려움. 옵션 시장이 사실상 "외국 기관 only".
 
-이 5가지 비판이 의미하는 바 — 옵션 신호가 *"기관 시각"* 이지 *"한국 retail"* 도구가 아닙니다.
+이 5가지 비판이 의미하는 바 — 옵션 신호가 "기관 시각" 이지 "한국 retail" 도구가 아닙니다.
 </Callout>
 
 ## 결론 — 기관 sentiment 의 정량

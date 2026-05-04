@@ -22,72 +22,72 @@ sources:
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Morpho 가 어떻게 *"Aave/Compound 위에 새 layer"* 를 만들었는지, 그리고 Morpho Blue 의 *"격리 풀"* framework 이 학술적으로 무엇을 의미하는지를 봅니다. DeFi Top 10 시리즈의 마지막 편.
+Morpho 가 어떻게 "Aave/Compound 위에 새 layer" 를 만들었는지, 그리고 Morpho Blue 의 "격리 풀" framework 이 학술적으로 무엇을 의미하는지를 봅니다. DeFi Top 10 시리즈의 마지막 편.
 </Callout>
 
 <TVLBarChart />
 
-## 도입 — *"DeFi 의 layering 진화"*
+## 도입 — "DeFi 의 layering 진화"
 
 자, Morpho 강의를 시작하면서 — DeFi Top 10 시리즈를 마무리합시다.
 
 지금까지 우리는 DeFi 의 9 프로토콜을 봤습니다 — Aave (대출), MakerDAO (CDP), Lido (LST), Uniswap (DEX), Curve (스테이블 DEX), Compound (대출 시조), GMX/dYdX (Perp), Pendle (수익률 분리), EigenLayer (재스테이킹). 이 9 프로토콜이 — 각자 자기 학술 framework 을 만들어왔어요.
 
-그러나 — 흥미로운 학술적 trend 가 등장했습니다. 새로운 프로토콜이 *"기존 프로토콜 위에 layer 를 쌓는"* 패턴. 이게 *"DeFi 의 layered evolution"*.
+그러나 — 흥미로운 학술적 trend 가 등장했습니다. 새로운 프로토콜이 "기존 프로토콜 위에 layer 를 쌓는" 패턴. 이게 "DeFi 의 layered evolution".
 
-Morpho 가 — 이 trend 의 가장 강력한 사례입니다. Aave + Compound 위에 새 layer 를 만들어 — *"기존 프로토콜의 약점을 보완"*.
+Morpho 가 — 이 trend 의 가장 강력한 사례입니다. Aave + Compound 위에 새 layer 를 만들어 — "기존 프로토콜의 약점을 보완".
 
 오늘은 — Morpho 의 학술 framework 을 깊이 봅니다.
 
-## 1. Morpho 의 출발 — *"Aave/Compound 의 약점"*
+## 1. Morpho 의 출발 — "Aave/Compound 의 약점"
 
 ### 1-1. 풀 기반 대출의 한계
 
 Aave/Compound 같은 풀 기반 대출의 한계:
-- 대주의 *"공급 이자율"* 과 차주의 *"대출 이자율"* 사이 격차 (spread)
+- 대주의 "공급 이자율" 과 차주의 "대출 이자율" 사이 격차 (spread)
 - 예: Aave 에서 USDC 공급 이자 4%, USDC 대출 이자 6% (spread 2%)
 - 이 spread 가 — Aave Treasury + 청산자 인센티브로 사용
 
 ### 1-2. Morpho 의 첫 모델 (Morpho Optimizer)
 
-Morpho 의 첫 모델 (2022) — *"Morpho Optimizer"*:
+Morpho 의 첫 모델 (2022) — "Morpho Optimizer":
 - 사용자가 — Aave/Compound 의 공급자 + 차주가 되되,
-- Morpho 가 — 같은 자산의 공급자와 차주를 *"P2P 매칭"*
+- Morpho 가 — 같은 자산의 공급자와 차주를 "P2P 매칭"
 - 매칭되면 — spread 절반을 공급자, 절반을 차주에게 환원
 - 매칭 안 되면 — 그냥 Aave/Compound 풀 사용
 
-이게 *"풀 기반 대출 위에 P2P 매칭 layer"*. 학술적으로 우아한 설계.
+이게 "풀 기반 대출 위에 P2P 매칭 layer". 학술적으로 우아한 설계.
 
 ### 1-3. 학술적 의미
 
-이 framework 이 — *"DeFi 프로토콜의 layering"* 학술 사례. 기존 인프라 (Aave) 를 활용하면서, 새 가치 (P2P 매칭) 를 추가.
+이 framework 이 — "DeFi 프로토콜의 layering" 학술 사례. 기존 인프라 (Aave) 를 활용하면서, 새 가치 (P2P 매칭) 를 추가.
 
-## 2. Morpho Blue (2024) — *"격리 풀의 새 표준"*
+## 2. Morpho Blue (2024) — "격리 풀의 새 표준"
 
 ### 2-1. Morpho Blue 의 출시
 
-2024년 Morpho 가 — 새 모델 *"Morpho Blue"* 출시. 핵심 변화 — *"Aave/Compound 의존 X"*. 자체 대출 프로토콜로 진화.
+2024년 Morpho 가 — 새 모델 "Morpho Blue" 출시. 핵심 변화 — "Aave/Compound 의존 X". 자체 대출 프로토콜로 진화.
 
 Morpho Blue 의 핵심:
-- *"격리 풀(isolated market)"* — 각 풀이 *"하나의 담보 자산 + 하나의 부채 자산"* 으로 한정
+- "격리 풀(isolated market)" — 각 풀이 "하나의 담보 자산 + 하나의 부채 자산" 으로 한정
 - 각 풀이 — 자체 LTV, 청산 임계값, 이자율 모델 가짐
-- 풀 생성이 — *"permissionless"* (누구나 새 풀 생성 가능)
+- 풀 생성이 — "permissionless" (누구나 새 풀 생성 가능)
 
 ### 2-2. 격리 풀의 학술적 의미
 
 이 framework 이 학술적으로 매우 중요합니다. 왜냐:
 
-**문제: Aave 의 *"공유 풀 위험"***
+**문제: Aave 의 "공유 풀 위험"**
 - Aave 는 — 다양한 자산이 한 풀에 공존
 - 한 자산이 폭락하면 — 풀 전체 위험
 - 새 자산 상장이 매우 신중
 
-**해결: Morpho Blue 의 *"격리 풀"***
+**해결: Morpho Blue 의 "격리 풀"**
 - 각 풀이 한 담보 + 한 부채로 한정
 - 위험 격리
 - 새 풀 생성 자유
 
-이게 — *"DeFi 대출의 마이크로 segmentation"* 학술 framework.
+이게 — "DeFi 대출의 마이크로 segmentation" 학술 framework.
 
 ### 2-3. 자본 효율
 
@@ -106,9 +106,9 @@ Morpho Blue 의 격리 풀이 — 자본 효율 향상:
 
 ### 3-2. 학술적 영향
 
-Morpho 가 — DeFi 학계에서 *"layered protocol"* + *"isolated lending"* 의 학술 표준 사례. BIS Working Paper + Stanford CBR 분석.
+Morpho 가 — DeFi 학계에서 "layered protocol" + "isolated lending" 의 학술 표준 사례. BIS Working Paper + Stanford CBR 분석.
 
-## 4. MORPHO 토큰 — *"가치 포착"*
+## 4. MORPHO 토큰 — "가치 포착"
 
 ### 4-1. 토큰 출시
 
@@ -116,9 +116,9 @@ MORPHO 토큰이 — 2024년 후반 출시. 거버넌스 + (잠재적) 수익 �
 
 ### 4-2. 학술적 평가
 
-MORPHO 의 가치 포착이 — 다른 DeFi 거버넌스 토큰 (UNI, COMP) 와 비슷한 한계. 즉, *"실질 수익"* 메커니즘이 약함. 그러나 — Morpho DAO 가 미래 *"fee switch"* 활성화 가능성 토론 중.
+MORPHO 의 가치 포착이 — 다른 DeFi 거버넌스 토큰 (UNI, COMP) 와 비슷한 한계. 즉, "실질 수익" 메커니즘이 약함. 그러나 — Morpho DAO 가 미래 "fee switch" 활성화 가능성 토론 중.
 
-## 5. DeFi 의 *"Layered Evolution"* — 종합
+## 5. DeFi 의 "Layered Evolution" — 종합
 
 ### 5-1. 4 layer 의 결합
 
@@ -128,7 +128,7 @@ DeFi 의 layering 진화 사례:
 - **Layer 3**: EigenLayer 재스테이킹
 - **Layer 4**: Pendle 수익률 분리, Morpho 대출 등
 
-이 4 layer 가 — *"같은 ETH 가 4 단계로 활용"*. 자본 효율 극대화.
+이 4 layer 가 — "같은 ETH 가 4 단계로 활용". 자본 효율 극대화.
 
 ### 5-2. 학술적 의의 + 우려
 
@@ -169,17 +169,17 @@ DeFi 의 layering 진화 사례:
 <Callout type="opposing-view" title="반대 시각 · DeFi 의 *근본적 한계*">
 DeFi Top 10 의 종합 비판:
 
-첫째, ***"과담보 의무의 한계"***. DeFi 대출이 — 진정한 *"신용 대출"* 이 아님. 자산 보유자만 활용 가능.
+첫째, "과담보 의무의 한계". DeFi 대출이 — 진정한 "신용 대출" 이 아님. 자산 보유자만 활용 가능.
 
-둘째, ***"가치 포착 결핍"***. 거버넌스 토큰 다수가 — 실질 수익 메커니즘 약함.
+둘째, "가치 포착 결핍". 거버넌스 토큰 다수가 — 실질 수익 메커니즘 약함.
 
-셋째, ***"layering 의 시스템 리스크"***. 4 layer 결합이 — cascade 위험.
+셋째, "layering 의 시스템 리스크". 4 layer 결합이 — cascade 위험.
 
-넷째, ***"규제 회색지대"***. DeFi 가 — VAUPA, MiCA 의 어떤 framework 으로 규제될지 불명확.
+넷째, "규제 회색지대". DeFi 가 — VAUPA, MiCA 의 어떤 framework 으로 규제될지 불명확.
 
-다섯째, ***"사용자 인지의 한계"***. 일반 사용자가 — 10 프로토콜의 위험을 이해하기 어려움.
+다섯째, "사용자 인지의 한계". 일반 사용자가 — 10 프로토콜의 위험을 이해하기 어려움.
 
-이 비판이 의미하는 바 — DeFi Top 10 이 *"학술 인프라"* 로는 가치 있되, *"전통 금융의 완전 대체"* 는 학계가 회의적.
+이 비판이 의미하는 바 — DeFi Top 10 이 "학술 인프라" 로는 가치 있되, "전통 금융의 완전 대체" 는 학계가 회의적.
 </Callout>
 
 ## 결론 — DeFi Top 10 시리즈 (DF1-DF10) 종결

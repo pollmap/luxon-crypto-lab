@@ -27,7 +27,7 @@ author: 이찬희
 양자 컴퓨터가 BTC 의 ECDSA (서명 알고리즘) 를 깰 수 있는가? Shor's algorithm + NIST PQC standardization + Bitcoin BIP-360 proposal. Q-day 추정과 P2PK 잔액 (사토시 1.1M BTC 포함) 위협.
 </Callout>
 
-## 도입 — *"가장 큰 미래 위협"*
+## 도입 — "가장 큰 미래 위협"
 
 비트코인의 가장 큰 미래 위협 — **양자 컴퓨터**. ECDSA (Elliptic Curve Digital Signature Algorithm) — BTC 의 서명 알고리즘 — 이 양자 컴퓨터에서 Shor's algorithm 으로 깨질 수 있습니다.
 
@@ -36,12 +36,12 @@ author: 이찬희
 ## 1. Shor's algorithm
 
 ### 1-1. 정의
-1994년 Peter Shor 가 발표한 양자 algorithm. 현 컴퓨터에서 *"이산 로그 (discrete log)"* 와 *"인수분해 (factorization)"* 가 매우 느림. 양자 컴퓨터에서 polynomial time 으로 가능.
+1994년 Peter Shor 가 발표한 양자 algorithm. 현 컴퓨터에서 "이산 로그 (discrete log)" 와 "인수분해 (factorization)" 가 매우 느림. 양자 컴퓨터에서 polynomial time 으로 가능.
 
 ### 1-2. ECDSA 깨기
-BTC 의 ECDSA 가 *"이산 로그 가정"* 의 보안. Shor's algorithm 으로 — public key 에서 private key 추출 가능.
+BTC 의 ECDSA 가 "이산 로그 가정" 의 보안. Shor's algorithm 으로 — public key 에서 private key 추출 가능.
 
-즉 *"public key 가 노출된 wallet"* 이 양자 위협.
+즉 "public key 가 노출된 wallet" 이 양자 위협.
 
 ## 2. P2PK vs P2PKH
 
@@ -49,7 +49,7 @@ BTC 의 ECDSA 가 *"이산 로그 가정"* 의 보안. Shor's algorithm 으로 �
 초기 BTC 의 wallet 형식. **public key 가 직접 transactions 에 노출**. 사토시 시기 (2009-2010) 의 다수 wallet.
 
 ### 2-2. P2PKH (Pay-to-PubKey-Hash)
-Public key 의 hash 만 노출. Public key 자체는 — *"wallet 이 사용 (출금)"* 시 만 노출.
+Public key 의 hash 만 노출. Public key 자체는 — "wallet 이 사용 (출금)" 시 만 노출.
 
 이 형식이 양자 위협 부분 보호 — 사용 X wallet 은 public key 가 알려지지 않으므로.
 
@@ -65,7 +65,7 @@ Public key 의 hash 만 노출. Public key 자체는 — *"wallet 이 사용 (�
 ## 3. NIST PQC 표준화
 
 ### 3-1. NIST 의 4 라운드
-2016년 NIST 가 *"Post-Quantum Cryptography (PQC) Standardization"* 시작. 4 라운드 후 2024 결과:
+2016년 NIST 가 "Post-Quantum Cryptography (PQC) Standardization" 시작. 4 라운드 후 2024 결과:
 
 | 알고리즘 | 카테고리 | 표준 |
 |---------|---------|------|
@@ -75,12 +75,12 @@ Public key 의 hash 만 노출. Public key 자체는 — *"wallet 이 사용 (�
 | Falcon | Lattice-based signature | FIPS 206 (예정) |
 
 ### 3-2. 비트코인 적용
-이 NIST 표준 알고리즘들을 BTC 에 적용 가능. 그러나 — *"hard fork"* 필요. ETH/ETC 같은 분리 위험.
+이 NIST 표준 알고리즘들을 BTC 에 적용 가능. 그러나 — "hard fork" 필요. ETH/ETC 같은 분리 위험.
 
 ## 4. BIP-360 — Pay-to-Quantum-Resistant Hash
 
 ### 4-1. Proposal
-2024년 BIP-360 *"Pay-to-Quantum-Resistant Hash (P2QRH)"* 제안. 새 wallet 형식 — Lamport signature + Sphincs+ 결합.
+2024년 BIP-360 "Pay-to-Quantum-Resistant Hash (P2QRH)" 제안. 새 wallet 형식 — Lamport signature + Sphincs+ 결합.
 
 ### 4-2. 채택 timeline
 - 2024.6 — BIP-360 draft 발표
@@ -89,7 +89,7 @@ Public key 의 hash 만 노출. Public key 자체는 — *"wallet 이 사용 (�
 - 2030+ — 점진 마이그레이션
 
 ### 4-3. 마이그레이션 challenge
-*"기존 wallet → P2QRH 마이그레이션"* 이 어려움:
+"기존 wallet → P2QRH 마이그레이션" 이 어려움:
 - 사용자가 active 매도/매수 후 P2QRH 로 이동
 - 사용 X wallet (사토시, Mt.Gox 등) 은 마이그레이션 불가능
 - 사라진 BTC 4M 가 영구 양자 위협 노출
@@ -109,10 +109,10 @@ BTC ECDSA-256 깨기에 필요한 양자 컴퓨터 — 약 2,000 logical qubit (
 
 이 수준 양자 컴퓨터의 실용화 — 2035-2045 학계 추정.
 
-### 5-3. *"Harvest Now, Decrypt Later"* 위협
+### 5-3. "Harvest Now, Decrypt Later" 위협
 양자 컴퓨터 실용화 전에도 — 공격자가 현재 BTC 트랜잭션 데이터 저장. 2035-2045 양자 컴퓨터 등장 시 — 저장 데이터 해독.
 
-이 위협이 *"current"* 위협. 즉 BTC 사용자가 *"현재"* 부터 P2QRH 같은 보안 강화 필요.
+이 위협이 "current" 위협. 즉 BTC 사용자가 "현재" 부터 P2QRH 같은 보안 강화 필요.
 
 ## 6. 사토시 wallet 의 위협
 
@@ -125,7 +125,7 @@ BTC ECDSA-256 깨기에 필요한 양자 컴퓨터 — 약 2,000 logical qubit (
 2. 1.1M BTC 매도 시도
 3. 시장 약 -25-50% 폭락 가능
 
-이게 *"양자 risk premium"* — BTC 가격이 *"미래 양자 위협"* 으로 일부 discount.
+이게 "양자 risk premium" — BTC 가격이 "미래 양자 위협" 으로 일부 discount.
 
 ### 6-3. 방어 시나리오
 - 사토시 wallet 이 영구 잠금 (key 잃음) 시 — 양자 공격해도 매도 X
@@ -134,13 +134,13 @@ BTC ECDSA-256 깨기에 필요한 양자 컴퓨터 — 약 2,000 logical qubit (
 <Callout type="opposing-view" title="반대 시각 · 양자 위협의 현실성">
 첫째, **2035-2045 timeline 의 불확실성**. 양자 컴퓨터 발전이 예측 어려움. 더 늦거나 빠를 수 있음.
 
-둘째, **NIST PQC 알고리즘의 검증 부족**. Kyber, Dilithium 등이 *"양자 안전"* 이라고 가정하지만 — 미래 알고리즘으로 깨질 가능성.
+둘째, **NIST PQC 알고리즘의 검증 부족**. Kyber, Dilithium 등이 "양자 안전" 이라고 가정하지만 — 미래 알고리즘으로 깨질 가능성.
 
-셋째, ***"harvest now, decrypt later"* 위협의 과장**. 현재 트랜잭션 데이터 저장 + 미래 해독 시 — 자금이 이미 이동했을 가능성. 위협 작음.
+셋째, **"harvest now, decrypt later" 위협의 과장**. 현재 트랜잭션 데이터 저장 + 미래 해독 시 — 자금이 이미 이동했을 가능성. 위협 작음.
 
 넷째, **BTC 커뮤니티의 거버넌스 한계**. P2QRH 마이그레이션이 정치적으로 어려움. ETH/ETC 분리 위험.
 
-이 비판이 의미 — 양자 위협이 *"존재"* 하지만 *"timeline"* + *"실효성"* 학술 논쟁.
+이 비판이 의미 — 양자 위협이 "존재" 하지만 "timeline" + "실효성" 학술 논쟁.
 </Callout>
 
 ## 결론 — Research 시리즈 종결

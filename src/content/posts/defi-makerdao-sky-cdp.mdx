@@ -24,18 +24,18 @@ sources:
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-DAI 가 어떻게 *"분산 스테이블코인의 표준"* 이 됐는지, 그리고 2024년 *"Sky Protocol"* 로 리브랜딩하면서 무엇이 바뀌었는지를 살펴봅니다. CDP (Collateralized Debt Position) 의 학술 framework 부터 RWA 투자, Endgame Plan 까지.
+DAI 가 어떻게 "분산 스테이블코인의 표준" 이 됐는지, 그리고 2024년 "Sky Protocol" 로 리브랜딩하면서 무엇이 바뀌었는지를 살펴봅니다. CDP (Collateralized Debt Position) 의 학술 framework 부터 RWA 투자, Endgame Plan 까지.
 </Callout>
 
-## 도입 — *"분산 스테이블코인의 본질"*
+## 도입 — "분산 스테이블코인의 본질"
 
-자, MakerDAO 강의를 시작합시다. 첫 번째 질문 — *"왜 분산 스테이블코인이 필요한가?"*
+자, MakerDAO 강의를 시작합시다. 첫 번째 질문 — "왜 분산 스테이블코인이 필요한가?"
 
-USDC, USDT 같은 *"중앙집중형 스테이블코인"* 이 — 가상자산 시장 점유의 99%+ 입니다. Tether 가 60%, Circle 의 USDC 가 30%. 이 두 발행자가 사실상 글로벌 디지털 달러 시장을 지배하죠.
+USDC, USDT 같은 "중앙집중형 스테이블코인" 이 — 가상자산 시장 점유의 99%+ 입니다. Tether 가 60%, Circle 의 USDC 가 30%. 이 두 발행자가 사실상 글로벌 디지털 달러 시장을 지배하죠.
 
 그러나 — 이 모델에는 학술적 문제가 있어요. **중앙집중형 스테이블코인은 발행자의 신용 위험에 노출됩니다**. 2023 Silicon Valley Bank 파산 시 USDC 가 일시적으로 $0.88 로 떨어진 사례가 — 이 위험의 실현입니다 (NY Fed Staff Report 1085 분석).
 
-MakerDAO 의 DAI 가 — 이 문제를 풀려는 첫 학술적 시도였습니다. *"중앙 발행자 없이"* — 사용자가 자기 ETH 를 담보로 직접 DAI 를 발행하는 모델. 이게 학술 framework 으로는 — *"Collateralized Debt Position(CDP, 담보부 부채 포지션)"* 입니다.
+MakerDAO 의 DAI 가 — 이 문제를 풀려는 첫 학술적 시도였습니다. "중앙 발행자 없이" — 사용자가 자기 ETH 를 담보로 직접 DAI 를 발행하는 모델. 이게 학술 framework 으로는 — "Collateralized Debt Position(CDP, 담보부 부채 포지션)" 입니다.
 
 오늘은 — DAI 의 출발부터 2024 Sky Protocol 리브랜딩까지, 그리고 학술적 의미를 깊이 봅니다.
 
@@ -47,14 +47,14 @@ CDP (Collateralized Debt Position) 는 — 사용자가 자기 자산을 담보�
 
 전통 금융의 비유:
 - 부동산 담보 대출 = CDP 의 학술적 원형
-- 차이: 전통 부동산 대출은 *"은행이 발행"*, CDP 는 *"프로토콜이 발행"*
+- 차이: 전통 부동산 대출은 "은행이 발행", CDP 는 "프로토콜이 발행"
 
 ### 1-2. DAI 의 발행 메커니즘
 
 사용자가 — Maker Vault 에 ETH 100 을 담보로 입력 (가격 $300K 가정)
 - 최대 LTV 60% → 최대 $180K 까지 DAI 발행 가능
 - 사용자가 $100K DAI 발행
-- 이 $100K DAI 가 — 시장에서 자유롭게 거래되는 *"분산 발행 스테이블코인"*
+- 이 $100K DAI 가 — 시장에서 자유롭게 거래되는 "분산 발행 스테이블코인"
 
 만약 ETH 가격이 떨어지면:
 - LTV 임계값 (예: 75%) 도달 시 자동 청산
@@ -68,34 +68,34 @@ CDP 가 학술적으로 매우 중요한 이유:
 - **transparent** — 모든 담보 + 부채가 블록체인에 공개
 - **algorithmic** — 청산이 자동, 인간 개입 없음
 
-이 3가지 특성이 — *"분산 화폐 발행의 학술 표준"* 으로 자리잡았습니다.
+이 3가지 특성이 — "분산 화폐 발행의 학술 표준" 으로 자리잡았습니다.
 
-## 2. DAI 의 진화 — *"2017년 출시"*
+## 2. DAI 의 진화 — "2017년 출시"
 
 ### 2-1. 2017년 Single-Collateral DAI
 
-DAI 의 출발은 — 2017년 12월 *"Single-Collateral DAI"*. 담보가 ETH 만 가능. 그러나 ETH 가격 폭락 시 — DAI 시스템 위험.
+DAI 의 출발은 — 2017년 12월 "Single-Collateral DAI". 담보가 ETH 만 가능. 그러나 ETH 가격 폭락 시 — DAI 시스템 위험.
 
 ### 2-2. 2019년 Multi-Collateral DAI
 
 2019년 11월 — Multi-Collateral DAI 로 진화. 다양한 자산을 담보로 인정 (BAT, USDC, WBTC 등).
 
-이게 학술적으로 중요한 변화입니다. 단일 담보 모델 → 다중 담보 모델로 — *"위험 분산"* 효과. 그러나 — 새로운 학술 문제 제기: *"USDC 를 담보로 받으면 DAI 도 USDC 의 신용 위험에 노출"*.
+이게 학술적으로 중요한 변화입니다. 단일 담보 모델 → 다중 담보 모델로 — "위험 분산" 효과. 그러나 — 새로운 학술 문제 제기: "USDC 를 담보로 받으면 DAI 도 USDC 의 신용 위험에 노출".
 
 ### 2-3. 2020 Black Thursday
 
-2020년 3월 12일 *"Black Thursday"* — ETH 가 하루에 -50% 하락. MakerDAO 에서 cascade 청산 발생, 시스템 자산 부족 (Shortfall Event) 발생.
+2020년 3월 12일 "Black Thursday" — ETH 가 하루에 -50% 하락. MakerDAO 에서 cascade 청산 발생, 시스템 자산 부족 (Shortfall Event) 발생.
 
-이 사건이 — MakerDAO 의 학술적 *"stress test"* 였습니다. 결과:
+이 사건이 — MakerDAO 의 학술적 "stress test" 였습니다. 결과:
 - MKR 토큰 추가 발행으로 손실 보전
 - 새로운 안전 장치 도입 (Stability Fee, PSM 등)
 - 학계가 — DeFi 시스템 리스크 분석의 첫 case study 로 다룸
 
-## 3. Endgame Plan — *"Rune Christensen 의 큰 그림"*
+## 3. Endgame Plan — "Rune Christensen 의 큰 그림"
 
 ### 3-1. Endgame 이 무엇인가
 
-2022년 MakerDAO 창립자 Rune Christensen 이 발표한 *"Endgame Plan"* — MakerDAO 의 장기 비전. 핵심 내용:
+2022년 MakerDAO 창립자 Rune Christensen 이 발표한 "Endgame Plan" — MakerDAO 의 장기 비전. 핵심 내용:
 
 1. **SubDAO 분리**: MakerDAO 를 여러 SubDAO 로 분할
 2. **새 토큰 (NewGovToken, NewStable)**: MKR 과 DAI 를 새 토큰으로 마이그레이션
@@ -104,18 +104,18 @@ DAI 의 출발은 — 2017년 12월 *"Single-Collateral DAI"*. 담보가 ETH 만
 
 ### 3-2. 2024 Sky Protocol 리브랜딩
 
-2024년 8월 — Endgame Plan 의 첫 단계 실행. MakerDAO 가 *"Sky Protocol"* 로 리브랜딩:
+2024년 8월 — Endgame Plan 의 첫 단계 실행. MakerDAO 가 "Sky Protocol" 로 리브랜딩:
 - DAI → USDS (옵션 마이그레이션)
 - MKR → SKY (1:24,000 비율)
 - 새 거버넌스 framework
 
-이 리브랜딩이 — DeFi 분야에서 가장 큰 거버넌스 사건 중 하나. 학술적으로는 — *"분산 거버넌스의 진화 패턴"* 의 사례.
+이 리브랜딩이 — DeFi 분야에서 가장 큰 거버넌스 사건 중 하나. 학술적으로는 — "분산 거버넌스의 진화 패턴" 의 사례.
 
-## 4. RWA 투자 — *"DeFi 의 전통 금융 진출"*
+## 4. RWA 투자 — "DeFi 의 전통 금융 진출"
 
 ### 4-1. RWA 가 무엇인가
 
-RWA (Real-World Asset) — 미국 국채, 회사채, 부동산 같은 *"현실 자산"* 을 토큰화한 것. MakerDAO/Sky 가 — 이 분야의 가장 큰 DeFi 투자자.
+RWA (Real-World Asset) — 미국 국채, 회사채, 부동산 같은 "현실 자산" 을 토큰화한 것. MakerDAO/Sky 가 — 이 분야의 가장 큰 DeFi 투자자.
 
 ### 4-2. MakerDAO 의 RWA 투자 규모
 
@@ -125,21 +125,21 @@ RWA (Real-World Asset) — 미국 국채, 회사채, 부동산 같은 *"현실 �
 - 기타 RWA: ~$500M
 - 총 약 $2.7B+
 
-이게 — DeFi 의 *"현실 자산 진출"* 의 가장 큰 사례. MakerDAO 의 수익이 — RWA 이자에서 상당 부분 발생.
+이게 — DeFi 의 "현실 자산 진출" 의 가장 큰 사례. MakerDAO 의 수익이 — RWA 이자에서 상당 부분 발생.
 
 ### 4-3. RWA 의 학술적 의미
 
-학술적으로 매우 흥미롭습니다. *"분산 프로토콜이 전통 자산에 투자"* — 이게 가능한가?
+학술적으로 매우 흥미롭습니다. "분산 프로토콜이 전통 자산에 투자" — 이게 가능한가?
 
 RWA 투자의 메커니즘:
 - MakerDAO 가 SPV (Special Purpose Vehicle) 설립
 - SPV 가 미국 국채 매수
 - SPV 의 수익이 MakerDAO 로 분배
-- 그러나 — 법적으로는 SPV 가 매수 주체, MakerDAO 는 *"investor"*
+- 그러나 — 법적으로는 SPV 가 매수 주체, MakerDAO 는 "investor"
 
-이 구조가 — *"분산 프로토콜의 법적 정체성"* 이라는 학술적 토론을 만들었습니다. KCMI 의 한국 STO 보고서도 — 이 framework 을 인용.
+이 구조가 — "분산 프로토콜의 법적 정체성" 이라는 학술적 토론을 만들었습니다. KCMI 의 한국 STO 보고서도 — 이 framework 을 인용.
 
-## 5. PSM — *"DAI 의 USDC 의존"*
+## 5. PSM — "DAI 의 USDC 의존"
 
 ### 5-1. PSM 가 무엇인가
 
@@ -148,15 +148,15 @@ PSM (Peg Stability Module) — DAI 가격 안정을 위해 USDC 와 1:1 교환 �
 ### 5-2. 구조적 위험
 
 PSM 의 학술적 위험:
-- DAI 가 USDC 의 신용 위험에 *"부분 노출"*
+- DAI 가 USDC 의 신용 위험에 "부분 노출"
 - 2023 SVB 위기 시 USDC 폭락 → DAI 도 함께 폭락 (~$0.92)
-- 이게 *"분산 스테이블코인의 역설"* — 분산성을 강조하지만 실제로는 USDC 의존
+- 이게 "분산 스테이블코인의 역설" — 분산성을 강조하지만 실제로는 USDC 의존
 
 ### 5-3. Sky 의 해결 시도
 
 Sky Protocol 의 USDS 가 — PSM 의존을 줄이려는 시도. RWA 자산 활용 + 다중 담보 분산으로 — USDC 비중 축소.
 
-## 6. MKR/SKY 토큰 — *"가치 포착 메커니즘"*
+## 6. MKR/SKY 토큰 — "가치 포착 메커니즘"
 
 ### 6-1. 토큰의 역할
 
@@ -169,7 +169,7 @@ MKR (지금은 SKY) 가 — MakerDAO/Sky 의 거버넌스 + 가치 포착 토큰
 
 ### 6-2. 학술적 평가
 
-Cong et al. (2021) RFS framework 으로 보면 — MKR 은 *"순수 거버넌스 토큰"* 보다 *"수익 분배 토큰"* 에 가까움. 이게 — DeFi 거버넌스 토큰 분야에서 학술 표준.
+Cong et al. (2021) RFS framework 으로 보면 — MKR 은 "순수 거버넌스 토큰" 보다 "수익 분배 토큰" 에 가까움. 이게 — DeFi 거버넌스 토큰 분야에서 학술 표준.
 
 ## 7. MakerDAO/Sky 의 글로벌 위상
 
@@ -186,15 +186,15 @@ MakerDAO 가 — DeFi 학계에서 가장 많이 인용되는 스테이블코인
 <Callout type="opposing-view" title="반대 시각 · 분산 스테이블코인의 *근본적 한계*">
 MakerDAO/DAI 의 비판도 짚어야 합니다.
 
-첫째, ***"USDC 의존 모순"***. PSM 으로 DAI 가 USDC 에 의존. *"분산"* 의 본질 약화.
+첫째, "USDC 의존 모순". PSM 으로 DAI 가 USDC 에 의존. "분산" 의 본질 약화.
 
-둘째, ***"RWA 투자의 중앙화"***. RWA 투자가 MakerDAO 의 *"분산성"* 을 약화. SPV + 법적 인격 등이 중앙집중형 발행자와 비슷.
+둘째, "RWA 투자의 중앙화". RWA 투자가 MakerDAO 의 "분산성" 을 약화. SPV + 법적 인격 등이 중앙집중형 발행자와 비슷.
 
-셋째, ***"거버넌스 투명성"***. MKR 보유 상위가 — 사실상 시스템 결정 지배.
+셋째, "거버넌스 투명성". MKR 보유 상위가 — 사실상 시스템 결정 지배.
 
-넷째, ***"규제 위험"***. RWA 투자가 — 미국·EU 규제 대상이 될 가능성.
+넷째, "규제 위험". RWA 투자가 — 미국·EU 규제 대상이 될 가능성.
 
-이 비판이 의미하는 바 — DAI/USDS 가 *"분산 스테이블코인의 학술 표준"* 으로는 가치 있되, *"중앙집중형 USDC/USDT 의 완전 대체"* 는 한계가 분명함.
+이 비판이 의미하는 바 — DAI/USDS 가 "분산 스테이블코인의 학술 표준" 으로는 가치 있되, "중앙집중형 USDC/USDT 의 완전 대체" 는 한계가 분명함.
 </Callout>
 
 ## 결론

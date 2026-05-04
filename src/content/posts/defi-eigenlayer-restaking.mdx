@@ -24,41 +24,41 @@ sources:
 <TVLBarChart />
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-EigenLayer 의 *"재스테이킹(restaking)"* 이 무엇인지, 그리고 이 framework 이 이더리움의 시스템 리스크에 어떻게 영향을 미치는지를 봅니다. AVS, 슬래시 위험, BIS Working Paper 의 학술 분석.
+EigenLayer 의 "재스테이킹(restaking)" 이 무엇인지, 그리고 이 framework 이 이더리움의 시스템 리스크에 어떻게 영향을 미치는지를 봅니다. AVS, 슬래시 위험, BIS Working Paper 의 학술 분석.
 </Callout>
 
-## 도입 — *"재스테이킹의 본질"*
+## 도입 — "재스테이킹의 본질"
 
-자, EigenLayer 강의를 시작합시다. *"재스테이킹(restaking)"* 이 무엇인지부터.
+자, EigenLayer 강의를 시작합시다. "재스테이킹(restaking)" 이 무엇인지부터.
 
 이미 Lido 편 (#DF3) 에서 — 일반 스테이킹을 봤습니다. 사용자가 ETH 를 스테이킹 → 검증자 보상 받음. Lido 같은 LST 가 — 유동성을 제공.
 
-EigenLayer 의 재스테이킹은 — 그 *"한 단계 더"* 입니다. 이미 스테이킹된 ETH (또는 stETH 같은 LST) 를 — *"다른 프로토콜에 추가로 스테이킹"* 해서 추가 보상 획득.
+EigenLayer 의 재스테이킹은 — 그 "한 단계 더" 입니다. 이미 스테이킹된 ETH (또는 stETH 같은 LST) 를 — "다른 프로토콜에 추가로 스테이킹" 해서 추가 보상 획득.
 
-학술적으로 — *"같은 자산이 두 번 일하게 하는 자본 효율 framework"*. 그러나 이게 — 새로운 시스템 리스크를 만듭니다. 오늘은 그 framework 을 깊이 봅니다.
+학술적으로 — "같은 자산이 두 번 일하게 하는 자본 효율 framework". 그러나 이게 — 새로운 시스템 리스크를 만듭니다. 오늘은 그 framework 을 깊이 봅니다.
 
-## 1. EigenLayer 의 핵심 — *"AVS"*
+## 1. EigenLayer 의 핵심 — "AVS"
 
 ### 1-1. AVS 가 무엇인가
 
-EigenLayer 의 핵심 개념 — *"AVS (Actively Validated Service, 적극 검증 서비스)"*.
+EigenLayer 의 핵심 개념 — "AVS (Actively Validated Service, 적극 검증 서비스)".
 
 AVS 의 작동:
 - 새 프로토콜이 — 자체 검증자 네트워크가 필요
 - 그러나 — 검증자 네트워크 구축이 어려움 (자금 + 기술)
-- EigenLayer 가 — *"이미 검증된 ETH 스테이커"* 를 빌려줌
+- EigenLayer 가 — "이미 검증된 ETH 스테이커" 를 빌려줌
 - AVS 가 — 그 검증자에게 보상 + 슬래싱 권한 부여
 
-이게 *"검증자 네트워크의 외주(outsourcing)"* 입니다. 새 프로토콜이 — 자체 검증자 없이 보안 확보.
+이게 "검증자 네트워크의 외주(outsourcing)" 입니다. 새 프로토콜이 — 자체 검증자 없이 보안 확보.
 
 ### 1-2. 학술적 의미
 
 AVS framework 이 학술적으로 매우 중요합니다. 왜냐:
 - 새 프로토콜이 — 자기 보안 인프라 구축 비용 절감
-- 이더리움의 *"보안 자본"* 이 — 다른 프로토콜에 *"리스(lease)"*
+- 이더리움의 "보안 자본" 이 — 다른 프로토콜에 "리스(lease)"
 - 검증자가 — 추가 수익 획득
 
-이게 — *"이더리움 보안의 자본 시장화"* 라는 학술 framework. Cornell IC3 + Stanford CBR 에서 활발 분석.
+이게 — "이더리움 보안의 자본 시장화" 라는 학술 framework. Cornell IC3 + Stanford CBR 에서 활발 분석.
 
 ## 2. EigenLayer 의 시장 위치
 
@@ -79,15 +79,15 @@ EigenLayer 가 보안을 제공하는 AVS:
 
 이 다양성이 — EigenLayer 의 학술적 영향력.
 
-## 3. 슬래시 위험 — *"시스템 리스크의 새 채널"*
+## 3. 슬래시 위험 — "시스템 리스크의 새 채널"
 
 ### 3-1. 슬래시 메커니즘
 
-스테이킹의 *"슬래싱(slashing)"* 은 — 검증자가 잘못된 행동을 하면 — 자기 스테이킹된 ETH 의 일부 또는 전부가 몰수되는 메커니즘.
+스테이킹의 "슬래싱(slashing)" 은 — 검증자가 잘못된 행동을 하면 — 자기 스테이킹된 ETH 의 일부 또는 전부가 몰수되는 메커니즘.
 
 EigenLayer 의 재스테이킹에서:
 - 검증자가 — 이더리움 프로토콜 + AVS 양쪽에서 슬래시 위험
-- 즉, *"이중 슬래시 위험"*
+- 즉, "이중 슬래시 위험"
 
 ### 3-2. 시스템 리스크의 학술 분석
 
@@ -108,28 +108,28 @@ BIS Working Paper 가 — EigenLayer 의 시스템 리스크를 학술 분석:
 - Lido 약 28-30%(2026 추정)가 이더리움 스테이킹의 30%
 - 즉, 단일 검증자 그룹이 — EigenLayer + Lido + 이더리움의 핵심
 
-이 3채널이 — *"이더리움의 새로운 시스템 리스크 framework"*.
+이 3채널이 — "이더리움의 새로운 시스템 리스크 framework".
 
 ### 3-3. Vitalik 의 우려
 
 Vitalik Buterin 이 — EigenLayer 에 대한 학술적 우려를 글로 발표 (2023). 핵심 우려:
 
-*"EigenLayer 가 이더리움 보안 자본을 다른 프로토콜에 lease 하는 건 좋지만, 그 과정에서 검증자가 이더리움 프로토콜에 대한 *"alignment"* 가 약해질 수 있다."*
+*"EigenLayer 가 이더리움 보안 자본을 다른 프로토콜에 lease 하는 건 좋지만, 그 과정에서 검증자가 이더리움 프로토콜에 대한 "alignment" 가 약해질 수 있다."*
 
-즉, 검증자가 — 이더리움보다 AVS 의 이익을 우선할 위험. 이게 *"validator alignment"* 의 학술 토론 주제.
+즉, 검증자가 — 이더리움보다 AVS 의 이익을 우선할 위험. 이게 "validator alignment" 의 학술 토론 주제.
 
-## 4. EIGEN 토큰 — *"새 토큰 모델"*
+## 4. EIGEN 토큰 — "새 토큰 모델"
 
 ### 4-1. EIGEN 의 역할
 
 EIGEN 토큰이 — EigenLayer 의 토큰 (2024년 출시). 그러나 — 다른 토큰과 다른 메커니즘.
 
-- *"forking 가능"* — EIGEN 보유자가 시스템 결정에 동의 안 하면 — fork 가능
-- 이게 *"intersubjective truth (상호주관적 진실)"* framework
+- "forking 가능" — EIGEN 보유자가 시스템 결정에 동의 안 하면 — fork 가능
+- 이게 "intersubjective truth (상호주관적 진실)" framework
 
 ### 4-2. 학술적 평가
 
-EIGEN 의 forking 메커니즘이 — DeFi 토큰 거버넌스의 새 학술 framework. 그러나 — *"실제로 fork 가 어떻게 작동할지"* 미검증. 학술 토론 활발.
+EIGEN 의 forking 메커니즘이 — DeFi 토큰 거버넌스의 새 학술 framework. 그러나 — "실제로 fork 가 어떻게 작동할지" 미검증. 학술 토론 활발.
 
 ## 5. EigenLayer 와 Lido 의 결합 위험
 
@@ -143,7 +143,7 @@ EigenLayer + Lido 의 결합:
 
 ### 5-2. 학술 우려
 
-학술적 우려 — *"4 layer 의 한 layer 에서 사고 발생 시, 모든 layer 에 cascade"*.
+학술적 우려 — "4 layer 의 한 layer 에서 사고 발생 시, 모든 layer 에 cascade".
 
 예시 (가설적):
 - EigenLayer 의 한 AVS 가 슬래시 발동
@@ -152,7 +152,7 @@ EigenLayer + Lido 의 결합:
 - stETH 가치 하락 → DeFi 에서 stETH 담보 대출 청산
 - DeFi 청산 cascade → 추가 가격 하락
 
-이 cascade 가 — *"이더리움 시스템 리스크의 새 framework"*. BIS Working Paper + IMF GFSR 이 우려를 표명.
+이 cascade 가 — "이더리움 시스템 리스크의 새 framework". BIS Working Paper + IMF GFSR 이 우려를 표명.
 
 ## 6. 한국 사용자에게의 함의
 
@@ -162,20 +162,20 @@ EigenLayer + Lido 의 결합:
 
 ### 6-2. 학술적 의미
 
-한국 학자에게 — EigenLayer 가 *"DeFi 의 시스템 리스크 학습 사례"* 로 가치 큼. KCMI + KIF 의 후속 보고서 주제.
+한국 학자에게 — EigenLayer 가 "DeFi 의 시스템 리스크 학습 사례" 로 가치 큼. KCMI + KIF 의 후속 보고서 주제.
 
 <Callout type="opposing-view" title="반대 시각 · EigenLayer 의 *시스템 리스크 우려*">
 EigenLayer 의 비판:
 
-첫째, ***"이더리움 보안 약화"***. 검증자가 — 이더리움 + AVS 사이에서 alignment 분산.
+첫째, "이더리움 보안 약화". 검증자가 — 이더리움 + AVS 사이에서 alignment 분산.
 
-둘째, ***"캐스케이드 슬래시 위험"***. 한 AVS 사고가 — 이더리움 + Lido + DeFi 전체에 영향.
+둘째, "캐스케이드 슬래시 위험". 한 AVS 사고가 — 이더리움 + Lido + DeFi 전체에 영향.
 
-셋째, ***"4 layer 결합 위험"***. ETH → Lido → EigenLayer → AVS 의 시스템 복잡성.
+셋째, "4 layer 결합 위험". ETH → Lido → EigenLayer → AVS 의 시스템 복잡성.
 
-넷째, ***"검증되지 않은 AVS"***. 새 AVS 가 — 보안 검증 없이 EigenLayer 보안 활용.
+넷째, "검증되지 않은 AVS". 새 AVS 가 — 보안 검증 없이 EigenLayer 보안 활용.
 
-이 비판이 의미하는 바 — EigenLayer 가 *"자본 효율 학술 framework"* 으로는 가치 있되, *"시스템 안정성"* 측면에서 학계 우려.
+이 비판이 의미하는 바 — EigenLayer 가 "자본 효율 학술 framework" 으로는 가치 있되, "시스템 안정성" 측면에서 학계 우려.
 </Callout>
 
 ## 결론
