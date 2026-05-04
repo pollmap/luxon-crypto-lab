@@ -1,24 +1,19 @@
 "use client";
 
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell } from "recharts";
+import cachedTVL from "@/data/cache/defi-tvl.json";
 
 interface TVLPoint {
   protocol: string;
   tvl: number; // billions USD
-  category: "Lending" | "DEX" | "LST" | "Restaking" | "Yield";
+  category: string;
 }
 
-const DEFI_TVL: TVLPoint[] = [
-  { protocol: "Lido", tvl: 25.0, category: "LST" },
-  { protocol: "EigenLayer", tvl: 17.0, category: "Restaking" },
-  { protocol: "Aave", tvl: 30.0, category: "Lending" },
-  { protocol: "MakerDAO", tvl: 7.0, category: "Lending" },
-  { protocol: "Pendle", tvl: 6.0, category: "Yield" },
-  { protocol: "Morpho", tvl: 6.0, category: "Lending" },
-  { protocol: "Uniswap", tvl: 5.0, category: "DEX" },
-  { protocol: "Curve", tvl: 2.5, category: "DEX" },
-  { protocol: "Compound", tvl: 2.0, category: "Lending" },
-];
+const DEFI_TVL: TVLPoint[] = (cachedTVL as Array<{ protocol: string; tvl: number; category: string }>).map((d) => ({
+  protocol: d.protocol,
+  tvl: d.tvl,
+  category: d.category,
+}));
 
 const COLORS: Record<string, string> = {
   Lending: "var(--neon-cyan)",

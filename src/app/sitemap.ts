@@ -9,6 +9,7 @@ import { INSTITUTIONS } from "@/lib/institutional";
 import { CRISES } from "@/lib/crises";
 import { ONCHAIN_TOPICS } from "@/lib/onchain";
 import { getAllPosts } from "@/lib/posts";
+import { getAllTags } from "@/lib/tags";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://luxon-crypto-lab.vercel.app";
 
@@ -30,7 +31,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/institutional/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/crises/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/onchain/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE}/tags/`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/search/`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
   ];
+
+  const tagRoutes: MetadataRoute.Sitemap = getAllTags().map((t) => ({
+    url: `${BASE}/tags/${encodeURIComponent(t.tag)}/`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
 
   const coinRoutes: MetadataRoute.Sitemap = COINS.map((c) => ({
     url: `${BASE}/coins/${c.symbol.toLowerCase()}/`,
@@ -114,5 +124,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...crisisRoutes,
     ...onchainRoutes,
     ...postRoutes,
+    ...tagRoutes,
   ];
 }

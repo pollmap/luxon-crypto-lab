@@ -16,10 +16,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const meta = getPostBySlug(slug);
   if (!meta) return {};
+  const desc = meta.subtitle ?? `${meta.category} · luxon-crypto-lab 학술 분석`;
+  const url = `/posts/${slug}/`;
   return {
     title: meta.title,
-    description: meta.subtitle ?? undefined,
-    openGraph: { title: meta.title, description: meta.subtitle ?? undefined },
+    description: desc,
+    keywords: meta.tags?.join(", "),
+    authors: [{ name: meta.author ?? "이찬희" }],
+    openGraph: {
+      type: "article",
+      title: meta.title,
+      description: desc,
+      url,
+      siteName: "luxon-crypto-lab",
+      publishedTime: meta.publishedAt,
+      modifiedTime: meta.updatedAt ?? meta.publishedAt,
+      authors: [meta.author ?? "이찬희"],
+      tags: meta.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: desc,
+    },
+    alternates: { canonical: url },
   };
 }
 

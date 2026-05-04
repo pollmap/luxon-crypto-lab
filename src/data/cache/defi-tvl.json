@@ -1,0 +1,11 @@
+[
+  { "protocol": "Lido", "tvl": 25.0, "category": "LST", "fetchedAt": "fallback" },
+  { "protocol": "EigenLayer", "tvl": 17.0, "category": "Restaking", "fetchedAt": "fallback" },
+  { "protocol": "Aave", "tvl": 30.0, "category": "Lending", "fetchedAt": "fallback" },
+  { "protocol": "MakerDAO", "tvl": 7.0, "category": "Lending", "fetchedAt": "fallback" },
+  { "protocol": "Pendle", "tvl": 6.0, "category": "Yield", "fetchedAt": "fallback" },
+  { "protocol": "Morpho", "tvl": 6.0, "category": "Lending", "fetchedAt": "fallback" },
+  { "protocol": "Uniswap", "tvl": 5.0, "category": "DEX", "fetchedAt": "fallback" },
+  { "protocol": "Curve", "tvl": 2.5, "category": "DEX", "fetchedAt": "fallback" },
+  { "protocol": "Compound", "tvl": 2.0, "category": "Lending", "fetchedAt": "fallback" }
+]
