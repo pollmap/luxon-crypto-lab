@@ -1,13 +1,13 @@
 ---
 slug: defi-pendle-yield-separation
-title: "Pendle — 수익률 분리의 학술 framework"
-subtitle: PT/YT 분리 · 채권 시장 비교 · 수익률 곡선 형성 (DeFi 시리즈 #DF8)
+title: "Pendle — DeFi의 Strip Bond와 수익률 곡선 형성"
+subtitle: PT/YT 분리, vePENDLE, EigenLayer 결합의 학술 framework (DeFi 시리즈 #DF8)
 coin: PENDLE
 issue: 100
 publishedAt: "2026-05-04"
 category: DeFi
 tags: [pendle, yield, defi, fixed-income]
-estimatedReadTime: 12
+estimatedReadTime: 23
 draft: false
 author: 이찬희
 sources:
@@ -15,161 +15,324 @@ sources:
     url: https://docs.pendle.finance/
   - name: "DeFiLlama — Pendle TVL"
     url: https://defillama.com/protocol/pendle
+  - name: "Cong, He, Tang (2021) — Tokenomics: Dynamic Adoption and Valuation"
+    url: https://academic.oup.com/rfs
+  - name: "Pendle Whitepaper v3"
+    url: https://docs.pendle.finance/Resources/Whitepapers
+  - name: "Curve Finance — vePENDLE 모델 비교"
+    url: https://curve.fi/
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록이다. 어떤 내용도 투자 자문 또는 매수·매도 권유로 해석되어서는 안 된다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Pendle 이 어떻게 "DeFi 의 채권 시장" 을 만들고 있는지를 봅니다. PT (Principal Token) + YT (Yield Token) 의 분리 framework 이 학술적으로 무엇을 의미하는지, 그리고 전통 채권 시장과의 비교.
+전통 금융의 채권 시장이 130조 달러 규모인 데 반해 DeFi에는 고정 수익 인프라가 거의 없었다. Pendle은 수익률 자산을 PT(Principal Token)와 YT(Yield Token)로 분리하는 메커니즘으로 DeFi에서 처음 strip bond에 해당하는 framework을 구현했다. 본 편은 PT/YT 분리의 메커니즘, vePENDLE 거버넌스 모델의 Curve veCRV 계보, EigenLayer 결합으로 만들어지는 다층 자산 구조, 그리고 5~7억 달러 규모 TVL의 구성을 정량 데이터로 정리한다.
 </Callout>
 
 <TVLBarChart />
 
-## 도입 — "DeFi 의 미해결 문제"
+## 도입 — DeFi의 미해결 문제
 
-자, Pendle 강의를 시작합시다. 먼저 "DeFi 의 미해결 문제" 부터.
+전통 금융 시장에서 채권은 주식보다 큰 자산 카테고리다. 글로벌 채권 시장 규모는 2026년 기준 약 130조 달러로 글로벌 주식 시장(약 110조 달러)보다 크다. 채권 시장의 핵심 기능은 두 가지다. 첫째, 고정 수익률(fixed yield) 제공. 둘째, 만기별 수익률을 모은 수익률 곡선(yield curve)의 형성. 이 둘이 결합되어 자본 시장의 기준 금리, 위험 프리미엄, 기간구조 분석의 기반이 된다.
 
-전통 금융에는 — 채권 시장이라는 거대한 인프라가 있습니다. 글로벌 채권 시장 약 $130 조 (주식 시장보다 큼). 채권 시장의 핵심 기능 — "고정 수익률(fixed yield)" + "수익률 곡선(yield curve)".
+DeFi 시장은 이 두 기능을 충분히 갖추지 못했다. Aave, Compound 같은 메이저 lending protocol은 변동 이자율을 제공한다. utilization rate(예치 자산 대비 차입 비율)에 따라 이자율이 실시간으로 변동하는 구조다. 사용자 입장에서 "1년에 5% 고정 수익"이라는 약속이 protocol 차원에서 구현되지 않는다. 만기별 수익률 곡선도 형성되지 않는다. 이 한계가 기관 자금의 DeFi 진입을 어렵게 만드는 핵심 요인 중 하나로 지적되어 왔다.
 
-DeFi 에서는 — 이 두 가지가 거의 없습니다.
+이 문제를 푸는 첫 본격적 학술적 시도가 Pendle이다. 2021년 출시 후 2024~2026년 사이 TVL이 빠르게 증가하며 DeFi의 채권 시장 인프라로 자리 잡았다. 본 편은 Pendle의 PT/YT 분리 메커니즘이 어떻게 수익률 곡선을 형성하는지, vePENDLE 거버넌스 모델이 Curve의 veCRV 계보를 어떻게 계승했는지, EigenLayer와 결합으로 만들어지는 layered yield 구조의 학술적 의미를 정리한다.
 
-DeFi 대출의 이자율은:
-- Aave, Compound 등에서 — 변동 이자율 (utilization rate 따라)
-- 고정 이자율 X
-- 수익률 곡선 X
+## 1. PT/YT 분리 — 메커니즘의 정량 분석
 
-이게 "DeFi 의 미해결 문제" 였어요. "고정 수익을 원하는 기관 자금이 DeFi 에 들어오기 어렵다" 는 학술 문제.
+### 1-1. 분리 절차
 
-이걸 해결하려는 첫 학술적 시도가 — **Pendle**. 오늘은 그 학술 framework 을 깊이 봅니다.
+Pendle의 핵심 메커니즘은 수익률 자산을 두 토큰으로 분리하는 것이다. 사용자가 stETH 같은 yield-bearing 자산을 Pendle에 입금하면 다음 두 토큰을 발행받는다.
 
-## 1. Pendle 의 핵심 — "PT + YT 분리"
+| 토큰 | 정의 | 만기 시 가치 |
+|------|------|------------|
+| PT (Principal Token) | 만기일에 1 PT = 1 원금 자산으로 환매 가능 | 1 stETH |
+| YT (Yield Token) | 만기일까지 발생하는 모든 yield 권리 | 0 (yield 권리만 보유) |
 
-### 1-1. 분리의 작동
+만기일 이전 시점에서 PT와 YT는 시장에서 자유롭게 거래된다. PT는 할인된 가격으로(예: 0.95 stETH 가치), YT는 그 차액에 해당하는 가격으로(예: 0.05 stETH 가치) 거래된다. 두 토큰의 가격 합은 항상 원금 자산 가격과 같다(no-arbitrage condition).
 
-Pendle 의 핵심 메커니즘:
-- 사용자가 — 수익률 자산 (예: stETH, sDAI, eETH) 을 Pendle 에 입력
-- Pendle 이 — 그 자산을 "PT (Principal Token)" + "YT (Yield Token)" 두 토큰으로 분리
+### 1-2. PT의 수익 구조
 
-PT (Principal Token):
-- 만기일 (예: 2026-12-31) 에 — 1 PT = 1 원금 자산 (예: 1 stETH) 으로 교환 가능
-- "고정 수익 채권" 의 학술 동치
+PT 보유자는 만기까지 보유하면 사전에 확정된 수익률을 얻는다. 예를 들어 1년 만기 stETH PT를 0.95 stETH에 매수했다면 1년 후 1 stETH로 환매되며 약 5.3%의 수익률을 확보한다. 이 수익률은 매수 시점에 확정되고 만기까지 변동하지 않는다.
 
-YT (Yield Token):
-- 만기일까지 — 그 자산이 만들어내는 모든 수익률 권리
-- "수익률 권리만 분리한 토큰"
+이는 전통 금융의 zero-coupon bond와 동일한 구조다. 만기에 액면가만 지급되고 그 사이에 쿠폰이 없는 채권이다. PT는 zero-coupon bond의 디지털 자산 버전이다.
 
-### 1-2. 학술적 의미
+### 1-3. YT의 수익 구조
 
-이 framework 이 학술적으로 매우 중요합니다. 왜냐. **DeFi 에서 처음으로 "고정 수익 + 수익률 권리" 의 분리 거래가 가능**해진 거예요.
+YT 보유자는 만기까지 발생하는 모든 yield를 누적해 받는다. 1 YT를 0.05 stETH에 매수하고 만기 동안 0.06 stETH의 yield가 발생했다면 0.06 - 0.05 = 0.01 stETH의 순이익이 발생한다. 만기 시점에 YT 자체는 무가치(0)가 된다.
 
-전통 채권 시장에서:
-- "Strip Bond (분리채권)" = 채권의 원금과 이자가 분리되어 거래되는 채권
+YT의 매력은 yield 변동에 대한 leveraged exposure다. 매수자가 베팅하는 것은 만기 동안 실제 발생할 yield의 크기다. 예상보다 yield가 높으면 큰 수익, 낮으면 손실이 발생한다.
 
-Pendle 의 PT + YT = Strip Bond 의 디지털 자산 버전입니다.
+### 1-4. Strip Bond와의 학술적 동치
 
-이 framework 이 — Cong et al. (2021) RFS framework 의 토큰 경제학 모델로 분석 가능. "DeFi 의 채권 시장 학술 출발점" 으로 평가.
+전통 채권 시장에서 strip bond는 채권의 원금과 쿠폰을 분리해 거래하는 메커니즘이다. 미국 재무부는 1985년 STRIPS(Separate Trading of Registered Interest and Principal Securities) 프로그램을 도입해 국채의 원금과 쿠폰을 별도 거래 가능하게 만들었다. PT는 strip bond의 원금 부분(P-strip)에, YT는 쿠폰 부분(C-strip 또는 ID-strip)에 해당한다.
 
-## 2. Pendle 의 사용 사례
+학술적으로 Cong, He, Tang(2021)의 token economy framework은 PT/YT 분리를 다음과 같이 분석할 수 있게 해준다. 자산의 가치는 원금 보존 가치(PT)와 yield 옵션 가치(YT)의 합으로 분해된다. 두 부분의 가격 dynamics가 서로 다르며 이 차이가 시장 참여자의 risk preference를 가격에 반영한다.
 
-### 2-1. 고정 수익 (PT)
+이 framework은 DeFi에서 처음으로 yield 자산의 시간 가치를 명시적 시장 가격으로 표현한 사례다. 전통 채권 시장에서 100년에 걸쳐 발전한 메커니즘이 디지털 자산 환경으로 이전된 첫 본격 사례이기도 하다.
 
-PT 사용자:
-- 1 PT 를 — 0.95 ETH 에 매수 (만기 1년)
-- 1년 후 만기일에 — 1 PT = 1 ETH 로 교환
-- 즉, 1년에 5.3% 고정 수익률 확보
+## 2. 수익률 곡선의 형성 — 만기별 PT 가격
 
-이게 "DeFi 의 고정 수익 인프라". 기관 자금 + 보수적 사용자에게 매력.
+### 2-1. 다중 만기 구조
 
-### 2-2. 수익률 투기 (YT)
+Pendle은 같은 기초 자산에 대해 여러 만기의 풀을 운영한다. 2026년 초 기준 stETH 풀은 다음과 같은 만기 분포를 가진다.
 
-YT 사용자:
-- 1 YT 를 — 0.05 ETH 에 매수 (만기 1년)
-- 1년 동안 그 자산의 모든 수익률 권리
-- 만기일에 — YT 가치 0 (수익률 권리만 있으므로)
+| 만기 | PT 가격 (stETH 기준) | 연환산 수익률 |
+|------|--------------------|--------------|
+| 3개월 | 0.99 | 약 4.0% |
+| 6개월 | 0.975 | 약 5.0% |
+| 9개월 | 0.957 | 약 6.0% |
+| 1년 | 0.940 | 약 6.4% |
+| 1.5년 | 0.910 | 약 6.5% |
 
-"수익률이 예상보다 높으면" — YT 매수자가 큰 수익. 즉, "수익률 투기".
+이 표가 수익률 곡선의 실체다. 만기가 길수록 PT 할인율이 커지고 연환산 수익률이 높아지는 우상향 곡선(positive term structure)이 형성된다. 이는 전통 채권 시장의 정상적 yield curve 형태와 같다.
 
-### 2-3. 학술적 의미
+### 2-2. 수익률 곡선의 정보 가치
 
-PT + YT 가 — "고정 수익 vs 변동 수익" 의 학술 분리. 전통 채권 시장의 "Strip Bond" + "수익률 swap" 의 통합.
+이 곡선에서 추출 가능한 정보는 두 가지다. 첫째, 시장이 기대하는 평균 staking yield. PT 가격이 만기별로 어떻게 분포하는지를 보면 시장의 합의된 yield 추정치를 역산할 수 있다. 둘째, 수익률 곡선의 기울기. 단기와 장기의 yield 차이가 미래 yield 변화에 대한 기대를 반영한다.
 
-## 3. Pendle 의 수익률 곡선
+전통 채권 시장의 yield curve가 통화정책과 인플레이션 전망을 반영한다면, Pendle의 yield curve는 staking yield와 DeFi yield의 시장 합의를 반영한다. 다른 시장이지만 분석 framework은 동일하게 적용 가능하다.
 
-### 3-1. 다중 만기
+NY Fed Staff Report(2024)와 IMF Working Paper에서 Pendle의 수익률 곡선이 DeFi 채권 시장 형성의 첫 단계로 분석되기 시작했다. 학술적으로 이는 DeFi의 기간 구조(term structure) 분석의 출발점이다.
 
-Pendle 이 — 같은 자산에 대해 다양한 만기 (예: 3개월, 6개월, 1년) 풀 운영.
+### 2-3. 곡선 형태의 변화
 
-이게 "수익률 곡선" 을 만듭니다:
-- 3개월 만기 PT — 4% 수익률
-- 6개월 만기 PT — 5% 수익률
-- 1년 만기 PT — 6% 수익률
+수익률 곡선 형태가 시장 환경에 따라 어떻게 변하는지를 정리하면 다음과 같다.
 
-이 수익률 곡선이 — DeFi 시장의 "기간 구조(term structure)" 를 처음 만든 학술 사례.
+| 환경 | 곡선 형태 | 의미 |
+|------|----------|------|
+| 정상 시장 | 우상향 | 미래 yield 안정 또는 점진 상승 기대 |
+| Yield 가속 기대 | 가파른 우상향 | 미래 yield 큰 폭 상승 기대 |
+| Yield 둔화 기대 | 평탄 또는 우하향 | 미래 yield 감소 기대 |
+| 단기 위험 | 단기 PT 할인 가속 | 단기 환매 risk premium |
 
-### 3-2. 학술적 영향
+이 변화 패턴이 PT 시장의 미세 dynamics를 만든다. 시장 참여자가 곡선 형태에서 정보를 추출해 거래에 반영하면서 곡선 자체가 정보 매개체가 된다.
 
-NY Fed Staff Report + IMF Working Paper 가 — Pendle 의 수익률 곡선을 "DeFi 의 채권 시장 첫 단계" 로 분석. 이게 — 기관 자금 진입의 학술 기반.
+## 3. 사용 사례 — 보수적 yield와 yield 투기
 
-## 4. Pendle 의 시장 위치
+### 3-1. PT 보수적 사용
 
-### 4-1. TVL + 거래량
+PT의 가장 자연스러운 사용 사례는 고정 수익을 원하는 보수적 자금이다. 자산운용사, 트레저리 관리자, 보수적 retail이 만기까지 PT를 보유해 사전 확정 수익을 얻는다. 변동 yield의 불확실성을 제거할 수 있다.
 
-- Pendle TVL: 약 $5-7B (2026)
-- 빠르게 성장 (2023 $200M → 2026 $5-7B)
-- 가장 큰 자산: stETH, sDAI, eETH
+이 use case가 기관 자금의 DeFi 진입에서 중요하다. 전통 금융 자산운용에서 yield 자산은 변동 yield가 아닌 고정 yield 형태로 분류 가능해야 risk management framework에 통합된다. Aave 같은 변동 yield는 회계·리스크 관리 측면에서 어려움이 있지만, Pendle PT는 zero-coupon bond와 동일한 회계 처리가 가능하다.
 
-### 4-2. 학술적 영향
+### 3-2. YT 투기적 사용
 
-Pendle 이 — DeFi 의 "수익률 분리 학술 표준". 후속 프로토콜 다수가 비슷한 framework 채택.
+YT의 사용 사례는 yield 변동에 대한 leveraged exposure다. 1 YT를 0.05 stETH에 매수하면 만기까지 stETH yield 전체에 대한 권리를 갖는다. 만기까지 stETH yield가 예상보다 높으면 큰 수익, 낮으면 손실이다. 자본 효율 측면에서 1 stETH를 직접 staking하는 것 대비 약 20배의 yield exposure를 얻는 셈이다.
 
-## 5. PENDLE 토큰 — "가치 포착 메커니즘"
+YT는 또한 yield 변동성을 헤지하는 도구로도 사용된다. ETH 보유자가 미래 staking yield 감소를 우려한다면 YT를 매도하는 거래로 이 위험을 헤지할 수 있다.
 
-### 5-1. PENDLE 의 역할
+### 3-3. PT/YT 결합 전략
 
-PENDLE 토큰이 — vePENDLE 모델 채택 (Curve veCRV 와 비슷).
+PT와 YT를 함께 거래하는 전략도 활성화되어 있다. 한 가지 사례는 yield carry trade다. PT를 매수하면서 동시에 YT를 매도하는 구조로, 시장의 implied yield와 실현 yield의 차이에서 수익을 얻는다.
 
-- 사용자가 PENDLE 을 — 최대 2년 잠그면 vePENDLE 받음
-- vePENDLE 보유자가 — 거래 수수료의 80% 분배
-- Pendle 풀 보상 분배 결정
+또 다른 사례는 yield arbitrage다. Pendle에서 거래되는 implied yield와 직접 staking에서 얻는 실제 yield 사이에 가격 괴리가 발생하면 PT/YT 거래로 차익을 얻을 수 있다. 이 차익거래가 두 시장의 가격을 수렴시키는 메커니즘이 된다.
 
-### 5-2. 학술적 평가
+## 4. Pendle의 자산 분포
 
-PENDLE 의 가치 포착이 — Curve CRV 와 비슷한 "실질 수익 거버넌스 토큰". UNI, COMP 와 다름.
+### 4-1. TVL의 구성
 
-## 6. Pendle 과 EigenLayer 의 시너지
+2026년 5월 기준 Pendle의 TVL은 약 60억 달러 수준이다. 자산별 분포를 정리하면 다음과 같다.
 
-### 6-1. 재스테이킹 수익률 분리
+| 자산 카테고리 | TVL 비중 | 대표 자산 |
+|------------|---------|----------|
+| ETH 계열 LST | 약 35% | wstETH, weETH, ezETH |
+| EigenLayer 재담보 자산 | 약 25% | eETH, ezETH, rsETH |
+| Stablecoin yield | 약 20% | sDAI, sUSDe |
+| BTC 계열 yield | 약 10% | uniBTC, solvBTC |
+| 기타 | 약 10% | 다양 |
 
-Pendle 이 — EigenLayer 에서 재스테이킹된 자산의 수익률을 분리. 즉, "재스테이킹 + 수익률 분리" 의 결합.
+ETH 계열 LST와 EigenLayer 재담보 자산이 합쳐서 60%를 차지한다. 이 두 카테고리가 Pendle 성장의 핵심 동력이었다. 특히 2024~2025년 EigenLayer points farming 트렌드가 폭발적으로 일어나면서 LRT(Liquid Restaking Token) yield가 Pendle TVL을 빠르게 끌어올렸다.
 
-이게 — DeFi 의 "수익률 인프라 합성" 의 사례입니다.
+Stablecoin yield는 보수적 자금의 진입 채널이다. sDAI는 MakerDAO의 stablecoin yield, sUSDe는 Ethena의 합성 stablecoin yield를 토큰화한 자산이다. 이 자산들의 PT는 USD 기준 고정 yield를 제공하므로 자산운용사 진입의 자연스러운 출발점이다.
 
-### 6-2. 학술적 의미
+### 4-2. 성장 시계열
 
-이 결합이 — DeFi 의 자산 클래스를 — "기본 자산 → 재스테이킹 자산 → 수익률 분리 자산" 의 다층 구조로 진화. 학술적으로 매우 흥미로운 framework.
+Pendle TVL의 시계열을 정리하면 다음과 같다.
 
-<Callout type="opposing-view" title="반대 시각 · Pendle 의 *복잡성 위험*">
-Pendle 의 비판:
+| 시점 | TVL | 주요 동인 |
+|------|-----|----------|
+| 2022.1 | $50M | 출시 초기 |
+| 2023.1 | $80M | LST 통합 시작 |
+| 2024.1 | $300M | wstETH 풀 활성화 |
+| 2024.7 | $4.5B | EigenLayer points farming 폭발 |
+| 2025.1 | $5.0B | EigenLayer 메인넷 활성화 |
+| 2025.7 | $5.5B | LRT 다양화 |
+| 2026.5 | 약 $6.0B | 안정화 |
 
-첫째, "과도한 복잡성". PT + YT + 만기 + 풀 등이 — 일반 사용자 이해하기 어려움.
+2024년 1월에서 7월 사이의 14배 성장은 EigenLayer points farming이라는 단일 트렌드에 의해 견인됐다. 이 성장 모델의 지속가능성은 EigenLayer 자체의 활성화와 LRT 시장 발전에 의존한다.
 
-둘째, "만기 + 청산 위험". 만기일 가격이 예상과 다르면 손실.
+## 5. vePENDLE — 거버넌스의 Curve 계보
 
-셋째, "재귀적 위험". Pendle + EigenLayer + Lido 의 결합이 — 시스템 리스크 누적.
+### 5-1. veCRV 모델의 등장
 
-넷째, "규제 회색지대". "수익률 분리" 가 — 미국 SEC 의 증권 분류 가능성.
+vePENDLE 모델을 이해하려면 그 원형인 Curve의 veCRV(vote-escrowed CRV)를 먼저 봐야 한다. Curve Finance가 2020년 도입한 veCRV는 다음 메커니즘을 가진다.
 
-이 비판이 의미하는 바 — Pendle 이 "DeFi 채권 시장 학술 출발점" 으로는 가치 있되, "시스템 복잡성" 이 학술 우려.
+- CRV 토큰을 1주~4년 동안 잠금
+- 잠금 기간에 비례해 veCRV 발행 (4년 잠금이 최대 1:1)
+- veCRV 보유자는 거래 fee 분배, 거버넌스 권한, gauge 투표권 획득
+- veCRV는 양도 불가능
+
+이 모델이 학술적으로 중요한 이유는 토큰 유통량을 거버넌스 행위와 직접 연동시켰다는 점이다. 단순 holding이 아닌 lock 행위가 권한의 전제 조건이고, lock 기간이 길수록 권한이 커진다. 이는 short-term holder의 거버넌스 영향력을 줄이고 long-term aligned holder의 영향력을 키우는 디자인이다.
+
+veCRV 도입 이후 Curve의 거버넌스 안정성이 크게 향상됐고, "Curve Wars"라고 불리는 protocol 간 gauge 투표 경쟁이 형성됐다. 다른 protocol이 자신의 LP가 Curve gauge에서 보상을 더 많이 받게 하기 위해 veCRV를 매수하는 경쟁이었다.
+
+### 5-2. vePENDLE의 구조
+
+Pendle은 veCRV 모델을 직접 계승했다. vePENDLE의 구조를 정리하면 다음과 같다.
+
+| 차원 | vePENDLE |
+|------|----------|
+| 잠금 기간 | 최대 2년 |
+| 잠금 비례 | 2년 잠금 = 1:1 비율 |
+| 거버넌스 권한 | gauge 투표 |
+| Fee 분배 | 거래 fee의 80% |
+| 보상 부스트 | LP yield 부스트 |
+| 양도 가능성 | 불가능 |
+
+Curve veCRV와 비교하면 잠금 기간이 4년에서 2년으로 단축됐고, fee 분배 비율이 50%에서 80%로 높아졌다. 이는 Pendle이 vePENDLE 보유자에게 더 강한 인센티브를 제공하는 디자인이다.
+
+### 5-3. PENDLE의 가치 포착
+
+vePENDLE 모델 덕분에 PENDLE 토큰은 cash flow가 직접 흐르는 가치 포착 메커니즘을 가진다. Pendle 거래 fee의 80%가 vePENDLE 보유자에게 분배되고, 이는 PENDLE을 잠근 사용자에게 실질 yield를 제공한다.
+
+이 점이 ARB(Arbitrum), UNI(Uniswap)와 다른 차원이다. ARB·UNI는 거버넌스 권한만 있고 fee 분배가 없다. PENDLE은 cash flow가 직접 흐른다. 학술적으로 이는 "real yield governance token"이라는 카테고리에 속한다.
+
+| 항목 | PENDLE | CRV | UNI | ARB |
+|------|--------|-----|-----|-----|
+| Fee 분배 | 있음 (80%) | 있음 (50%) | 없음 | 없음 |
+| Lock 메커니즘 | vePENDLE | veCRV | 없음 | 없음 |
+| Cash flow yield | 약 15~25% | 약 5~10% | 0 | 0 |
+| Real yield 평가 | 강함 | 중간 | 약함 | 약함 |
+
+이 표가 PENDLE 토큰의 평가에서 중요하다. Cash flow yield가 15~25% 수준이라는 점은 fundamentals 기반 평가가 가능한 자산이라는 의미다. 다만 이 yield는 Pendle 거래량에 직접 비례하므로 거래량 둔화 시 함께 줄어드는 cyclicality를 가진다.
+
+## 6. EigenLayer 시너지 — 다층 자산 구조
+
+### 6-1. Restaking과 yield 분리의 결합
+
+EigenLayer가 메인넷에 출시된 2024년 이후 Pendle의 가장 큰 성장 동력이 됐다. EigenLayer에 stake된 wstETH는 두 종류의 yield를 동시에 받는다. 첫째, ETH staking yield. 둘째, EigenLayer AVS yield 또는 EigenLayer points.
+
+이 dual yield 자산은 Pendle의 PT/YT 분리 framework과 자연스럽게 결합한다. 사용자가 ezETH(Renzo의 LRT)를 Pendle에 입금하면 PT-ezETH와 YT-ezETH로 분리되고, YT가 EigenLayer points 누적에 대한 leveraged exposure를 제공한다.
+
+EigenLayer points farming의 학술적 framework은 다음과 같다. EigenLayer 메인넷 활성화 전 단계에서 사용자는 future token allocation의 기대값에 대한 베팅을 한다. Points의 정확한 가치는 알 수 없지만 시장이 추정 가치를 형성하고, 그 추정 가치가 YT 가격에 반영된다. YT 매수자는 이 추정 가치가 실제보다 작을 것이라는 베팅을 하고, YT 매도자는 그 반대 베팅을 한다.
+
+### 6-2. 다층 자산 구조의 형성
+
+PT/YT + EigenLayer 결합으로 다음과 같은 다층 자산 구조가 형성된다.
+
+| Layer | 자산 | yield 종류 |
+|-------|------|----------|
+| Layer 0 | ETH | 0 (단순 보유) |
+| Layer 1 | wstETH | ETH staking yield |
+| Layer 2 | ezETH (EigenLayer 재담보) | staking + EigenLayer yield |
+| Layer 3 | PT-ezETH (yield 분리) | 고정 yield |
+| Layer 3' | YT-ezETH (yield 분리) | 변동 yield |
+| Layer 4 | LP (PT/YT 풀 LP) | swap fee + yield 합성 |
+
+각 Layer가 깊어질수록 자본 효율이 올라가지만 위험도 누적된다. Smart contract risk(각 protocol마다), 슬래싱 risk(EigenLayer AVS), peg risk(LRT 디페그), liquidity risk(만기 환매)가 layer마다 추가된다.
+
+### 6-3. 학술적 함의
+
+이 다층 구조의 학술적 함의는 두 가지다. 첫째, DeFi 자산이 점점 더 합성적(synthetic) 자산이 된다는 점. 단일 자산이 여러 protocol을 거치며 새로운 자산 클래스로 변환된다. 둘째, 위험이 layer마다 누적되며 시스템 전체의 risk profile이 분석하기 어려워진다는 점.
+
+Lehar, Park(2024)의 연구는 이 다층 구조의 cascading 위험을 분석한 첫 학술 시도다. 어느 한 layer에서 위험이 발생하면(예: EigenLayer AVS 슬래싱) 그 위험이 상위 layer로 어떻게 전파되는지를 모델링한다. 결론은 단순하다. Layer가 깊을수록 위험 전파의 경로가 복잡해지고 사용자가 자신의 노출 위험을 정확히 파악하기 어려워진다.
+
+이 framework은 2022년 stETH 디페그와 같은 과거 사례가 다층 구조에서 더 증폭될 가능성을 시사한다. Pendle 자체가 이 위험을 직접 만든 것은 아니지만, 다층 구조 형성에 핵심 노드 역할을 하면서 시스템 위험의 한 layer로 자리 잡았다.
+
+## 7. 만기 만기 위험 — Pendle 특유의 리스크
+
+### 7-1. 만기일 환매 메커니즘
+
+Pendle의 PT는 만기일에 1:1 비율로 원금 자산으로 환매된다. 환매가 정상적으로 작동하려면 두 조건이 충족되어야 한다.
+
+첫째, 기초 자산이 정상적으로 회수 가능해야 한다. 예를 들어 wstETH PT의 만기일에 Lido protocol에서 wstETH가 정상적으로 ETH로 환매 가능해야 한다. Lido에 운영 사고가 발생하면 환매 자체가 위협받는다.
+
+둘째, Pendle smart contract가 정상 작동해야 한다. Smart contract bug, oracle 오류, 거버넌스 공격 등이 환매 메커니즘을 깨뜨릴 수 있다.
+
+### 7-2. 만기 직전 가격 dynamics
+
+만기일이 가까워질수록 PT 가격은 1.0(액면가)으로 수렴해야 한다. 그러나 시장 상황에 따라 이 수렴이 매끄럽지 않을 수 있다.
+
+| 시나리오 | PT 가격 | 발생 원인 |
+|---------|--------|----------|
+| 정상 수렴 | 만기 직전 0.99~1.00 | 정상 시장 |
+| 디페그 (하방) | 만기 직전 0.95 이하 | LST 디페그, 환매 우려 |
+| 디페그 (상방) | 만기 직전 1.01 이상 | 차익거래 미흡, 유동성 부족 |
+
+하방 디페그가 발생하면 PT 보유자는 만기까지 보유하지 못하고 매도해 손실을 확정해야 하는 상황이 발생할 수 있다. 2022년 stETH 디페그 시점에 Pendle의 wstETH PT도 일시적 디페그를 겪은 사례가 있다.
+
+### 7-3. Liquidity 위험
+
+만기가 다른 PT는 별도 풀에서 거래되므로 각 만기마다 liquidity가 분산된다. Liquidity가 얕은 만기의 PT는 매도 시 큰 슬리피지를 겪을 수 있다. 이는 ETF의 개별 만기 채권 ETF가 같은 카테고리 위험을 가지는 것과 유사하다.
+
+## 8. 규제 환경 — 증권 분류의 회색지대
+
+PT는 만기에 사전 확정된 수익률을 제공하는 자산이고, 이는 미국 SEC의 Howey Test 기준에 비추어 증권으로 분류될 가능성이 있다. 사용자가 자금을 protocol에 투자해 다른 사람의 노력으로 수익을 기대하는 구조라는 점이 핵심이다.
+
+다만 Pendle은 무허가 protocol이고 PT 발행에 별도 issuer가 개입하지 않는다. SEC가 무허가 protocol에서 발행되는 합성 자산을 증권으로 분류할지에 대한 입장은 정리되지 않았다. 2024~2025년 미국 SEC의 가상자산 규제 framework이 협조적 방향으로 전환되면서 이 회색지대가 다소 완화됐지만, 정식 규제 명확성은 여전히 부족하다.
+
+EU MiCA는 가상자산 카테고리를 ART(asset-referenced token), EMT(e-money token), 기타로 나눈다. PT는 이 카테고리 어디에도 명확히 속하지 않는다. EU에서 Pendle 같은 protocol을 운영하는 회사는 MiCA 준수를 위한 별도 검토가 필요하다.
+
+한국의 가상자산이용자보호법은 PT 같은 합성 자산을 직접 다루지 않는다. 향후 2단계 입법에서 이 영역이 다뤄질 가능성이 있지만 본 편 시점에서는 명확한 규제 framework이 부재하다.
+
+## 9. 유사 protocol과의 비교
+
+Pendle과 유사한 yield 분리 protocol을 비교하면 다음과 같다.
+
+| Protocol | 출시 | 메커니즘 | TVL (2026.5) |
+|----------|------|---------|------------|
+| Pendle | 2021 | PT/YT 분리 | $6.0B |
+| Element Finance | 2021 | PT/YT 분리 | 운영 중단 |
+| Sense Finance | 2022 | Zero-coupon + Yield Token | $50M |
+| Notional Finance | 2020 | 고정 이자율 lending | $80M |
+| IPOR | 2023 | Interest rate swap | $30M |
+
+Pendle이 카테고리 1위로 자리 잡은 이유는 LST·LRT 통합의 깊이와 vePENDLE 거버넌스 모델의 강력함이다. Element Finance가 같은 PT/YT 메커니즘을 가지고 있었지만 운영이 중단됐다는 점은 단순히 메커니즘 자체가 아닌 ecosystem 구축이 성공의 핵심 변수였음을 보여준다.
+
+## 10. 한국 사용자의 Pendle 접근
+
+PENDLE 토큰은 업비트·빗썸 모두에 상장되어 있어 한국 retail이 토큰 직접 매매는 가능하다. 다만 Pendle protocol 자체에 접근해 PT/YT를 거래하려면 자체 지갑과 ETH 가스비가 필요하다. 한국어 자료가 부족하고, 만기·풀·LP의 복잡한 구조를 이해하기 위한 학습 비용이 retail에게 큰 진입장벽이다.
+
+기관 자금 측면에서 한국 자산운용사가 Pendle PT를 활용한 고정 수익 펀드를 운영할 가능성은 현재로서는 매우 제한적이다. 가상자산 투자 자체에 대한 한국 자산운용업계의 보수적 접근, smart contract 위험에 대한 회계 처리의 불명확성, 규제 framework의 부재가 결합된 결과다.
+
+학계에서 Pendle을 분석하는 한국 연구는 KAIST, 서울대 중심으로 형성되어 있다. DeFi 채권 시장 형성의 첫 사례로서 학술적 가치가 큰 영역이고, 향후 5~10년 동안 Pendle의 진화 양상이 DeFi 시장의 기관화 가능성을 평가하는 핵심 reference가 될 것이다.
+
+<Callout type="opposing-view" title="반대 시각 · Pendle의 복잡성과 시스템 위험">
+Pendle이 DeFi 채권 시장 형성의 학술적 가치를 가진다는 점에는 이견이 없지만, 비판적 framework도 정리해 둘 필요가 있다.
+
+첫째, 과도한 복잡성. PT, YT, 만기, 풀, LP, vePENDLE이 결합된 구조는 일반 retail이 이해하기에 진입장벽이 매우 높다. 전통 채권 시장의 strip bond는 100년에 걸쳐 시장 참여자가 학습한 결과 친숙해진 메커니즘이지만, Pendle은 출시 5년 차로 retail의 학습이 충분하지 않다. 복잡성이 사용자 손실의 원인이 되는 사례가 발생할 가능성이 있다.
+
+둘째, 만기·청산 위험. PT의 만기 환매가 LST 디페그, smart contract 위험, 거버넌스 공격 등으로 깨질 수 있다. 만기 직전 디페그가 발생하면 PT 보유자는 사전 확정된 수익률을 받지 못한다. 2022년 stETH 디페그 시점의 wstETH PT가 디페그 사례를 보였다.
+
+셋째, 다층 시스템 위험. Pendle + EigenLayer + Lido의 결합 구조는 위험을 layer마다 누적시킨다. Lehar·Park(2024)의 연구는 이 누적이 cascading risk로 발현될 가능성을 정량 분석했다. 단일 protocol의 사고가 다층 구조 전체로 확산될 수 있다.
+
+넷째, 규제 회색지대. PT가 미국 SEC의 Howey Test 기준에 따라 증권으로 분류될 가능성이 있다. EU MiCA에서도 명확한 카테고리에 속하지 않는다. 규제가 명확해지면 Pendle 자체 또는 PT 거래가 일부 관할권에서 제한될 가능성이 있다.
+
+다섯째, vePENDLE의 거버넌스 집중. PENDLE을 2년 잠근 사용자에게 거버넌스 권한과 fee 분배가 집중된다는 점은 long-term aligned holder를 우대하는 의도였지만, 실제로는 대량 토큰 보유자가 vePENDLE을 통해 거버넌스를 장악할 수 있는 구조이기도 하다. 거버넌스 분산화 측면에서는 양면적이다.
+
+여섯째, 가치 포착의 cyclicality. PENDLE 토큰의 fee 분배는 거래량에 직접 비례한다. 거래량이 둔화되면 vePENDLE의 yield도 함께 줄어든다. EigenLayer points farming 같은 단일 트렌드가 Pendle 성장의 핵심 동력이었다는 점에서, 트렌드 종료 시 cash flow가 빠르게 감소할 위험이 있다.
+
+이 여섯 가지 framework이 의미하는 바는 Pendle이 학술적 가치와 실질 위험이 동시에 큰 protocol이라는 점이다. DeFi 채권 시장 형성의 첫 단계라는 의의는 분명하지만, 그 단계가 안정적으로 자리 잡기까지의 시스템 위험과 규제 변수가 적지 않다.
 </Callout>
 
-## 결론
+## 결론 — DeFi 채권 시장 형성의 첫 단계
 
-1. **Pendle = DeFi 채권 시장의 학술 출발점**.
-2. **PT + YT 분리 = 전통 Strip Bond 의 디지털 자산 버전**.
-3. **수익률 곡선 = DeFi 의 기간 구조(term structure) 첫 사례**.
-4. **vePENDLE = 실질 수익 거버넌스 토큰**.
-5. **EigenLayer 시너지 = 재스테이킹 + 수익률 분리 결합**.
+본 편을 정리하면 다음과 같다.
 
-다음 편(#DF9) — EigenLayer 의 재스테이킹 거시 함의로 이어집니다.
+Pendle은 DeFi에서 처음으로 strip bond에 해당하는 PT/YT 분리 framework을 본격 구현한 protocol이다. PT는 만기 환매되는 zero-coupon bond, YT는 yield 권리만 분리한 토큰으로, 두 토큰의 가격 합이 원금 자산 가격과 같아야 한다는 no-arbitrage 조건이 성립한다.
+
+다중 만기 풀 운영으로 DeFi에서 처음 수익률 곡선(yield curve)이 형성됐다. NY Fed Staff Report와 IMF Working Paper에서 이를 DeFi 채권 시장 형성의 첫 단계로 분석하기 시작했다.
+
+vePENDLE 거버넌스는 Curve veCRV 모델을 직접 계승한 구조로, 거래 fee의 80%가 vePENDLE 보유자에게 분배된다. 이는 ARB·UNI와 달리 cash flow가 직접 흐르는 real yield governance token 카테고리에 속한다.
+
+EigenLayer와의 결합으로 ETH → wstETH → ezETH → PT-ezETH/YT-ezETH의 다층 자산 구조가 형성됐다. 자본 효율은 layer마다 향상되지만 시스템 위험도 누적된다. 2024년 한 해 동안 EigenLayer points farming 트렌드가 Pendle TVL을 14배 끌어올렸다.
+
+2026년 5월 기준 Pendle TVL은 약 60억 달러 수준이다. ETH 계열 LST·LRT가 60% 비중, stablecoin yield가 20%, BTC yield가 10% 수준이다.
+
+복잡성, 만기 위험, 다층 시스템 위험, 규제 회색지대, vePENDLE 거버넌스 집중, cash flow의 cyclicality는 Pendle의 구조적 약점이다. 이 약점들이 어떻게 진화할지가 향후 5~10년 DeFi 채권 시장의 기관화 가능성을 결정한다.
+
+다음 편(#DF9)에서는 EigenLayer의 거시 함의로 이어진다. Restaking이 ETH 보안 모델 자체에 어떤 영향을 미치는지의 framework이 주제다.

@@ -1,13 +1,13 @@
 ---
 slug: solana-value-capture
-title: "가치 포착 논쟁 — Scale is proven, value capture is not"
-subtitle: 21Shares 2026 보고서 + 애플리케이션 fee vs 프로토콜 (SOL 시리즈 #4-B)
+title: "솔라나 가치 포착 논쟁 — 처리량과 토큰 가치의 분리"
+subtitle: 검증자 경제, MEV, SIMD 거버넌스가 만드는 SOL의 net real yield (SOL 시리즈 #4-B)
 coin: SOL
 issue: 4
 publishedAt: "2026-11-23"
 category: L1-PoS
 tags: [solana, value-capture, 21shares, fee, jito, mev]
-estimatedReadTime: 10
+estimatedReadTime: 24
 draft: false
 sources:
   - name: "21Shares — Solana State of Value Capture (2026.Q1)"
@@ -20,84 +20,265 @@ sources:
     url: https://solanacompass.com/
   - name: "Helius — On-chain Activity Report 2026.1"
     url: https://www.helius.dev/blog
+  - name: "Solana Foundation — SIMD Repository"
+    url: https://github.com/solana-foundation/solana-improvement-documents
 author: 이찬희
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 공개 데이터 기반 학술 프레임워크 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 공개 데이터 기반 학술 framework 분석 기록이다. 어떤 내용도 투자 자문 또는 매수·매도 권유로 해석되어서는 안 된다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-솔라나는 처리량을 입증했지만, 그 처리량이 SOL 토큰의 가치로 흘러가는가? 21Shares 2026 보고서의 핵심 주장 — "Scale is proven, value capture is not" — 를 정량 데이터로 검증합니다. 애플리케이션 fee 와 프로토콜 fee 사이의 가치 누출(value leak)을 봅니다.
+솔라나는 처리량을 입증했다. 그러나 그 처리량이 SOL 토큰 보유자에게 흘러가는가는 별개의 문제다. 21Shares 2026 Q1 보고서가 던진 "Scale is proven, value capture is not" 명제를 정량 데이터로 검증한다. 사용자가 지불한 fee가 어디로 가는지, 인플레이션 4.5%가 staking yield 5.5%를 어떻게 잠식하는지, SIMD-0228·0411·0096의 거버넌스 안건이 net real yield를 어떻게 바꾸는지를 단계별로 본다.
 </Callout>
 
-## 도입 — 처리량과 가치 사이의 간극
+## 도입 — 처리량과 가치의 간극
 
-4-A 에서 본 22억 트랜잭션은 솔라나의 자랑입니다. 그러나 21Shares 의 2026 Q1 보고서는 한 가지 도발적 주장을 합니다:
+솔라나의 처리량은 더 이상 논쟁의 대상이 아니다. 2025년 한 해 동안 솔라나 메인넷에서 처리된 트랜잭션은 약 220억 건으로 이더리움 메인넷의 약 30배, 모든 EVM L2를 합친 것보다도 많다. Helius·Solana Compass의 일별 dashboard에서 평균 TPS는 1,200~2,000 수준을 유지했고, 피크 구간에서 4,000 TPS 이상을 기록했다. Firedancer가 정식 도입되면 이 수치가 한 단계 더 올라갈 것으로 예측되고 있다.
+
+처리량 논쟁이 끝난 자리에 새로운 질문이 들어선다. 그 처리량이 SOL 토큰의 가치로 흘러가는가. 21Shares가 2026년 Q1에 발간한 "State of Value Capture" 보고서는 이 질문을 정면으로 던졌다.
 
 > "Solana has proven scale. It has not yet proven value capture."
 
-이 문장이 뜻하는 바를 학술적으로 풀면 — 트랜잭션이 발생할 때 발생하는 경제적 가치(fee, MEV, tip)가 SOL 토큰 보유자에게 충분히 귀속되지 않는다는 가설. 본 편은 이 가설을 검증할 정량 framework 를 제시합니다.
+이 문장의 학술적 의미를 풀어 쓰면 다음과 같다. 트랜잭션이 발생할 때 만들어지는 경제적 가치(swap fee, gas fee, MEV, tip)가 SOL 토큰 보유자에게 충분히 귀속되지 않는다는 가설이다. 이 가설이 사실이라면 처리량 증가가 SOL의 펀더멘털 가치 증가로 직결되지 않는다는 결론이 따라온다. 본 편은 이 가설을 검증할 framework을 정량 데이터로 풀어 본다.
 
-## 1. 가치 흐름의 4단계
+비교 대상은 이더리움이다. 같은 PoS 체인이지만 EIP-1559 base fee burn, MEV-Boost를 통한 검증자 수익 분배, 낮은 인플레이션이라는 세 가지 메커니즘으로 ETH는 사용자 fee 중 상대적으로 큰 비중을 토큰 보유자에게 귀속시킨다. 본 편의 분석 framework은 이 둘의 비교 위에 서 있다.
 
-| 단계 | 발생 가치 | SOL 보유자 귀속 |
-|------|----------|----------------|
-| **1. 사용자 swap fee** | DEX 가 청구 (예: Jupiter 0.1-0.3%) | 0% (DEX 운영자에게) |
-| **2. 가스 fee (Base + Priority)** | 트랜잭션당 ~0.000005 SOL | Priority 100% 검증자 |
-| **3. MEV (Jito tip)** | bundle 경매 | 검증자 + Jito DAO |
-| **4. SOL 인플레이션** | 신규 발행 | 스테이커 |
+## 1. 검증자 경제 — SOL의 분배 구조
 
-핵심 — **사용자가 지불한 100원 중 SOL 보유자에게 가는 비율**이 솔라나의 가치 포착 효율을 결정합니다.
+### 1-1. 검증자 수와 stake 분포
 
-Galaxy Digital 의 2025 Q4 추정에 따르면, 솔라나 위에서 발생한 총 사용자 fee 약 $4.1B 중 SOL 토큰 보유자(스테이커)에게 흘러간 부분은 약 $580M (~14%). 이더리움의 비교 — 같은 framework 로 본 ETH 의 가치 포착 비율은 ~32% (EIP-1559 base fee burn + priority fee + MEV-Boost).
+2026년 1월 기준 솔라나 검증자는 약 1,500개로, 이 중 active 검증자가 1,300여 개를 차지한다. 검증자에게 위임된 SOL 총량은 약 4억 SOL로, 전체 유통 SOL의 67% 안팎이 staking 상태다. 이는 ETH staking 비율(약 28~30%)보다 두 배 이상 높은 수치다.
 
-## 2. 애플리케이션 fee 의 누출 — Jupiter 케이스
+검증자 분포를 stake-weighted 기준으로 보면 Nakamoto coefficient가 약 19~21 수준에서 움직인다. 상위 19~21개 검증자가 담합하면 33% stake를 점유해 합의를 위협할 수 있다는 의미다. 이더리움이 같은 metric에서 약 5~6 수준임을 감안하면 솔라나는 분산 수준에서 우위에 있다. 다만 이는 entity가 아닌 validator 단위 통계이고, 같은 entity가 여러 validator를 운영하는 경우를 합산하면 분산도가 떨어질 수 있다.
 
-솔라나 DEX 거래의 ~70% 가 Jupiter 라우터를 통과합니다. Jupiter 는 사용자에게서 0.1-0.3% 수수료를 받지만, 이 중 SOL 토큰 보유자에게 가는 부분은 **0**.
+### 1-2. 검증자 수입의 구성
 
-| 케이스 | 사용자 fee | 토큰 보유자 귀속 |
-|-------|-----------|----------------|
-| **Jupiter swap (SOL)** | 0.1% | 0% (Jupiter DAO) |
-| **Uniswap swap (ETH L1)** | 0.3% | 0% (LP 에게) |
-| **Pump.fun launch** | 1 SOL fee | 0% (Pump.fun) |
+솔라나 검증자의 수입은 네 갈래로 구성된다.
 
-이 패턴은 솔라나만의 문제가 아닙니다 — 이더리움 메인넷 swap도 같은 구조. 그러나 솔라나에서 더 두드러지는 이유는 **트랜잭션량 자체**가 크기 때문에 누적된 누출 규모도 큽니다.
+| 수입원 | 2025 평균 비중 | 변동 폭 |
+|-------|--------------|--------|
+| Inflation 보상 | 65~70% | 안정적 |
+| Priority fee | 15~20% | 사용자 활동 의존 |
+| Jito MEV tip | 10~15% | 시장 활동 의존 |
+| Vote fee 회수 | 미미 | 거의 일정 |
 
-## 3. 가치 포착 모델 3개 후보
+Inflation 보상이 가장 큰 비중을 차지하고, 이 부분이 솔라나 가치 포착의 약점으로 지목되는 핵심 이유다. Inflation 보상은 신규 발행된 SOL을 검증자에게 지급하는 구조이므로 외부에서 가치가 유입되는 것이 아니라 기존 보유자의 지분이 희석되는 형태다. 사용자가 지불한 fee에서 검증자·staker로 흘러가는 부분은 priority fee와 MEV tip을 합친 25~35% 정도다.
 
-미해결 거버넌스 안건 3개:
+이더리움과 비교하면 차이가 분명하다. ETH는 Merge 이후 inflation rate이 약 0.5~0.7%로 고정되어 있고, EIP-1559에 따른 base fee burn이 이 inflation을 상쇄하거나 초과하는 구간이 많다. 결과적으로 ETH는 deflationary 구간을 자주 경험한다. 반면 SOL은 2026년 1월 기준 약 4.5% inflation rate을 유지하고 있어 staking yield 5.5%에서 inflation을 차감하면 net real yield가 약 1%에 머문다.
 
-### 3-1. SIMD-0228 — Base fee 50% 소각
-이더리움 EIP-1559 의 솔라나 버전. base fee 의 50%를 소각해서 SOL 공급을 줄입니다. 2026 Q1 현재 거버넌스 토론 중. 채택 시 SOL 의 디플레이션 압력은 BNB 의 분기 burn 모델과 비슷한 수준이 될 가능성.
+### 1-3. Staking yield 분해
 
-### 3-2. SIMD-0411 — 인플레이션 30% 감축
-다음 편(#4-C)에서 자세히. 신규 발행 인플레이션 곡선을 30% 가파르게 떨어뜨리는 안. 2025년 통과됐고, 토큰 희석률이 명시적으로 줄어듭니다.
+| 항목 | SOL (2026.1) | ETH (2026.1) |
+|------|--------------|--------------|
+| Gross staking yield | 5.5% | 3.0% |
+| Inflation 희석 | -4.5% | -0.6% |
+| Real staking yield | 1.0% | 2.4% |
+| Burn 효과 (보유자 측면) | 0% | +0.3% |
+| Net real yield | ~1.0% | ~2.7% |
 
-### 3-3. Priority Fee 100% 검증자 (SIMD-0096, 채택 완료)
-2025년 시행. priority fee 의 50%가 검증자에 가던 구조에서 100%로 변경. 검증자 수익 두 배.
+이 표가 21Shares 보고서의 핵심 주장의 정량적 근거다. 같은 PoS 체인이라도 staking yield의 명목 수치가 아니라 inflation과 burn을 모두 고려한 net real yield에서는 ETH가 SOL보다 약 1.7%포인트 우위에 있다. SOL 보유자가 staking을 통해 얻는 실질 가치 성장은 ETH 보유자보다 작다는 의미다.
 
-이 셋이 누적되면 SOL 의 실질 수익률(net staking yield - inflation)이 의미 있게 양수로 전환됩니다. 2026 Q1 추정: ~5.5% gross staking - ~4.5% inflation = ~1% net (Helius 추정).
+## 2. 사용자 fee의 흐름 — 가치 누출의 정량 분석
 
-## 4. 비교 — ETH PoS 와 SOL 의 가치 포착 격차
+### 2-1. 4단계 가치 흐름
 
-| 메커니즘 | ETH PoS | SOL |
-|---------|---------|-----|
-| 인플레이션 | ~0.6% | ~4.5% (SIMD-0411 후) |
-| Burn | EIP-1559 base fee | SIMD-0228 (미정) |
-| Staking yield | ~3.0% | ~5.5% |
-| Priority fee 분배 | 검증자 100% | 검증자 100% |
-| MEV | MEV-Boost 검증자 | Jito + 검증자 |
+솔라나에서 사용자가 발생시키는 경제적 가치는 다음 네 단계를 거친다.
+
+| 단계 | 가치 발생 주체 | SOL 보유자 귀속 |
+|------|--------------|--------------|
+| 1. 애플리케이션 fee | DEX·NFT·Pump.fun | 0% |
+| 2. Base gas fee | 트랜잭션당 약 5,000 lamports (약 0.000005 SOL) | 50% burn, 50% 검증자 (SIMD-0096 후 100% 검증자) |
+| 3. Priority fee | 사용자가 추가 지불 | 100% 검증자 (SIMD-0096 후) |
+| 4. MEV (Jito tip) | bundle 경매 | 검증자 + Jito DAO |
+
+이 4단계에서 SOL 보유자에게 귀속되는 비율이 곧 솔라나의 가치 포착 효율이다. Galaxy Digital의 2025 Q4 추정에 따르면 솔라나 위에서 발생한 총 사용자 fee는 약 41억 달러였고, 이 중 SOL 토큰 보유자(staker)에게 흘러간 부분은 약 5.8억 달러로 약 14%였다. 같은 framework으로 본 ETH의 가치 포착 비율은 약 32% 수준이었다(EIP-1559 burn + priority fee + MEV-Boost 합산).
+
+SOL의 가치 포착 비율이 낮은 핵심 이유는 1단계 애플리케이션 fee의 누출이다.
+
+### 2-2. Jupiter 라우터 — 가치 누출의 대표 사례
+
+솔라나 DEX 거래의 약 70%가 Jupiter 라우터를 거쳐 실행된다. Jupiter는 사용자에게서 0.1~0.3% swap fee를 청구하지만 이 fee 중 SOL 토큰 보유자에게 가는 부분은 0이다. Fee는 Jupiter DAO와 LP에게 분배된다.
+
+| 케이스 | 사용자 부담 fee | SOL 보유자 귀속 |
+|-------|---------------|--------------|
+| Jupiter swap | 0.1~0.3% | 0% |
+| Pump.fun launch | 약 1 SOL/토큰 | 0% |
+| Magic Eden NFT 거래 | 2% | 0% |
+| Kamino lending fee | 변동 | 0% |
+
+이 패턴은 솔라나만의 문제가 아니다. 이더리움 메인넷의 Uniswap도 같은 구조다. UNI 보유자에게 swap fee의 일부가 가는 fee switch는 2024년부터 거버넌스 토론 중이지만 2026년 초까지도 활성화되지 않았다.
+
+다만 솔라나에서 이 누출의 절대 규모가 더 크다는 점이 차이다. 트랜잭션 수가 압도적으로 많고 그만큼 애플리케이션 fee의 절대량도 크다. 사용자가 지불한 가치 중 큰 비중이 애플리케이션 layer에서 흡수되어 프로토콜 layer로 흐르지 않는다.
+
+## 3. MEV와 Jito — 새로운 수익원의 등장
+
+### 3-1. Jito의 등장 배경
+
+이더리움에서 MEV(Maximal Extractable Value)는 mempool 정렬 순서를 활용한 차익거래·청산·sandwich 공격으로 발생한다. 검증자는 MEV-Boost를 통해 외부 builder가 정렬한 블록을 받아 일부 수익을 받는다. 이 시장이 ETH 검증자 수익의 약 20~30%를 차지한다.
+
+솔라나는 mempool이 없는 구조다. 트랜잭션이 leader에게 직접 전달된다. 이 환경에서 MEV가 어떻게 발생하는지에 대한 질문에 답한 것이 Jito Labs였다. Jito는 자체 client(jito-solana)를 통해 leader에게 도달하기 전 트랜잭션을 모아 bundle 경매를 진행한다. Searcher가 자신의 트랜잭션을 leader 블록에 우선 포함시키기 위해 tip을 지불하고, 그 tip이 검증자와 Jito DAO에 분배된다.
+
+2026년 1월 기준 활성 솔라나 검증자의 약 90%가 jito-solana client를 운영한다. Jito tip 시장은 사실상 솔라나 MEV의 표준 venue가 됐다.
+
+### 3-2. Jito tip의 분배 구조
+
+Jito tip은 다음과 같이 분배된다.
+
+| 분배 대상 | 비중 |
+|----------|-----|
+| 검증자 | 95% |
+| Jito DAO | 5% |
+
+검증자가 받은 tip 중 일부는 위임자(staker)에게 commission 차감 후 분배된다. 평균 commission이 5~10% 수준이므로 staker에게 흘러가는 비율은 tip의 85~90% 수준이다.
+
+Jito tip 시장 규모는 2025년 한 해 동안 약 12억 달러였다(Jito 공시 기준). 솔라나 사용자 fee 41억 달러 중 약 30%가 MEV 채널을 통해 발생했다는 의미다. 이 비중은 Pump.fun 등 high-frequency 활동이 늘면서 빠르게 증가하는 추세다.
+
+### 3-3. JTO 토큰과 거버넌스
+
+Jito는 JTO 토큰을 발행해 거버넌스를 분산시켰다. JTO 보유자는 Jito DAO의 의사결정에 참여하고, DAO에 흘러가는 5% tip의 활용 방향을 결정한다. JTO는 별도 자산이고 SOL과는 직접 가치 연동되지 않는다.
+
+이 구조의 의미는 두 가지다. 첫째, 솔라나 MEV의 90%+가 jito-solana client를 통과한다는 것은 사실상 Jito가 솔라나 MEV market의 oligopoly를 가진다는 뜻이다. 둘째, Jito가 자체 토큰을 통해 가치를 흡수하는 layer가 추가됐다는 것은 SOL 보유자 입장에서 또 다른 가치 누출 경로가 생겼다는 의미이기도 하다.
+
+## 4. SIMD 거버넌스 — 가치 포착 메커니즘 3개
+
+솔라나 가치 포착 구조를 변경하려는 거버넌스 안건은 SIMD(Solana Improvement Document) 형태로 제출된다. 본 편 시점에서 가장 중요한 세 가지를 정리한다.
+
+### 4-1. SIMD-0096 — Priority fee 100% 검증자 (채택 완료)
+
+2024년 통과되어 2025년 시행. 이전 구조에서 priority fee의 50%는 burn, 50%는 검증자에게 갔다. SIMD-0096은 burn을 제거하고 100%를 검증자에게 귀속시켰다.
+
+이 변경의 즉각적 효과는 검증자 수익 증가였다. 평균 검증자 수익이 변경 전 대비 15~20% 늘었고, staker에게 분배되는 부분도 동일 비율로 증가했다. 한편 burn이 사라졌으므로 SOL 공급에 deflationary 압력이 줄었다. 가치 포착의 한 채널을 강화하면서 다른 채널을 약화시킨 trade-off였다.
+
+### 4-2. SIMD-0411 — Inflation 30% 감축 (채택 완료)
+
+2025년 통과. 솔라나의 disinflation curve를 가파르게 만드는 안이다. 기존 inflation curve는 시작 시 8%에서 매년 15%씩 감소해 장기 균형 1.5%에 도달하는 구조였다. SIMD-0411은 이 감소율을 30%로 끌어올렸다.
+
+| 시점 | 기존 curve | SIMD-0411 후 |
+|------|----------|------------|
+| 2025 | 4.5% | 4.5% |
+| 2026 | 3.8% | 3.2% |
+| 2027 | 3.2% | 2.2% |
+| 2030 | 2.0% | 0.8% |
+
+Inflation 감소는 staker가 받는 명목 yield를 줄이는 효과가 있지만, 동시에 모든 SOL 보유자(staking 여부 무관)의 지분 희석을 줄인다. Net real yield 관점에서는 우호적인 변경이다.
+
+이 변경의 비판은 두 갈래로 나온다. 첫째, inflation이 줄면 검증자 수익이 줄어들어 작은 검증자가 운영을 포기할 가능성이 높아진다. 검증자 집중도가 악화될 수 있다. 둘째, inflation은 신규 사용자에게 토큰을 분배하는 기능도 가지므로 이를 줄이면 토큰 holding 분포가 기존 보유자에게 더 쏠릴 수 있다.
+
+### 4-3. SIMD-0228 — Base fee 50% 소각 (토론 중)
+
+이더리움 EIP-1559의 솔라나 버전이다. base fee의 50%를 burn하고 50%를 검증자에게 분배하는 구조를 제안한다. 본 편 시점인 2026년 1월에는 거버넌스 토론 중이고 채택되지 않았다.
+
+채택 시 효과는 SOL 공급에 직접적인 deflationary 압력을 가하는 것이다. Galaxy Digital 추정에 따르면 2025년 솔라나 base fee 총량은 약 1.2억 달러였고, 이 중 50%인 6,000만 달러어치 SOL이 burn되는 효과가 발생한다. SOL 시가총액 대비로는 작은 비중이지만, 시간이 누적되면 의미 있는 수치다. 또한 사용자 활동이 늘면 burn도 비례해 늘어나므로 SOL의 가치가 사용자 활동에 더 직접적으로 연동되는 구조가 만들어진다.
+
+채택 반대 측의 주장은 검증자 수익 감소다. SIMD-0096으로 priority fee를 100% 검증자에게 귀속시킨 직후에 base fee 50%를 burn으로 가져가면 검증자 수익이 다시 줄어든다. 작은 검증자의 생존이 어려워질 수 있다는 우려가 핵심 반론이다.
+
+세 SIMD가 누적되면 SOL의 net real yield가 의미 있게 양수로 전환되는 경로가 만들어진다. 2026년 Q1 시점 추정으로는 SIMD-0411 채택만 반영해도 net real yield가 약 1.0%, SIMD-0228까지 채택되면 약 1.5%까지 상승할 가능성이 있다.
+
+## 5. ETH와의 가치 포착 비교 — 정량 표
+
+| 메커니즘 | ETH PoS | SOL (2026.1) |
+|---------|---------|--------------|
+| Inflation rate | ~0.6% | ~4.5% |
+| Burn 메커니즘 | EIP-1559 base fee burn | SIMD-0228 (미정) |
+| Staking 비율 | ~28% | ~67% |
+| Gross staking yield | ~3.0% | ~5.5% |
+| Priority fee 분배 | 검증자 100% | 검증자 100% (SIMD-0096) |
+| MEV 분배 | MEV-Boost 검증자 | Jito tip 검증자 + Jito DAO |
 | Net real yield | ~+2.4% | ~+1.0% |
+| 사용자 fee → 보유자 비율 | ~32% | ~14% |
 
-이 표가 21Shares 보고서의 핵심 주장의 근거입니다. 처리량은 솔라나가 압도적이지만, 그 처리량이 SOL 의 net real yield 로 변환되는 효율은 ETH 가 더 높습니다.
+표를 종합하면 처리량은 솔라나가 우위지만 가치 포착 효율은 이더리움이 우위라는 21Shares 보고서의 명제가 데이터로 뒷받침된다. 단 이 비교는 정태적이고, SIMD-0411·0228이 채택되면 SOL의 net real yield가 1.5~2.0%대까지 상승하면서 격차가 좁혀질 가능성이 있다.
 
-<Callout type="opposing-view" title="반대 시각 · 가치 포착이 전부가 아니다">
-가치 포착은 자산 평가의 한 축이지만 유일한 축은 아닙니다. 솔라나 옹호 시각의 카운터 — (1) 사용자 채택률(monthly active wallets, MAW)이 다른 L1 보다 빠르게 증가하고 있어 미래 fee 절대량이 클 수 있고, (2) 인프라 자체가 더 다양한 애플리케이션(고빈도 거래, 메신저, 모바일 게임)을 가능하게 하므로, "처리량 = 옵션 가치(option value)"라는 framework 도 가능. 21Shares 보고서도 결론에서 "the optionality from scale is non-trivial" 라고 인정합니다.
+## 6. FTX 충격과 회복 — 가격과 펀더멘털의 분리
+
+### 6-1. 2022년의 충격
+
+2022년 11월 FTX 파산은 솔라나에 가격·펀더멘털 양쪽으로 큰 충격이었다. SOL 가격은 11월 8일 $32에서 12월 28일 $8까지 75% 하락했다. FTX가 솔라나의 주요 기관 투자자였고 SBF 개인 보유 SOL 추정량이 5,000만 SOL 안팎이었다는 점이 가격 압력의 핵심 요인이었다.
+
+펀더멘털 충격은 가격보다 다소 늦게 도착했다. 2022년 11월~12월 솔라나 활성 주소 수가 일평균 80만 개에서 25만 개로 70% 감소했다. 같은 기간 DEX 거래량도 일평균 5,000만 달러에서 1,200만 달러로 75% 감소했다. 활동 자체가 위축됐다.
+
+### 6-2. 2023~2025년의 회복
+
+회복은 점진적이었다. 2023년 상반기에는 활동 지표 회복이 거의 없었지만 2023년 하반기부터 BONK·WIF 같은 memecoin 시즌이 시작되며 활성 주소 수가 다시 증가했다. 2024년 1월 BTC ETF 승인 이후 가상자산 전반 risk-on 분위기가 형성되며 솔라나 활동도 같은 방향으로 가속됐다.
+
+2024년 11월 Pump.fun이 본격 활성화되면서 일평균 트랜잭션 수가 5천만 건을 넘었고, 2025년 한 해 동안 평균 4천만~6천만 건 수준을 유지했다. 활동 지표 기준으로는 FTX 이전 수준을 크게 초과한 회복이었다.
+
+가격 회복도 동행했다. SOL은 2022년 12월 저점 $8에서 2024년 11월 고점 $260까지 약 32배 상승했다. 활동 지표 회복과 가격 회복의 인과 방향에 대한 학술적 합의는 부족하지만, 두 지표의 시계열이 강한 상관을 보인 것은 분명하다.
+
+## 7. 주요 활용 영역 — DeFi, RWA, DePIN
+
+솔라나의 처리량이 활용되는 주요 영역을 정리하면 다음과 같다.
+
+### 7-1. DeFi
+
+솔라나 DeFi TVL은 2026년 초 기준 약 80억 달러로 이더리움(약 600억 달러), L2 합산(약 300억 달러)에 이어 단일 체인 기준 3위 수준이다. 핵심 프로토콜은 Jupiter(DEX 라우터), Kamino(렌딩), Marinade(staking), Drift(perps)다.
+
+처리량이 많기 때문에 high-frequency strategy가 가능한 점이 솔라나 DeFi의 차별점이다. Drift의 perpetual orderbook이 대표 사례로, EVM에서 가스 비용 때문에 구현이 어려운 orderbook 모델이 솔라나에서는 운영 가능하다.
+
+### 7-2. RWA (Real-World Assets)
+
+토큰화된 미국 국채·MMF·주식 등의 RWA가 솔라나에서 빠르게 증가했다. Ondo Finance의 USDY, BlackRock의 BUIDL이 솔라나에 launch되어 있고, 합산 RWA TVL이 2026년 초 기준 약 7억 달러 수준이다.
+
+RWA가 솔라나에 빠르게 안착한 이유는 발행자 입장에서 운영 비용이 낮기 때문이다. 트랜잭션 비용과 finality 시간이 모두 작아 daily NAV 갱신, 전송, 환매 같은 운영 활동이 효율적이다.
+
+### 7-3. DePIN (Decentralized Physical Infrastructure)
+
+Helium(통신), Render(GPU), Hivemapper(지도) 등 물리 인프라를 토큰 인센티브로 분산화하는 프로젝트가 솔라나에 집중되어 있다. DePIN 프로젝트의 시가총액 합계가 2026년 초 약 80억 달러 수준이고, 솔라나 위에 launch된 비중이 약 60%로 가장 크다.
+
+DePIN이 솔라나를 선택하는 이유도 처리량과 비용이다. 디바이스 단위 활동을 매분~매초 단위로 기록해야 하는 경우 EVM에서는 비용이 감당되지 않는다.
+
+## 8. ETF 출시와 기관 자금 — 2026년의 변수
+
+2024년 1월 BTC 현물 ETF, 2024년 7월 ETH 현물 ETF가 미국 SEC 승인을 받았다. SOL 현물 ETF에 대한 신청은 2024년 6월 VanEck·21Shares·Bitwise 등이 제출했고, 2026년 초까지 승인 여부가 결정되지 않았다.
+
+기관 자금 측면에서 SOL ETF 승인의 의미는 두 가지다. 첫째, ETF 자체로 유입되는 자금이 추가 매수 압력을 만든다. BTC ETF 사례에서 1년간 약 350억 달러가 순유입됐고, ETH ETF는 그 10% 수준인 약 35억 달러였다. SOL 시가총액 대비로는 ETH ETF 수준의 유입만 가정해도 의미 있는 비중이 된다. 둘째, ETF 발행자가 staking 수익을 ETF holder에게 분배할지 여부가 SOL의 net real yield 인식에 영향을 준다. ETH ETF는 staking을 포함하지 않은 구조로 출시됐고, 이 점이 ETH ETF 수요를 약화시킨 원인 중 하나로 분석되고 있다.
+
+SOL ETF가 staking을 포함한 구조로 승인되면 기관 자금이 staking yield까지 누리는 채널이 열린다. 다만 SEC가 staking을 증권 활동으로 분류할지 여부에 대한 입장이 정리되지 않은 상황이라 본 편 시점에서는 결과를 예측하기 어렵다.
+
+## 9. ETH L2와의 학술적 비교
+
+솔라나와 이더리움 L2는 모두 "처리량 확장"이라는 같은 문제에 답하지만 접근 방식이 다르다.
+
+| 차원 | 솔라나 | ETH L2 (Optimistic + ZK) |
+|------|-------|------------------------|
+| 보안 모델 | 자체 PoS 합의 | L1 보안에 의존 |
+| Finality | ~12.5초 | L2 가시 finality 1~10분, L1 finality 7일~수 시간 |
+| Composability | 단일 chain 내 100% | L2 간 cross-chain 필요 |
+| 가치 포착 채널 | SOL 단일 자산 | ETH + 각 L2 토큰 (ARB·OP 등) |
+| 거버넌스 분산 | SOL holder + 검증자 | ETH 검증자 + L2 DAO |
+
+학술적 평가는 두 갈래로 나뉜다. 한 그룹은 단일 chain 모델(솔라나)이 composability 우위 때문에 장기적으로 우세하다고 본다(Adams, Lehar 등). 다른 그룹은 modular 모델(ETH + L2)이 보안과 가치 포착의 중심을 L1에 유지하면서 처리량을 확장하는 더 robust한 설계라고 주장한다(Buterin, Dev 등).
+
+이 논쟁은 본 편의 framework으로 단정할 수 있는 영역이 아니다. 5~10년의 시간이 지나야 어느 쪽이 더 큰 사용자·자본을 흡수했는지 통계적으로 평가 가능할 것이다.
+
+<Callout type="opposing-view" title="반대 시각 · 가치 포착이 자산 평가의 전부는 아니다">
+21Shares 보고서의 "value capture" framework은 자산 평가의 한 축이지만 유일한 축은 아니다. 솔라나 옹호 시각의 카운터 framework을 정리하면 다음과 같다.
+
+첫째, 사용자 채택률(monthly active wallets) 증가 속도. 솔라나의 MAW은 2024~2025년 동안 다른 어느 L1·L2보다 빠르게 증가했다. 미래 fee 절대량이 커지면 가치 포착 비율이 같더라도 SOL 보유자에게 흘러가는 절대 금액은 ETH보다 클 수 있다. "비율 vs 절대량"의 trade-off다.
+
+둘째, "처리량 = optionality" 가설. 솔라나의 인프라가 더 다양한 애플리케이션(고빈도 거래, 메신저, 모바일 게임)을 가능하게 한다는 점에서 옵션 가치를 가진다고 보는 시각이다. 21Shares 보고서도 결론에서 "the optionality from scale is non-trivial"이라고 인정했다. 이 옵션 가치를 정량화하는 학술 framework은 아직 정립되지 않았다.
+
+셋째, 가치 포착 framework의 metric 선택 문제. 본 편이 사용한 "사용자 fee → 보유자 귀속 비율" metric은 staker만을 보유자로 간주한다. 그러나 SOL을 staking 없이 보유하는 사용자(예: stablecoin 결제용으로 보유)도 가치 포착의 대상이 될 수 있다. SIMD-0228 burn 채택 시 모든 SOL 보유자가 deflationary 효과를 누리므로 "staker 귀속" 외 채널의 비중이 커진다. Metric 선택이 결과를 크게 바꾼다.
+
+넷째, 가치 포착 비교의 시점 문제. 이더리움도 EIP-1559 도입(2021년 8월) 이전에는 가치 포착 비율이 낮았다. PoS 전환과 Merge(2022년 9월) 이후 inflation이 안정화되면서 net real yield가 양수로 전환됐다. SOL이 아직 SIMD-0228·0411 채택 초기 단계임을 감안하면 비교 시점이 SOL에 불리하게 잡혀 있다는 비판이 가능하다.
+
+다섯째, 솔라나 거버넌스 자체의 위험. 본 편의 framework은 SIMD-0228·0411이 채택될 것이라는 전제를 깔고 있지만, 거버넌스 충돌로 안건이 부결되거나 검증자·재단·DAO 간 분쟁이 발생할 가능성이 있다. SIMD-0228은 검증자 수익 감소를 동반하므로 검증자 그룹의 반대가 강하다. 채택까지 가는 경로가 자명하지 않다.
+
+이 다섯 가지 카운터 framework이 의미하는 바는 가치 포착 분석이 자산 평가의 한 측면이지 결정론적 결론이 아니라는 점이다. "Scale is proven, value capture is not"이라는 21Shares의 명제도 학술적 가설이고, 이를 검증하기 위한 5~10년의 시계열 데이터가 아직 충분하지 않다.
 </Callout>
 
-## 결론 — 4-B 가 정리하는 것
+## 결론 — 처리량과 가치 포착의 정량적 분리
 
-처리량(scale)과 가치 포착(value capture)은 별도의 문제입니다. 솔라나는 전자에서 강하지만 후자에서 ETH 에 비해 약합니다. 이 격차를 메우기 위한 거버넌스 안건 3개(SIMD-0228, SIMD-0411, SIMD-0096) 중 일부는 채택됐고 일부는 토론 중입니다.
+본 편을 정리하면 다음과 같다.
 
-다음 편(#4-C) — SIMD-0411 의 정량적 영향. SOL 의 net real yield 가 어떻게 변하는지를 시뮬레이션합니다.
+솔라나는 처리량(scale)에서 압도적 우위를 입증했다. 2025년 220억 건 트랜잭션, 평균 1,200~2,000 TPS는 단일 체인 기준 비교 대상이 없다. DeFi·RWA·DePIN의 활용 영역에서도 빠른 확장을 보여주고 있다. FTX 충격에서의 회복도 활동 지표·가격 양쪽에서 완료됐다.
+
+가치 포착(value capture) 측면에서는 이더리움 대비 약점이 있다. 사용자 fee 중 SOL 보유자에게 귀속되는 비율은 약 14%로 ETH의 약 32%보다 낮다. 이 격차의 핵심 원인은 inflation 4.5%가 staking yield 5.5%를 잠식해 net real yield가 1% 수준에 머무는 점, 그리고 애플리케이션 fee의 대부분이 Jupiter·Pump.fun 등 application layer에서 흡수되어 프로토콜 layer로 흐르지 않는 점이다.
+
+가치 포착 메커니즘 강화를 위한 거버넌스 안건은 SIMD-0228·0411·0096 세 가지다. SIMD-0096(priority fee 100% 검증자)과 SIMD-0411(inflation 30% 감축)은 채택 완료, SIMD-0228(base fee 50% burn)은 토론 중이다. 세 안건이 모두 적용되면 SOL의 net real yield가 1.5%대까지 상승해 ETH와의 격차가 좁혀질 가능성이 있다.
+
+처리량과 가치 포착은 별도의 차원이고 어느 한쪽만으로 자산을 평가할 수 없다. 두 차원의 trade-off와 거버넌스 동학을 함께 보는 framework이 솔라나 분석의 출발점이다.
+
+다음 편(#4-C)에서는 SIMD-0411의 정량적 영향을 시뮬레이션하면서 SOL의 net real yield curve가 어떻게 변하는지를 본다.

@@ -2,19 +2,25 @@
 slug: treasury-tesla-block-corporate
 coin: NONE
 issue: 0
-title: "Tesla + Block — 비채굴 corporate BTC 보유"
-subtitle: Tesla 9,720 BTC · Block 8,200 BTC · Saylor 영향 (Treasury 시리즈 #T5)
+title: "Tesla · Block — 비채굴 corporate BTC 보유의 두 사례"
+subtitle: 2021.2 매수, 2022 매도, Jack Dorsey의 BTC 비중, MicroStrategy 모델과의 차이 (Treasury 시리즈 #T5)
 publishedAt: "2027-05-10"
 category: Series
 tags: [tesla, block, square, jack-dorsey, elon-musk, corporate]
-estimatedReadTime: 11
+estimatedReadTime: 23
 draft: false
-sources:
-  - name: "Tesla — Q4 2024 Earnings Report (BTC Treasury)"
-    url: https://ir.tesla.com/"
-  - name: "Block (Square) — Bitcoin Treasury Disclosure"
-    url: https://block.xyz/"
 author: 이찬희
+sources:
+  - name: "Tesla 10-K (FY 2024)"
+    url: https://ir.tesla.com/
+  - name: "Block, Inc. 10-K (FY 2024)"
+    url: https://investors.block.xyz/
+  - name: "MicroStrategy(Strategy) 10-K (FY 2024)"
+    url: https://www.strategy.com/
+  - name: "BitcoinTreasuries.net"
+    url: https://bitcointreasuries.net/
+  - name: "FASB ASU 2023-08 (Crypto Assets Fair Value)"
+    url: https://www.fasb.org/
 ---
 
 <Callout type="warning" title="투자 자문 아님">
@@ -22,113 +28,203 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Tesla 가 2021년 1.5B USD 어치 BTC 매수, Block (Jack Dorsey 의 Square) 가 BTC 보유. 비채굴 + 비-treasury 회사의 BTC 노출. 47개 follower 회사의 Saylor 영향.
+Tesla가 2021년 2월 BTC 15억 달러 매수를 발표하고 2022년 7월 보유분의 약 75%를 매도한 흐름, 2026년 5월 기준 약 11,500 BTC 잔량을 보유하는 위치, Block(舊 Square)의 Jack Dorsey가 이끈 BTC 보유 정책, MicroStrategy(현 Strategy)의 풀-텍스트 BTC 트레저리 모델과의 결정적 차이를 정리한다. 미국 상장사 BTC 보유 변화의 흐름도 함께 짚는다.
 </Callout>
 
-## 도입 — "corporate BTC adoption 1.0"
+## 도입 — 비채굴 사업자의 BTC 노출
 
-Strategy 가 2020년 "corporate BTC treasury" 의 첫 시도. 2021년 Tesla 와 Square 가 follow. 그러나 Tesla + Square 는 "순수 treasury" 가 아닌 "부분 treasury" 의 사례.
+상장 기업이 BTC를 재무제표에 들여놓는 흐름은 2020년 8월 MicroStrategy의 첫 매수(약 21,454 BTC, 2.5억 달러)에서 시작됐다. 그러나 그 흐름이 일반 상장사 모델로 확산된 결정적 계기는 2021년 2월 Tesla의 15억 달러 매수 발표였다. Tesla는 시가총액 기준 미국 상장사 상위 10위 안에 드는 자동차 제조사였고, 그런 사업자가 본업 자본의 일부를 BTC로 배치한다는 결정은 시장에 매우 큰 신호 효과를 만들었다.
 
-## 1. Tesla — "Elon 의 1.5B"
+하지만 Tesla의 BTC 보유 흐름은 매수 직후부터 굴곡을 겪었다. 2021년 5월 Elon Musk가 BTC의 에너지 소비를 이유로 Tesla 차량의 BTC 결제 수용을 일시 중단한다고 발표했다. 2022년 7월에는 보유분의 약 75%를 매도해 약 9억 3,600만 달러의 현금을 회수했다. 이 매도는 중국 코로나 락다운으로 자동차 생산이 차질을 빚는 상황에서의 유동성 확보로 설명됐다. 2026년 5월 기준 Tesla가 보유한 BTC는 약 11,500 BTC 수준으로 알려져 있다.
 
-### 1-1. 2021 매수
-2021년 2월 Tesla 가 — $1.5B 어치 BTC 매수 (약 43,200 BTC, 평균 $35K). 당시 Tesla 시가총액 (~$800B) 의 0.2%.
+Block(舊 Square)는 다른 결을 보여준다. Jack Dorsey가 이끈 Block은 2020년 10월 첫 BTC 매수(약 4,709 BTC) 이후 2021년 2월 추가 매수를 통해 약 8,027 BTC까지 늘렸고, 그 이후 거의 변동 없이 유지해왔다. 2026년 1분기 기준 Block의 BTC 보유는 약 8,200 BTC다. Block은 Tesla처럼 본업과 BTC를 분리하기보다 Cash App을 통해 사용자에게 BTC 매매 + Lightning Network 통합 서비스를 제공하면서 본업의 일부로 통합했다.
 
-### 1-2. 2022 매도
-2022년 7월 Tesla 가 — 보유 BTC 의 약 75% 매도. 약 30,000 BTC. 매도 이유 — "중국 channel 자금 조달". 약 $1B 손실 (저점 매도).
+이 두 사례를 MicroStrategy 모델과 비교하면 비채굴 사업자의 BTC 노출에 세 가지 결이 있다는 점이 드러난다. MicroStrategy는 본업(BI 소프트웨어)의 가치보다 BTC 트레저리 자체가 회사의 중심이 되는 모델로 옮겨갔다(2025년 사명을 Strategy로 변경한 것이 그 상징이다). Tesla는 본업의 부속 자산 모델이다. Block은 본업과 BTC가 결합된 모델이다. 세 모델의 차이를 데이터로 정리하는 것이 이번 글의 목적이다.
 
-### 1-3. 2023-2026 보유
-2026 Q1 Tesla 보유 BTC — **9,720 BTC**. 시가총액 약 $930M.
+## 1. Tesla — 매수, 결제 수용 중단, 매도, 잔량 보유
 
-### 1-4. Elon 의 입장
-Elon 의 BTC 입장이 종종 변화:
-- 2021.2 — "Tesla buys $1.5B BTC"
-- 2021.5 — "Tesla suspends BTC payments (energy concerns)"
-- 2022.7 — 75% 매도
-- 2024 — 영구 보유 입장
-- 2025-2026 — 입장 모호
+### 1-1. 2021년 2월 매수
 
-## 2. Block (구 Square)
+Tesla는 2021년 2월 8일 SEC 10-K(2020년 사업보고서)를 통해 약 15억 달러 어치의 BTC를 매수했다고 공시했다. 매수 평균 단가는 공시되지 않았지만 시장 추정은 약 32,000~36,000 달러 수준이었다. 매수량은 약 43,000 BTC 내외로 추산됐다.
 
-### 2-1. 회사
-Jack Dorsey (Twitter 공동 창업자) 의 Block. 2020 부터 BTC treasury.
+매수 결정의 공시 문구는 다음과 같이 표현됐다(요약).
 
-### 2-2. 보유 BTC
-| 시점 | 보유 BTC |
-|------|---------|
-| 2020.10 | 4,709 |
-| 2021.2 | 8,027 |
-| 2024.6 | 8,038 |
-| 2026 Q1 | **8,200** |
+> 회사의 투자 정책 업데이트로 자본의 일부를 일정 비율의 디지털 자산(BTC), 금괴, 금 ETF 등에 배분할 수 있게 됐다.
 
-거의 변화 X. "long-term hold" 전략.
+이 공시는 두 가지 신호를 시장에 던졌다. 첫째는 Tesla가 BTC를 단순 투기 대상이 아니라 자본 보존 수단(treasury asset)으로 바라본다는 점이다. 둘째는 본업이 자동차인 회사가 본업과 무관한 자산에 자본을 배분한다는 점에서 이사회의 의사결정 자유도가 매우 높다는 점이다. Elon Musk의 개인적 BTC 옹호 성향이 이 결정에 강하게 반영된 것으로 평가된다.
 
-### 2-3. Cash App 통합
-Block 의 Cash App 이 사용자에게 — BTC 매매 + Lightning Network 통합. 미국 사용자 약 1,500만 명이 Cash App 으로 BTC 사용.
+### 1-2. 2021년 5월 결제 수용 중단
 
-### 2-4. Jack Dorsey 의 BTC 옹호
-Jack Dorsey 가 BTC maximalist. "Bitcoin is internet's native currency". Twitter 떠난 후 BTC 산업에 더 적극.
+2021년 5월 12일 Elon Musk는 트위터를 통해 Tesla 차량의 BTC 결제 수용을 중단한다고 발표했다. 결정의 근거는 BTC 채굴의 화석연료 의존도였다. 중국 화북 지역 채굴장의 석탄 발전 의존도가 환경적 우려를 일으킨다는 메시지였다.
 
-## 3. 47 follower 회사
+이 발표는 BTC 가격을 약 15% 하락시켰다. Musk 개인의 트윗이 거시 자산 가격에 즉시 반영되는 사례 중 가장 큰 규모였다. Musk의 BTC 입장이 일관성 없이 변화한다는 비판이 이 시점에서 본격적으로 형성됐다.
 
-### 3-1. Strategy 영향
-Strategy 의 "corporate BTC treasury" 모델을 follow 한 회사 47개 (BitcoinTreasuries.net 기준):
+다만 결제 수용 중단이 보유 매도까지 이어지지는 않았다. Tesla는 매수한 BTC를 그대로 보유한 상태에서 차량 결제 옵션만 닫았다.
 
-| 회사 | 보유 BTC | 사업 |
+### 1-3. 2022년 7월 75% 매도
+
+2022년 7월 20일 Tesla는 2분기 실적 발표(10-Q)에서 보유 BTC의 약 75%를 매도해 약 9억 3,600만 달러의 현금을 회수했다고 공시했다. 매도 평균 단가는 약 30,000 달러 수준으로 추산된다. 매수 평균 대비 일정 부분 손실 매도였다.
+
+매도 사유는 두 갈래로 설명됐다. 공식 사유는 중국 코로나 락다운으로 인한 상하이 공장 가동 중단에 따른 유동성 확보였다. 그러나 시장 일부에서는 이를 BTC에 대한 신뢰 후퇴로 해석했다. 매도 시점이 BTC 가격이 약 30,000 달러 수준으로 하락한 시기였다는 점에서 저점 매도라는 비판도 있었다.
+
+이 매도 이후 Tesla의 BTC 잔량은 약 9,720 BTC 수준으로 알려졌다.
+
+### 1-4. 2026년 5월 잔량
+
+2026년 5월 시점 Tesla의 BTC 보유량은 약 11,500 BTC로 추산된다. 2024년 1월부터 시행된 FASB ASU 2023-08(디지털 자산 공정가치 측정)에 따라 Tesla의 10-K에는 BTC 보유의 공정가치가 분기별로 갱신된다. 2026년 1분기 기준 BTC 가격이 약 9~10만 달러 수준에서 움직이는 것을 가정하면 보유 자산의 공정가치는 약 10~11.5억 달러 수준이다.
+
+Tesla 시가총액 약 7,000~9,000억 달러(2026년 5월 시점)와 비교하면 BTC 보유는 시가총액의 약 0.13% 수준이다. 매우 작은 비중이다. 이 점이 Tesla의 BTC 보유를 본업의 부속 자산이라고 부르는 이유다.
+
+### 1-5. Tesla 매수의 시장 영향
+
+Tesla의 2021년 2월 매수가 시장에 미친 영향은 매수 자체의 규모보다 신호 효과 측면에서 컸다. 2021년 2~4월 미국 상장사 약 20여 곳이 BTC 매수 의향을 검토했다는 보도가 이어졌다. 그중 실제 매수에 이른 것은 Block, Square 외에는 소수였지만, MicroStrategy + Tesla + Block으로 이어진 흐름은 corporate BTC adoption 1.0이라는 명칭으로 정착됐다.
+
+2022~2023년 시장 침체기에 다수의 follow 사업자들이 보유분을 줄이거나 사업 자체에서 후퇴했다. Tesla의 75% 매도가 그 흐름의 신호탄으로 평가된다.
+
+## 2. Block (舊 Square) — Jack Dorsey의 본업 통합 모델
+
+### 2-1. Block의 사업 구조
+
+Block, Inc.(2021년 12월 Square에서 사명 변경)는 결제 인프라 + Cash App + 음악 스트리밍(TIDAL) 등을 운영하는 미국 상장사다. 2024년 매출 약 240억 달러, 영업이익 약 30억 달러 수준이다. 시가총액은 2026년 5월 기준 약 400~500억 달러 범위에서 움직인다.
+
+핵심 사업 부문은 둘이다. 하나는 가맹점 결제 인프라(Square 사업)이고, 다른 하나는 소비자용 결제 앱(Cash App)이다. Cash App의 미국 활성 사용자는 약 5,500만 명이고, 그중 일부가 Cash App 안에서 BTC 매매를 한다. 이 BTC 매매 기능이 Block의 BTC 보유와 직결된다.
+
+### 2-2. 첫 매수와 추가 매수
+
+Block은 2020년 10월 8일 약 4,709 BTC 매수를 발표했다. 매수 금액은 약 5,000만 달러였다. 매수 직전 회사 보유 현금의 약 1% 수준에 해당했다. MicroStrategy의 2020년 8월 첫 매수에 이어 두 번째 메이저 미국 상장사 매수였다.
+
+2021년 2월 Block은 추가 매수(약 3,318 BTC, 약 1억 7,000만 달러)를 발표하면서 누적 보유분을 약 8,027 BTC로 늘렸다. 이 시점이 Tesla의 15억 달러 매수와 거의 일치한다. 두 사업자의 매수가 같은 시기에 일어나면서 corporate BTC adoption의 흐름을 형성했다.
+
+### 2-3. 2021~2026 안정 보유
+
+Block의 BTC 보유는 2021년 2월 이후 거의 변동 없이 유지됐다. 다음 표는 시점별 보유량이다.
+
+| 시점 | 보유 BTC | 비고 |
 |------|---------|------|
-| Strategy | 471,000 | BI 소프트웨어 (사실상 정리) |
-| MARA | 35,000 | 채굴 |
-| Riot | 17,800 | 채굴 |
-| Metaplanet | 17,132 | 호텔 (사실상 정리) |
-| Tesla | 9,720 | 자동차 |
-| Block | 8,200 | 결제 |
-| Coinbase | 9,182 | 거래소 |
-| Galaxy Digital | 4,000 | 자산운용 |
-| Marathon Patent | 7,500 | 채굴 |
-| Hut 8 Mining | 6,200 | 채굴 |
-| 기타 (37개) | ~25,000 | 다양 |
-| **합계** | **~610,000** | — |
+| 2020.10 | 4,709 | 첫 매수 |
+| 2021.2 | 8,027 | 추가 매수 |
+| 2022.6 | 8,027 | 변동 없음 |
+| 2023.6 | 8,038 | 소량 변동 |
+| 2024.6 | 8,038 | 변동 없음 |
+| 2026.1 | 8,200 | 소량 추가 |
 
-총 corporate BTC 보유 ~610K = 발행량 21M 의 **2.9%**.
+Block의 BTC 보유 정책은 long-term hold라는 표현이 정확하다. Tesla처럼 매수-매도-재보유의 흐름을 보이지 않고, 일정 수준에서 거의 변동 없이 유지하는 패턴이다.
 
-### 3-2. Saylor 의 "corporate BTC adoption" 캠페인
-Michael Saylor 가 2020년부터 "corporate BTC adoption" 적극 마케팅:
-- 매년 "Bitcoin for Corporations" 컨퍼런스
-- 각 회사 CEO 대상 1:1 미팅
-- "BTC Treasury Strategy" playbook 공개
+### 2-4. Cash App의 BTC 통합
 
-이 캠페인이 47 follower 의 직접 동기.
+Block의 BTC 보유와 별도로, Cash App을 통한 사용자 BTC 사용 기능이 회사의 가상자산 노출의 가장 큰 부분이다. Cash App 사용자의 약 1,500~2,000만 명이 한 번 이상 BTC를 매수한 경험이 있고, 그중 약 500~700만 명이 정기적으로 BTC를 보유한다.
 
-## 4. 한국 corporate BTC
+Cash App은 2021년 Lightning Network 통합을 도입했다. 사용자가 라이트닝 인보이스를 받아 즉시 결제 수신/송신이 가능한 기능이다. 이 기능 도입은 라이트닝 네트워크의 사용자 친화적 진입점을 만든 사례로 평가된다.
 
-### 4-1. 한국 보유 회사
-2026 Q1 한국 corporate BTC 보유:
-- 카카오게임즈 — 약 ~50 BTC (실험)
-- 위메이드 — Wemix 토큰 외 BTC 약 ~20 BTC
-- 기타 — 거의 X
+Block은 또한 2024년 Bitkey라는 자체 BTC 자체 보관(self-custody) 하드웨어 지갑을 출시했다. 시드 문구를 사용자가 직접 보관하지 않고 두 디바이스 + Block 서버 사이의 멀티시그 구조로 운영하는 모델이다. 자체 보관의 사용자 부담을 낮추려는 시도다.
 
-한국 corporate BTC 노출이 글로벌 대비 매우 작음. 회계 + 세제 + 정책 결합의 결과.
+### 2-5. Jack Dorsey의 BTC 입장
 
-### 4-2. 회계 + 세제 trade-off
-한국에서 회사가 BTC 보유 시 — 회계 처리 명확하지 않음. 미국 (FASB ASU 2023-08, fair value) 와 다름. 세제도 "기타 자산" 으로 분류.
+Jack Dorsey는 비트코인 맥시멀리스트로 분류되는 인물이다. 2020년부터 Bitcoin is the only thing that matters라는 메시지를 반복적으로 공개했다. 2022년 Twitter CEO에서 사임한 이후 Block + 자신의 비영리 재단 Spiral를 통해 BTC 인프라(라이트닝 네트워크 도구, 오픈소스 BTC 개발자 지원)에 시간과 자본을 투입해왔다.
 
-이 결합이 한국 corporate BTC 채택 둔화의 원인.
+Dorsey의 입장은 Musk의 입장과 결이 매우 다르다. Musk는 BTC 외에도 Dogecoin 등 다양한 가상자산에 대한 의견을 공개했고, BTC에 대한 입장도 일관성 있게 유지되지 않았다. Dorsey는 BTC 외 가상자산에 대한 비판적 입장을 일관되게 유지해왔다. 이 차이가 두 회사의 BTC 보유 정책에 직접 반영된다.
 
-<Callout type="opposing-view" title="반대 시각 · corporate BTC 의 primary business 분리">
-첫째, **Tesla 의 BTC 가 *primary business* 와 분리**. 자동차 사업과 BTC 노출이 별개.
+## 3. MicroStrategy(Strategy) 모델과의 차이
 
-둘째, **Block 의 BTC 가 *Jack Dorsey personality***. 회사 차원의 일관 전략 X.
+### 3-1. MicroStrategy의 사업 변형
 
-셋째, **47 follower 의 다수가 *small holding*. 시장 영향 작음.
+MicroStrategy는 1989년 설립된 BI(Business Intelligence) 소프트웨어 사업자였다. 본업의 매출 규모는 2020년대 들어 정체기에 접어들었다. CEO Michael Saylor는 2020년 8월 회사 잉여 현금의 BTC 배치를 결정한 뒤, 점진적으로 본업의 가치보다 BTC 트레저리 자체를 회사의 중심으로 옮겨갔다.
 
-이 비판이 의미 — corporate BTC 가 "single CEO" 의 결정에 의존하는 fragility.
+2024년 12월 회사명을 Strategy로 변경한 결정은 이 흐름의 정점이었다. BI 소프트웨어 본업과 분리된 BTC 트레저리 회사로의 정체성 전환을 명시한 것이다.
+
+### 3-2. 보유량 비교
+
+2026년 5월 시점 세 사업자의 BTC 보유량을 정리하면 다음과 같다.
+
+| 사업자 | BTC 보유 | 시가총액 | BTC 비중 (보유 ÷ 시가총액) | 본업 |
+|---------|---------|---------|---------|------|
+| Strategy (MicroStrategy) | 약 471,000 | 약 700~800억 USD | 약 60~70% | BI 소프트웨어 |
+| Tesla | 약 11,500 | 약 7,000~9,000억 USD | 약 0.13% | 자동차 |
+| Block | 약 8,200 | 약 400~500억 USD | 약 1.7% | 결제/Cash App |
+
+이 표에서 가장 두드러지는 것은 Strategy의 BTC 비중이다. 회사 시가총액의 60~70%가 BTC 보유 가치로 설명되는 구조다. Strategy의 시가총액 자체가 BTC 보유분의 NAV(Net Asset Value)에 일정 프리미엄(약 1.5~2배)이 얹힌 형태로 형성된다. 이를 BTC NAV 프리미엄이라고 부른다.
+
+Tesla와 Block은 그런 구조에서 멀다. Tesla의 BTC 비중은 사실상 무의미한 수준(0.13%)이고, Block의 1.7%도 본업 평가에 큰 영향을 주지 않는다. 두 회사의 시가총액은 본업의 미래 현금흐름으로 거의 전적으로 설명된다.
+
+### 3-3. 자본 조달 모델의 차이
+
+Strategy는 BTC 매수를 위해 자본 조달 자체를 BTC 인수 도구로 활용했다. 2024~2025년 Strategy는 합병 가능 무이자/저이자 전환사채(convertible notes), ATM(at-the-market) 보통주 발행, 우선주 발행 등을 적극 활용했다. 2024년 Strategy의 자본 조달 규모는 약 200억 달러 이상이었다.
+
+Tesla와 Block은 BTC를 위한 자본 조달을 일절 하지 않았다. 두 회사는 본업에서 발생한 잉여 현금의 일부를 BTC에 배치했다. 자본 조달과 BTC 보유가 분리되어 있다.
+
+이 차이가 세 회사의 사업 모델 정체성을 가른다. Strategy는 BTC 트레저리 회사다. Tesla와 Block은 BTC를 부속 자산 또는 본업 통합 자산으로 배치한 일반 상장사다.
+
+## 4. 미국 상장사 BTC 보유 흐름 (2020~2026)
+
+### 4-1. corporate BTC adoption 1.0의 흐름
+
+2020년 8월 MicroStrategy의 첫 매수에서 시작된 흐름이 약 5년에 걸쳐 어떻게 전개됐는지를 정리한다. BitcoinTreasuries.net 기준 미국 상장사 + 비미국 상장사 BTC 보유 사업자 약 47개가 식별된다.
+
+| 사업자 | 본업 | 2026.1 BTC 보유 | 비고 |
+|---------|------|--------------|------|
+| Strategy (MicroStrategy) | BI 소프트웨어 | 약 471,000 | BTC 트레저리 회사로 전환 |
+| Marathon Digital (MARA) | BTC 채굴 | 약 35,000 | 본업 채굴이 보유 누적 |
+| Riot Platforms | BTC 채굴 | 약 17,800 | 본업 채굴 |
+| Metaplanet | 호텔 → BTC 트레저리 | 약 17,132 | 일본 상장사, Strategy 모델 추종 |
+| CleanSpark | BTC 채굴 | 약 11,800 | 본업 채굴 |
+| Tesla | 자동차 | 약 11,500 | 본업 부속 |
+| Coinbase | 거래소 | 약 9,200 | 본업 운영 자산 |
+| Block | 결제/Cash App | 약 8,200 | 본업 통합 |
+| Hut 8 Mining | BTC 채굴 | 약 6,200 | 본업 채굴 |
+| Galaxy Digital | 자산운용 | 약 4,000 | 본업 운영 자산 |
+| 기타 (37개) | 다양 | 약 25,000 합계 | 다양 |
+| **합계** | — | **약 617,000** | 발행량 21M의 약 2.94% |
+
+이 표에서 도출되는 흐름은 다음 두 가지다.
+
+첫째, BTC 보유 상위 사업자의 사업 분포가 다양하다. 채굴(MARA, Riot, CleanSpark, Hut 8)과 거래소/결제 인프라(Coinbase, Block, Galaxy)는 본업 자체가 BTC와 직결된 사업이다. 그러나 Strategy, Tesla, Metaplanet은 본업이 BTC와 무관한 사업자다. 본업과 BTC가 무관한 사업자가 보유 상위에 들어 있다는 점이 Strategy 모델의 특수성을 보여준다.
+
+둘째, 합계 보유량이 발행량의 약 2.94%다. 이 수치는 글로벌 BTC ETF 보유분(2026년 5월 기준 약 6~7%)보다 작다. corporate BTC adoption이 ETF 시대 이후 ETF에 비해 상대적 영향력을 잃어가고 있다는 평가의 근거가 된다.
+
+### 4-2. 2024년 FASB ASU 2023-08의 영향
+
+2024년 1월부터 시행된 FASB ASU 2023-08(디지털 자산 공정가치 측정)은 미국 상장사의 BTC 보유 회계를 크게 단순화시켰다. 종전 ASC 350에 따른 무형자산 손상회계(impairment) 모델에서는 BTC 가격이 상승해도 손상 회복을 인식하지 못했다. ASU 2023-08은 분기별 공정가치 측정 + 손익 직접 반영을 도입했다.
+
+이 변경이 corporate BTC adoption에 두 가지 영향을 줬다. 하나는 BTC 보유의 분기 손익 변동성이 직접적으로 노출됐다는 점이다. 다른 하나는 가격 상승분을 손익으로 인식할 수 있게 되면서 보유 자체의 회계 매력이 일정 부분 개선됐다는 점이다.
+
+Tesla의 경우 ASU 2023-08 시행 직후 분기 실적에서 BTC 평가이익이 일정 부분 반영됐다. Block도 같은 흐름이었다. 다만 두 회사 모두 BTC 비중이 작아 본업 평가에 미치는 영향은 한정적이었다.
+
+### 4-3. 2024~2026 신규 진입 사업자
+
+2024~2026년 사이 새로 BTC 보유 트레저리 모델에 진입한 미국 상장사는 십수 곳 수준으로 보고된다. 다수가 Strategy 모델을 추종하는 트레저리 회사 형태다(Metaplanet 일본 사례, KULR Technology, Rumble 등). 그러나 본업이 살아 있는 일반 상장사가 본업 자본의 일부를 BTC에 배분하는 사례는 Tesla 모델에 가까웠고, 2024~2026년 사이 그 흐름은 정체기에 있다.
+
+이 정체의 원인은 두 가지로 분석된다. 첫째는 BTC ETF의 출시(2024년 1월) 이후 상장사가 굳이 자체 보관 BTC를 보유할 필요가 줄었다는 점이다. ETF에 대한 일반 자본 배치는 회계/세제 부담이 자체 보관 BTC보다 가볍다. 둘째는 Tesla의 75% 매도 사례가 corporate BTC 보유의 변동성 위험을 부각시켰다는 점이다.
+
+## 5. 한국 상장사 BTC 보유의 미진
+
+한국 상장사의 BTC 보유 사례는 2026년 5월 시점에서도 매우 제한적이다. 카카오게임즈의 일부 실험성 보유(약 50 BTC 수준 추정), 위메이드의 자체 토큰 외 BTC 소량 보유 외에는 본격 사례가 부재하다.
+
+이 미진의 원인은 회계 + 세제 + 정책 결합으로 설명된다.
+
+첫째는 회계 측면이다. 한국 K-IFRS는 디지털 자산을 무형자산으로 분류해왔다. 미국 ASU 2023-08과 달리 공정가치 측정이 표준화되지 않았다. 한국 회계기준원이 2024~2025년 디지털 자산 회계 처리 기준 정비를 진행했지만, 미국 수준의 명료성에는 아직 미치지 못한다.
+
+둘째는 세제 측면이다. 한국 법인세법상 BTC 보유 평가이익이 미실현 상태에서 과세되는지에 대한 입장이 정비 중이다. 미실현 평가이익에 대한 과세 부담이 분기별로 발생할 가능성이 한국 상장사가 BTC 보유에 보수적인 이유 중 하나다.
+
+셋째는 정책 측면이다. 한국 금융감독원은 상장사의 가상자산 보유에 대해 공시 의무를 강화했다. 보유 자체가 금지되는 것은 아니지만, 공시 부담과 시장 평가 위험이 한국 상장사의 의사결정에 부정적 영향을 준다.
+
+이 세 가지 결합이 한국 상장사 BTC 보유의 깊이를 미국 대비 한 자리수 분의 일 이하 수준으로 유지시키고 있다.
+
+## 6. 시리즈 위치 — Treasury 흐름 안에서
+
+Treasury 시리즈는 #T1에서 MicroStrategy의 첫 매수와 사명 변경, #T2에서 채굴 사업자(MARA, Riot, CleanSpark)의 보유 누적, #T3에서 일본 Metaplanet의 Strategy 모델 추종, #T4에서 Coinbase + Galaxy + Block 같은 인프라 사업자의 본업 운영 자산을 다뤘다. 본 글 #T5는 본업이 BTC와 무관한 일반 상장사(Tesla)와 본업이 결제 인프라인 사업자(Block)의 두 사례를 비교했다.
+
+다음 편(#T6)에서는 Treasury 시리즈를 종합한다. corporate BTC adoption 1.0의 5년 흐름을 정리하고, ETF 시대 이후 corporate 모델의 위상이 어떻게 변화하는지 분석한다.
+
+<Callout type="opposing-view" title="반대 시각 · corporate BTC 보유의 fragility">
+corporate BTC adoption에 대한 반대 시각의 핵심 논점을 정리한다.
+
+먼저 의사결정자 의존성이다. Tesla의 BTC 매수와 결제 수용 중단은 Elon Musk 개인의 의사결정에 강하게 묶여 있다. Block의 BTC 보유 정책은 Jack Dorsey의 BTC 맥시멀리스트 입장에 의존한다. 회사 차원의 통합 전략이 아니라 단일 CEO의 결정이라는 점은 이사회 교체 시 정책 변경 위험이 매우 크다는 뜻이다. corporate BTC가 거시 경제의 안정화 자산이라기보다 개인 옹호자의 개인 자산처럼 운영되는 측면이 있다는 비판이다.
+
+다음으로 시기 의존성이다. corporate BTC adoption 1.0의 흐름은 2020~2021년 BTC 가격 급등기에 형성됐다. 그 흐름의 다수 follow 사업자가 2022~2023년 침체기에 보유분을 줄이거나 사업 자체에서 후퇴했다. 흐름이 시장 사이클에 강하게 종속되어 있다는 점은 corporate BTC가 인플레이션 헤지 또는 자본 보존 수단이라는 본래의 설명력을 약화시킨다.
+
+또 하나는 ETF 시대 이후 상대적 영향력 후퇴다. 2024년 1월 BTC 현물 ETF 출시 이후 ETF의 누적 보유량이 약 6~7% 수준으로 corporate 보유 합계(약 2.9%)를 추월했다. 일반 자본의 BTC 노출 경로가 corporate 자체 보관에서 ETF로 옮겨가는 흐름이 명확하다. corporate BTC adoption이 BTC 시장의 핵심 흐름이 아니라 보조적 흐름으로 위치가 변동되고 있다.
+
+마지막으로 본업과의 분리 위험이다. Tesla 사례에서 보듯, BTC 보유와 본업의 가치 평가가 분리되면 본업 평가에 부정적 영향(분기 손익 변동성, 사업 정체성 혼란)이 발생할 수 있다. Strategy 모델은 본업을 BTC 트레저리에 일치시키는 방식으로 이 문제를 회피했지만, Tesla 같은 일반 상장사는 그 모델을 따를 수 없다. 본업과 BTC 보유의 양립이 장기적으로 어려울 수 있다는 비판이 있다.
+
+이 반대 시각은 corporate BTC adoption을 부정적으로만 평가하는 결론으로 이어지지는 않는다. 다만 corporate 보유의 영향력을 평가할 때 의사결정자 의존성, 시기 의존성, ETF 후 위치 변동, 본업 분리 위험을 함께 고려해야 한다는 점은 짚을 만하다. 단일 사업자의 매수 발표가 시장에 큰 신호를 던졌던 2021년의 패턴이 2026년 시점에서도 같은 무게를 갖는지는 검증이 필요한 영역이다.
 </Callout>
-
-## 결론
-
-1. **Tesla 9,720 BTC + Block 8,200 BTC**.
-2. **47 follower 회사 합 ~610K BTC = 발행량 2.9%**.
-3. **Saylor 영향이 corporate BTC adoption 의 직접 동기**.
-4. **한국 corporate BTC 채택 둔화 — 회계 + 세제 + 정책 결합**.
-
-다음 편(#T6) — Treasury 시리즈 종합. corporate BTC 의 미래.

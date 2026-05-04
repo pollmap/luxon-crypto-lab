@@ -8,8 +8,20 @@ import { RESEARCH_TOPICS } from "@/lib/research";
 import { INSTITUTIONS } from "@/lib/institutional";
 import { CRISES } from "@/lib/crises";
 import { ONCHAIN_TOPICS } from "@/lib/onchain";
+import type { CoinCategory } from "@/lib/coins";
 import { getAllPosts } from "@/lib/posts";
 import { getAllTags } from "@/lib/tags";
+
+const CATEGORY_LIST: CoinCategory[] = [
+  "L1-PoW",
+  "L1-PoS",
+  "CEX-L1",
+  "Payment",
+  "Stable",
+  "Meme",
+  "RWA",
+  "Series",
+];
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://luxon-crypto-lab.vercel.app";
 
@@ -106,6 +118,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const categoryRoutes: MetadataRoute.Sitemap = CATEGORY_LIST.map((c) => ({
+    url: `${BASE}/categories/${c.toLowerCase()}/`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
   const postRoutes: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
     url: `${BASE}/posts/${p.slug}/`,
     lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(p.publishedAt),
@@ -124,6 +143,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...institutionalRoutes,
     ...crisisRoutes,
     ...onchainRoutes,
+    ...categoryRoutes,
     ...postRoutes,
     ...tagRoutes,
   ];
