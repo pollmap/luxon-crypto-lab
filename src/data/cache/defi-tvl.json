@@ -1,11 +1,50 @@
 [
-  { "protocol": "Lido", "tvl": 25.0, "category": "LST", "fetchedAt": "fallback" },
-  { "protocol": "EigenLayer", "tvl": 17.0, "category": "Restaking", "fetchedAt": "fallback" },
-  { "protocol": "Aave", "tvl": 30.0, "category": "Lending", "fetchedAt": "fallback" },
-  { "protocol": "MakerDAO", "tvl": 7.0, "category": "Lending", "fetchedAt": "fallback" },
-  { "protocol": "Pendle", "tvl": 6.0, "category": "Yield", "fetchedAt": "fallback" },
-  { "protocol": "Morpho", "tvl": 6.0, "category": "Lending", "fetchedAt": "fallback" },
-  { "protocol": "Uniswap", "tvl": 5.0, "category": "DEX", "fetchedAt": "fallback" },
-  { "protocol": "Curve", "tvl": 2.5, "category": "DEX", "fetchedAt": "fallback" },
-  { "protocol": "Compound", "tvl": 2.0, "category": "Lending", "fetchedAt": "fallback" }
+  {
+    "protocol": "Lido",
+    "tvl": 20.97,
+    "category": "LST",
+    "fetchedAt": "2026-05-04T02:24:26.137Z"
+  },
+  {
+    "protocol": "EigenLayer",
+    "tvl": 7.87,
+    "category": "Restaking",
+    "fetchedAt": "2026-05-04T02:24:31.313Z"
+  },
+  {
+    "protocol": "Aave",
+    "tvl": 39.71,
+    "category": "Lending",
+    "fetchedAt": "2026-05-04T02:24:32.100Z"
+  },
+  {
+    "protocol": "MakerDAO",
+    "tvl": 7.25,
+    "category": "Lending",
+    "fetchedAt": "2026-05-04T02:24:35.050Z"
+  },
+  {
+    "protocol": "Pendle",
+    "tvl": 1.84,
+    "category": "Yield",
+    "fetchedAt": "2026-05-04T02:25:38.690Z"
+  },
+  {
+    "protocol": "Morpho",
+    "tvl": 15.47,
+    "category": "Lending",
+    "fetchedAt": "2026-05-04T02:26:49.042Z"
+  },
+  {
+    "protocol": "Uniswap",
+    "tvl": 3.49,
+    "category": "DEX",
+    "fetchedAt": "2026-05-04T02:28:54.235Z"
+  },
+  {
+    "protocol": "Curve",
+    "tvl": 2.13,
+    "category": "DEX",
+    "fetchedAt": "2026-05-04T02:31:03.427Z"
+  }
 ]
