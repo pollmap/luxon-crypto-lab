@@ -83,7 +83,7 @@ export const TREASURIES: readonly Treasury[] = [
     ceo: "Simon Gerovich",
     subIssues: [
       {
-        slug: "treasury-metaplanet-asia-strategy",
+        slug: "treasury-metaplanet-japan",
         label: "#T3",
         title: "Metaplanet · 일본판 Strategy 와 NISA 우회 모델",
         publishedAt: "2026-12-10",
@@ -106,7 +106,7 @@ export const TREASURIES: readonly Treasury[] = [
     ceo: "Fred Thiel",
     subIssues: [
       {
-        slug: "treasury-mara-mining-treasury",
+        slug: "treasury-mara-riot-mining",
         label: "#T4",
         title: "MARA · 마이너 + Treasury 하이브리드 모델",
         publishedAt: "2026-12-17",
@@ -129,7 +129,7 @@ export const TREASURIES: readonly Treasury[] = [
     ceo: "Jason Les",
     subIssues: [
       {
-        slug: "treasury-riot-mining-ai-pivot",
+        slug: "treasury-mara-riot-mining",
         label: "#T5",
         title: "Riot · 마이닝 → AI/HPC pivot 의 전략적 의미",
         publishedAt: "2026-12-24",
@@ -149,7 +149,7 @@ export const TREASURIES: readonly Treasury[] = [
     founded: "—",
     subIssues: [
       {
-        slug: "treasury-mnav-premium-debate",
+        slug: "treasury-synthesis-future",
         label: "#T6",
         title: "Treasury Company · mNAV premium 은 정당한가 (시리즈 결론)",
         publishedAt: "2026-12-31",
