@@ -15,53 +15,51 @@ import { LiquidationCascadeChart } from "@/components/charts/LiquidationCascadeC
 
 const components: MDXComponents = {
   h1: ({ children }) => (
-    <h1 className="mt-8 mb-5 font-display text-[28px] font-bold leading-[1.1] tracking-[-0.022em] text-[var(--ink-1)] md:mt-10 md:text-[36px]">
+    <h1 className="mt-2 mb-4 font-sans text-[2rem] font-bold leading-[1.2] tracking-[-0.018em] text-[var(--ink-1)] md:text-[2.25rem]">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="mt-12 mb-3 font-display text-[22px] font-bold leading-[1.18] tracking-[-0.018em] text-[var(--ink-1)] md:mt-14 md:text-[28px]">
+    <h2 className="mt-10 mb-3 border-b border-[var(--rule)] pb-2 font-sans text-[1.45rem] font-bold leading-[1.25] tracking-[-0.012em] text-[var(--ink-1)] md:text-[1.625rem]">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="mt-8 mb-2 font-display text-[17px] font-semibold leading-[1.3] tracking-[-0.014em] text-[var(--ink-1)] md:text-[19px]">
+    <h3 className="mt-7 mb-2 font-sans text-[1.125rem] font-bold leading-[1.3] text-[var(--ink-1)] md:text-[1.25rem]">
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="mt-6 mb-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--ink-3)]">
+    <h4 className="mt-5 mb-1.5 font-sans text-[0.95rem] font-semibold text-[var(--ink-2)]">
       {children}
     </h4>
   ),
   p: ({ children }) => (
-    <p className="my-4 text-[var(--ink-1)]">{children}</p>
+    <p className="my-3.5 text-[var(--ink-1)]">{children}</p>
   ),
   ul: ({ children }) => (
-    <ul className="my-4 list-none pl-0 text-[var(--ink-1)]">{children}</ul>
+    <ul className="my-4 list-disc space-y-1 pl-6 text-[var(--ink-1)] marker:text-[var(--ink-4)]">
+      {children}
+    </ul>
   ),
   ol: ({ children }) => (
-    <ol className="my-4 list-decimal pl-6 text-[var(--ink-1)] marker:font-mono marker:text-[var(--ink-4)]">
+    <ol className="my-4 list-decimal space-y-1 pl-6 text-[var(--ink-1)] marker:font-mono marker:text-[var(--ink-4)]">
       {children}
     </ol>
   ),
-  li: ({ children }) => (
-    <li className="relative my-1.5 pl-5 leading-[1.65] before:absolute before:left-0 before:top-[0.78em] before:h-[1.5px] before:w-2.5 before:bg-[var(--ink-5)]">
-      {children}
-    </li>
-  ),
+  li: ({ children }) => <li className="leading-[1.7]">{children}</li>,
   blockquote: ({ children }) => (
-    <blockquote className="my-6 border-l-2 border-[var(--signal)] pl-5 font-serif italic text-[var(--ink-2)]">
+    <blockquote className="my-5 border-l-4 border-[var(--primary)] bg-[var(--bg-elev)] px-5 py-3 text-[var(--ink-2)]">
       {children}
     </blockquote>
   ),
   code: ({ children }) => (
-    <code className="rounded-md bg-[var(--bg-elev)] px-1.5 py-0.5 font-mono text-[0.86em] text-[var(--ink-1)]">
+    <code className="rounded border border-[var(--rule)] bg-[var(--bg-elev)] px-1.5 py-0.5 font-mono text-[0.86em] text-[var(--ink-1)]">
       {children}
     </code>
   ),
   pre: ({ children }) => (
-    <pre className="my-5 -mx-2 overflow-x-auto rounded-xl bg-[var(--bg-elev)] px-5 py-4 font-mono text-[13px] leading-[1.65] text-[var(--ink-1)] md:mx-0">
+    <pre className="my-5 overflow-x-auto rounded-md border border-[var(--rule)] bg-[var(--bg-elev)] px-4 py-3.5 font-mono text-[13px] leading-[1.65] text-[var(--ink-1)]">
       {children}
     </pre>
   ),
@@ -70,28 +68,29 @@ const components: MDXComponents = {
       href={href}
       target={href?.startsWith("http") ? "_blank" : undefined}
       rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="text-[var(--signal)] underline decoration-[var(--rule-strong)] decoration-1 underline-offset-[3px] hover:decoration-[var(--signal)]"
+      className="text-[var(--link)] no-underline hover:underline"
     >
       {children}
     </a>
   ),
-  hr: () => (
-    <hr className="my-12 border-0 border-t border-[var(--rule)]" />
-  ),
+  hr: () => <hr className="my-10 border-0 border-t border-[var(--rule)]" />,
   table: ({ children }) => (
-    <div className="my-6 -mx-2 overflow-x-auto md:mx-0">
-      <table className="w-full border-collapse font-sans text-[13.5px]" style={{ fontVariantNumeric: "tabular-nums" }}>
+    <div className="my-5 overflow-x-auto">
+      <table className="w-full border-collapse text-[13.5px]" style={{ fontVariantNumeric: "tabular-nums" }}>
         {children}
       </table>
     </div>
   ),
+  thead: ({ children }) => (
+    <thead className="bg-[var(--bg-elev)]">{children}</thead>
+  ),
   th: ({ children }) => (
-    <th className="border-b-2 border-[var(--rule-strong)] px-3 py-2.5 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--ink-3)]">
+    <th className="border border-[var(--rule)] px-3 py-2 text-left font-sans text-[12.5px] font-semibold text-[var(--ink-1)]">
       {children}
     </th>
   ),
   td: ({ children }) => (
-    <td className="border-b border-[var(--rule)] px-3 py-2.5 text-[var(--ink-2)]">
+    <td className="border border-[var(--rule)] px-3 py-2 text-[var(--ink-2)]">
       {children}
     </td>
   ),

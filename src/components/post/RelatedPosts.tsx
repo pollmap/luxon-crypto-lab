@@ -29,24 +29,33 @@ export function RelatedPosts({ currentSlug, category, tags, limit = 5 }: Related
   if (ranked.length === 0) return null;
 
   return (
-    <section className="mt-12 border-t border-[var(--border-soft)] pt-8">
-      <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-[var(--neon-cyan)]">
-        ▎관련 글
+    <section className="mt-12 border-t border-[var(--rule)] pt-8">
+      <h2 className="mb-4 font-sans text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--ink-3)]">
+        관련 글
       </h2>
-      <div className="space-y-3">
+      <ul className="divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
         {ranked.map(({ post }) => (
-          <Link
-            key={post.slug}
-            href={`/posts/${post.slug}`}
-            className="block border border-[var(--border-soft)] rounded p-3 hover:bg-[var(--bg-elev)]"
-          >
-            <div className="font-mono text-xs text-[var(--text-3)]">
-              {post.publishedAt} · {post.category}
-            </div>
-            <div className="mt-1 text-[var(--text-1)]">{post.title}</div>
-          </Link>
+          <li key={post.slug}>
+            <Link
+              href={`/posts/${post.slug}/`}
+              className="group grid grid-cols-1 items-baseline gap-1 py-3 hover:bg-[var(--bg-soft)] md:grid-cols-[110px_minmax(0,1fr)] md:gap-4"
+            >
+              <div className="font-mono text-[11px] tabular-nums text-[var(--ink-4)]">
+                {post.publishedAt}
+              </div>
+              <div>
+                <div className="font-sans text-[14.5px] font-medium leading-snug text-[var(--ink-1)] group-hover:text-[var(--link)] md:text-[15px]">
+                  {post.title}
+                </div>
+                <div className="mt-0.5 font-sans text-[11.5px] text-[var(--ink-4)]">
+                  {post.category}
+                  {post.coin && post.coin !== "NONE" && ` · ${post.coin}`}
+                </div>
+              </div>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

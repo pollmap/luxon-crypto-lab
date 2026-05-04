@@ -1,81 +1,103 @@
 @import "tailwindcss";
 
 @theme {
-  /* Apple-style minimal — graphite + paper-white + single warm accent */
-  --color-bg-base: #000000;
-  --color-bg-elev: #161618;
-  --color-bg-card: #1d1d1f;
-  --color-bg-soft: #0c0c0d;
+  /* Docusaurus-inspired light wiki palette */
+  --color-bg-base: #ffffff;
+  --color-bg-elev: #f6f8fa;
+  --color-bg-card: #f0f3f5;
+  --color-bg-soft: #fafbfc;
 
-  --color-ink-1: #f5f5f7;
-  --color-ink-2: #a1a1a6;
-  --color-ink-3: #86868b;
-  --color-ink-4: #6e6e73;
-  --color-ink-5: #4a4a4d;
+  --color-ink-1: #1c1e21;
+  --color-ink-2: #3a3f46;
+  --color-ink-3: #525860;
+  --color-ink-4: #6c7178;
+  --color-ink-5: #98a0a6;
 
-  --color-rule: #2a2a2e;
-  --color-rule-strong: #3a3a3e;
+  --color-rule: #e3e6e8;
+  --color-rule-strong: #cdd0d3;
 
-  --color-signal: #f0a830;        /* warm amber — used sparingly */
-  --color-signal-soft: #b8801f;
-  --color-link: #2997ff;          /* Apple blue */
-  --color-rust: #ff6b4a;
-  --color-moss: #4ec48b;
-  --color-dust: #c98aa3;
+  --color-primary: #2e8555;          /* Docusaurus default green */
+  --color-primary-soft: #1f5b3a;
+  --color-primary-light: #e6f3ec;
+  --color-link: #2563eb;             /* MediaWiki blue link */
+  --color-link-visited: #6f42c1;
 
-  /* Legacy mapping */
-  --color-neon-cyan: #f0a830;
-  --color-neon-magenta: #c98aa3;
-  --color-neon-green: #4ec48b;
-  --color-neon-red: #ff6b4a;
-  --color-neon-amber: #f0a830;
+  --color-signal: #2e8555;
+  --color-signal-soft: #1f5b3a;
+  --color-rust: #c0392b;
+  --color-moss: #2e8555;
+  --color-dust: #b552a8;
 
-  --color-text-1: #f5f5f7;
-  --color-text-2: #a1a1a6;
-  --color-text-3: #86868b;
-  --color-border-glow: rgba(240, 168, 48, 0.18);
-  --color-border-soft: rgba(255, 255, 255, 0.08);
+  /* Legacy mapping — redirect old neon vars to wiki palette */
+  --color-neon-cyan: #2e8555;
+  --color-neon-magenta: #b552a8;
+  --color-neon-green: #2e8555;
+  --color-neon-red: #c0392b;
+  --color-neon-amber: #d97706;
 
-  --font-display: var(--font-inter), -apple-system, "SF Pro Display", system-ui, sans-serif;
-  --font-sans: var(--font-inter), -apple-system, "SF Pro Text", system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), "Iowan Old Style", "Charter", Georgia, serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
-  --font-kr: "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+  --color-text-1: #1c1e21;
+  --color-text-2: #3a3f46;
+  --color-text-3: #6c7178;
+  --color-border-glow: rgba(46, 133, 85, 0.18);
+  --color-border-soft: rgba(28, 30, 33, 0.1);
+
+  --font-display: var(--font-pretendard), var(--font-inter), -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-pretendard), var(--font-inter), -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-serif: var(--font-pretendard), var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "SFMono-Regular", "Liberation Mono", Menlo, Consolas, monospace;
+  --font-kr: var(--font-pretendard), "Noto Sans KR", system-ui, sans-serif;
 }
 
 :root {
-  --bg-base: #000000;
-  --bg-elev: #161618;
-  --bg-card: #1d1d1f;
-  --bg-soft: #0c0c0d;
+  --bg-base: #ffffff;
+  --bg-elev: #f6f8fa;
+  --bg-card: #f0f3f5;
+  --bg-soft: #fafbfc;
 
-  --ink-1: #f5f5f7;
-  --ink-2: #a1a1a6;
-  --ink-3: #86868b;
-  --ink-4: #6e6e73;
-  --ink-5: #4a4a4d;
+  --ink-1: #1c1e21;
+  --ink-2: #3a3f46;
+  --ink-3: #525860;
+  --ink-4: #6c7178;
+  --ink-5: #98a0a6;
 
-  --rule: #2a2a2e;
-  --rule-strong: #3a3a3e;
+  --rule: #e3e6e8;
+  --rule-strong: #cdd0d3;
 
-  --signal: #f0a830;
-  --signal-soft: #b8801f;
-  --link: #2997ff;
-  --rust: #ff6b4a;
-  --moss: #4ec48b;
-  --dust: #c98aa3;
+  --primary: #2e8555;
+  --primary-soft: #1f5b3a;
+  --primary-light: #e6f3ec;
+  --link: #2563eb;
+  --link-visited: #6f42c1;
 
-  --neon-cyan: #f0a830;
-  --neon-magenta: #c98aa3;
-  --neon-green: #4ec48b;
-  --neon-red: #ff6b4a;
-  --neon-amber: #f0a830;
+  --signal: #2e8555;
+  --signal-soft: #1f5b3a;
+  --rust: #c0392b;
+  --moss: #2e8555;
+  --dust: #b552a8;
 
-  --text-1: #f5f5f7;
-  --text-2: #a1a1a6;
-  --text-3: #86868b;
-  --border-glow: rgba(240, 168, 48, 0.18);
-  --border-soft: rgba(255, 255, 255, 0.08);
+  --neon-cyan: #2e8555;
+  --neon-magenta: #b552a8;
+  --neon-green: #2e8555;
+  --neon-red: #c0392b;
+  --neon-amber: #d97706;
+
+  --text-1: #1c1e21;
+  --text-2: #3a3f46;
+  --text-3: #6c7178;
+  --border-glow: rgba(46, 133, 85, 0.18);
+  --border-soft: rgba(28, 30, 33, 0.1);
+
+  /* admonition tints */
+  --note-bg: #eef4fb;
+  --note-bar: #4a90e2;
+  --tip-bg: #e6f6ec;
+  --tip-bar: #2e8555;
+  --info-bg: #eef0f2;
+  --info-bar: #6c7178;
+  --warning-bg: #fff8e1;
+  --warning-bar: #e6a23c;
+  --danger-bg: #fdecea;
+  --danger-bar: #c0392b;
 }
 
 * {
@@ -101,20 +123,21 @@ html {
 }
 
 ::selection {
-  background: var(--signal);
-  color: var(--bg-base);
+  background: var(--primary-light);
+  color: var(--primary-soft);
 }
 
 *::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
 }
 *::-webkit-scrollbar-track {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
   background: var(--rule);
-  border-radius: 3px;
+  border-radius: 5px;
+  border: 2px solid var(--bg-base);
 }
 *::-webkit-scrollbar-thumb:hover {
   background: var(--rule-strong);
@@ -127,9 +150,9 @@ html {
 @utility ring-neon { box-shadow: 0 0 0 1px var(--rule); }
 @utility ring-magenta { box-shadow: 0 0 0 1px var(--rule); }
 @utility glass {
-  background: rgba(22, 22, 24, 0.72);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
   border: 1px solid var(--rule);
 }
 @utility font-kr { font-family: var(--font-kr); }
@@ -141,28 +164,28 @@ html {
   justify-content: center;
 }
 
-/* ───────────── prose-content (Apple-style editorial) ───────────── */
+/* ───────────── prose-content (Docusaurus-style wiki) ───────────── */
 .prose-content {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  line-height: 1.7;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.72;
   color: var(--ink-1);
   letter-spacing: -0.005em;
-  font-feature-settings: "kern", "liga", "onum";
-  max-width: 38rem;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 @media (min-width: 768px) {
   .prose-content {
-    font-size: 19px;
-    line-height: 1.72;
+    font-size: 16.5px;
+    line-height: 1.75;
   }
 }
 
 .prose-content p,
 .prose-content li,
 .prose-content blockquote {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   color: var(--ink-1);
 }
 
@@ -170,48 +193,49 @@ html {
 .prose-content h2,
 .prose-content h3,
 .prose-content h4 {
-  font-family: var(--font-display);
-  letter-spacing: -0.022em;
-  text-shadow: none;
+  font-family: var(--font-sans);
+  letter-spacing: -0.018em;
   color: var(--ink-1);
   font-weight: 700;
 }
 
+.prose-content h1 { font-size: 2.25rem; line-height: 1.2; margin: 0 0 1rem; }
 .prose-content h2 {
-  font-size: 1.55em;
-  margin-top: 2.2em;
-  margin-bottom: 0.6em;
-  line-height: 1.2;
-  border-bottom: none;
+  font-size: 1.625rem;
+  line-height: 1.25;
+  margin: 2rem 0 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
 }
-
 .prose-content h3 {
-  font-size: 1.18em;
-  margin-top: 1.8em;
-  margin-bottom: 0.4em;
+  font-size: 1.25rem;
   line-height: 1.3;
+  margin: 1.6rem 0 0.4rem;
 }
-
 .prose-content h4 {
-  font-family: var(--font-sans);
-  font-size: 0.78em;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-3);
-  font-weight: 600;
-  margin-top: 1.6em;
+  font-size: 0.95rem;
+  margin: 1.2rem 0 0.4rem;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--ink-2);
 }
 
-.prose-content table {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
+.prose-content p { margin: 0.85rem 0; }
+
+.prose-content a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease;
+}
+.prose-content a:hover {
+  text-decoration: none;
+  border-bottom-color: var(--link);
 }
 
 .prose-content em,
 .prose-content i {
-  color: var(--signal);
+  color: var(--ink-1);
   font-style: italic;
   font-weight: 500;
 }
@@ -222,31 +246,30 @@ html {
   font-weight: 700;
 }
 
-.prose-content :is(h2, h3, h4) + p {
-  margin-top: 0.4em;
+.prose-content table {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  display: block;
+  overflow-x: auto;
+}
+.prose-content table thead {
+  background: var(--bg-elev);
 }
 
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.caret::after {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 1em;
-  margin-left: 2px;
-  background: var(--signal);
-  vertical-align: text-bottom;
-  animation: caret-blink 1s steps(1) infinite;
-}
-@keyframes caret-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
 
 @media (max-width: 640px) {
-  html { font-size: 16px; }
+  html { font-size: 15.5px; }
+  .prose-content h1 { font-size: 1.875rem; }
+  .prose-content h2 { font-size: 1.4rem; }
+  .prose-content h3 { font-size: 1.125rem; }
 }
 
 @supports (padding: env(safe-area-inset-bottom)) {
@@ -254,4 +277,19 @@ html {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
+}
+
+/* heading anchor pilcrow on hover (wiki style) */
+.heading-anchor {
+  margin-left: 0.4em;
+  color: var(--ink-5);
+  opacity: 0;
+  transition: opacity 120ms ease;
+  text-decoration: none;
+  font-weight: 400;
+}
+.prose-content h2:hover .heading-anchor,
+.prose-content h3:hover .heading-anchor,
+.prose-content h4:hover .heading-anchor {
+  opacity: 1;
 }

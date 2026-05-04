@@ -30,33 +30,33 @@ export function WikiNav({ activeSlug }: { activeSlug?: string }) {
 
   return (
     <nav className="text-sm" aria-label="Site contents">
-      <div className="mb-4 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--ink-3)]">
-        Contents
+      <div className="mb-3 border-b border-[var(--rule)] pb-2 font-sans text-[10.5px] font-bold uppercase tracking-[0.14em] text-[var(--ink-4)]">
+        목차
       </div>
-      <ol className="space-y-5">
+      <ol className="space-y-4">
         {grouped.map((g) => (
           <li key={g.label}>
-            <div className="mb-1.5 flex items-baseline justify-between">
+            <div className="mb-1 flex items-baseline justify-between">
               <Link
                 href={g.href}
-                className="font-display text-[12.5px] font-semibold tracking-tight text-[var(--ink-2)] hover:text-[var(--signal)]"
+                className="font-sans text-[13px] font-bold tracking-tight text-[var(--ink-1)] hover:text-[var(--link)]"
               >
                 {g.label}
               </Link>
-              <span className="font-mono text-[10px] tabular-nums text-[var(--ink-4)]">
+              <span className="font-mono text-[10.5px] tabular-nums text-[var(--ink-4)]">
                 {g.posts.length}
               </span>
             </div>
-            <ul className="space-y-px">
+            <ul className="space-y-px border-l border-[var(--rule)] pl-3">
               {g.posts.slice(0, 6).map((p) => {
                 const isActive = activeSlug === p.slug;
                 return (
                   <li key={p.slug}>
                     <Link
                       href={`/posts/${p.slug}/`}
-                      className={`block truncate py-1 font-sans text-[12px] leading-snug transition-colors ${
+                      className={`block truncate py-0.5 font-sans text-[12px] leading-snug transition-colors ${
                         isActive
-                          ? "text-[var(--signal)]"
+                          ? "font-semibold text-[var(--link)]"
                           : "text-[var(--ink-3)] hover:text-[var(--ink-1)]"
                       }`}
                       title={p.title}

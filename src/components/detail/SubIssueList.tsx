@@ -18,8 +18,8 @@ export function SubIssueList({ subIssues, title = "Series", count }: Props) {
   if (!subIssues || subIssues.length === 0) return null;
   return (
     <section>
-      <div className="mb-5 flex items-baseline justify-between border-b border-[var(--rule)] pb-2 md:mb-6">
-        <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-2)]">
+      <div className="mb-4 flex items-baseline justify-between border-b border-[var(--rule)] pb-2 md:mb-5">
+        <h2 className="font-sans text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--ink-1)]">
           {title}
         </h2>
         <span className="font-mono text-[11px] tabular-nums text-[var(--ink-4)]">
@@ -34,12 +34,12 @@ export function SubIssueList({ subIssues, title = "Series", count }: Props) {
               <li key={sub.slug}>
                 <Link
                   href={`/posts/${sub.slug}/`}
-                  className="group grid grid-cols-[40px_minmax(0,1fr)_auto] items-baseline gap-3 py-3.5 active:bg-[var(--bg-soft)] md:grid-cols-[60px_minmax(0,1fr)_auto] md:gap-5 md:py-4"
+                  className="group grid grid-cols-[40px_minmax(0,1fr)_auto] items-baseline gap-3 py-3 hover:bg-[var(--bg-soft)] md:grid-cols-[60px_minmax(0,1fr)_auto] md:gap-5 md:py-3.5"
                 >
-                  <span className="font-mono text-[11px] tabular-nums text-[var(--signal)] md:text-[12px]">
+                  <span className="font-mono text-[11px] tabular-nums text-[var(--primary)] md:text-[12px]">
                     {sub.label}
                   </span>
-                  <span className="truncate font-display text-[15px] font-medium tracking-tight text-[var(--ink-1)] transition-colors group-hover:text-[var(--signal)] md:text-[16.5px]">
+                  <span className="truncate font-sans text-[14.5px] font-medium tracking-tight text-[var(--ink-1)] transition-colors group-hover:text-[var(--link)] md:text-[15.5px]">
                     {sub.title}
                   </span>
                   {sub.publishedAt && (
@@ -52,14 +52,14 @@ export function SubIssueList({ subIssues, title = "Series", count }: Props) {
             );
           }
           return (
-            <li key={sub.slug} className="grid grid-cols-[40px_minmax(0,1fr)_auto] items-baseline gap-3 py-3.5 md:grid-cols-[60px_minmax(0,1fr)_auto] md:gap-5 md:py-4">
+            <li key={sub.slug} className="grid grid-cols-[40px_minmax(0,1fr)_auto] items-baseline gap-3 py-3 md:grid-cols-[60px_minmax(0,1fr)_auto] md:gap-5 md:py-3.5">
               <span className="font-mono text-[11px] tabular-nums text-[var(--ink-4)] md:text-[12px]">
                 {sub.label}
               </span>
-              <span className="truncate font-display text-[15px] tracking-tight text-[var(--ink-3)] md:text-[16.5px]">
+              <span className="truncate font-sans text-[14.5px] tracking-tight text-[var(--ink-3)] md:text-[15.5px]">
                 {sub.title}
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--ink-4)]">
+              <span className="rounded-full bg-[var(--bg-elev)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--ink-4)]">
                 예정
               </span>
             </li>
