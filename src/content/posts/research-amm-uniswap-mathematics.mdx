@@ -37,10 +37,7 @@ AMM (Automated Market Maker) 의 수학적 핵심인 *"x × y = k"* 가 무엇�
 
 블록체인 학계에서 가장 우아한 수식 중 하나 — Uniswap 의 *"Constant Product Market Maker"*:
 
-```
-x × y = k
-```
-
+<Formula>{`x × y = k`}</Formula>
 x = 토큰 A 의 풀 잔액. y = 토큰 B 의 풀 잔액. k = 상수.
 
 이 한 줄의 공식이 — DEX 시장의 90% 점유율을 만들고, $5T 누적 거래량을 처리하고, 글로벌 학술 학회에서 100+ 논문의 출발점이 된 framework.
@@ -85,21 +82,15 @@ v2 의 가장 큰 한계 — **자본 비효율성**. 풀의 유동성이 *"0 �
 ### 2-2. v3 의 해결책
 Uniswap v3 (2021년 5월 출시) 의 핵심 — **LP 가 가격 범위를 직접 선택**.
 
-```
-LP 가 가격 범위 P_lower ~ P_upper 에 유동성 L 제공
-→ 풀의 가격이 그 범위 안에 있을 때만 LP 의 유동성 사용
-```
-
+<Formula>{`LP 가 가격 범위 P_lower ~ P_upper 에 유동성 L 제공
+→ 풀의 가격이 그 범위 안에 있을 때만 LP 의 유동성 사용`}</Formula>
 수학적으로 — v3 는 *"가상 풀"* 의 합. 각 LP 의 좁은 범위가 *"자체 v2 풀"* 처럼 작동.
 
 ### 2-3. 적분 수식
 v3 에서 LP 의 자본 효율성 (capital efficiency) 의 수식:
 
-```
-EfficiencyMultiplier(P_lower, P_upper, P_market) =
-    1 / (1 - sqrt(P_lower / P_market) - sqrt(P_market / P_upper) / sqrt(...))
-```
-
+<Formula>{`EfficiencyMultiplier(P_lower, P_upper, P_market) =
+    1 / (1 - sqrt(P_lower / P_market) - sqrt(P_market / P_upper) / sqrt(...))`}</Formula>
 복잡하지만 직관적 — 가격 범위가 좁을수록 multiplier 가 큼. 예:
 
 | 범위 | Multiplier |
@@ -132,10 +123,7 @@ Impermanent Loss (IL) — LP 가 토큰을 풀에 예치한 후, 토큰을 단�
 ### 3-2. 수식
 v2 풀의 IL 수식:
 
-```
-IL(price_ratio) = 2 × sqrt(price_ratio) / (1 + price_ratio) - 1
-```
-
+<Formula>{`IL(price_ratio) = 2 × sqrt(price_ratio) / (1 + price_ratio) - 1`}</Formula>
 price_ratio = 새 가격 / 입금 시 가격.
 
 | price_ratio | IL |

@@ -37,10 +37,7 @@ MVRV Ratio 와 MVRV Z-Score 의 차이는 무엇이고, 어떻게 BTC 의 *"top 
 
 이를 보완 — **MVRV Z-Score**. 통계적 z-score 변환으로 *"normal"* 을 정량 정의.
 
-```
-MVRV Z-Score = (Market Cap - Realized Cap) / σ(Market Cap)
-```
-
+<Formula>{`MVRV Z-Score = (Market Cap - Realized Cap) / σ(Market Cap)`}</Formula>
 본 편은 5섹션 — (1) Z-Score 정의, (2) 임계 영역, (3) 4 사이클 검증, (4) 한국 시장 적용, (5) 한계 — 으로 정리.
 
 ## 1. MVRV Z-Score 정의
@@ -48,14 +45,11 @@ MVRV Z-Score = (Market Cap - Realized Cap) / σ(Market Cap)
 ### 1-1. 표준화
 MVRV Ratio 가 시간에 따라 *"normal"* 이 변하므로, z-score 변환 — *"표준편차 단위로 표현"*.
 
-```
-- Market Cap = 시가총액
+<Formula>{`- Market Cap = 시가총액
 - Realized Cap = 모든 BTC 의 마지막 이전 시점 가격 합
 - σ = 시가총액의 표준편차 (rolling, 보통 365일)
 
-Z-Score = (Market Cap - Realized Cap) / σ
-```
-
+Z-Score = (Market Cap - Realized Cap) / σ`}</Formula>
 ### 1-2. 의미
 - Z-Score 가 0 = Market Cap 과 Realized Cap 동일 (보유자 평균 수익 0)
 - Z-Score > 0 = 보유자 평균 미실현 수익
@@ -115,10 +109,7 @@ Glassnode 가 정의한 임계:
 ### 4-1. 김치 프리미엄과의 결합
 한국 BTC 가격이 글로벌 평균보다 +5% 김치 프리미엄. 한국 사용자의 평균 매수 가격이 글로벌보다 5% 높음. 이 5% 가 *"한국 Z-Score"* 만들 가능성.
 
-```
-Z-Score (한국) = Z-Score (글로벌) - 0.5 (대략)
-```
-
+<Formula>{`Z-Score (한국) = Z-Score (글로벌) - 0.5 (대략)`}</Formula>
 즉 글로벌 Z-Score = 7.0 (top) 시점에 한국 사용자는 Z-Score = 6.5. 약간 더 빠른 하락 가능.
 
 ### 4-2. 업비트 KRW 페어의 unique

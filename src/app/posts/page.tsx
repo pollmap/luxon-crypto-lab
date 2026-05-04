@@ -1,60 +1,75 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
-import { HashBadge } from "@/components/neon/HashBadge";
-import { TerminalBox } from "@/components/neon/TerminalBox";
-import { type CoinCategory } from "@/lib/coins";
-import { BlogSidebar } from "@/components/sidebar/BlogSidebar";
 
 export const metadata = { title: "Posts" };
 
 export default function PostsPage() {
   const posts = getAllPosts();
+  const byYear = posts.reduce<Record<string, typeof posts>>((acc, p) => {
+    const year = (p.publishedAt ?? "").slice(0, 4) || "—";
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(p);
+    return acc;
+  }, {});
+  const years = Object.keys(byYear).sort((a, b) => b.localeCompare(a));
+
   return (
-    <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-8 lg:grid-cols-[280px_1fr] xl:gap-8 xl:px-6">
-      <div className="hidden lg:block">
-        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
-          <BlogSidebar />
+    <div className="mx-auto max-w-[1180px] px-5 pt-10 pb-16 md:px-6 md:pt-14 md:pb-24">
+      <header className="mb-10 md:mb-14">
+        <div className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-3)]">
+          Archive
         </div>
-      </div>
+        <h1 className="font-display text-[36px] font-bold leading-[1.05] tracking-[-0.024em] text-[var(--ink-1)] md:text-[56px]">
+          All Posts
+        </h1>
+        <p className="mt-3 max-w-2xl font-serif text-[15px] leading-[1.6] text-[var(--ink-2)] md:text-[17px]">
+          전체 {posts.length}편 — 발행 순. {years.length}개 연도.
+        </p>
+      </header>
 
-      <div className="mx-auto w-full max-w-3xl px-2">
-        <header className="mb-12">
-          <div className="mb-2 font-mono text-xs uppercase tracking-wider text-[var(--text-3)]">
-            ▎archive
-          </div>
-          <h1 className="font-mono text-4xl font-bold tracking-tight text-[var(--neon-cyan)] glow-cyan">
-            All Posts
-          </h1>
-          <p className="mt-3 text-[var(--text-2)]">
-            Top 10 코인 12개월 시리즈 — 발행 순으로 정렬
-          </p>
-        </header>
-
-        {posts.length === 0 ? (
-          <TerminalBox title="status" blink>
-            아직 발행된 글이 없습니다. 첫 글: 2026년 6월 1일 BTC.
-          </TerminalBox>
-        ) : (
-          <ul className="divide-y divide-[var(--border-soft)]">
-            {posts.map((p) => (
-              <li key={p.slug} className="py-6">
-                <Link href={`/posts/${p.slug}/`} className="group block">
-                  <div className="mb-2 flex items-center gap-3 font-mono text-xs text-[var(--text-3)]">
-                    <HashBadge symbol={p.coin} category={p.category as CoinCategory} size="sm" />
-                    <span>#{String(p.issue).padStart(2, "0")}</span>
-                    <time>{p.publishedAt}</time>
-                  </div>
-                  <h2 className="text-2xl font-bold text-[var(--text-1)] transition-colors group-hover:text-[var(--neon-cyan)]">
-                    {p.title}
-                  </h2>
-                  {p.subtitle && (
-                    <p className="mt-1 text-[var(--text-2)]">{p.subtitle}</p>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className="space-y-12 md:space-y-16">
+        {years.map((year) => (
+          <section key={year}>
+            <div className="mb-5 flex items-baseline gap-3 md:mb-6">
+              <h2 className="font-display text-[28px] font-bold tracking-[-0.022em] text-[var(--ink-1)] md:text-[36px]">
+                {year}
+              </h2>
+              <span className="font-mono text-[12px] tabular-nums text-[var(--ink-4)]">
+                {byYear[year].length} posts
+              </span>
+            </div>
+            <ol className="divide-y divide-[var(--rule)] border-t border-[var(--rule)]">
+              {byYear[year].map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={`/posts/${p.slug}/`}
+                    className="group grid grid-cols-1 items-baseline gap-x-6 gap-y-1 py-4 md:grid-cols-[80px_minmax(0,1fr)_120px] md:py-5"
+                  >
+                    <time className="order-2 font-mono text-[11px] tabular-nums text-[var(--ink-4)] md:order-1 md:text-[12px]">
+                      {p.publishedAt?.slice(5)}
+                    </time>
+                    <div className="order-1 min-w-0 md:order-2">
+                      <h3 className="font-display text-[17px] font-semibold leading-[1.3] tracking-[-0.012em] text-[var(--ink-1)] transition-colors group-hover:text-[var(--signal)] md:text-[19px]">
+                        {p.title}
+                      </h3>
+                      {p.subtitle && (
+                        <p className="mt-1 line-clamp-1 font-serif text-[13.5px] leading-[1.5] text-[var(--ink-3)]">
+                          {p.subtitle}
+                        </p>
+                      )}
+                    </div>
+                    <div className="order-3 flex flex-wrap items-baseline gap-2 font-sans text-[10.5px] uppercase tracking-[0.1em] text-[var(--ink-4)] md:justify-end">
+                      <span>{p.category}</span>
+                      {p.coin && p.coin !== "NONE" && (
+                        <span className="text-[var(--signal)]">{p.coin}</span>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
       </div>
     </div>
   );

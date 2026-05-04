@@ -44,10 +44,7 @@ NVT, MVRV, Stock-to-Flow (S2F) — 이 3 가치평가 모델이 정말 BTC 가�
 ### 1-1. 정의
 Willy Woo (호주 가상자산 분석가) 가 2017년 4월 발표한 지표:
 
-```
-NVT = 시가총액 / 일 트랜잭션 가치
-```
-
+<Formula>{`NVT = 시가총액 / 일 트랜잭션 가치`}</Formula>
 이 지표를 *"BTC 의 P/E"* 라고 표현. 트랜잭션 가치를 *"earnings"* 처럼 본 것.
 
 ### 1-2. 작동
@@ -73,10 +70,7 @@ NVT 의 한계 — *"트랜잭션 가치"* 의 정의가 모호. 거래소 내�
 ### 2-1. 정의
 Murad Mahmudov + David Puell 이 2018년 발표한 지표:
 
-```
-MVRV = 시가총액 / Realized Capitalization
-```
-
+<Formula>{`MVRV = 시가총액 / Realized Capitalization`}</Formula>
 Realized Capitalization = 모든 BTC 의 *"마지막 이전 시점 가격"* 의 합. 즉 *"on-chain cost basis"*.
 
 ### 2-2. 작동
@@ -100,26 +94,17 @@ MVRV 의 R² ≈ 0.78 (가격 변화 예측력). NVT 보다 높음. 그러나 �
 ### 3-1. 정의
 Plan B (익명 분석가) 가 2019년 3월 발표한 모델:
 
-```
-Stock-to-Flow = 발행 잔량 / 연 신규 발행
-```
-
+<Formula>{`Stock-to-Flow = 발행 잔량 / 연 신규 발행`}</Formula>
 이게 *"희소성 (scarcity)"* 의 정량. S2F 가 높음 = 희소성 높음 = 가치 저장 적합.
 
 ### 3-2. Plan B 의 회귀
 Plan B 가 BTC + 금 + 은 데이터로 회귀:
 
-```
-ln(BTC Price) = 3.3 × ln(S2F) - 1.8
-(R² = 0.95, 2009-2019 데이터)
-```
-
+<Formula>{`ln(BTC Price) = 3.3 × ln(S2F) - 1.8
+(R² = 0.95, 2009-2019 데이터)`}</Formula>
 2024년 4번째 반감기 후 BTC S2F ≈ 120. 이 값을 위 회귀에 넣으면:
-```
-ln(BTC Price) = 3.3 × ln(120) - 1.8 ≈ 13.99
-BTC Price ≈ $1,200,000
-```
-
+<Formula>{`ln(BTC Price) = 3.3 × ln(120) - 1.8 ≈ 13.99
+BTC Price ≈ $1,200,000`}</Formula>
 즉 Plan B 의 모델이 — **2024년 BTC 가격이 약 $1.2M 에 도달할 것으로 예측**.
 
 ### 3-3. 실패

@@ -66,11 +66,8 @@ author: 이찬희
 IMF 가 2025년 발표한 staff report 의 핵심 발견:
 
 ### 2-1. 스테이블 발행과 단기국채 yield 의 상관관계
-```
-ΔYield(3M T-bill) = -0.0004 × ΔStablecoin Issuance + ε
-(R² = 0.27, p < 0.01)
-```
-
+<Formula>{`ΔYield(3M T-bill) = -0.0004 × ΔStablecoin Issuance + ε
+(R² = 0.27, p < 0.01)`}</Formula>
 스테이블 발행 $10B 증가 시 3개월 만기 단기국채 yield 가 평균 ~0.4 basis point 하락. 작은 효과지만 통계적으로 유의.
 
 ### 2-2. 스테이블 redemption shock
@@ -89,16 +86,13 @@ BIS WP 1280 (2025) 의 분석:
 USDC 의 운용 — Reserve Fund 는 BlackRock 이 운용. 평균 만기 ~30일. yield 의 100% 가 Circle 수익. 사용자(USDC 보유자)에게는 yield 가 분배되지 않음.
 
 ### 3-2. 스테이블 1 USD 발행의 실제 자금 흐름
-```
-사용자 → Tether/Circle 에 1 USD 입금
+<Formula>{`사용자 → Tether/Circle 에 1 USD 입금
                  ↓
 Tether/Circle → 미국 단기국채 1 USD 매수
                  ↓
 미국 정부 → 단기국채 발행 자금 1 USD 확보
                  ↓
-사용자 → USDT/USDC 1 토큰 발행
-```
-
+사용자 → USDT/USDC 1 토큰 발행`}</Formula>
 이 흐름이 매크로적으로 의미하는 것 — 스테이블 발행은 미국 정부에 단기 차입을 제공합니다. 발행사가 yield 를 가져가고, 사용자는 토큰으로 결제 인프라를 사용합니다.
 
 ## 4. 미국 정부 입장 — GENIUS Act 의 핵심

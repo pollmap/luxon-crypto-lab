@@ -50,12 +50,9 @@ Perpetual (perp) 거래소의 펀딩비 (funding rate) 가 어떻게 시장 sent
 ### 1-1. 정의
 Perp 거래소가 *"끝없는 만기"* 의 derivatives 거래. spot 가격과의 동기화를 위해 — long 과 short 사이의 funding fee 매 8시간 자동 정산.
 
-```
-Funding Rate = (Long-Short Premium) × 가중치
+<Formula>{`Funding Rate = (Long-Short Premium) × 가중치
 - Funding > 0 (양수) — long 이 short 에게 fee 지불
-- Funding < 0 (음수) — short 이 long 에게 fee 지불
-```
-
+- Funding < 0 (음수) — short 이 long 에게 fee 지불`}</Formula>
 ### 1-2. 표준 funding rate 범위
 정상 시장의 funding rate (8시간 기준):
 - 평소: ±0.01% (연 환산 ±10.95%)

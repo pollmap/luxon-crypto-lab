@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Noto_Sans_KR } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/nav/Header";
 import { Footer } from "@/components/nav/Footer";
@@ -7,48 +7,57 @@ import { Footer } from "@/components/nav/Footer";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-const notoSansKr = Noto_Sans_KR({
-  variable: "--font-noto-kr",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://luxon-crypto-lab.vercel.app"),
   title: {
-    default: "luxon-crypto-lab — Top 10 cryptocurrency monthly deep-dive",
+    default: "luxon-crypto-lab",
     template: "%s · luxon-crypto-lab",
   },
   description:
-    "시가총액 Top 10 코인을 매크로 사이클(Fed·DXY·M2) × 온체인 메트릭(NVT·MVRV·Burn yield) × 산업 턴어라운드·모멘텀 관점으로 매월 한 편씩 deep dive.",
-  keywords: ["bitcoin", "ethereum", "cryptocurrency", "macro", "trend following", "on-chain", "momentum", "korean"],
-  authors: [{ name: "pollmap", url: "https://github.com/pollmap" }],
+    "암호자산을 매크로 사이클·온체인·산업 모멘텀의 학술 framework 으로 깊이 분석. NY Fed·BIS·NBER 1차 자료 인용.",
+  keywords: ["bitcoin", "ethereum", "cryptocurrency", "macro", "on-chain", "academic", "korean"],
+  authors: [{ name: "이찬희 (pollmap)", url: "https://github.com/pollmap" }],
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
   openGraph: {
     type: "website",
     title: "luxon-crypto-lab",
-    description: "Top 10 cryptocurrency · monthly deep dive · macro × cycle × momentum",
+    description: "Academic deep-dive on cryptocurrency",
     siteName: "luxon-crypto-lab",
     images: [{ url: "/og.svg", width: 1200, height: 630, type: "image/svg+xml" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "luxon-crypto-lab",
-    description: "Top 10 cryptocurrency · monthly deep dive",
+    description: "Academic deep-dive on cryptocurrency",
     images: ["/og.svg"],
   },
   robots: { index: true, follow: true },
@@ -60,18 +69,17 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${inter.variable} ${jetbrains.variable} ${notoSansKr.variable} h-full antialiased`}
+      className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <head>
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
         <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-        <meta name="theme-color" content="#0a0a0f" />
         <link rel="alternate" type="application/rss+xml" title="luxon-crypto-lab RSS" href="/feed.xml" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="relative min-h-full flex flex-col bg-[var(--bg-base)]">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="relative flex-1 pt-14 md:pt-16">{children}</main>
         <Footer />
       </body>
     </html>

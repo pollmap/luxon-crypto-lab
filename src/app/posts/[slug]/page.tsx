@@ -4,7 +4,7 @@ import { PostHeader } from "@/components/post/PostHeader";
 import { TOC } from "@/components/post/TOC";
 import { SourceFootnote } from "@/components/post/SourceFootnote";
 import { RelatedPosts } from "@/components/post/RelatedPosts";
-import { BlogSidebar } from "@/components/sidebar/BlogSidebar";
+import { WikiNav } from "@/components/sidebar/WikiNav";
 
 export const dynamicParams = false;
 
@@ -64,18 +64,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   };
 
   return (
-    <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-8 lg:grid-cols-[260px_1fr] xl:grid-cols-[280px_1fr_220px] xl:gap-8 xl:px-6">
+    <div className="mx-auto grid max-w-[1180px] gap-8 px-5 py-6 md:px-6 md:py-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[230px_minmax(0,1fr)_200px] xl:gap-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="hidden lg:block">
-        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
-          <BlogSidebar activeSlug={slug} excludeRecentSlug={slug} />
+        <div className="sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto pr-3">
+          <WikiNav activeSlug={slug} />
         </div>
       </div>
 
-      <article className="mx-auto w-full max-w-3xl px-2">
+      <article className="mx-auto w-full max-w-[680px]">
         <PostHeader meta={meta} />
         <div className="prose-content">
           <Post />

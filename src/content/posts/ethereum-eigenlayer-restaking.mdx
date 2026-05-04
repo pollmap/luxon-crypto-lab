@@ -58,16 +58,13 @@ EigenLayer 는 2023년 메인넷 출시, 2024년 본격 운영. 2026년 5월 TVL
 AVS (Actively Validated Service) 는 EigenLayer 보안을 빌려 자체 시스템 운영. AVS 자체 합의 룰 위반 시 운영 Operator 의 위임 자본 슬래싱.
 
 **구조 그림**:
-```
-사용자 ETH/stETH
+<Formula>{`사용자 ETH/stETH
       ↓ (입금)
 EigenLayer pool
       ↓ (위임)
 Operator (예: P2P, Stakefish)
       ↓ (운영)
-AVS 1, AVS 2, AVS 3 ...
-```
-
+AVS 1, AVS 2, AVS 3 ...`}</Formula>
 한 Operator 가 동시에 여러 AVS 를 운영할 수 있습니다 — **그래서 한 ETH 의 슬래싱 위험이 여러 AVS 에 누적**됩니다.
 
 ## 2. AVS 생태계 — 무엇이 ETH 보안을 빌리는가

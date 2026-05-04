@@ -81,16 +81,13 @@ FTX 는 *"perp DEX 의 CEX 버전"* — Bitfinex, Deribit 같은 derivatives 거
 ### 2-2. 실제 자금 흐름
 2023년 5월 FTX Bankruptcy Examiner (John J. Ray III) 의 보고서가 밝힌 실제 구조:
 
-```
-사용자 → FTX 입금
+<Formula>{`사용자 → FTX 입금
        ↓
 FTX → North Dimension (FTX 자회사) 계좌
        ↓
 North Dimension → Alameda Research 계좌
        ↓
-Alameda → 자체 거래·투자에 사용
-```
-
+Alameda → 자체 거래·투자에 사용`}</Formula>
 핵심 — **사용자 자금이 Alameda 의 trading capital 로 commingling**. 사용자가 FTX 에 비트코인 1 BTC 입금하면, Alameda 가 그 1 BTC 를 자기 거래에 사용. 사용자는 모름.
 
 이 commingling 의 규모 — 약 **$8B** (2022.11 기준). 즉 사용자 자산 $8B 가 Alameda 의 trading 손실로 사라졌습니다.

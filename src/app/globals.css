@@ -1,149 +1,257 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-base: #0a0a0f;
-  --color-bg-elev: #12121a;
-  --color-bg-card: #14141d;
-  --color-neon-cyan: #00ffff;
-  --color-neon-magenta: #ff00ff;
-  --color-neon-green: #00ff88;
-  --color-neon-red: #ff3366;
-  --color-neon-amber: #ffaa00;
-  --color-text-1: #f0f0f5;
-  --color-text-2: #a0a0b8;
-  --color-text-3: #707088;
-  --color-border-glow: rgba(0, 255, 255, 0.3);
-  --color-border-soft: rgba(255, 255, 255, 0.1);
+  /* Apple-style minimal — graphite + paper-white + single warm accent */
+  --color-bg-base: #000000;
+  --color-bg-elev: #161618;
+  --color-bg-card: #1d1d1f;
+  --color-bg-soft: #0c0c0d;
 
-  --font-sans: var(--font-inter), var(--font-noto-kr), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), var(--font-noto-kr), ui-monospace, monospace;
-  --font-kr: var(--font-noto-kr), system-ui, sans-serif;
+  --color-ink-1: #f5f5f7;
+  --color-ink-2: #a1a1a6;
+  --color-ink-3: #86868b;
+  --color-ink-4: #6e6e73;
+  --color-ink-5: #4a4a4d;
+
+  --color-rule: #2a2a2e;
+  --color-rule-strong: #3a3a3e;
+
+  --color-signal: #f0a830;        /* warm amber — used sparingly */
+  --color-signal-soft: #b8801f;
+  --color-link: #2997ff;          /* Apple blue */
+  --color-rust: #ff6b4a;
+  --color-moss: #4ec48b;
+  --color-dust: #c98aa3;
+
+  /* Legacy mapping */
+  --color-neon-cyan: #f0a830;
+  --color-neon-magenta: #c98aa3;
+  --color-neon-green: #4ec48b;
+  --color-neon-red: #ff6b4a;
+  --color-neon-amber: #f0a830;
+
+  --color-text-1: #f5f5f7;
+  --color-text-2: #a1a1a6;
+  --color-text-3: #86868b;
+  --color-border-glow: rgba(240, 168, 48, 0.18);
+  --color-border-soft: rgba(255, 255, 255, 0.08);
+
+  --font-display: var(--font-inter), -apple-system, "SF Pro Display", system-ui, sans-serif;
+  --font-sans: var(--font-inter), -apple-system, "SF Pro Text", system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), "Iowan Old Style", "Charter", Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
+  --font-kr: "Pretendard", "Noto Sans KR", system-ui, sans-serif;
 }
 
 :root {
-  --bg-base: #0a0a0f;
-  --bg-elev: #12121a;
-  --bg-card: #14141d;
-  --neon-cyan: #00ffff;
-  --neon-magenta: #ff00ff;
-  --neon-green: #00ff88;
-  --neon-red: #ff3366;
-  --neon-amber: #ffaa00;
-  --text-1: #f0f0f5;
-  --text-2: #a0a0b8;
-  --text-3: #707088;
-  --border-glow: rgba(0, 255, 255, 0.3);
-  --border-soft: rgba(255, 255, 255, 0.1);
+  --bg-base: #000000;
+  --bg-elev: #161618;
+  --bg-card: #1d1d1f;
+  --bg-soft: #0c0c0d;
+
+  --ink-1: #f5f5f7;
+  --ink-2: #a1a1a6;
+  --ink-3: #86868b;
+  --ink-4: #6e6e73;
+  --ink-5: #4a4a4d;
+
+  --rule: #2a2a2e;
+  --rule-strong: #3a3a3e;
+
+  --signal: #f0a830;
+  --signal-soft: #b8801f;
+  --link: #2997ff;
+  --rust: #ff6b4a;
+  --moss: #4ec48b;
+  --dust: #c98aa3;
+
+  --neon-cyan: #f0a830;
+  --neon-magenta: #c98aa3;
+  --neon-green: #4ec48b;
+  --neon-red: #ff6b4a;
+  --neon-amber: #f0a830;
+
+  --text-1: #f5f5f7;
+  --text-2: #a1a1a6;
+  --text-3: #86868b;
+  --border-glow: rgba(240, 168, 48, 0.18);
+  --border-soft: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
   background: var(--bg-base);
-  color: var(--text-1);
-  font-family: var(--font-jetbrains), var(--font-noto-kr), system-ui, sans-serif;
+  color: var(--ink-1);
+  font-family: var(--font-sans);
   min-height: 100%;
   overflow-x: hidden;
+  font-feature-settings: "kern", "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-image:
-    radial-gradient(at 20% 0%, rgba(0, 255, 255, 0.06) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, rgba(255, 0, 255, 0.05) 0px, transparent 50%);
-  background-attachment: fixed;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 ::selection {
-  background: var(--neon-cyan);
+  background: var(--signal);
   color: var(--bg-base);
 }
 
 *::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 *::-webkit-scrollbar-track {
-  background: var(--bg-base);
+  background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background: var(--bg-elev);
-  border: 1px solid var(--border-glow);
+  background: var(--rule);
+  border-radius: 3px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: var(--border-glow);
+  background: var(--rule-strong);
 }
 
-@utility glow-cyan {
-  text-shadow:
-    0 0 8px rgba(0, 255, 255, 0.6),
-    0 0 24px rgba(0, 255, 255, 0.3);
-}
-@utility glow-magenta {
-  text-shadow:
-    0 0 8px rgba(255, 0, 255, 0.6),
-    0 0 24px rgba(255, 0, 255, 0.3);
-}
-@utility glow-green {
-  text-shadow:
-    0 0 6px rgba(0, 255, 136, 0.6),
-    0 0 18px rgba(0, 255, 136, 0.25);
-}
-@utility glow-red {
-  text-shadow:
-    0 0 6px rgba(255, 51, 102, 0.6),
-    0 0 18px rgba(255, 51, 102, 0.25);
-}
-@utility ring-neon {
-  box-shadow:
-    0 0 0 1px var(--border-glow),
-    0 0 18px rgba(0, 255, 255, 0.15),
-    inset 0 0 24px rgba(0, 255, 255, 0.04);
-}
-@utility ring-magenta {
-  box-shadow:
-    0 0 0 1px rgba(255, 0, 255, 0.4),
-    0 0 18px rgba(255, 0, 255, 0.15),
-    inset 0 0 24px rgba(255, 0, 255, 0.04);
-}
+@utility glow-cyan { text-shadow: none; }
+@utility glow-magenta { text-shadow: none; }
+@utility glow-green { text-shadow: none; }
+@utility glow-red { text-shadow: none; }
+@utility ring-neon { box-shadow: 0 0 0 1px var(--rule); }
+@utility ring-magenta { box-shadow: 0 0 0 1px var(--rule); }
 @utility glass {
-  background: rgba(20, 20, 29, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-soft);
+  background: rgba(22, 22, 24, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--rule);
 }
-@utility font-kr {
-  font-family: var(--font-noto-kr), system-ui, sans-serif;
+@utility font-kr { font-family: var(--font-kr); }
+@utility tap-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 한글 본문 가독성: 본문 p / li / blockquote 는 Noto Sans KR 우선 적용 */
+/* ───────────── prose-content (Apple-style editorial) ───────────── */
+.prose-content {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-1);
+  letter-spacing: -0.005em;
+  font-feature-settings: "kern", "liga", "onum";
+  max-width: 38rem;
+}
+
+@media (min-width: 768px) {
+  .prose-content {
+    font-size: 19px;
+    line-height: 1.72;
+  }
+}
+
 .prose-content p,
 .prose-content li,
 .prose-content blockquote {
-  font-family: var(--font-noto-kr), var(--font-jetbrains), system-ui, sans-serif;
-  line-height: 1.75;
+  font-family: var(--font-serif);
+  color: var(--ink-1);
 }
 
-@keyframes blink-caret {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+  text-shadow: none;
+  color: var(--ink-1);
+  font-weight: 700;
 }
-@keyframes scan-line {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100vh); }
+
+.prose-content h2 {
+  font-size: 1.55em;
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
+  line-height: 1.2;
+  border-bottom: none;
 }
+
+.prose-content h3 {
+  font-size: 1.18em;
+  margin-top: 1.8em;
+  margin-bottom: 0.4em;
+  line-height: 1.3;
+}
+
+.prose-content h4 {
+  font-family: var(--font-sans);
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  font-weight: 600;
+  margin-top: 1.6em;
+}
+
+.prose-content table {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.prose-content em,
+.prose-content i {
+  color: var(--signal);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.prose-content strong,
+.prose-content b {
+  color: var(--ink-1);
+  font-weight: 700;
+}
+
+.prose-content :is(h2, h3, h4) + p {
+  margin-top: 0.4em;
+}
+
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .caret::after {
-  content: "▊";
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 1em;
   margin-left: 2px;
-  color: var(--neon-cyan);
-  animation: blink-caret 1s steps(1) infinite;
+  background: var(--signal);
+  vertical-align: text-bottom;
+  animation: caret-blink 1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
-/* 모바일 뷰포트 최적화 */
 @media (max-width: 640px) {
-  html {
-    font-size: 15px;
+  html { font-size: 16px; }
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 }
