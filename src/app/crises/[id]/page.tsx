@@ -1,7 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CRISES, getCrisisById, CRISIS_TYPE_COLOR } from "@/lib/crises";
-import { getPostBySlug } from "@/lib/posts";
+import { DetailPage } from "@/components/detail/DetailPage";
+import { SubIssueList } from "@/components/detail/SubIssueList";
+import { Badge } from "@/components/detail/Badge";
 
 export const dynamicParams = false;
 
@@ -25,75 +26,28 @@ export default async function CrisisDetailPage({
   const c = getCrisisById(id);
   if (!c) notFound();
 
+  const stats: Array<{ label: string; value: string; accent?: boolean }> = [
+    { label: "발생 연도", value: String(c.year) },
+  ];
+  if (c.lossUSDB > 0) {
+    stats.push({ label: "손실 규모", value: `$${c.lossUSDB}B`, accent: true });
+  }
+
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <header className="mb-12 border-b border-[var(--border-soft)] pb-8">
-        <div className="mb-3 flex items-baseline gap-3">
-          <span
-            className="rounded border px-2 py-0.5 font-mono text-xs uppercase"
-            style={{
-              borderColor: CRISIS_TYPE_COLOR[c.type],
-              color: CRISIS_TYPE_COLOR[c.type],
-            }}
-          >
-            {c.type}
-          </span>
-          <span className="font-mono text-xs uppercase tracking-wider text-[var(--text-3)]">
-            {c.year}
-          </span>
-        </div>
-        <h1 className="mb-2 text-4xl font-bold tracking-tight text-[var(--text-1)] md:text-5xl">
-          {c.name}
-        </h1>
-        <p className="mb-6 text-lg text-[var(--neon-cyan)] glow-cyan">{c.signature}</p>
-        <p className="text-[var(--text-2)]">{c.description}</p>
-      </header>
-
-      {c.lossUSDB > 0 && (
-        <section className="mb-10 grid grid-cols-2 gap-3 md:grid-cols-3">
-          <div className="rounded border border-[var(--border-soft)] p-3">
-            <div className="font-mono text-xs uppercase text-[var(--text-3)]">발생 연도</div>
-            <div className="font-mono text-lg text-[var(--text-1)]">{c.year}</div>
-          </div>
-          <div className="rounded border border-[var(--border-soft)] p-3">
-            <div className="font-mono text-xs uppercase text-[var(--text-3)]">손실 규모</div>
-            <div className="font-mono text-lg text-[var(--neon-amber)]">${c.lossUSDB}B</div>
-          </div>
-        </section>
-      )}
-
-      <section>
-        <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-[var(--text-3)]">
-          ▎posts
-        </h2>
-        <ol className="space-y-2">
-          {c.subIssues.map((sub) => {
-            const exists = getPostBySlug(sub.slug);
-            return (
-              <li key={sub.slug}>
-                {exists ? (
-                  <Link
-                    href={`/posts/${sub.slug}/`}
-                    className="group flex items-baseline gap-3 rounded border border-[var(--border-soft)] p-3 font-mono text-sm transition-colors hover:border-[var(--neon-amber)]"
-                  >
-                    <span className="text-[var(--neon-amber)]">{sub.label}</span>
-                    <span className="text-[var(--text-1)] group-hover:text-[var(--neon-amber)]">
-                      {sub.title}
-                    </span>
-                    <span className="ml-auto text-xs text-[var(--text-3)]">{sub.publishedAt}</span>
-                  </Link>
-                ) : (
-                  <div className="flex items-baseline gap-3 rounded border border-dashed border-[var(--border-soft)] p-3 font-mono text-sm text-[var(--text-3)]">
-                    <span>{sub.label}</span>
-                    <span>{sub.title}</span>
-                    <span className="ml-auto">예정 · {sub.publishedAt}</span>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-    </div>
+    <DetailPage
+      kicker="Crisis"
+      badges={
+        <>
+          <Badge color={CRISIS_TYPE_COLOR[c.type]}>{c.type}</Badge>
+          <Badge>{c.year}</Badge>
+        </>
+      }
+      title={c.name}
+      tagline={c.signature}
+      description={c.description}
+      stats={stats}
+    >
+      <SubIssueList subIssues={c.subIssues} title="Posts" />
+    </DetailPage>
   );
 }

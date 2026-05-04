@@ -3,9 +3,6 @@ import { Callout } from "@/components/post/Callout";
 import { Formula } from "@/components/post/Formula";
 import { SourceFootnote } from "@/components/post/SourceFootnote";
 import { SeriesNav } from "@/components/post/SeriesNav";
-import { TerminalBox } from "@/components/neon/TerminalBox";
-import { HashBadge } from "@/components/neon/HashBadge";
-import { GlowText } from "@/components/neon/GlowText";
 import { PriceChart } from "@/components/charts/PriceChart";
 import { ETFFlowChart } from "@/components/charts/ETFFlowChart";
 import { HalvingTimeline } from "@/components/charts/HalvingTimeline";
@@ -102,9 +99,6 @@ const components: MDXComponents = {
   Formula,
   SourceFootnote,
   SeriesNav,
-  TerminalBox,
-  HashBadge,
-  GlowText,
   PriceChart,
   ETFFlowChart,
   HalvingTimeline,

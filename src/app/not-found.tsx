@@ -1,44 +1,31 @@
 import Link from "next/link";
-import { GlowText } from "@/components/neon/GlowText";
-import { GridBackground } from "@/components/neon/GridBackground";
-import { TerminalBox } from "@/components/neon/TerminalBox";
 
 export const metadata = { title: "404 — page not found" };
 
 export default function NotFound() {
   return (
-    <div className="relative mx-auto flex min-h-[70vh] max-w-3xl flex-col items-start justify-center px-6 py-16">
-      <GridBackground />
-      <div className="mb-3 font-mono text-xs uppercase tracking-wider text-[var(--text-3)]">
-        ▎error_404.log
+    <div className="mx-auto flex min-h-[60vh] max-w-[680px] flex-col items-start justify-center px-6 py-20">
+      <div className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--signal)]">
+        404 · Not Found
       </div>
-      <h1 className="mb-6 font-mono text-7xl font-bold tracking-tight md:text-9xl">
-        <GlowText color="magenta">404</GlowText>
+      <h1 className="font-display text-[40px] font-bold leading-[1.05] tracking-[-0.024em] text-[var(--ink-1)] md:text-[64px]">
+        길을 잃으셨네요.
       </h1>
-      <p className="mb-6 text-lg text-[var(--text-2)]">
-        요청한 경로를 찾을 수 없습니다. 라우트가 제거됐거나 URL 이 잘못 입력됐을 가능성이 높습니다.
+      <p className="mt-3 max-w-md font-serif text-[15.5px] leading-[1.6] text-[var(--ink-2)] md:text-[17px]">
+        요청한 페이지를 찾을 수 없습니다. 주소가 정확한지 확인하거나 홈으로 돌아가세요.
       </p>
-      <TerminalBox title="suggested_actions" prompt="$">
-        cd / · ls /posts · ls /coins · cat /roadmap
-      </TerminalBox>
-      <div className="mt-8 flex flex-wrap items-center gap-3 font-mono text-sm">
+      <div className="mt-8 flex flex-wrap gap-3">
         <Link
           href="/"
-          className="rounded border border-[var(--neon-cyan)] px-5 py-2 uppercase tracking-wider text-[var(--neon-cyan)] hover:bg-[var(--neon-cyan)] hover:text-[var(--bg-base)]"
+          className="tap-target inline-flex items-center gap-2 rounded-full bg-[var(--ink-1)] px-6 py-3 font-sans text-[15px] font-semibold tracking-tight text-[var(--bg-base)] transition-transform hover:scale-[1.02] active:scale-[0.98]"
         >
-          ← Home
+          홈으로
         </Link>
         <Link
           href="/posts/"
-          className="rounded border border-[var(--border-glow)] px-5 py-2 uppercase tracking-wider text-[var(--text-1)] hover:border-[var(--neon-magenta)] hover:text-[var(--neon-magenta)]"
+          className="tap-target inline-flex items-center gap-2 rounded-full border border-[var(--rule)] px-6 py-3 font-sans text-[15px] font-semibold tracking-tight text-[var(--ink-1)] hover:bg-[var(--bg-elev)]"
         >
-          Posts
-        </Link>
-        <Link
-          href="/roadmap/"
-          className="rounded border border-[var(--border-glow)] px-5 py-2 uppercase tracking-wider text-[var(--text-1)] hover:border-[var(--neon-magenta)] hover:text-[var(--neon-magenta)]"
-        >
-          Roadmap
+          본문 색인
         </Link>
       </div>
     </div>

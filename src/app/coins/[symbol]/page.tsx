@@ -1,9 +1,10 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { COINS, getCoinBySymbol } from "@/lib/coins";
 import { getPostsByCoin } from "@/lib/posts";
-import { HashBadge } from "@/components/neon/HashBadge";
-import { BlogSidebar } from "@/components/sidebar/BlogSidebar";
+import { DetailPage } from "@/components/detail/DetailPage";
+import { SubIssueList } from "@/components/detail/SubIssueList";
+import { Badge } from "@/components/detail/Badge";
 
 export const dynamicParams = false;
 
@@ -26,98 +27,77 @@ export default async function CoinPage({ params }: { params: Promise<{ symbol: s
   const posts = getPostsByCoin(coin.symbol);
 
   return (
-    <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-8 lg:grid-cols-[280px_1fr] xl:gap-8 xl:px-6">
-      <div className="hidden lg:block">
-        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
-          <BlogSidebar />
+    <DetailPage
+      kicker="Coin"
+      badges={
+        <>
+          <Badge color="var(--signal)">{coin.symbol}</Badge>
+          <Badge>{coin.category}</Badge>
+        </>
+      }
+      title={coin.name}
+      tagline={coin.signature}
+      description={coin.description}
+      stats={[
+        { label: "Issue", value: `#${String(coin.issue).padStart(2, "0")}` },
+        { label: "Scheduled", value: coin.scheduledMonth },
+        { label: "Category", value: coin.category },
+        ...(coin.marketCapBillion !== undefined
+          ? [{ label: "Market Cap", value: `$${coin.marketCapBillion}B`, accent: true }]
+          : []),
+      ]}
+      meta={
+        coin.macroEvent ? (
+          <p className="mt-5 rounded-2xl border border-[var(--rule)] bg-[var(--bg-elev)] px-5 py-3 font-sans text-[13px] text-[var(--ink-2)]">
+            <span className="font-semibold uppercase tracking-[0.12em] text-[var(--dust)]">
+              Macro event
+            </span>{" "}
+            <span className="ml-2">{coin.macroEvent}</span>
+          </p>
+        ) : null
+      }
+    >
+      {coin.subIssues && coin.subIssues.length > 0 && (
+        <div className="mb-12">
+          <SubIssueList subIssues={coin.subIssues} title="Series" />
         </div>
-      </div>
+      )}
 
-      <div className="mx-auto w-full max-w-3xl px-2">
-        <header className="mb-12 border-b border-[var(--border-soft)] pb-8">
-          <div className="mb-4">
-            <HashBadge symbol={coin.symbol} category={coin.category} size="lg" />
-          </div>
-          <h1 className="mb-2 text-4xl font-bold tracking-tight text-[var(--text-1)] md:text-5xl">
-            {coin.name}
-          </h1>
-          <p className="mb-6 text-lg text-[var(--neon-cyan)] glow-cyan">{coin.signature}</p>
-          <p className="text-[var(--text-2)]">{coin.description}</p>
-          <dl className="mt-6 grid grid-cols-2 gap-4 font-mono text-sm md:grid-cols-4">
-            <div>
-              <dt className="text-xs uppercase tracking-wider text-[var(--text-3)]">Issue</dt>
-              <dd className="text-[var(--text-1)]">#{String(coin.issue).padStart(2, "0")}</dd>
-            </div>
-            <div>
-              <dt className="text-xs uppercase tracking-wider text-[var(--text-3)]">Scheduled</dt>
-              <dd className="text-[var(--text-1)]">{coin.scheduledMonth}</dd>
-            </div>
-            <div>
-              <dt className="text-xs uppercase tracking-wider text-[var(--text-3)]">Category</dt>
-              <dd className="text-[var(--text-1)]">{coin.category}</dd>
-            </div>
-            {coin.marketCapBillion !== undefined && (
-              <div>
-                <dt className="text-xs uppercase tracking-wider text-[var(--text-3)]">Market Cap</dt>
-                <dd className="text-[var(--text-1)]">${coin.marketCapBillion}B</dd>
-              </div>
-            )}
-          </dl>
-          {coin.macroEvent && (
-            <div className="mt-6 rounded border border-[var(--border-soft)] bg-[var(--bg-elev)] p-3 font-mono text-xs">
-              <span className="text-[var(--neon-magenta)]">macro_event:</span>{" "}
-              <span className="text-[var(--text-2)]">{coin.macroEvent}</span>
-            </div>
-          )}
-        </header>
-
-        {coin.subIssues && coin.subIssues.length > 0 && (
-          <section className="mb-10">
-            <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-[var(--text-3)]">
-              ▎series · {coin.subIssues.length}편
-            </h2>
-            <ol className="space-y-2">
-              {coin.subIssues.map((sub) => (
-                <li key={sub.slug}>
-                  <Link
-                    href={`/posts/${sub.slug}/`}
-                    className="group flex items-baseline gap-3 rounded border border-[var(--border-soft)] p-3 font-mono text-sm transition-colors hover:border-[var(--neon-cyan)]"
-                  >
-                    <span className="text-[var(--neon-cyan)]">{sub.label}</span>
-                    <span className="text-[var(--text-1)] group-hover:text-[var(--neon-cyan)]">{sub.title}</span>
-                    <span className="ml-auto text-xs text-[var(--text-3)]">{sub.publishedAt}</span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </section>
-        )}
-
-        <section>
-          <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-[var(--text-3)]">
-            ▎published posts
+      <section>
+        <div className="mb-5 flex items-baseline justify-between border-b border-[var(--rule)] pb-2 md:mb-6">
+          <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-2)]">
+            Published
           </h2>
-          {posts.length === 0 ? (
-            <div className="rounded border border-dashed border-[var(--border-soft)] p-8 text-center font-mono text-sm text-[var(--text-3)]">
-              발행된 글 없음 · 발행 예정: {coin.scheduledMonth}
-            </div>
-          ) : (
-            <ul className="space-y-4">
-              {posts.map((p) => (
-                <li key={p.slug}>
-                  <Link
-                    href={`/posts/${p.slug}/`}
-                    className="block rounded border border-[var(--border-soft)] p-4 transition-colors hover:border-[var(--neon-cyan)]"
-                  >
-                    <h3 className="font-bold text-[var(--text-1)]">{p.title}</h3>
-                    {p.subtitle && <p className="text-sm text-[var(--text-2)]">{p.subtitle}</p>}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      </div>
-    </div>
+          <span className="font-mono text-[11px] tabular-nums text-[var(--ink-4)]">
+            {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </span>
+        </div>
+        {posts.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-[var(--rule)] px-6 py-10 text-center font-sans text-[13.5px] text-[var(--ink-3)]">
+            발행된 글 없음 · 발행 예정: {coin.scheduledMonth}
+          </div>
+        ) : (
+          <ol className="divide-y divide-[var(--rule)]">
+            {posts.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  href={`/posts/${p.slug}/`}
+                  className="group block py-4 active:bg-[var(--bg-soft)] md:py-5"
+                >
+                  <h3 className="font-display text-[16.5px] font-semibold leading-[1.3] tracking-[-0.012em] text-[var(--ink-1)] transition-colors group-hover:text-[var(--signal)] md:text-[18px]">
+                    {p.title}
+                  </h3>
+                  {p.subtitle && (
+                    <p className="mt-1 line-clamp-2 font-serif text-[13.5px] leading-[1.55] text-[var(--ink-3)]">
+                      {p.subtitle}
+                    </p>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ol>
+        )}
+      </section>
+    </DetailPage>
   );
 }

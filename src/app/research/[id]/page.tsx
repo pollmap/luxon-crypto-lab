@@ -1,7 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RESEARCH_TOPICS, getResearchTopicById, RESEARCH_FIELD_COLOR } from "@/lib/research";
-import { getPostBySlug } from "@/lib/posts";
+import { DetailPage } from "@/components/detail/DetailPage";
+import { SubIssueList } from "@/components/detail/SubIssueList";
+import { Badge } from "@/components/detail/Badge";
 
 export const dynamicParams = false;
 
@@ -26,50 +27,46 @@ export default async function ResearchTopicPage({
   if (!t) notFound();
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <header className="mb-12 border-b border-[var(--border-soft)] pb-8">
-        <div className="mb-3">
-          <span
-            className="rounded border px-2 py-0.5 font-mono text-xs uppercase"
-            style={{
-              borderColor: RESEARCH_FIELD_COLOR[t.field],
-              color: RESEARCH_FIELD_COLOR[t.field],
-            }}
-          >
-            {t.field}
+    <DetailPage
+      kicker="Research"
+      badges={<Badge color={RESEARCH_FIELD_COLOR[t.field]}>{t.field}</Badge>}
+      title={t.name}
+      tagline={t.signature}
+      description={t.description}
+    >
+      <section className="mb-12">
+        <div className="mb-5 flex items-baseline justify-between border-b border-[var(--rule)] pb-2 md:mb-6">
+          <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-2)]">
+            Key Papers
+          </h2>
+          <span className="font-mono text-[11px] tabular-nums text-[var(--ink-4)]">
+            {t.keyPapers.length}
           </span>
         </div>
-        <h1 className="mb-2 text-3xl font-bold tracking-tight text-[var(--text-1)] md:text-4xl">
-          {t.name}
-        </h1>
-        <p className="mb-6 text-lg text-[var(--neon-cyan)] glow-cyan">{t.signature}</p>
-        <p className="text-[var(--text-2)]">{t.description}</p>
-      </header>
-
-      <section className="mb-10">
-        <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-[var(--text-3)]">
-          ▎key papers
-        </h2>
-        <ol className="space-y-3">
+        <ol className="space-y-4">
           {t.keyPapers.map((p, i) => (
             <li
               key={i}
-              className="rounded border border-[var(--border-soft)] p-4 font-mono text-sm"
+              className="rounded-2xl border border-[var(--rule)] bg-[var(--bg-elev)] px-5 py-4 md:px-6 md:py-5"
             >
-              <div className="mb-1 flex items-baseline gap-2">
-                <span className="text-[var(--text-3)]">[{i + 1}]</span>
-                <span className="text-[var(--text-1)]">{p.authors}</span>
-                <span className="text-[var(--text-3)]">({p.year})</span>
+              <div className="mb-1.5 flex items-baseline gap-2 font-sans text-[12.5px] text-[var(--ink-3)]">
+                <span className="font-mono tabular-nums text-[var(--signal)]">
+                  [{String(i + 1).padStart(2, "0")}]
+                </span>
+                <span className="font-semibold text-[var(--ink-1)]">{p.authors}</span>
+                <span>({p.year})</span>
               </div>
-              <div className="mb-1 ml-7 text-[var(--neon-cyan)]">{p.title}</div>
-              <div className="ml-7 flex items-center gap-2 text-xs">
-                <span className="text-[var(--text-3)]">{p.venue}</span>
-                {p.doi && <span className="text-[var(--text-3)]">· DOI: {p.doi}</span>}
+              <div className="mb-2 ml-8 font-display text-[15.5px] font-semibold leading-snug tracking-tight text-[var(--ink-1)] md:text-[16px]">
+                {p.title}
+              </div>
+              <div className="ml-8 flex flex-wrap items-center gap-2 font-sans text-[11.5px] text-[var(--ink-3)]">
+                <span>{p.venue}</span>
+                {p.doi && <span className="text-[var(--ink-4)]">DOI: {p.doi}</span>}
                 <a
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-auto text-[var(--neon-magenta)] hover:underline"
+                  className="ml-auto text-[var(--signal)] underline decoration-dotted decoration-1 underline-offset-2"
                 >
                   link →
                 </a>
@@ -79,38 +76,7 @@ export default async function ResearchTopicPage({
         </ol>
       </section>
 
-      <section>
-        <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-[var(--text-3)]">
-          ▎posts
-        </h2>
-        <ol className="space-y-2">
-          {t.subIssues.map((sub) => {
-            const exists = getPostBySlug(sub.slug);
-            return (
-              <li key={sub.slug}>
-                {exists ? (
-                  <Link
-                    href={`/posts/${sub.slug}/`}
-                    className="group flex items-baseline gap-3 rounded border border-[var(--border-soft)] p-3 font-mono text-sm transition-colors hover:border-[var(--neon-cyan)]"
-                  >
-                    <span className="text-[var(--neon-cyan)]">{sub.label}</span>
-                    <span className="text-[var(--text-1)] group-hover:text-[var(--neon-cyan)]">
-                      {sub.title}
-                    </span>
-                    <span className="ml-auto text-xs text-[var(--text-3)]">{sub.publishedAt}</span>
-                  </Link>
-                ) : (
-                  <div className="flex items-baseline gap-3 rounded border border-dashed border-[var(--border-soft)] p-3 font-mono text-sm text-[var(--text-3)]">
-                    <span>{sub.label}</span>
-                    <span>{sub.title}</span>
-                    <span className="ml-auto">예정 · {sub.publishedAt}</span>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-    </div>
+      <SubIssueList subIssues={t.subIssues} title="Posts" />
+    </DetailPage>
   );
 }
