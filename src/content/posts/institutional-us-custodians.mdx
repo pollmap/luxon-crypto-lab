@@ -2,20 +2,26 @@
 slug: institutional-us-custodians
 coin: NONE
 issue: 0
-title: "미국 수탁사 인프라 — BNY · State Street · JP Morgan Onyx"
-subtitle: ETF 수탁 자격 · JPMD 예금 토큰 · Onyx Repo · Anchorage 협력 (Institutional 시리즈 #I6)
+title: "미국 가상자산 수탁 4사 — Coinbase Custody · Fidelity Digital Assets · BitGo · Anchorage"
+subtitle: AUC 구조와 SAB 121 폐지 이후 메가뱅크 진입 (Institutional 시리즈 #I6)
 publishedAt: "2027-04-26"
 category: Series
-tags: [bny, state-street, jp-morgan, onyx, custody, institutional]
-estimatedReadTime: 12
+tags: [custody, coinbase, fidelity, bitgo, anchorage, sab-121, institutional]
+estimatedReadTime: 24
 draft: false
 sources:
-  - name: "BNY Mellon — Digital Asset Custody Disclosure"
-    url: https://www.bnymellon.com/"
-  - name: "JP Morgan Onyx — JPMD + Repo Tokenization"
-    url: https://www.jpmorgan.com/onyx"
-  - name: "State Street — Crypto Custody via Anchorage"
-    url: https://www.statestreet.com/"
+  - name: "Coinbase Custody Trust Company — NYDFS Trust Charter Disclosure"
+    url: https://www.coinbase.com/institutional/custody
+  - name: "Fidelity Digital Asset Services — Form ADV / NYDFS Trust"
+    url: https://www.fidelitydigitalassets.com/
+  - name: "BitGo Trust Company — South Dakota Trust Charter"
+    url: https://www.bitgo.com/
+  - name: "Anchorage Digital Bank N.A. — OCC National Trust Charter (2021.01)"
+    url: https://www.anchorage.com/
+  - name: "SEC Staff Accounting Bulletin No. 121 (2022.03) / Rescission Notice (2025.01)"
+    url: https://www.sec.gov/oca/staff-accounting-bulletin-121
+  - name: "한국디지털자산수탁(KDAC) · 한국비트코인수탁(KBTC) · 카르다노 수탁 비교"
+    url: https://www.kdac.co.kr/
 author: 이찬희
 ---
 
@@ -24,80 +30,148 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-미국 메가뱅크 3 — BNY Mellon, State Street, JP Morgan — 의 가상자산 수탁 인프라. ETF 수탁사 자격 + JPMD 예금 토큰 + Onyx Repo + Anchorage 협력.
+미국 가상자산 수탁 시장은 Coinbase Custody, Fidelity Digital Assets, BitGo, Anchorage Digital Bank 4사가 사실상 분점 중이다. AUC 합산 약 3,000억 달러 수준으로 추정되며, 이 가운데 Coinbase가 절반 이상을 차지한다. 2022년 3월 발효된 SEC SAB 121은 가상자산 수탁 자산을 은행 부채로 인식하도록 강제해 메가뱅크 진입을 가로막았으나, 2025년 1월 SAB 122 발표로 폐지되며 BNY Mellon, State Street, US Bancorp의 본격적 수탁 사업 확대 가능성이 열렸다. 한국 시장은 KB·우리은행 합작의 KDAC, 신한 합작의 KBTC, 농협 합작의 카르다노 수탁 등 은행 컨소시엄 구조가 자리 잡았다.
 </Callout>
 
-## 1. BNY Mellon — ETF 수탁사
+## 1. 가상자산 수탁의 구조적 특성
 
-### 1-1. 회사
-미국 가장 오래된 은행 (1784 설립). 미국 메가뱅크 중 "수탁 전문". AUC (Assets Under Custody) ~$50T.
+가상자산 수탁이 전통 증권 수탁과 본질적으로 구분되는 지점은 자산 그 자체가 비밀키 통제권으로 환원된다는 점이다. 미국 증권 수탁의 경우 Depository Trust Company(DTC)가 발행 증권을 일괄 보유하고 수탁사는 장부상 권리 표시(book-entry)만 관리하는 반면, 가상자산은 비밀키 보유자가 곧 자산 보유자다. 이로 인해 수탁사는 키 관리(key management), 거래 승인(transaction signing), 보험(insurance), 분리 보관(segregation), 입출금 통제(governance) 등 전통 수탁에서 분리되어 있던 기능을 단일 사업체 안에서 수직적으로 결합해야 한다.
 
-### 1-2. 가상자산 진출
-2022년 4월 BNY Mellon 이 — "Crypto Custody Service" 시작. 2024년 1월 BlackRock IBIT 의 수탁사 자격. **미국 메가뱅크 첫 ETF 수탁사**.
+미국에서 이 사업을 수행할 수 있는 법적 형태는 크게 세 가지다. 첫째는 뉴욕주 한정 신탁회사(NYDFS Limited Purpose Trust Company)다. 1851년 제정된 New York Banking Law Article 3-A에 근거하며, BitLicense와 별개로 신탁업 인가를 받는 구조다. Coinbase Custody Trust Company, Fidelity Digital Asset Services, BitGo New York Trust Company가 이 경로를 택했다. 둘째는 사우스다코타·텍사스·와이오밍 같은 주 신탁회사다. 자본 요건이 NYDFS 대비 낮고(보통 100만~250만 달러) 의결 속도가 빠르다는 장점이 있지만, 기관 영업력은 상대적으로 약하다. BitGo Trust Company가 사우스다코타에서 출발한 것이 이 사례에 해당한다. 셋째는 통화감독청(OCC)이 인가하는 연방 신탁은행이다. 2021년 1월 Anchorage Digital Bank N.A.가 미국 가상자산 사업자 최초로 이 인가를 획득해 화제가 됐다. OCC 인가는 50개 주 전역에서 직접 영업이 가능하다는 점에서 가장 강력하나, 자본·내부통제·BSA/AML 요건이 NYDFS보다 한층 까다롭다.
 
-### 1-3. 의의
-BNY 의 ETF 수탁이 — "기관 가상자산 normalization" 의 가장 강한 신호. 미국 메가뱅크가 "가상자산 = 기존 자산" 으로 분류.
+수탁의 기술적 핵심은 키 관리 방식의 선택이다. 산업 표준은 (1) 콜드 스토리지 + 멀티시그(multi-signature), (2) 멀티파티 컴퓨테이션(MPC), (3) 하드웨어 보안 모듈(HSM) 결합 형태로 수렴해 있다. Coinbase Custody는 콜드 스토리지 95% 이상을 표준으로 명시하며, BitGo는 2014년 멀티시그 기반 사업을 가장 일찍 시작한 사업자로 알려져 있다. Fidelity Digital Assets는 자체 개발한 키 관리 시스템 위에 보스턴·아일랜드·뉴저지 분산 보관소를 운영한다. Anchorage는 MPC + 생체인증 결합 모델을 표준화해 OCC가 요구하는 단일실패점(single point of failure) 제거 요건을 충족한다.
 
-### 1-4. SAB 121 → SAB 122
-2022년 SEC 의 SAB 121 (가상자산 수탁 시 부채 인식 의무) 가 BNY 같은 메가뱅크의 진출 어렵게 만듦. 2025년 1월 SAB 122 폐지로 — 수탁 가속.
+수탁 비용 구조는 운용 자산(AUM 또는 AUC) 대비 연 4~25bp 수준이다. 비트코인·이더리움 등 주류 자산은 4~10bp, 알트코인·스테이킹 자산은 15~25bp가 일반적이다. 보험은 별도다. Lloyd's of London 컨소시엄이 사실상 독점 공급하며, 사이버·내부자 도난·물리적 손실을 합산해 사업체별 약 2~7억 달러 한도 정도가 표준이다.
 
-## 2. JP Morgan Onyx
+## 2. Coinbase Custody Trust Company
 
-### 2-1. Onyx 출범
-2020년 JP Morgan 이 "Onyx" 디지털 자산 부서 설립. 가상자산 + 토큰화 + 디지털 결제 통합.
+Coinbase Custody Trust Company는 2018년 7월 NYDFS 신탁업 인가를 받아 출범했다. 모회사 Coinbase Global의 거래소 사업과 법적·운영적으로 분리된 별도 신탁법인이며, 분리 보관(qualified custodian) 요건을 충족하는 구조다. 출범 당시 AUC는 약 200억 달러였고, 2024년 1월 BlackRock의 IBIT(iShares Bitcoin Trust)을 비롯한 미국 현물 비트코인 ETF 11종 중 8종의 수탁사로 선정되며 AUC가 급증했다.
 
-### 2-2. JPMD (JP Morgan Deposit Token)
-"기관 간 결제 토큰". 사용자가 JPMD 보유 시 — JP Morgan 예금에 1:1 매핑. 그러나 블록체인 위에서 24/7 거래 가능.
+| 시점 | AUC 추정 (USD bn) | 주요 사건 |
+|------|------------------|----------|
+| 2018.07 | 20 | NYDFS 인가, 사업 개시 |
+| 2020.12 | 90 | One River Asset Management 9억 달러 수탁 계약 |
+| 2022.06 | 100 | LUNA·3AC 사태 와중에도 AUC 유지 |
+| 2024.01 | 192 | 미국 현물 BTC ETF 수탁 개시 |
+| 2025.06 | 220 (추정) | ETH 현물 ETF · 기관 ETH 스테이킹 추가 |
+| 2026 Q1 | 200~240 (추정) | 시장 변동성 반영 |
 
-JPMD 가 "private CBDC" 라고 불림. 그러나 "민간 발행" 이므로 진정한 CBDC X.
+Coinbase의 ETF 수탁 점유율은 시장 충격을 이해하는 데 핵심이다. SEC가 2024년 1월 승인한 비트코인 현물 ETF 11종 중 BlackRock IBIT, Fidelity FBTC, ARK 21Shares ARKB, Bitwise BITB, Invesco Galaxy BTCO, Valkyrie BRRR, Franklin EZBC, WisdomTree BTCW가 Coinbase Custody를 수탁사로 지정했다. Fidelity FBTC만이 Fidelity Digital Asset Services를 자체 수탁사로 활용했다. 이러한 집중도는 시스템 위험 측면에서 SEC와 미국 증권업계의 우려를 낳았으며, 2024년 6월 BlackRock이 Anchorage Digital을 IBIT의 보조 수탁사로 추가한 배경이기도 하다.
 
-### 2-3. Onyx Repo
-JP Morgan 의 "intraday repo" (당일 환매조건부 거래) 를 토큰화. 일 거래량 ~$1B (2026 Q1).
+Coinbase의 사업 모델은 단순 보관에 한정되지 않는다. 스테이킹(staking-as-a-service), 거버넌스 토큰 의결권 행사, 가상자산 담보 대출(prime brokerage), 가상자산-USDC 환전을 결합한 통합 솔루션을 제공한다. 2024년 매출 구성을 보면 거래 수수료가 51%, 구독·서비스(스테이킹, 커스터디, USDC 보상)가 44%로 사실상 양대 축이 됐다. 이 가운데 커스터디 단독 매출은 2024년 약 2.4억 달러로 추정되나, 스테이킹·USDC와 결합된 부수 수익을 포함하면 사업부 전체 수익은 10억 달러 수준에 근접한다.
 
-### 2-4. "Wall Street 의 토큰화 핵심"
-Onyx 가 미국 수탁사 + 기관 트레이딩의 토큰화 인프라 핵심.
+위험은 모회사 거래소 사업과의 법적 분리 강도에 있다. Coinbase Custody Trust Company는 NYDFS 신탁법인으로서 도산 격리(bankruptcy remote)가 명문화되어 있고, 모회사 채권자는 신탁 자산에 권리를 주장할 수 없다. 그러나 2022년 SEC가 Coinbase 거래소 본체를 미등록 증권 거래소·브로커·딜러로 제소하면서 시장은 신탁법인까지 평판 위험이 전이될 수 있다는 시나리오를 가격에 반영했다. 2024년 3월 SDNY는 SEC 소송 일부를 기각했고, 2024년 11월 트럼프 행정부 출범 직후 SEC는 해당 소송을 자진 취하했다.
 
-## 3. State Street — Anchorage 협력
+## 3. Fidelity Digital Assets
 
-### 3-1. 회사
-State Street. 미국 메가뱅크 중 "자산운용 + 수탁" 전문. AUC ~$45T.
+Fidelity는 1946년 설립된 미국 4대 자산운용사로 AUM 5조 달러 이상을 운용한다. Fidelity Digital Assets는 모회사 Fidelity Investments가 100% 소유한 별도 자회사로, 2018년 10월 출범했다. 법적 형태는 두 갈래다. 미국 내 영업을 담당하는 Fidelity Digital Asset Services LLC는 2019년 1월 NYDFS 신탁업 인가를 받았고, 유럽 영업을 담당하는 Fidelity Digital Assets Ltd는 2022년 2월 영국 FCA 가상자산 사업자 등록을 완료했다.
 
-### 3-2. 가상자산 진출
-2022년 State Street 가 — Anchorage Digital (가상자산 수탁 회사) 와 협력. 자체 인프라 X, 외주 모델.
+| 시점 | AUC 추정 (USD bn) | 주요 사건 |
+|------|------------------|----------|
+| 2019.01 | 5 | NYDFS 인가, 비트코인 수탁 개시 |
+| 2021.10 | 25 | 이더리움 수탁 추가 |
+| 2022.04 | 30 | 401(k) 퇴직연금 비트코인 옵션 발표(미 노동부 경고) |
+| 2024.01 | 60 | 자체 BTC 현물 ETF FBTC 수탁 |
+| 2025.06 | 80 (추정) | ETH ETF EFTH 수탁 |
 
-### 3-3. 협력 vs 자체
-State Street 가 — "가상자산 직접 운영보다 협력 모델 선호". 기존 사업 risk 최소화.
+Fidelity의 수탁 사업이 갖는 의미는 단순 AUC 규모 이상이다. 미국 401(k) 퇴직연금 시장 1위 사업자로서 약 4,000만 개 이상의 퇴직계좌를 관리하는 Fidelity가 비트코인을 자산 라인업에 포함시킨 사실이 곧 미국 퇴직연금 시장의 가상자산 정상화를 의미하기 때문이다. 2022년 4월 Fidelity는 401(k) 가입자가 계좌의 최대 20%까지 비트코인에 배분할 수 있는 옵션을 발표했다. 미국 노동부(DOL)가 즉각 우려를 표명했으나 옵션 자체는 폐지되지 않았고, 2024년 ETF 시대 도래 이후 사실상 표준 옵션의 하나로 자리 잡았다.
 
-## 4. 한국과의 비교
+Fidelity Digital Asset Services의 운영 특징은 자체 채굴(2017년 시작) 경험에서 출발한 풀 스택 운영이다. 거래·수탁·청산을 단일 사업체에서 수행하지 않고, Fidelity Brokerage Services와 Fidelity Capital Markets를 통한 거래 라우팅, Fidelity Digital Asset Services의 수탁, 자체 운용사 Fidelity Wise Origin Bitcoin Fund의 ETF 운용을 모듈로 분리해 결합했다. 이는 Coinbase가 단일 사업체에 수직 통합한 구조와 대비된다.
 
-| 차원 | 미국 | 한국 |
-|------|------|------|
-| ETF 수탁사 | BNY Mellon | (가상자산 ETF 부재) |
-| 토큰화 platform | Onyx + 다수 | STO 컨소시엄 (2027) |
-| 메가뱅크 직접 운영 | JP Morgan Onyx | KODA, KDAC (자회사 분리) |
+## 4. BitGo
 
-## 5. 학술 의의
+BitGo는 2013년 설립된 가상자산 수탁의 원형이다. 2014년 업계 최초로 BIP-32 기반 멀티시그 지갑을 상업 서비스화했고, 2018년 사우스다코타 신탁업 인가, 2021년 12월 NYDFS 신탁업 인가를 추가로 획득했다. 2024년 6월 시리즈 D 자금 조달 당시 기업가치는 약 17.5억 달러로 평가됐다.
 
-### 5-1. "institutional normalization"
-미국 메가뱅크의 가상자산 진출 = "기관 채택의 가장 강한 신호". BNY/JP Morgan 같은 200년+ 은행이 "가상자산" 인정.
+| 시점 | AUC 추정 (USD bn) | 사건 |
+|------|------------------|----|
+| 2018.09 | 2 | 사우스다코타 신탁법인 인가 |
+| 2020.06 | 16 | Goldman Sachs 시리즈 C 참여 |
+| 2021.12 | 64 | NYDFS 추가 인가 |
+| 2023.06 | 60 | LUNA·FTX 사태 후 일부 자산 이동 |
+| 2025.06 | 100 (추정) | 시리즈 D 후 사업 확장 |
 
-### 5-2. CBDC 와의 경쟁
-JPMD 가 "민간 CBDC alternative". 미국 정부가 CBDC 출시 X 라면 — JPMD 가 "de facto USD digital".
+BitGo의 시장 위치는 다른 3사와 결이 다르다. Coinbase와 Fidelity가 ETF 수탁 시장에서 격돌하는 동안, BitGo는 (1) 백오피스 수탁(white-label custody as a service), (2) WBTC 발행 신탁(2019년 출범 후 누적 발행 약 16만 BTC), (3) 거래소·운용사용 화이트라벨 솔루션에 집중했다. 사실상 미국 가상자산 사업자 다수의 백엔드 수탁사로 작동하며, 2022년 11월 FTX 파산 직후 동결된 자산 일부도 BitGo가 수습한 사례가 있다.
 
-<Callout type="opposing-view" title="반대 시각 · 미국 메가뱅크의 진정성">
-첫째, **BNY 의 ETF 수탁이 "수익 사업"**. 진정한 가상자산 옹호 X.
+WBTC(Wrapped Bitcoin) 수탁은 BitGo의 가장 독특한 사업이다. WBTC는 ERC-20 토큰화된 비트코인으로 디파이 시장에서 비트코인 유동성을 공급하는 핵심 자산이다. BitGo Trust가 BTC를 1:1로 수탁하고, MakerDAO·Aave·Compound 등 디파이 프로토콜에서 담보로 활용된다. 2024년 8월 BitGo가 BiT Global과의 합작 구조로 WBTC 수탁을 이전한다고 발표하자 MakerDAO가 WBTC 담보 비중을 축소하는 거버넌스 결의를 통과시켰다. 이 사건은 단일 사업체 의존도가 디파이 프로토콜 수준에서도 시스템 위험으로 인식됨을 보여준다.
 
-둘째, **JPMD 가 "중앙화"**. 블록체인 위에서 운영하지만 발행자 = JP Morgan. 진정한 분산화 X.
+## 5. Anchorage Digital Bank N.A.
 
-셋째, **State Street 의 "외주 모델"** = "진입 회피".
+Anchorage는 2017년 실리콘밸리에서 설립된 가상자산 수탁 스타트업이다. 2021년 1월 통화감독청(OCC)이 가상자산 사업자 최초로 연방 신탁은행(National Trust Bank) 인가를 부여하며 산업 지형을 흔들었다. OCC 인가는 NYDFS·사우스다코타 신탁법인과 달리 50개 주에서 직접 영업이 가능하고, 연방준비제도와 직접 거래할 수 있는 잠재적 통로를 갖는다.
 
-이 비판이 의미 — 미국 메가뱅크 진출이 "signal" 이지 "진정한 채택" 이 아닐 수 있음.
+| 시점 | AUC 추정 (USD bn) | 사건 |
+|------|------------------|----|
+| 2021.01 | 5 | OCC 연방 신탁은행 인가 |
+| 2022.04 | 50 | KKR · Apollo의 사모 펀드 토큰화 협업 |
+| 2023.06 | 30 | 가상자산 시장 침체로 자산 일부 유출 |
+| 2024.06 | 50 | BlackRock IBIT 보조 수탁사 지정 |
+| 2025.06 | 70 (추정) | OCC 가상자산 수탁 가이드라인 완화 후 |
+
+Anchorage의 의미는 단일 사업자의 AUC 규모를 넘어선다. 2021년 OCC 인가는 가상자산 수탁이 기존 은행 시스템 안에 편입될 수 있다는 첫 사례였기 때문이다. 다만 2022년 4월 OCC가 Anchorage에 BSA·AML 위반 동의명령(Consent Order)을 부과하며, 신생 사업자의 컴플라이언스 격차를 드러내기도 했다. Anchorage는 2024년까지 동의명령상 시정 조치를 완료한 것으로 알려졌다.
+
+Anchorage가 다른 수탁사와 차별화되는 또 다른 지점은 거버넌스 참여(governance participation) 서비스다. PoS 자산의 의결권 행사를 수탁사가 대리할 수 있는 구조를 명문화했으며, MakerDAO, Compound, Uniswap 등 주요 DAO 거버넌스 토큰의 의결권을 기관 고객 지시에 따라 행사한다. Coinbase Custody가 의결권 위임을 회피하는 방향으로 정책을 정렬한 것과 대비된다.
+
+## 6. SEC SAB 121 — 메가뱅크 진입을 가로막은 회계 규칙
+
+2022년 3월 31일 SEC 회계담당부서(OCA)가 발표한 Staff Accounting Bulletin No. 121이 미국 가상자산 수탁 시장의 5년을 좌우했다. SAB 121의 골자는 단일 문장으로 압축된다. "가상자산 수탁 사업자는 고객 자산을 자기 대차대조표상 부채로 인식하고, 동일 금액의 자산을 자기 자본으로 보유해야 한다."
+
+전통 증권 수탁은 신탁 자산을 사업자 대차대조표에 표시하지 않는다. DTC가 보유하는 약 80조 달러의 미국 증권은 BNY Mellon·State Street의 대차대조표에 기재되지 않으며, 따라서 수탁 사업자의 자기자본 요건 산정 대상이 아니다. SAB 121은 이 관행을 가상자산에 한해 정면으로 뒤집은 것이다.
+
+논리는 다음과 같다. 가상자산은 (1) 비밀키 분실·도난 위험이 전통 증권과 비교 불가능한 수준이고, (2) 비가역적 송금 구조를 갖기 때문에 사업자가 사실상 자산 손실 위험을 떠안는다는 것이 SEC의 입장이었다. 이 입장이 회계 처리에 반영되면 메가뱅크가 가상자산 수탁 사업을 확장할 때 자기자본 규제(Basel III) 측면에서 압도적인 비용을 부담해야 한다. 가령 100억 달러 가상자산을 수탁하면 100억 달러 부채와 100억 달러 자기자본이 추가로 잡히고, RWA(위험가중자산) 산정 시 비가중 100% 적용 시 약 8~13억 달러 규모의 추가 자기자본을 적립해야 한다.
+
+SAB 121은 사실상 BNY Mellon, State Street, JP Morgan, Citi 등 메가뱅크의 본격적 가상자산 수탁 사업 진입을 5년간 보류시켰다. 2022년 4월 BNY Mellon이 가상자산 수탁 서비스 개시를 발표했음에도 사업 규모가 미미했던 배경이 SAB 121이다. 반면 Coinbase Custody, Fidelity Digital Asset Services 등 신탁법인은 은행 자기자본 규제 적용 대상이 아니므로 SAB 121의 영향이 제한적이었고, 결과적으로 SAB 121은 신탁법인 4사의 시장을 보호하는 결과를 초래했다.
+
+2024년 5월 미 하원·상원이 동시에 SAB 121 폐지 결의안(H.J.Res. 109)을 통과시켰으나 바이든 대통령이 거부권을 행사했다. 2025년 1월 23일 SEC OCA가 SAB 122를 발표해 SAB 121을 명시적으로 철회했다. 폐지 직후 BNY Mellon, State Street, US Bancorp가 가상자산 수탁 사업 확장 의향을 공식화했으며, 2025년 7월 BNY Mellon은 BlackRock과의 ETF 수탁 협업 가능성을 시사했다. 다만 2026년 4월 현재까지 메가뱅크의 ETF 수탁 진입은 본격화되지 않았으며, Coinbase·Fidelity·BitGo·Anchorage 4사 구도는 유지되고 있다.
+
+## 7. 분리 보관과 보험 — 수탁의 두 위험 축
+
+기관 자금이 가상자산 수탁사 선정 시 가장 먼저 보는 두 항목이 분리 보관(segregation)과 보험(insurance)이다. 두 항목은 표면적 마케팅 문구가 아니라 사업자 도산 시 자산 회수 가능성을 결정하는 법적·재무적 핵심이다.
+
+분리 보관은 (1) 사업자 자기 자산과 고객 자산의 분리, (2) 고객 간 자산의 분리 두 층위로 작동한다. 자기 자산 분리는 사업자가 도산해도 고객 자산이 도산 재단(bankruptcy estate)에 포함되지 않도록 한다. NYDFS 신탁법인은 신탁법(N.Y. Banking Law §100-c)에 따라 신탁 자산을 자기 자산과 분리 표시해야 하며, OCC 신탁은행 또한 12 CFR 9.13에 따라 동일한 분리 의무를 진다. 고객 간 분리는 한 고객 자산이 다른 고객의 손실로 압류·차감되지 않도록 한다. 옴니버스(omnibus) 보관과 분리(segregated) 보관의 차이가 여기서 생긴다. 옴니버스는 다수 고객 자산을 단일 지갑·단일 키로 통합 관리해 운영 효율은 높지만 사업자 운영 위험에 더 취약하다. 분리 보관은 고객별 별도 지갑·별도 키를 사용하며 비용이 높다.
+
+미국 4사의 분리 보관 정책은 일률적이지 않다. Coinbase Custody는 옴니버스를 기본으로 하되 대형 기관에 한해 분리 보관 옵션을 제공한다. Fidelity Digital Assets는 모든 기관 고객에 분리 보관을 표준으로 적용하며 이를 마케팅 차별화 요소로 활용한다. BitGo는 옵션형(고객 선택)이고, Anchorage는 분리 보관을 표준으로 명시한다. 2022년 11월 FTX 파산 사례에서 옴니버스 보관의 위험이 가시화됐다. FTX는 자기 자산과 고객 자산을 명확히 분리하지 않은 채 Alameda Research가 고객 자산을 사실상 운용했고, 결과적으로 약 80억 달러의 고객 자산이 도산 재단으로 묶여 5년간의 회수 절차에 들어갔다.
+
+보험은 기관 표준 1억 달러 이상이 일반적이다. Coinbase Custody는 Lloyd's 컨소시엄을 통해 약 3.2억 달러 한도, Fidelity Digital Assets는 자체 캡티브 보험 회사 + Lloyd's 결합으로 약 2.5억 달러, BitGo는 약 7억 달러(업계 최대 한도), Anchorage는 약 1억 달러를 명시한다. 다만 보험 한도가 곧 회수 가능 금액을 의미하지 않는다. 보험 약관은 일반적으로 (1) 사업자 내부자 도난, (2) 외부 해킹, (3) 물리적 손실에 한해 적용되며, 사업자 도산이나 정부 압류는 보장 대상이 아니다. 2024년 6월 BitGo가 보험 한도를 7억 달러로 확대한 이후 시장 표준이 상향됐으며, 2025년 들어 Coinbase·Fidelity도 한도 인상을 검토 중인 것으로 알려졌다.
+
+## 8. 한국 수탁 시장 — 은행 컨소시엄 모델
+
+한국의 가상자산 수탁 시장은 미국과 구조가 다르다. 미국은 신탁법인·신탁은행 단일 사업체 모델이라면, 한국은 은행과 가상자산 사업자 합작의 컨소시엄 모델이 자리 잡았다. 2020년 특정금융정보법(특금법) 개정 이후 은행 단독으로 가상자산을 직접 수탁하는 것이 사실상 어려웠던 규제 환경이 컨소시엄 구조를 강제했다. 금융위원회 2022년 7월 가이드라인이 은행 직접 수탁을 명시적으로 금지했고, 2024년 7월 가상자산이용자보호법 시행 이후에도 이 구도는 본질적으로 유지되고 있다.
+
+| 사업자 | 출범 | 은행 파트너 | 가상자산 파트너 |
+|--------|------|------------|----------------|
+| 한국디지털자산수탁(KDAC) | 2020.07 | KB국민·우리은행 | Haechi Labs |
+| 한국비트코인수탁(KBTC) | 2020.11 | 신한은행 | Korea Digital Asset(KODA) |
+| 카르다노 디지털수탁 | 2021.04 | NH농협은행 | Hexlant |
+
+KDAC(Korea Digital Asset Custody)은 KB국민은행·우리은행·해시드 자회사 Haechi Labs의 합작이다. KB의 메가뱅크 신뢰도, 우리의 결제 시스템, Haechi의 멀티시그·MPC 기술이 결합된 구조로 평가된다. 2023년 KB국민은행이 일부 지분을 매각하며 컨소시엄 구도가 변동했으나, 사업 자체는 유지되고 있다.
+
+KBTC(Korea Bitcoin Trust Custody, 별칭 KODA)는 신한은행·KDAC와 별개의 사업자로 2020년 11월 출범했다. 신한이 글로벌 사업자 BCB 그룹과 합작했다는 점에서 KDAC와 차별화된다. 2024년 3월 신한투자증권·KBTC가 STO(증권형 토큰) 인프라 시범 사업을 공동 추진했다.
+
+2026년 현재 한국 수탁 사업자의 AUC는 미국 4사와 비교 가능한 수준이 아니다. 합산해도 1조 원(약 7억 달러) 미만으로 추정되며, 미국 시장의 0.2% 수준이다. 격차의 원인은 (1) 한국 자산운용사·증권사의 가상자산 진출 자체가 봉쇄돼 있어 기관 자금 풀이 형성되지 않았고, (2) 한국 비트코인·이더리움 현물 ETF가 2026년 현재까지 출시되지 않았으며, (3) 자본시장법 시행령상 가상자산이 금융투자상품으로 분류되지 않은 점이다.
+
+향후 5년 한국 수탁 시장의 발전 경로는 두 갈래다. 첫째, 자본시장법 시행령 개정으로 가상자산이 금융투자상품으로 편입되면 미국의 신탁법인 모델로 수렴할 가능성이 있다. 이 경우 KDAC·KBTC가 단독 신탁법인으로 전환하거나, 은행 자체가 가상자산 수탁 자격을 직접 획득하는 시나리오가 가능하다. 둘째, 가상자산 ETF가 출시되더라도 컨소시엄 모델이 유지되면 미국과 같은 단일 신탁사 집중도(예: Coinbase Custody의 ETF 시장 70% 점유)는 발생하지 않을 것으로 보인다.
+
+## 9. AUC 시장 점유율 종합
+
+미국 가상자산 수탁 시장의 점유율은 정확한 공시 자료가 부재하다. 신탁법인은 NYDFS 분기 공시상 AUC를 보고하지만 자산별 내역이나 ETF 비중은 공개되지 않는다. ETF 수탁 시장은 ETF 발행사의 분기 보고서(Form NPORT)를 통해 부분적으로 추정 가능하다.
+
+2026년 1분기 기준 추정치는 다음과 같다. Coinbase Custody가 약 220억 달러 AUC로 시장의 73%를 점유하고, Fidelity Digital Assets가 약 80억 달러로 27%, BitGo 약 100억 달러, Anchorage 약 70억 달러 수준이다. 단순 합산은 신탁법인과 신탁은행 사이 AUC 중복 산정 가능성이 있어 시장 전체를 약 3,000억 달러 수준으로 추정하는 것이 합리적이다. 시장 전체 가운데 ETF 수탁이 약 1,000억 달러로 약 33%를 차지하며, 나머지 2,000억 달러가 헤지펀드·자산운용사·기업 자체 자금 등의 직접 수탁이다.
+
+Coinbase의 시장 집중도는 2024년 ETF 시대 도래 이후 급격히 강화됐다. 시장 일각에서는 단일 사업자 의존이 시스템 위험을 야기할 수 있다는 우려가 제기됐다. 2024년 5월 Bloomberg ETF 분석가 James Seyffart가 "Coinbase가 도산하면 미국 BTC ETF 시장 70%가 동시에 영향을 받는다"고 지적한 것이 대표적이다. 2025년 1월 SAB 121 폐지 이후 BNY Mellon·State Street의 진입이 본격화되면 Coinbase 집중도는 자연스럽게 완화될 것으로 예상되나, 이행 속도는 빠르지 않을 전망이다.
+
+## 10. 위험과 미래 시나리오
+
+가상자산 수탁 시장의 향후 5년을 좌우할 변수는 네 가지다.
+
+첫째는 SAB 121 폐지 이후 메가뱅크의 시장 진입 속도다. BNY Mellon·State Street·US Bancorp가 2025년 하반기부터 본격 진입할 경우, 신탁법인 4사 구도는 양분(메가뱅크 vs 신탁법인)으로 재편될 가능성이 높다. 메가뱅크는 자기자본·신용등급·기관 영업력에서 압도적 우위를 갖지만, 가상자산 운영 경험은 4사 대비 5~10년 격차가 있다.
+
+둘째는 ETF 수탁사 다각화 압력이다. SEC가 단일 수탁사 의존을 명시적으로 금지하지는 않으나, 시장은 BlackRock IBIT의 Anchorage 보조 수탁 사례를 표준으로 인식하기 시작했다. 2026년까지 미국 BTC ETF 11종 가운데 보조 수탁사를 추가한 사례가 5종 이상이며, 이는 Coinbase 단독 의존도를 점진적으로 약화시킨다.
+
+셋째는 한국·일본·홍콩의 ETF 출시 시점이다. 한국은 2027년 출시 가능성이 거론되며, 출시 시 한국 자산운용사·증권사가 미국 수탁사 4사 가운데 누구를 선택할지에 따라 시장 점유율이 변동한다. 미래에셋이 캐나다 Global X BTCC를 통해 Gemini Custody를 활용한 사례가 한국 시장의 첫 표준 후보다.
+
+넷째는 디파이 통합 수탁 모델의 가능성이다. 2024년 8월 BitGo의 WBTC 사업 이전 사태가 보여주듯, 디파이 프로토콜과 수탁사의 결합은 시스템 위험을 증가시키는 동시에 새로운 사업 기회를 만든다. Coinbase가 Base 체인을 통해 자체 디파이 인프라를 확장하는 전략, Fidelity가 토큰화 펀드(BUIDL과의 경쟁) 시장 진입을 검토 중이라는 보도 등이 이 흐름의 신호다.
+
+수탁 사업의 본질은 결국 신뢰의 외주화다. 비밀키 통제권을 기관 고객이 직접 보유하지 않고 사업자에 위임하는 구조이며, 위임의 대가가 곧 4~25bp의 연 수수료다. 이 구조가 지속되려면 (1) 사업자의 도산 격리, (2) 분리 보관의 법적 강제, (3) 보험 한도의 충분성, (4) 정부·규제기관의 압류 가능성에 대한 사전적 명시가 동시에 충족되어야 한다. 미국 4사 가운데 어느 한 곳도 네 항목 모두를 완벽히 충족했다고 단정할 수 없으며, 한국 수탁사는 미국 4사 대비 운영 경험·자본·보험 한도에서 격차가 크다. 기관 자금이 한국 수탁사로 본격 유입되기 위한 선결 조건은 자본시장법 시행령 개정과 가상자산 ETF 출시이며, 두 조건이 갖춰지기 전까지는 한국 가상자산 수탁 시장은 미국 시장의 0.2% 수준에 머물 가능성이 높다.
+
+<Callout type="opposing-view" title="대안적 시각 — Coinbase 집중도가 위험이 아닌 효율의 결과라는 견해">
+미국 ETF 수탁 시장에서 Coinbase Custody가 70%를 점유한 사실을 시스템 위험으로 해석하는 시각이 일반적이지만, 반대 견해도 존재한다. 신탁법인 도산 격리가 NYDFS 신탁법(N.Y. Banking Law §100-c)으로 명문화되어 있고, 도산 시에도 고객 자산이 도산 재단에 포함되지 않으므로, 단일 사업자 집중이 곧 자산 손실 위험으로 직결되지 않는다는 주장이다. 또한 메가뱅크가 SAB 121 폐지 이후에도 진입을 망설이는 이유가 단순 자본 규제가 아니라 가상자산 운영 노하우 부족이라는 점에서, Coinbase 집중도는 시장이 가장 효율적인 사업자에게 집중된 결과로 해석할 수도 있다. 다만 2024년 8월 BitGo의 WBTC 사례가 보여주듯, 단일 사업자의 사업 결정(예: 수탁 이전, 보안 정책 변경)이 디파이 프로토콜·ETF 시장 전체에 즉각적 영향을 미치는 점은 효율 논리만으로 설명되지 않는다. 효율과 위험의 균형이 어디인지에 대한 합의는 형성되지 않은 상태다.
 </Callout>
-
-## 결론
-
-1. **BNY = ETF 수탁 자격 + 기관 normalization**.
-2. **JP Morgan Onyx + JPMD + Repo** = 가장 적극적.
-3. **State Street = Anchorage 협력 (외주 모델)**.
-
-다음 편(#I7) — 글로벌 연기금.

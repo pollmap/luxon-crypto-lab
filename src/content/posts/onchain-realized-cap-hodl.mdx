@@ -2,18 +2,22 @@
 slug: onchain-realized-cap-hodl
 coin: NONE
 issue: 0
-title: "Realized Cap + HODL Waves — cohort 분석"
-subtitle: Realized Cap 진화 · HODL Waves 6 cohort · LTH vs STH (On-Chain 시리즈 #O12)
+title: "Realized Cap + HODL Waves — cohort 분석의 표준"
+subtitle: Realized Capitalization 정의 · 6 cohort HODL Waves · LTH/STH 155일 임계 (On-Chain 시리즈 #O12)
 publishedAt: "2027-11-01"
 category: Series
 tags: [realized-cap, hodl-waves, cohort, lth, sth]
-estimatedReadTime: 10
+estimatedReadTime: 25
 draft: false
 sources:
   - name: "Glassnode — HODL Waves"
     url: https://studio.glassnode.com/metrics?a=BTC&category=indicators&m=supply.HodlWaves
   - name: "Glassnode — Realized Capitalization"
     url: https://academy.glassnode.com/indicators/realized-capitalization
+  - name: "Antonopoulos, A. — Bitcoin's UTXO Model"
+    url: https://aantonop.com/
+  - name: "CoinMetrics — UTXO-based Metrics Methodology"
+    url: https://coinmetrics.io/community-data
 author: 이찬희
 ---
 
@@ -22,89 +26,206 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Realized Capitalization 의 시간 진화 + HODL Waves 의 6 cohort 분석. "누가 얼마나 오래 BTC 를 보유하고 있는가" 의 가장 학술적 framework. Supply shock 의 식별.
+Realized Capitalization 은 각 BTC 가 마지막으로 on-chain 이동했을 때의 가격으로 평가한 시가총액이다. "on-chain cost basis" 라는 별명을 갖는다. HODL Waves 는 BTC 보유자를 보유 기간별 6 cohort 로 나누어 시간 변화를 추적한다. LTH (Long-Term Holder) 와 STH (Short-Term Holder) 의 155일 임계는 학습된 sub-cohort 이고, ETF 시대 이후 LTH 비중이 80% 를 넘은 사실이 가장 큰 구조 변화다.
 </Callout>
 
-## 도입 — "BTC 의 cohort"
+## UTXO 모델의 특성
 
-BTC 보유자를 "보유 기간" 별로 분류 — HODL Waves. Glassnode 가 2018년 처음 발표한 framework. 가상자산 학계에서 가장 인용되는 cohort 분석.
+비트코인의 회계 모델은 UTXO (Unspent Transaction Output) 다. 각 주소의 잔액이 단일 숫자로 저장되는 account 모델 (Ethereum 등) 과 달리, 비트코인은 미사용 출력값의 집합으로 잔액을 표현한다. 사용자가 1 BTC 를 보유하고 있다면 그 1 BTC 는 보통 여러 UTXO 의 합으로 구성돼 있고 (예: 0.5 + 0.3 + 0.2), 각 UTXO 는 자체적으로 마지막 이동 시점과 그때의 BTC 가격이라는 메타데이터를 갖는다.
 
-## 1. Realized Capitalization
+이 UTXO 모델 덕분에 비트코인은 다른 자산에서는 불가능한 cohort 분석이 가능하다. 각 BTC 가 언제 마지막으로 이동했는지 알 수 있고, 그 이동 시점의 가격이 그 BTC 의 "cost basis" (취득 원가) 가 된다. 보유자가 누구인지 식별할 수는 없지만, 보유자의 매수 시점은 정확히 알 수 있다는 뜻이다. 이 점이 비트코인 매크로 분석을 다른 자산보다 풍부하게 만들어주는 구조적 특성이다.
 
-### 1-1. 정의
-<Formula>{`Realized Cap = Σ (각 BTC 의 마지막 이전 시점 가격)`}</Formula>
-즉 "all BTC holders 의 평균 매수 가격" × "발행량". "on-chain cost basis".
+Glassnode 는 이 특성을 활용해 두 가지 표준 framework 를 발전시켰다. 첫 번째는 Realized Capitalization 이고, 두 번째는 HODL Waves 다. 두 framework 는 같은 UTXO 데이터를 다른 각도에서 바라본다. Realized Cap 은 각 UTXO 의 가격을 합산해 시장 cost basis 의 절대값을 보여주고, HODL Waves 는 각 UTXO 의 보유 기간을 분류해 cohort 분포를 보여준다.
 
-### 1-2. 시간 진화
-| 시점 | Realized Cap |
-|------|-------------|
-| 2013.1 | $0.5B |
-| 2017.1 | $5B |
-| 2021.1 | $200B |
-| 2024.1 | $440B |
-| 2026.1 | **$680B** |
+## Realized Capitalization
 
-Realized Cap 의 가속이 — "새 자금이 시장에 진입" 의 정량 측정. Market Cap 대비 Realized Cap 비율 = MVRV (#P4, #O9).
+### 정의
 
-## 2. HODL Waves — 6 Cohort
+<Formula>{`Realized Cap = Σ (각 UTXO 가 마지막으로 이동했을 때의 가격 × 그 UTXO 의 BTC 수량)`}</Formula>
 
-### 2-1. 분류
-보유 기간별 BTC 비율:
-- **< 1일** (very short)
-- **1일 - 1주**
-- **1주 - 1달**
-- **1달 - 3달**
-- **3달 - 1년**
-- **1-2년**
-- **2-3년**
-- **3-5년**
-- **5-7년**
-- **7-10년**
-- **10년+**
+이 정의는 단순하지만 강력하다. 시장에 존재하는 모든 BTC 를 그 마지막 이동 시점의 가격으로 평가해 합산한다. 결과는 "시장 전체의 평균 매수 가격" × "총 발행량" 이고, 이를 시가총액 (Market Cap) 의 대안으로 해석할 수 있다.
 
-### 2-2. LTH vs STH 임계
-- **STH** (Short-Term Holder) = < 155일
-- **LTH** (Long-Term Holder) = ≥ 155일
+Market Cap 은 모든 BTC 를 현재 가격으로 평가한 값이다. 즉 마지막에 거래된 1 BTC 의 가격을 모든 발행량에 적용한다. 이 방식은 단일 거래의 가격이 시장 전체에 적용된다는 점에서 회계학적으로는 부정확한 측면이 있다. 만약 1 BTC 가 $100,000 에 거래됐고 발행량이 19.7M 이라면 Market Cap 은 $1.97T 이지만, 실제로 19.7M BTC 를 동시에 $100,000 에 매도할 수 있다는 의미는 아니다.
 
-#O6 에서 자세히. 155일 임계가 "학습된 임계".
+Realized Cap 은 이 한계를 보완한다. 각 BTC 가 마지막으로 이동한 시점의 가격을 사용하므로, 시장 평균 cost basis 에 가까운 값이 된다. 만약 일부 BTC 가 2013년에 $100 에 마지막 이동했다면 그 BTC 의 가격은 $100 으로 평가되고, 다른 BTC 가 2024년에 $60,000 에 이동했다면 $60,000 으로 평가된다. 두 값을 모두 합산해 평균을 내면 시장 전체의 평균 cost basis 가 나온다.
 
-## 3. Supply Shock 의 식별
+### 시간 변화
 
-### 3-1. "Supply Shock" 의 정의
-**Supply Shock** = 단기간 사용 가능 BTC 가 갑자기 줄어드는 현상. LTH 비중 가속 + ETF 유출 등이 결합.
+| 시점 | Realized Cap | Market Cap | 비율 (M/R) | 사이클 단계 |
+|------|------------|-----------|---------|----------|
+| 2013.1 | $0.5B | $0.15B | 0.3 | 초기 (R > M) |
+| 2014.1 | $4B | $9B | 2.25 | 정점 |
+| 2015.1 | $4.5B | $2.8B | 0.62 | 저점 (R > M) |
+| 2017.1 | $5B | $15.4B | 3.08 | 가속 |
+| 2017.12 | $90B | $328B | 3.64 | 정점 |
+| 2018.12 | $80B | $54.7B | 0.68 | 저점 (R > M) |
+| 2020.12 | $145B | $545B | 3.76 | 가속 |
+| 2021.4 | $360B | $1,212B | 3.37 | 1차 정점 |
+| 2022.6 | $400B | $370B | 0.93 | 저점 |
+| 2023.1 | $390B | $315B | 0.81 | 저점 (R > M) |
+| 2024.1 | $440B | $830B | 1.89 | ETF 가속 |
+| 2025.1 | $580B | $2,135B | 3.68 | 정점 근접 |
+| 2026.1 | $680B | $1,930B | 2.84 | 정상-강세 |
 
-### 3-2. 사례
-2024.1 ETF 출시 후 — IBIT 가 BTC 1.2M 매수. 이는 LTH cohort 가속 (ETF 보유 BTC 가 long-term 보유로 분류). LTH 비중 75% → 80% 가속.
+이 표가 보여주는 가장 흥미로운 패턴은 R/M 비율 (역수: M/R) 의 시계열 변화다. Market Cap 이 Realized Cap 의 약 3배를 넘으면 시장이 cost basis 대비 과대평가됐다는 신호이고, Market Cap 이 Realized Cap 보다 작으면 (즉 R > M) 시장이 cost basis 미만으로 떨어진 극단 저점이라는 신호다.
 
-이 "supply shock" 이 가격 +60% 가속의 직접 원인 가설.
+2014, 2018, 2022 세 차례 사이클 저점에서 모두 Realized Cap 이 Market Cap 을 일시적으로 상회했다. 이는 시장 전체의 평균 매수 가격이 현재 가격보다 높다는 의미로, 시장 참여자의 평균 손실이 누적된 극단 항복 구간임을 시사한다. 정점에서는 반대로 Market Cap 이 Realized Cap 의 3.5~3.8배에 이르렀고, 이는 평균 매수 가격 대비 평균 미실현 이익이 250~280% 에 이르렀다는 의미다.
 
-## 4. "Realized Profit/Loss"
+이 비율의 시간 변화 자체가 MVRV (Market Value to Realized Value) 라는 별도 framework 의 기초가 된다. MVRV 는 Market Cap / Realized Cap 으로 정의되고, 사이클 정점/저점 식별의 핵심 지표 중 하나로 자리 잡았다.
 
-### 4-1. 정의
-매도 시점의 "실현 수익/손실" = (매도 가격 - 매수 가격) × BTC 수량.
+### Realized Cap 가속의 의미
 
-### 4-2. 사이클 신호
-- **Realized Profit 가속** = 사용자 수익 매도 가속 = top 임박
-- **Realized Loss 가속** = 사용자 항복 매도 가속 = bottom 임박
+Realized Cap 자체의 시간 변화는 또 다른 정보를 제공한다. Realized Cap 이 가속한다는 것은 새 자금이 시장에 진입하고 있다는 의미다. 정확히 말하면, BTC 가 더 높은 가격에서 새 손으로 이전되고 있다는 뜻이다. 같은 BTC 가 더 비싼 가격으로 이동할 때 그 UTXO 의 cost basis 가 갱신되고, Realized Cap 의 분자가 늘어난다.
 
-## 5. 한국 시장
+2020년 12월부터 2021년 4월까지 Realized Cap 이 $145B 에서 $360B 로 가속한 사실은 약 5개월 동안 $215B 의 새 자금이 시장에 진입했다는 점을 시사한다. 같은 기간 Market Cap 은 $545B 에서 $1,212B 로 가속했고, 새 자금 $215B 가 약 $670B 의 Market Cap 가속을 만들었다. 즉 1 USD 의 새 자금이 약 3.1 USD 의 Market Cap 가속을 일으킨 셈이다. 이 비율은 시장의 leverage ratio 또는 sensitivity 로 해석될 수 있다.
 
-한국 사용자의 평균 보유 기간 ~110일 (#O6). 글로벌 (~180일) 보다 짧음. 한국 STH 비중 큼 → HODL Waves 분포가 글로벌 대비 단기 cohort 가속.
+2024년 1월부터 2025년 1월까지의 ETF 사이클에서는 Realized Cap 이 $440B 에서 $580B 로 $140B 가속했다. 같은 기간 Market Cap 은 $830B 에서 $2,135B 로 $1,305B 가속했다. 즉 1 USD 의 새 자금이 약 9.3 USD 의 Market Cap 가속을 만들었다. 이전 사이클의 3.1 배 leverage 에 비해 거의 3 배 높아진 sensitivity 다.
 
-<Callout type="opposing-view" title="반대 시각 · HODL Waves 의 ETF 영향">
-첫째, **ETF 가 LTH 로 카운팅** = 인위적 LTH 가속. 신호 왜곡.
+이 변화는 두 가지로 해석될 수 있다. 첫째, ETF 자금이 retail 자금보다 가격에 미치는 영향이 더 크다. 둘째, 시장 유동성이 충분하지 않아 같은 자금이 더 큰 가격 변동을 일으킨다. 어느 쪽이든 ETF 시대의 시장이 과거보다 자금 흐름에 더 민감해졌다는 점을 시사한다.
 
-둘째, **사라진 BTC 4M 이 영원히 LTH** = baseline 왜곡.
+## HODL Waves — 6 cohort
 
-셋째, **155일 임계 임의성**.
+### 분류
 
-이 비판이 의미 — HODL Waves 가 "질적 도구" 이지 "absolute signal" 이 아닙니다.
+HODL Waves 는 BTC 보유자를 마지막 이동 후 경과 시간 (UTXO age) 으로 분류한다. Glassnode 의 표준 분류는 다음과 같다.
+
+| Cohort | 기간 | 일반 명칭 |
+|--------|------|---------|
+| 1d | 1일 미만 | Hot supply |
+| 1d-1w | 1일 ~ 1주 | Speculator |
+| 1w-1m | 1주 ~ 1달 | Trader |
+| 1m-3m | 1달 ~ 3달 | Short-term Trader |
+| 3m-1y | 3달 ~ 1년 | Mid-term Holder |
+| 1y-5y | 1년 ~ 5년 | Long-term Holder |
+| 5y+ | 5년 이상 | Diamond Hand |
+
+이 7개 cohort 가 각각 BTC 발행량 중 차지하는 비중을 시간에 따라 plot 한 차트가 HODL Waves 다. 정상 시기에는 short-term cohort 가 작고 long-term cohort 가 크지만, 사이클 정점에서는 short-term cohort 가 가속되고 long-term cohort 가 줄어든다. 이는 long-term holder 가 정점 부근에서 매도해 BTC 가 short-term 손으로 이동하기 때문이다.
+
+요약 분석에서는 6 cohort 분류 (1d, 1w-1m, 1m-3m, 3m-1y, 1y-5y, 5y+) 도 자주 사용된다. 1d-1w 와 1w-1m 을 결합하거나, 5y+ 를 분리하지 않는 변형이다.
+
+### LTH 와 STH 의 155일 임계
+
+HODL Waves 의 가장 중요한 sub-cohort 는 LTH (Long-Term Holder) 와 STH (Short-Term Holder) 다. Glassnode 의 정의에 따르면:
+
+- **STH** (Short-Term Holder) = 마지막 이동 후 155일 미만의 BTC
+- **LTH** (Long-Term Holder) = 마지막 이동 후 155일 이상의 BTC
+
+155일이라는 임계는 임의로 선택된 값이 아니다. Glassnode 의 onchain 분석가 들이 BTC 보유자의 행태 데이터를 분석한 결과, 보유 기간 약 155일을 기점으로 매도 확률이 통계적으로 유의미하게 떨어진다는 사실을 발견했다. 즉 BTC 를 155일 이상 보유한 사용자는 단기 가격 변동에 매도로 반응할 확률이 급격히 낮아진다는 학습된 임계다.
+
+이 학습된 임계의 근거는 통계적 분석과 행동심리학적 가설의 결합이다. 통계적으로는 155일 이상 보유한 BTC 의 일평균 spend rate (이동률) 가 그 미만 보유한 BTC 의 spend rate 의 약 1/8 수준이라는 관찰이 있다. 행동심리학적으로는 약 5개월이라는 시간이 가격 변동성에 대한 사용자의 정서적 적응에 충분한 기간이라는 가설이 제시됐다.
+
+LTH 와 STH 비중의 시계열 변화는 HODL Waves 의 가장 중요한 매크로 신호 중 하나다. LTH 비중이 가속하면 시장이 누적 단계에 있다는 신호이고, STH 비중이 가속하면 distribution (분배, 정점 부근 매도) 단계에 있다는 신호다.
+
+### 사이클별 LTH/STH 변화
+
+| 시점 | LTH 비중 | STH 비중 | 사이클 단계 |
+|------|--------|--------|----------|
+| 2017.12 | 50% | 50% | 정점 (STH 가속) |
+| 2018.12 | 70% | 30% | 저점 (LTH 가속) |
+| 2021.4 | 60% | 40% | 1차 정점 |
+| 2022.6 | 75% | 25% | 저점 |
+| 2024.1 | 75% | 25% | ETF 출시 시점 |
+| 2025.1 | 80% | 20% | 정점 근접 |
+| 2026.1 | 78% | 22% | 정상-강세 |
+
+이 시계열의 가장 중요한 관찰은 LTH 비중이 사이클이 진행될수록 점진적으로 상승하고 있다는 점이다. 2017년 정점에서 50% 였던 LTH 비중이 2025년 정점 부근에서 80% 까지 올라왔다. 즉 시장이 점점 장기 보유자 위주로 재편되고 있다.
+
+이 패턴은 두 가지 변수의 결합이다. 첫째, 시장 성숙과 함께 BTC 를 장기 자산으로 인식하는 사용자가 늘었다. 둘째, ETF 가 BTC 를 매수해 cold wallet 에 보관하는 시점부터 그 BTC 가 자동으로 LTH cohort 로 분류된다. 2024년 1월 ETF 출시 이후 ETF 운용사가 매수한 약 950,000 BTC 는 거의 전부 LTH cohort 로 누적됐고, 이는 LTH 비중을 75% 에서 80% 까지 끌어올린 가장 큰 단일 요인이다.
+
+### 5y+ Diamond Hand cohort
+
+5년 이상 보유 cohort 는 HODL Waves 의 가장 안정적 부분이다. 이 cohort 는 사이클 정점에서도 거의 매도하지 않고, 사이클 저점에서도 거의 매수하지 않는다. 한 번 형성된 5y+ BTC 는 다음 사이클이 끝날 때까지 그 자리에 머무는 경향이 강하다.
+
+2026년 1월 기준 5y+ cohort 는 BTC 발행량의 약 30% 를 차지한다. 즉 19.7M BTC 중 약 5.9M BTC 가 5년 이상 이동하지 않은 상태다. 이 5.9M BTC 중 일부는 영구적으로 사라진 BTC (분실된 private key, 사망한 보유자의 wallet, Satoshi Nakamoto 의 약 1.1M BTC 등) 일 가능성이 높다.
+
+추정에 따르면 분실된 BTC 는 약 3~4M 수준이고, 5y+ cohort 의 약 50~70% 를 차지한다. 이 분실된 BTC 는 영원히 LTH 로 카운팅되고, HODL Waves 의 baseline 을 인위적으로 끌어올린다. 이 baseline 효과를 보정하지 않으면 LTH 비중의 절대값 해석이 어렵다.
+
+## Supply Shock 의 식별
+
+### "Supply Shock" 의 정의
+
+Supply Shock 은 단기간 사용 가능한 BTC 가 갑자기 줄어드는 현상이다. 정확한 정량 정의는 없지만, 보통 다음과 같은 조건들이 결합한 시점을 의미한다.
+
+- LTH 비중의 빠른 가속 (예: 1개월에 +2% 이상)
+- 거래소 BTC 잔액의 빠른 감소 (예: 1개월에 -50,000 BTC 이상)
+- ETF 누적 순유입의 가속 (예: 일평균 $300M 이상)
+- STH cohort 의 감소
+
+이 네 조건이 동시에 충족되면 supply shock 이 형성됐다고 평가하고, 가격 가속의 직접 동인으로 해석한다.
+
+### 2024.1 ETF 출시 직후 사례
+
+2024년 1월 미국 spot Bitcoin ETF 11종 출시 직후 가장 명확한 supply shock 사례가 발생했다. 2024년 1월부터 4월까지 약 4개월간:
+
+- LTH 비중이 75% 에서 78% 로 +3%p 가속
+- 거래소 BTC 잔액이 약 280만 BTC 에서 약 220만 BTC 로 약 60만 BTC 감소
+- ETF 누적 순유입이 0 에서 약 $13B 로 가속
+- BTC 가격이 약 $43,000 에서 약 $73,000 으로 +70% 가속
+
+이 4개월간의 supply shock 은 ETF 매수가 LTH cohort 로 누적되면서 STH cohort 와 거래소 잔액이 동시 감소하는 구조였다. ETF 가 거래소 OTC 에서 BTC 를 매수하면 그 BTC 는 거래소 hot wallet 에서 ETF cold wallet 으로 이동하고, 사실상 시장에서 사라진다. 매수 측에서는 자금이 들어오지만 매도 가능한 BTC 는 줄어들고, 가격이 빠르게 가속하는 메커니즘이다.
+
+이 supply shock 은 비트코인 시장에서 가장 깨끗한 형태로 관찰된 사례 중 하나다. 외생 충격 없이 단순히 ETF 자금 유입 단일 변수가 가격 +70% 가속을 만들어냈다는 점에서, supply 동학의 중요성을 보여주는 사례로 자주 인용된다.
+
+## Realized Profit/Loss
+
+### 정의
+
+Realized Profit/Loss 는 매도 시점에서의 실현 수익 또는 손실을 측정한다. 정의는 다음과 같다.
+
+<Formula>{`Realized Profit/Loss = (매도 가격 - cost basis) × BTC 수량`}</Formula>
+
+여기서 cost basis 는 그 BTC 가 마지막으로 on-chain 이동했을 때의 가격이다. 매도 가격이 cost basis 보다 높으면 Realized Profit, 낮으면 Realized Loss 다.
+
+이 지표의 일별 합계는 그날 시장에서 실현된 총 수익/손실의 USD 가치를 의미한다. 예를 들어 일 Realized Profit 이 $1B 이라면 그날 매도된 BTC 의 평균 매도 가격이 평균 cost basis 보다 높아서 시장 전체로 $1B 의 수익이 실현됐다는 의미다.
+
+### 사이클 신호
+
+| 사이클 단계 | Realized Profit/Loss 패턴 |
+|----------|----------------------|
+| 정점 임박 | Realized Profit 가속, 일 $5B 이상 빈번 |
+| 정점 통과 후 | Realized Profit 감소, Realized Loss 등장 |
+| 하락 진행 | Realized Loss 가속 |
+| 저점 부근 | Realized Loss 극대화, 일 $3B 이상 |
+| 저점 통과 후 | Realized Loss 감소, Realized Profit 회복 |
+
+이 패턴은 사이클의 모든 단계에서 보유자 행태의 시간 변화를 보여준다. 정점에서는 LTH 가 매도를 시작하면서 Realized Profit 이 가속하고, 저점에서는 STH 가 항복 매도하면서 Realized Loss 가 극대화된다.
+
+2018년 12월 사이클 저점 부근에서는 일 Realized Loss 가 $2.5B 에 이르렀다. 같은 시점 BTC 가격이 $3,150 이었고, 시장 전체의 평균 cost basis 가 약 $5,800 부근이었기 때문에 매도자 평균 손실이 약 -45% 에 이르렀다는 의미다. 이는 STH 의 항복이 가장 깊은 구간임을 보여주는 직접 증거다.
+
+2025년 1월 정점 근접 시점에서는 일 Realized Profit 이 $5~7B 수준에 이르렀다. 같은 시점 평균 cost basis 가 약 $40,000 이었고 매도 가격이 약 $108,000 이었기 때문에 매도자 평균 수익이 약 +170% 였다. 이는 LTH 의 distribution 이 본격화됐음을 시사하는 신호로 해석됐다.
+
+## ETF 의 HODL Waves 영향
+
+ETF 의 HODL Waves 영향은 두 단계로 나타난다. 첫 번째 단계는 ETF 가 BTC 를 매수해 cold wallet 으로 이동시키는 시점이다. 이 시점에 BTC 의 UTXO 가 갱신되고, age 가 0 으로 reset 된다. 즉 ETF 매수 직후에는 그 BTC 가 일시적으로 1d cohort 로 분류된다.
+
+두 번째 단계는 ETF 가 BTC 를 cold wallet 에 보관하는 동안의 시간이다. 시간이 지날수록 그 BTC 는 1w-1m, 1m-3m, 3m-1y cohort 를 차례로 거쳐 1y-5y 의 LTH cohort 로 진입한다. ETF 가 BTC 를 매도하지 않는 한 그 BTC 는 영구적으로 LTH 로 누적된다.
+
+2025년 말 기준 ETF 누적 BTC 보유는 약 950,000 BTC 다. 이 중 2024년 1~3월에 매수된 약 250,000 BTC 는 이미 1y-5y LTH cohort 로 진입했고, 2024년 4월 이후 매수분은 점진적으로 LTH 로 이전되고 있다. 2026년 4월 이후에는 ETF 누적 보유의 거의 전부가 LTH cohort 로 분류될 것이고, LTH 비중이 추가로 상승할 가능성이 있다.
+
+이 ETF 효과는 HODL Waves 의 가장 큰 단일 왜곡 요인이다. ETF 가 매수한 BTC 는 ETF 사용자의 의지와 무관하게 LTH 로 분류되고, 실제 ETF 사용자의 redeem 의지가 LTH 비중에 즉시 반영되지 않는다. 만약 ETF 사용자가 일제히 redeem 을 요청해 ETF 가 cold wallet 의 BTC 를 시장에 내놓으면, 그 BTC 는 LTH cohort 에서 STH 또는 1d cohort 로 이동한다. 이 시나리오가 발생하면 단기간 LTH 비중이 급락하고 가격에 큰 충격이 갈 것이다.
+
+## 한국 시장의 보유 cohort
+
+한국 사용자의 평균 보유 기간은 글로벌 평균보다 짧다. Chainalysis 의 한국 시장 보고서에 따르면 한국 거래소 사용자의 평균 BTC 보유 기간은 약 110일 (글로벌 평균 약 180일) 이고, STH cohort 비중이 글로벌보다 약 10~15%p 높다.
+
+이 차이는 한국 사용자의 trading 성향이 더 활발하다는 점을 시사한다. 한국 거래소의 일평균 거래량 (vs 시가총액 비율) 은 글로벌 평균보다 약 1.5~2배 높고, 사용자의 단기 매매 빈도가 더 높다. 이 결과 한국 사용자의 BTC 가 LTH cohort 에 진입하는 비율이 낮고, HODL Waves 의 단기 cohort 에 머무는 시간이 길어진다.
+
+다만 이 차이는 글로벌 HODL Waves 통계에는 거의 반영되지 않는다. 한국 사용자의 95% 이상이 거래소 내부에서 거래하기 때문에 그들의 매매가 on-chain UTXO 갱신을 일으키지 않는다. 즉 한국 사용자가 거래소 안에서 BTC 를 사고팔아도 그 BTC 의 UTXO age 는 변하지 않고, 글로벌 HODL Waves 통계에는 long-term 으로 계속 카운팅된다.
+
+이 사실은 글로벌 HODL Waves 가 한국 시장의 동학을 거의 반영하지 못한다는 점을 의미한다. 한국형 HODL Waves 를 구성하려면 거래소 내부의 사용자별 보유 기간 데이터가 필요하지만, 이 데이터는 거래소 내부에 머물러 있고 외부에서 검증 가능한 형태로 공개되지 않는다.
+
+<Callout type="opposing-view" title="반대 시각 · HODL Waves 의 ETF 영향과 분실 BTC 의 baseline 왜곡">
+첫째, ETF 가 매수한 BTC 가 자동으로 LTH cohort 로 분류된다는 사실은 framework 의 가장 큰 구조적 왜곡이다. ETF 사용자의 의지와 무관하게 ETF 자체가 BTC 를 cold wallet 에 보관하는 한 그 BTC 는 LTH 로 카운팅된다. 즉 LTH 비중 상승이 시장 참여자의 장기 보유 의지를 반영한 것이 아니라 ETF 의 운영 구조의 산물일 수 있다.
+
+둘째, 분실된 BTC 약 3~4M 이 영구적으로 LTH 로 카운팅되는 baseline 왜곡은 framework 의 절대값 해석을 어렵게 만든다. LTH 비중 80% 중 약 15~20%p 가 분실 BTC 라는 추정은 살아있는 LTH 비중이 60~65% 수준이라는 의미다. 분실 BTC 의 정확한 규모를 추정하기 어렵기 때문에 이 보정도 정확하지 않다.
+
+셋째, 155일 임계는 학습된 값이지만 그 학습이 정확한지에 대한 검증은 제한적이다. 다른 임계 (90일, 120일, 180일)도 통계적으로 의미가 있고, 어느 임계가 진정한 행태 분기점인지에 대한 합의가 완벽하지 않다. STH/LTH 의 정확한 경계가 임의적일 가능성을 인지해야 한다.
+
+넷째, 한국 거래소 내부 거래가 HODL Waves 에 반영되지 않는다는 사실은 글로벌 framework 의 한국 시장 적용 가능성을 약화시킨다. 한국 사용자의 90~95% 가 거래소 내부에서 거래하기 때문에 그들의 매매 행태가 글로벌 통계에 영향을 주지 않는다. 글로벌 HODL Waves 신호가 한국 시장에서도 동일하게 작동한다는 가정은 검증되지 않은 추정이다.
+
+다섯째, Realized Cap 의 가속이 새 자금 유입을 반영한다는 해석에는 한계가 있다. 같은 BTC 가 여러 차례 단기간에 이동하면 Realized Cap 이 자동으로 가속하지만, 그것은 새 자금이 아니라 wash trading 또는 거래소 내부 hot wallet 이동의 산물일 수 있다. Glassnode 와 CoinMetrics 는 이 노이즈를 일부 필터링하지만 완전 제거는 어렵다.
+
+HODL Waves 와 Realized Cap 은 비트코인의 UTXO 모델 덕분에 가능한 가장 풍부한 cohort 분석 framework 다. 그 정량적 정확도는 다른 자산에서 불가능한 수준이고, 매크로 분석에서 표준 도구로 자리 잡았다. 다만 ETF 시대의 구조 변화, 분실 BTC 의 baseline 왜곡, 거래소 내부 거래의 invisible 성 같은 한계는 framework 의 절대값 해석을 신중하게 만든다. 시계열 변화의 패턴 식별 도구로는 매우 강력하지만, 단일 cohort 비중의 절대값을 trading signal 로 직접 사용하기에는 노이즈가 크다.
 </Callout>
 
-## 결론
-
-1. **Realized Cap = on-chain cost basis**. 2026 $680B.
-2. **HODL Waves cohort + LTH/STH 155일 임계**.
-3. **Supply Shock 식별 — ETF 가속 + LTH 가속**.
-
-다음 편(#O13) — Active Addresses + Metcalfe's Law.
+UTXO 기반 cohort 분석은 비트코인이 다른 자산과 가장 차별화되는 분석 영역이다. 각 BTC 의 마지막 이동 시점을 알 수 있다는 사실 자체가 회계학적으로 풍부한 정보를 제공하고, Realized Cap 과 HODL Waves 는 그 정보를 가장 직접적으로 활용한 두 framework 다. ETF 시대의 시장 구조 변화는 두 framework 의 의미를 일부 변형시켰지만, 사이클의 거시 추적 도구로서의 가치는 여전히 유지된다. 시장 참여자의 평균 cost basis 와 보유 기간 분포를 동시에 추적할 수 있는 자산은 비트코인 외에 거의 없고, 이 점이 비트코인 매크로 분석을 다른 어떤 자산보다 풍부하게 만들어준다.

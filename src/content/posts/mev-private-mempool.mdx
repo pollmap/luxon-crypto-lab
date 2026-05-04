@@ -7,105 +7,157 @@ subtitle: 사용자 보호 framework · OFA 경매 · Searcher 의 경제학 (ME
 publishedAt: "2026-05-04"
 category: MEV
 tags: [mev, private-mempool, ofa, searcher]
-estimatedReadTime: 7
+estimatedReadTime: 23
 draft: false
 author: 이찬희
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 MEV 보호 framework 학술 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 MEV 사용자 보호 인프라 관련 공개 자료를 정리한 기록물이다. 특정 RPC, 마켓, 봇 운영자, Searcher 조직에 대한 매수, 매도, 위탁, 운영 권유로 해석되어서는 안 된다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-사용자가 MEV 의 "피해자" 에서 "수익자" 로 전환하는 학술 framework — Private Mempool + OFA (Order Flow Auction) + Searcher 의 경제학.
+공개 mempool에서 sandwich attack의 표적이 되어 슬리피지를 빼앗기던 사용자는 2022~2024년 동안 Private Mempool(Flashbots Protect·MEV Blocker)과 OFA(CowSwap·MEV Share·UniswapX)를 통해 MEV 수익의 일부를 환원받는 구조로 옮겨갔다. 이 글은 Private RPC의 작동, MEV Share의 hint·refund 메커니즘, CowSwap의 batch auction, UniswapX의 Dutch auction, 그리고 Searcher 시장의 규모와 경제학을 정리한다.
 </Callout>
 
-## 1. Private Mempool
+## 1. 공개 mempool 위험의 재확인
 
-기존 mempool 의 문제:
-- 모든 트랜잭션이 — 공개 mempool 에 대기
-- 검증자 + Searcher 가 모두 볼 수 있음
-- 사용자가 — sandwich 공격 노출
+지난 편(#MEV1)에서 Flashbots와 MEV-Boost가 검증자 측의 MEV 인프라를 어떻게 정돈했는지를 짚었다. PBS(Proposer-Builder Separation)와 MEV-Boost 채택률 90%대는 검증자 수익 구조를 안정시키고 검증자 분권화를 유지하는 효과를 만들었다. 그러나 이 인프라들은 사용자 측의 손실, 특히 sandwich attack에서 발생하는 슬리피지 비용을 직접 막아주지는 않는다.
 
-Private Mempool 해결:
-- 사용자 트랜잭션이 — "private" mempool 로 직접 전송
-- 검증자만 볼 수 있음
-- Sandwich 공격 차단
+사용자가 자가 지갑(MetaMask 같은)에서 Uniswap을 사용하면, 트랜잭션은 기본적으로 공개 mempool에 진입한다. 공개 mempool은 모든 노드 운영자가 접근할 수 있는 공간이고, 여기에 떠 있는 트랜잭션은 봇들의 모니터링 대상이 된다. mempool에 진입한 큰 매도/매수 트랜잭션은 sandwich attack의 잠재적 표적이 되며, 슬리피지 한도가 넉넉하게 설정된 경우 봇이 그 한도 안에서 가격을 움직여 차익을 가져갈 수 있다.
 
-### 1-1. 사례
+이 사용자 측 손실을 막기 위해 2022년부터 본격적으로 발전한 인프라가 두 갈래로 나뉜다. 한 갈래는 사용자 트랜잭션을 공개 mempool에 노출하지 않는 Private Mempool, 다른 갈래는 사용자가 트랜잭션을 일종의 경매 대상으로 만들어 MEV 수익의 일부를 환원받는 OFA(Order Flow Auction)다. 이 두 갈래의 발전 과정과 구조를 본문에서 정리한다.
 
-- **Flashbots Protect** (사용자용)
-- **MEV Blocker** (RPC 통합)
-- **Cowswap** (DEX 의 private mempool)
+## 2. Private Mempool — Flashbots Protect와 MEV Blocker
 
-## 2. OFA (Order Flow Auction)
+### 2-1. Flashbots Protect의 출발
 
-OFA 가 — "사용자가 MEV 수익을 받는 framework".
+Flashbots는 검증자 측 인프라(Flashbots Auction → MEV-Boost)를 만든 직후, 사용자 측 보호 인프라로 Flashbots Protect를 2021년에 출시했다. 작동은 단순하다. 사용자가 자기 지갑(MetaMask 같은)의 RPC URL을 Flashbots Protect의 RPC로 바꾸면, 그 지갑에서 보내는 모든 트랜잭션이 공개 mempool 대신 Flashbots Relay로 직접 전달된다. 이 트랜잭션은 Searcher와 Builder에게 노출되지 않은 상태로 검증자에게 전달되고, 블록에 포함되거나 일정 시간 안에 포함되지 않으면 폐기된다.
 
-작동:
-- 사용자가 — 자기 트랜잭션을 OFA 시스템에 제출
-- Searcher 들이 — 그 트랜잭션 처리 권한 경매
-- 가장 높은 입찰가 의 Searcher 가 권한 획득
-- 그 입찰가의 일부가 — 사용자에게 환원
+Flashbots Protect의 핵심 특성은 두 가지다. 첫째, sandwich attack 차단. 트랜잭션이 공개 mempool에 등장하지 않기 때문에 봇이 모니터링할 대상이 없다. 둘째, 실패 트랜잭션의 가스 비용 회피. 공개 mempool에서는 nonce 충돌·잔고 부족 같은 이유로 실패한 트랜잭션도 가스를 소비하는 경우가 있는데, Protect 경로에서는 블록 포함 자체가 안 되면 가스 소비가 없다.
 
-이게 — "MEV 수익의 사용자 환원" 학술 framework.
+Flashbots Protect의 한계도 있다. 트랜잭션이 공개 mempool을 거치지 않기 때문에, 일반 mempool 노드에서 그 트랜잭션을 볼 수 없다. 이는 사용자가 자기 트랜잭션의 진행 상황을 외부 도구(Etherscan의 Pending 섹션 등)로 확인하기 어려워진다는 뜻이다. 또한 Protect를 사용하지 않는 다른 경로의 거래(예: Uniswap Interface 직접 사용 시 사용자 RPC 변경 없이 거래)에서는 보호 효과가 없다.
 
-### 2-1. 사례
+### 2-2. MEV Blocker의 등장
 
-- **Cowswap** — 첫 OFA 모델
-- **MEV Share** (Flashbots) — 더 일반화된 OFA
-- **Anoma** — 의도 기반 거래
+2023년 4월 BloXroute, CowSwap, Beaverbuild, Agnostic 등이 공동으로 MEV Blocker를 출시했다. MEV Blocker는 Flashbots Protect와 비슷하게 사용자 RPC를 대체하는 형태로 작동하지만, 단순 보호에 그치지 않고 추가적인 환원 메커니즘을 갖춘다. 사용자 트랜잭션이 MEV Blocker RPC로 들어오면, MEV Blocker는 이 트랜잭션의 정보 일부를 Searcher 네트워크에 노출하고, Searcher들이 사용자 트랜잭션의 back-run(예: 차익거래) 기회를 잡아 입찰한다. 가장 높은 입찰가의 Searcher가 back-run 권한을 가져가고, 그 입찰가의 일부가 사용자에게 환원된다.
 
-## 3. Searcher 의 경제학
+이 구조는 sandwich attack을 막으면서도 사용자가 일정한 환원을 받을 수 있게 한다. front-run을 하는 sandwich와 달리 back-run 차익거래는 사용자에게 직접 손실을 주지 않으며, 오히려 사용자 거래로 발생한 가격 차이를 정리하는 효과가 있다. MEV Blocker는 이 차이의 일부를 사용자에게 돌려주는 형태로 시장 효율과 사용자 보호를 동시에 추구한다. 출시 1년이 지난 2024년 시점에서 MEV Blocker는 일일 누적 트랜잭션 수에서 Flashbots Protect와 비슷한 규모로 자리잡았다.
 
-Searcher 가 누구이고 어떻게 수익을 내는가?
+## 3. MEV Share — Flashbots의 부분 정보 공개 모델
 
-### 3-1. Searcher 의 역할
+### 3-1. Hint와 Refund의 구조
 
-- MEV 기회 식별 (sandwich, arbitrage, liquidation)
-- 자기 자본 + 알고리즘 운영
-- 검증자에게 수익 분배
+2023년 4월 Flashbots는 MEV Share라는 새 시스템을 발표했다. MEV Share는 Flashbots Protect의 후속작으로, 사용자가 자기 트랜잭션의 일부 정보(hint)만 Searcher에게 노출하는 모델을 도입했다. 사용자는 자기 트랜잭션을 MEV Share에 보내면서, 어떤 정보를 노출할지 직접 선택한다. 예를 들어 swap의 입력 토큰만 노출하고 출력 토큰은 가릴 수 있고, 또는 트랜잭션의 트랜잭션 해시만 노출하는 옵션도 있다.
 
-### 3-2. Searcher 의 수익
+Searcher는 노출된 hint를 보고 back-run 또는 결합 트랜잭션을 만들어 입찰한다. 가장 높은 입찰가의 Searcher가 권한을 받고, 그 입찰가의 일부가 사용자에게 refund 형태로 돌아온다. refund 비율은 사용자가 hint 공개 정도와 함께 설정할 수 있다. 예를 들어 정보를 더 많이 노출하면 Searcher 입찰가가 더 높아지지만 그만큼 sandwich 위험도 늘어나기 때문에, 사용자는 노출 정도와 환원 비율을 trade-off하면서 선택한다.
 
-- 글로벌 Searcher 약 100+ entity
-- 일부는 — 수십억 달러 자본 운영
-- 학술적으로 — "MEV 시장의 시장 조성자"
+이 모델의 학술적 의의는 사용자가 MEV 추출 시장의 능동적 참여자가 된다는 점이다. 기존 공개 mempool 모델에서 사용자는 수동적 피해자였고, Flashbots Protect 모델에서 사용자는 mempool에서 빠진 보호 대상이었다. MEV Share 모델에서는 사용자가 자기 트랜잭션의 정보 노출을 직접 설계하고, 그에 따른 MEV 수익의 일부를 받는 시장 행위자로 자리한다.
 
-### 3-3. 학술적 진화
+### 3-2. Builder 측 분배의 변화
 
-Searcher 가 — "악의적" 에서 "필수 시장 인프라" 로 학술 평가 변화. 사용자 보호 + 시장 효율성의 결합.
+MEV Share는 검증자/Builder 측에서도 변화를 만든다. 기존에는 Searcher가 만든 번들에서 발생한 priority fee가 검증자에게 전부 흘러갔지만, MEV Share에서는 일부가 사용자에게 refund로 돌아간다. 이는 검증자/Builder 수익이 일부 줄어드는 것을 의미하지만, 동시에 사용자 거래량 자체가 늘어날 가능성도 있다. 사용자 보호와 환원이 보장된 거래 환경이 형성되면, 더 많은 사용자가 안심하고 큰 거래를 시도하게 된다는 가설이다.
 
-## 4. 학술적 평가
+2026년 5월 시점에서 MEV Share의 누적 사용량은 Flashbots Protect와 결합되어 운영되며, 일부 dApp(특히 wallet aggregator·DEX aggregator)이 MEV Share를 기본 경로로 채택했다. 사용자는 자기가 MEV Share를 쓰는지조차 인지하지 않은 상태로 자동 보호와 환원을 받는 구조가 형성됐다.
 
-MEV 보호 framework 의 학술 의미:
-- 사용자 손실 → 사용자 수익으로 전환
-- 분산 시스템의 "공정성" 학술 진화
-- 그러나 — 완전한 해결 X
+## 4. CowSwap — Batch Auction과 CoW(Coincidence of Wants)
 
-## 5. 한국 영향
+### 4-1. CowSwap의 차별점
 
-한국 사용자가 — MEV 보호 framework 활용 가능:
-- MetaMask + Flashbots Protect 통합
-- 자가 지갑 사용 시 — Private mempool 활용 권장
-- 한국 거래소 (CEX) 는 영향 X
+CowSwap은 2021년 4월 Gnosis Protocol V2의 후속으로 출범한 DEX로, 일반 Uniswap·Sushiswap과 다른 매칭 방식을 사용한다. CowSwap의 핵심은 batch auction이다. 사용자 거래가 즉시 체결되지 않고, 일정 시간(보통 30초~1분) 동안 모인 거래들이 한 번에 묶여 처리된다. 이 묶음 안에서 같은 자산 쌍의 매수자와 매도자가 있으면 둘이 직접 매칭되어 외부 DEX 경로 없이 거래가 끝난다. 이를 CoW(Coincidence of Wants)라고 부른다.
 
-<Callout type="opposing-view" title="반대 시각 · OFA 의 *복잡성*">
-OFA 비판:
+CoW가 성립하지 않는 거래는 외부 DEX 경로(Uniswap·Curve·Balancer 등)를 통해 체결되는데, 이 경로 선택과 실행은 Solver라는 별도의 행위자가 맡는다. Solver는 batch 안의 모든 거래를 가장 효율적으로 처리하는 경로 조합을 제안하고, 다른 Solver의 제안과 경쟁한다. 가장 좋은 제안을 한 Solver가 batch를 실행하고, 사용자는 자기가 제출한 가격보다 더 좋은 가격으로 체결될 가능성을 얻는다. CoW가 성립한 거래는 외부 DEX 수수료를 절약하기 때문에, 그 절약분이 사용자에게 추가 가격 개선으로 돌아간다.
 
-첫째, "사용자 인지 어려움". 일반 사용자가 OFA framework 이해 어려움.
+### 4-2. MEV 보호 효과
 
-둘째, "중앙집중 위험". Flashbots 가 — OFA 시장 지배.
+CowSwap의 batch auction 구조 자체가 MEV 보호 효과를 가진다. 거래가 즉시 체결되지 않고 batch에 모이는 동안, 사용자 트랜잭션은 사실상 사적 정보로 다뤄진다. Solver가 batch를 처리하는 시점에 MEV 추출이 일어날 수는 있지만, 그 추출은 Solver 사이의 경쟁 입찰을 거치며 일부가 사용자에게 환원된다. 즉 CowSwap은 별도의 RPC 변경 없이도 DEX 자체 안에서 OFA 비슷한 효과를 만든다.
 
-셋째, "완전한 해결 X". MEV 자체는 — 분산 시스템에 본질적.
+CowSwap은 2022~2024년 동안 누적 거래량을 꾸준히 키워왔고, 2024년 누적 거래량 약 1천억 달러를 넘긴 것으로 알려졌다. 이는 Uniswap이나 Curve보다는 작은 규모지만, OFA·MEV 보호 카테고리에서는 가장 큰 단일 DEX다. CowSwap은 자체 네이티브 토큰(COW)을 발행했고, Solver와 사용자 모두에게 인센티브를 분배하는 토큰 경제학을 운영한다.
 
-이 비판이 의미하는 바 — OFA 가 "학술 진화" 이지만, "근본적 해결" 은 미완.
+## 5. UniswapX — Dutch Auction의 도입
+
+### 5-1. UniswapX의 출시
+
+2023년 7월 Uniswap Labs는 UniswapX라는 새 프로토콜을 발표했다. UniswapX는 Uniswap의 swap 경로를 개선하는 OFA 기반 시스템으로, Dutch auction(가격이 시간에 따라 점점 떨어지는 경매) 메커니즘을 사용한다. 사용자가 swap 의사를 제출하면, 그 의사가 시작 가격에서 일정 시간에 걸쳐 점점 낮아지는 가격으로 노출된다. Filler(UniswapX의 Searcher 등가 행위자)가 가장 좋은 가격에서 의사를 채워주는 시점에 거래가 체결된다.
+
+이 구조의 의의는 두 가지다. 첫째, 사용자가 받는 가격이 자기가 처음 제출한 의사보다 좋은 가격일 가능성이 높다. Filler 사이의 경쟁이 활발하면 시작 가격에 가까운 시점에 의사가 채워지고, 사용자는 더 좋은 가격을 받는다. 둘째, gasless swap이 가능하다. 사용자는 swap 의사에 서명만 하고 가스를 지불하지 않으며, Filler가 거래를 실행하면서 가스를 지불한다. Filler의 수익에서 가스 비용을 뺀 차익이 사용자 가격에 반영되는 구조다.
+
+### 5-2. CowSwap·MEV Share와의 비교
+
+CowSwap·MEV Share·UniswapX는 모두 OFA 카테고리에 속하지만, 메커니즘이 다르다. CowSwap은 batch auction 위에 Solver 경쟁을 얹은 구조, MEV Share는 사용자 hint를 부분 노출한 위에 Searcher 입찰을 얹은 구조, UniswapX는 사용자 의사를 Dutch auction에 얹은 구조다. 세 메커니즘 모두 사용자가 MEV 추출의 일부를 환원받는다는 점에서 같은 카테고리에 속하지만, 사용자가 노출하는 정보의 양·시간 구조·경쟁 행위자의 역할이 서로 다르다.
+
+학술적으로는 어느 메커니즘이 사용자에게 가장 좋은 결과를 제공하는지에 대한 비교 연구가 진행 중이다. 현 시점에서는 거래 종류·규모·시간 민감도에 따라 적합한 메커니즘이 다르다는 결론에 가깝다. 작은 규모의 즉시 체결 거래는 UniswapX의 Dutch auction이 효율적이고, 큰 규모의 가격 우선 거래는 CowSwap의 batch auction이 좋고, 일반 swap에 부분적인 환원을 더하려면 MEV Share가 적합하다는 식의 분기다.
+
+## 6. Searcher 경제학 — 시장 규모와 행위자
+
+### 6-1. Searcher의 역할 정리
+
+Searcher는 MEV 기회를 찾아 트랜잭션을 만드는 주체다. 봇 형태로 운영되며, 자기 자본 또는 위탁받은 자본으로 거래를 실행한다. Searcher의 활동 종류는 앞 편(#MEV1)에서 다룬 sandwich, arbitrage, liquidation에 더해, OFA의 입찰자, MEV Share의 hint 응답자, UniswapX의 Filler까지 다양하다. Searcher는 검증자에게 직접 거래를 보내지 않고, Builder를 거쳐 블록에 포함된다.
+
+Searcher의 진입 장벽은 두 가지다. 첫째, 기술 인프라. 빠른 mempool 모니터링, low-latency 노드 운영, 자동 거래 알고리즘 구축이 필요하다. 둘째, 자본. 차익거래·청산은 즉시 큰 자본을 동원해 거래를 마감해야 하므로, 작게는 수십만 달러, 크게는 수억 달러 규모의 운영 자본이 필요하다. 이 두 진입 장벽이 Searcher 시장을 자연스럽게 전문화된 봇 운영자 또는 트레이딩 회사로 좁힌다.
+
+### 6-2. Searcher 시장의 추정 규모
+
+글로벌 Searcher 수는 정확히 집계되지 않지만, 활발히 작동하는 entity는 100~300개 사이로 추정된다. 이들은 익명 봇 운영자부터 Wintermute·Jump Trading·DRW·Jane Street 같은 전통 마켓메이커의 디지털 자산 부서까지 다양하다. 누적 수익으로 보면 상위 10~20개 Searcher가 전체 MEV 추출의 다수를 차지하는 것으로 알려졌다.
+
+Searcher의 평균 수익률은 시기와 전략에 따라 매우 다르다. 차익거래 봇은 거래량 대비 수익률이 0.01~0.1% 수준이지만, 거래량이 크기 때문에 절대 수익은 큰 규모로 누적된다. 청산 봇은 청산 한 건당 5~10%의 보너스를 받지만, 청산 기회 자체가 많지 않으므로 시장 변동성이 큰 시기에 집중적으로 수익이 발생한다. sandwich 봇은 사용자 슬리피지가 큰 시기에 집중적으로 수익이 발생하며, 사용자 보호 인프라가 보급되면서 점진적으로 시장이 줄어들고 있다.
+
+### 6-3. Searcher의 위상 변화
+
+2020년 PGA 시기 Searcher는 종종 "악의적 봇"으로 불렸다. 사용자에게서 가치를 추출하고 mempool을 오염시키는 행위자라는 비판이 강했다. 그러나 Flashbots Auction → MEV-Boost → OFA로 인프라가 발전하면서, Searcher의 위상은 "필수 시장 인프라"에 가깝게 재평가됐다. arbitrage Searcher는 DEX 가격 효율성에 기여하고, liquidation Searcher는 lending 프로토콜 안정성에 기여하며, OFA의 Searcher는 사용자 환원 메커니즘의 입찰자로 자리잡았다.
+
+이 위상 변화는 학술적으로 흥미로운 사례다. 같은 행위자가 시장 인프라의 변화에 따라 "악"에서 "필수"로 평가가 옮겨갔다. 변화의 핵심은 행위자의 행동이 아니라, 그 행동을 둘러싼 메커니즘 디자인이었다. 공개 mempool 안에서의 sandwich는 사용자에게 손실이지만, OFA 안에서의 입찰은 사용자에게 환원이다. 같은 자본과 같은 알고리즘이 메커니즘에 따라 다른 결과를 만든다.
+
+## 7. 솔라나·BNB·기타 체인의 MEV 보호
+
+### 7-1. 솔라나의 Jito
+
+이더리움 외 체인에서도 MEV 보호 인프라가 발전했다. 솔라나는 2022년 후반부터 Jito Labs가 솔라나용 MEV-Boost 등가 인프라(Jito Block Engine)를 운영했고, 솔라나 검증자의 다수가 Jito 클라이언트를 채택했다. Jito는 사용자가 자기 트랜잭션을 Jito의 private bundle로 보내면 sandwich 보호와 priority 처리를 받는 구조를 제공한다. 솔라나의 빠른 슬롯 시간(약 400ms)과 높은 처리량 때문에 MEV 시장의 작동 방식이 이더리움과 다소 다르지만, 인프라 형태는 유사하게 자리잡았다.
+
+### 7-2. BNB체인과 기타 체인
+
+BNB체인은 BloXroute·48 Club 같은 인프라 운영자들이 sandwich 보호 RPC를 운영한다. Polygon은 자체 Bor 클라이언트와 Marlin 같은 인프라가 결합된 형태이며, Avalanche·Arbitrum·Optimism도 시기별로 다양한 보호 RPC가 등장했다. 이중 어느 인프라도 이더리움의 Flashbots Protect·MEV Blocker만큼 표준화된 형태로 자리잡지는 못했지만, 사용자 측 보호 수요는 모든 EVM 체인에서 점진적으로 형성되고 있다.
+
+## 8. 한국 사용자 입장에서의 보호 활용
+
+### 8-1. 국내 거래소 사용자
+
+한국 사용자의 다수는 업비트·빗썸 같은 국내 거래소에서 거래하며, 이 경로에서는 MEV 영향이 사실상 없다. 거래소 내부 매칭 엔진은 mempool과 무관하게 작동하고, 사용자가 보호 RPC를 별도로 설정할 필요도 없다. 따라서 국내 거래소 사용자에게 본 편의 인프라는 직접적 활용성이 크지 않다.
+
+### 8-2. 자가 지갑 사용자
+
+자가 지갑(MetaMask·Rabby·Phantom 등)으로 DEX를 사용하는 한국 사용자는 본 편의 인프라를 활용할 수 있다. 일반적인 권장 경로는 다음과 같다. MetaMask 사용자는 Flashbots Protect 또는 MEV Blocker의 RPC를 추가 네트워크로 등록하고, 그 RPC를 기본 이더리움 네트워크로 설정한다. 이 후 Uniswap·Curve 등에서 swap을 하면 트랜잭션이 자동으로 보호 경로를 거친다. CowSwap을 직접 사용하면 별도 RPC 변경 없이 batch auction의 보호를 받는다. UniswapX는 Uniswap Interface에서 일정 거래 종류에 대해 자동으로 적용된다.
+
+자가 지갑 사용자의 추가 권장 사항은 슬리피지 한도 보수적 설정과 거래 분할이다. 슬리피지 한도를 0.5~1% 수준으로 낮게 설정하면 sandwich 봇이 차익을 가져갈 여지가 줄어든다. 큰 거래는 한 번에 처리하지 않고 여러 트랜잭션으로 분할하면 각 거래의 가격 영향이 작아져 sandwich 표적성이 낮아진다. 이는 보호 RPC 사용과 결합되면 MEV 노출을 매우 낮게 유지할 수 있다.
+
+## 9. 보호 인프라의 한계와 다음 갈래
+
+### 9-1. 완전한 해결의 부재
+
+Private Mempool과 OFA가 발전했지만, MEV 자체가 사라진 것은 아니다. MEV는 분산 시스템에서 트랜잭션 정렬 권한이 존재하는 한 구조적으로 발생하는 현상이며, 인프라는 그 추출과 분배를 정돈할 뿐이다. 사용자 보호 인프라가 sandwich를 완전히 막지는 못하고, OFA의 환원이 사용자가 잃은 가치를 완전히 회복시키지는 못한다. 이는 MEV 보호 인프라의 본질적 한계다.
+
+### 9-2. 인프라 집중도 우려
+
+또 다른 한계는 보호 인프라 자체의 집중도다. Flashbots는 Flashbots Protect, MEV-Boost, MEV Share, SUAVE까지 다수의 인프라를 운영하며, MEV 시장의 다수를 사실상 단일 조직이 다룬다. CowSwap·UniswapX 같은 다른 메커니즘이 있지만 시장 점유는 Flashbots가 큰 비중을 가진다. 이 집중도는 검열 위험·운영 위험·single point of failure 위험을 안고 있고, 분산 시스템의 분권 가치와 일정 부분 충돌한다.
+
+### 9-3. SUAVE와 다음 진화
+
+이 집중도를 해소하려는 시도가 SUAVE다. 앞 편(#MEV1)에서 짚은 대로 SUAVE는 Builder 역할을 분권화된 컴퓨팅 환경으로 옮기려는 인프라이며, 사용자 측 OFA도 SUAVE 위에서 다시 정돈될 가능성이 있다. 2026년 이후 SUAVE의 메인넷 출시가 본격화되면 MEV 보호 인프라의 다음 챕터가 열릴 것이다. 다만 SUAVE의 결과가 분권화·효율·검열저항을 동시에 만족시킬지는 시간이 지나봐야 평가할 수 있다.
+
+또 다른 갈래는 Anoma·SUAVE의 의도 기반 거래(intent-based trading) 모델이다. 사용자가 "ETH를 USDC로 가장 좋은 가격에 바꾸고 싶다"는 의도만 표현하면, 분산 Solver 네트워크가 그 의도를 실행 가능한 트랜잭션으로 변환한다. 이 모델은 사용자가 mempool·트랜잭션·MEV 같은 개념을 인지하지 않아도 MEV 보호와 가격 개선을 동시에 받을 수 있게 만든다. 2025~2026년 동안 의도 기반 거래는 여러 프로토콜에서 부분적으로 구현됐고, 향후 5년의 주요 갈래 중 하나로 평가된다.
+
+<Callout type="opposing-view" title="반대 시각 · OFA와 Private Mempool도 새로운 형태의 중앙화다">
+사용자 보호 인프라의 발전을 MEV 시장의 성숙으로 평가하는 시각에 대해서는 회의적 관점도 충분히 존재한다. 첫째, Private Mempool과 OFA는 MEV를 줄이는 것이 아니라, MEV가 흘러가는 경로를 바꿀 뿐이다. sandwich가 줄어든 자리에 OFA Solver 사이의 경쟁 입찰이 들어왔고, 그 경쟁에서 사용자에게 돌아가는 환원은 추출된 MEV의 일부일 뿐이다. 추출 자체는 여전히 발생하며, 그 추출의 사회적 가치(시장 효율 기여)와 사용자 환원의 비대칭이 본질적으로 해결됐다고 보기 어렵다.
+
+둘째, 보호 인프라의 다수가 Flashbots를 중심으로 운영된다는 점은 분산 시스템의 분권 가치와 어긋난다. 사용자가 자기 트랜잭션을 보호하기 위해 Flashbots라는 단일 신뢰 주체에 의존해야 하는 구조는, 이더리움이 처음 표방한 "신뢰 없는 거래"의 이상과 거리가 있다. 비검열 Relay·다양한 Builder가 등장했지만 시장 집중도는 본질적으로 해소되지 않았고, OFA 영역에서도 Flashbots Solver Suite·MEV Share가 큰 비중을 차지한다.
+
+셋째, 사용자 보호 인프라가 발전할수록 일반 사용자가 MEV의 존재 자체를 인지하지 않게 된다는 역설이 있다. UniswapX·CowSwap·MEV Share가 자동으로 적용되면, 사용자는 자기 트랜잭션이 어떤 메커니즘을 거치고 있는지 모른 채 거래만 한다. 이는 사용자 편의성 측면에서는 진보이지만, 사용자가 자기 거래의 가치 흐름을 이해하지 못하는 상태로 MEV 시장에 노출된다는 의미이기도 하다. MEV 인프라가 더 정돈될수록 그 인프라가 사용자에게 보이지 않게 되고, 이는 시장의 투명성에 대한 다른 형태의 질문을 만든다.
 </Callout>
 
-## 결론 — MEV 시리즈 (#MEV1-#MEV2) 종결
+## 마무리 — MEV 시리즈 #MEV1·#MEV2 종결
 
-1. **MEV = 검증자 트랜잭션 정렬 수익, Flashbots 학술 인프라**.
-2. **Private Mempool + OFA = 사용자 보호 framework**.
-3. **Searcher = MEV 시장의 시장 조성자, 학술 진화**.
+MEV 시리즈 두 편을 거치며 다룬 흐름은 다음과 같다. 1편(#MEV1)에서 검증자 측 인프라인 Flashbots Auction · The Merge · MEV-Boost · PBS의 전개를 짚었고, 2편에서 사용자 측 인프라인 Private Mempool · OFA · MEV Share · CowSwap · UniswapX · Searcher 경제학을 정리했다. 이 두 갈래는 같은 MEV 시장의 양면이며, 검증자에게는 수익으로, 사용자에게는 비용으로 작동하는 가치 흐름을 어떻게 정돈할지에 대한 6년의 인프라 진화였다.
 
-MEV 시리즈 2편 완결. 다음 — Game-Fi + DePIN.
+이 흐름이 도달한 지점은 다음과 같다. 검증자 측에서는 MEV-Boost 채택률 90%대로 안정화됐지만 Builder 시장 집중이 새로운 과제로 남았다. 사용자 측에서는 Private Mempool·OFA·UniswapX가 자리잡으면서 sandwich 노출이 줄었지만 보호 인프라 자체의 집중도가 다른 형태의 분권화 과제를 만들었다. SUAVE·의도 기반 거래가 다음 챕터의 후보로 거론되지만, 결과는 시간이 더 흘러야 평가할 수 있다.
+
+다음 시리즈는 GameFi와 DePIN(Decentralized Physical Infrastructure Networks) 두 영역이다. Axie Infinity·STEPN의 흥망에서 시작해 Helium·Hivemapper·Render Network 같은 DePIN 사례까지, 디지털 자산이 어떻게 게임과 물리 인프라와 연결되어 새로운 갈래를 만드는지를 짚는다. NFT가 디지털 소유권 형식의 한 갈래였고 MEV가 분산 거래 시장의 한 단면이었다면, GameFi와 DePIN은 디지털 자산이 게임과 물리 세계로 확장되는 또 다른 갈래다.

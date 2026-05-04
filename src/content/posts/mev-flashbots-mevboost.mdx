@@ -7,7 +7,7 @@ subtitle: Maximal Extractable Value · 검증자 수익 · MEV-Boost 인프라 (
 publishedAt: "2026-05-04"
 category: MEV
 tags: [mev, flashbots, mev-boost, ethereum]
-estimatedReadTime: 8
+estimatedReadTime: 23
 draft: false
 author: 이찬희
 sources:
@@ -16,103 +16,159 @@ sources:
 ---
 
 <Callout type="warning" title="투자 자문 아님">
-본 글의 모든 내용은 MEV 학술 분석 기록입니다. 어떤 내용도 투자 자문 또는 매수/매도 권유로 해석되어서는 안 됩니다.
+본 글의 모든 내용은 MEV(Maximal Extractable Value) 관련 공개 자료를 정리한 기록물이다. 특정 검증자, Builder, Searcher, 마켓플레이스에 대한 매수, 매도, 위탁, 운영 권유로 해석되어서는 안 된다.
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-MEV (Maximal Extractable Value) 가 무엇인지, Flashbots + MEV-Boost 가 어떻게 작동하는지를 학술적으로 정리.
+2020년 11월 Flashbots 출범으로 공식화된 MEV 시장이 2022년 9월 이더리움 The Merge 이후 MEV-Boost라는 표준 인프라로 자리잡았고, 검증자 채택률은 90%를 넘겼다. 이 글은 MEV의 정의, sandwich/arbitrage/liquidation 세 가지 대표 사례, Flashbots Auction부터 SUAVE까지의 인프라 진화, MEV-Boost 채택률, 그리고 Builder 시장 집중도(상위 3개 Builder가 60~80%를 점유)까지 정리한다.
 </Callout>
 
-## 1. MEV 가 무엇인가
+## 1. MEV의 정의 — Miner에서 Maximal로
 
-**MEV = Maximal Extractable Value**. 검증자 (마이너) 가 — 트랜잭션 정렬을 통해 추가 수익 획득.
+### 1-1. 용어의 변천
 
-작동:
-- 트랜잭션이 mempool 에 대기
-- 검증자가 — 어느 트랜잭션을 먼저 처리할지 결정
-- 수익이 큰 트랜잭션 (예: 차익 거래) 을 — 자기 트랜잭션과 결합해 처리
-- 추가 수익 획득
+MEV라는 약어는 본래 "Miner Extractable Value"의 줄임말로 2019년 Phil Daian 등이 작성한 논문 "Flash Boys 2.0: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges"에서 정착됐다. 이 논문은 2017~2018년 Ethereum DEX(Bancor·EtherDelta 등) 위에서 봇들이 사용자 거래의 mempool 진입 시점을 가로채 차익을 챙기는 행태를 정량적으로 분석한 첫 번째 학술 작업이었다.
 
-학술적 의미:
-- "검증자가 일반 사용자보다 정보 우위"
-- 사용자에게 — "숨은 비용"
-- 분산 시스템의 "공정성" 학술 토론 주제
+2022년 9월 이더리움이 PoW에서 PoS로 전환된 The Merge 이후, MEV는 더 이상 마이너만의 영역이 아니게 됐다. PoS에서 블록 제안 권한을 가지는 주체는 검증자(validator)이고, 블록 구성을 외주하는 인프라(MEV-Boost·Block Builder)가 등장하면서 가치 추출 권한이 여러 행위자 사이에서 분배됐다. 이에 맞춰 MEV의 M이 Miner에서 Maximal로 재정의됐다. 즉 MEV는 "블록 제안자가 트랜잭션 순서·포함·배제를 통해 최대로 추출할 수 있는 가치"로 일반화됐다.
 
-## 2. MEV 의 사용 사례
+### 1-2. MEV가 가능한 이유
 
-### 2-1. Sandwich 공격
+MEV가 발생하는 근본 원인은 두 가지다. 첫째, 공개된 mempool 구조다. 사용자가 트랜잭션을 보내면 그 트랜잭션은 마이너/검증자에게 채굴/포함되기 전에 공개된 mempool에 잠시 머문다. mempool에 들어간 트랜잭션은 사실상 모든 노드 운영자가 볼 수 있고, 이 정보 비대칭이 MEV의 출발점이 된다. 둘째, 블록 제안자의 트랜잭션 정렬 권한이다. 블록을 만드는 주체는 mempool에 떠 있는 트랜잭션 중 어느 것을 어느 순서로 포함할지를 결정한다. 이 권한이 가치 추출의 직접 원천이다.
 
-- 사용자 A 가 — Uniswap 에서 큰 매수 주문
-- 검증자가 — 사용자 A 매수 전에 자기 매수 (front-run)
-- 사용자 A 매수 후 가격 상승, 검증자 매도 (back-run)
-- 사용자 A = 손실, 검증자 = 수익
+이 두 조건은 사실상 모든 공개 블록체인에 공통적이다. 따라서 MEV는 이더리움만의 현상이 아니라, 솔라나·BNB체인·Avalanche·Polygon에서도 형태를 달리해 발생한다. 다만 이더리움이 DEX·DeFi 거래량의 다수를 차지해왔고, MEV 인프라(Flashbots)가 이더리움 위에서 가장 일찍 발전했기 때문에 이 글은 이더리움 사례를 중심으로 다룬다.
 
-### 2-2. 차익 거래 (Arbitrage)
+## 2. MEV의 세 가지 대표 사례
 
-- DEX 간 가격 차이 활용
-- 검증자가 — 자기 트랜잭션 우선 처리
+### 2-1. Sandwich Attack
 
-### 2-3. 청산 (Liquidation)
+가장 자주 인용되는 MEV 형태가 sandwich attack이다. 시나리오는 다음과 같다. 사용자 A가 Uniswap에서 ETH를 USDC로 교환하는 큰 매도 트랜잭션을 mempool에 보낸다. mempool을 모니터링하던 봇이 이 트랜잭션을 발견하고, 사용자 A의 트랜잭션 직전에 자기 매도(front-run)를 끼워 넣는다. 사용자 A가 큰 매도를 실행하면 풀의 가격이 크게 움직이고, 봇은 사용자 A의 트랜잭션 직후에 매수(back-run)를 끼워 넣어 사용자 A의 슬리피지(slippage)를 자기 수익으로 가져간다. 사용자 A의 매도 트랜잭션을 두 개의 봇 트랜잭션으로 감싼 모양새라서 sandwich라는 이름이 붙었다.
 
-- DeFi 청산 가능 포지션 발견
-- 검증자가 — 자기 청산 트랜잭션 우선 처리
-- 청산 보너스 수익
+sandwich attack의 누적 영향은 정량화가 가능하다. EigenPhi·Flashbots·Chainalysis가 수년간 보고한 데이터에 따르면, 이더리움 메인넷 위에서 매년 수천만~수억 달러 규모의 sandwich 수익이 발생해왔다. 이 수익은 사용자가 인지하지 못한 상태에서 슬리피지 형태로 빠져나가는 비용이며, 따라서 MEV 비판 측이 가장 자주 거론하는 사례가 됐다.
 
-## 3. Flashbots — "MEV 의 학술 인프라"
+### 2-2. Arbitrage
 
-2020년 — Flashbots 가 출범. MEV 의 "투명한 시장화".
+두 번째 사례는 차익거래(arbitrage)다. Uniswap·Sushiswap·Curve 같은 여러 DEX에 동일 자산이 거래되는 환경에서, 풀 사이의 가격이 일시적으로 불일치하면 그 차이를 즉시 회수할 수 있다. 봇이 mempool 또는 블록의 직전 트랜잭션을 분석해 가격 불균형을 감지하면, 단일 트랜잭션 안에 여러 풀의 swap을 묶어 차익을 회수한다. 이 거래는 atomic transaction(모두 성공하거나 모두 실패하는 단일 트랜잭션)으로 처리되기 때문에 사용자 자본 손실 없이 수익을 확정할 수 있다.
 
-작동:
-- Flashbots 가 — "private mempool" 운영
-- 사용자 (Searcher) 가 — MEV 기회 식별 + Flashbots 에 전송
-- Flashbots 가 — 검증자에게 그 번들 전달
-- 검증자 + Searcher 가 수익 분배
+차익거래는 sandwich와 달리 사용자에게 직접적인 손실을 주는 구조가 아니다. 오히려 DEX 간 가격을 균등화시키는 역할을 하기 때문에 시장 효율성에 기여한다는 평가를 받는다. 학술적으로 MEV의 모든 형태를 같은 이름으로 묶어 비판하기 어려운 이유 중 하나가 이 지점이다. sandwich는 사용자에게서 가치를 끌어가는 형태에 가깝고, arbitrage는 시장 가격 발견에 기여하는 형태에 가깝다.
 
-이게 MEV 의 "공식적 시장" 화. 학술적으로 우아.
+### 2-3. Liquidation
 
-## 4. MEV-Boost — "이더리움 PoS 의 MEV 인프라"
+세 번째 사례는 청산(liquidation)이다. Aave·Compound 같은 lending 프로토콜에서 담보 가치가 일정 임계값 아래로 떨어진 포지션은 누구나 청산할 수 있고, 청산자에게는 5~10% 수준의 보너스가 지급된다. 봇이 가격 oracle 업데이트와 담보 가치를 실시간 모니터링하면서, 청산 가능 임계값을 넘은 포지션을 발견하는 즉시 청산 트랜잭션을 우선 제출한다. 보너스가 곧 봇의 수익이 된다.
 
-2022 The Merge 후 — Flashbots 가 "MEV-Boost" 출시. PoS 검증자의 MEV 표준 인프라.
+청산 MEV는 lending 프로토콜의 안정성에 직접적으로 기여한다. 청산이 신속하게 이뤄지지 않으면 담보 부족 상태가 누적되어 프로토콜이 부실해질 위험이 있다. 즉 청산자 봇은 lending 프로토콜의 자체 보호 메커니즘으로 작동한다. 이 역시 MEV를 단일하게 평가하기 어렵게 만드는 이유다. 사용자에게서 가치를 끌어가는 sandwich, 시장 효율에 기여하는 arbitrage, 프로토콜 안정성에 기여하는 liquidation이 모두 같은 우산 아래에 있다.
 
-작동:
-- 검증자가 — MEV-Boost 통해 블록 제작자 (block builder) 와 연결
-- Block builder 가 — 가장 수익 큰 블록 구성
-- 검증자가 — 그 블록 채택, 수익 받음
+## 3. Flashbots — 2020년 11월의 출발
 
-### 4-1. 시장 점유
+### 3-1. 출범 배경
 
-- 이더리움 검증자 95%+ 가 MEV-Boost 사용
-- 사실상 "표준 인프라"
+Flashbots는 2020년 11월 Phil Daian, Stephane Gosselin 등이 창립한 연구·인프라 조직이었다. 출범 직전인 2020년 여름은 DeFi summer로 불리던 시기로, Uniswap V2·Compound·Yearn 등이 폭발적 거래량을 만들면서 mempool 위에서 봇들의 가스 입찰 경쟁이 비정상적인 수준으로 치솟았다. 이 시기 이더리움 평균 가스 가격이 일시적으로 수백 gwei까지 올라갔고, 그중 상당 부분이 MEV 봇들의 priority gas auction(PGA, 가스 우선순위 경매)에서 발생했다.
 
-### 4-2. 학술적 의미
+PGA는 효율이 매우 낮았다. 같은 MEV 기회를 놓고 여러 봇이 동일한 트랜잭션을 가스 가격만 약간 다르게 경쟁적으로 보냈고, 결과적으로 mempool에 실패 트랜잭션이 누적되어 네트워크 전체 가스 시장을 오염시켰다. Flashbots는 이 비효율을 해결하기 위해 "MEV-geth"라는 수정된 클라이언트와 "Flashbots Auction" 시스템을 제안했다.
 
-MEV-Boost 가 — 분산 시스템에서 "신뢰 가능한 중간자" 가 등장한 사례. 분산 vs 효율 trade-off.
+### 3-2. Flashbots Auction의 구조
 
-## 5. 한국 영향
+Flashbots Auction의 핵심은 다음과 같다. Searcher(MEV 기회를 찾아 트랜잭션을 만드는 주체)는 자기가 만든 트랜잭션 번들(여러 트랜잭션의 묶음)을 공개 mempool이 아닌 Flashbots Relay에 직접 제출한다. 이 번들은 마이너에게만 전달되고, 마이너는 번들을 자기 블록에 포함시킬 때 별도의 priority fee를 지급받는다. 사용자에게 직접 가시화되지 않는 priority fee 협상이 Flashbots Relay 안에서 이뤄지는 셈이다.
 
-한국 사용자도 — MEV 영향 받음:
-- DEX 거래 (Uniswap, PancakeSwap) 시 sandwich 위험
-- 자가 지갑 거래의 숨은 비용
-- 한국 거래소 (CEX) 는 MEV 영향 X
+이 구조의 효율성은 두 가지에서 온다. 첫째, 실패 트랜잭션이 mempool에 누적되지 않는다. Searcher의 번들이 마이너에게 채택되지 않으면 그냥 사라지고 가스가 소비되지 않는다. 둘째, Searcher는 자기 전략을 공개 mempool에 노출하지 않아도 된다. 다른 봇이 같은 기회를 가로채는 위험이 줄어든다. 마이너 입장에서는 priority fee를 추가로 받는 형태로 MEV 수익의 일부를 가져간다.
 
-## 6. 학술적 평가
+Flashbots Auction은 출시 후 급격히 채택됐고, 2021년 중반에는 이더리움 마이너 해시파워의 대다수가 MEV-geth 또는 그 변형 클라이언트를 운영하면서 Flashbots Relay에서 번들을 받아갔다. PGA로 인한 mempool 오염은 빠르게 줄어들었고, MEV 시장은 mempool 외부에서 작동하는 사적 시장으로 옮겨갔다.
 
-MEV 가 — "분산 시스템의 가장 큰 학술 미해결 문제" 중 하나. Cornell IC3 + Stanford CBR 의 학술 분석 활발.
+## 4. The Merge — PoS 전환과 검증자 시대
 
-<Callout type="opposing-view" title="반대 시각 · MEV 의 *불공정성*">
-MEV 비판:
+### 4-1. 2022년 9월의 전환
 
-첫째, "사용자 손실". Sandwich 공격 + front-run 이 — 사용자에게 숨은 비용.
+2022년 9월 15일 이더리움 The Merge가 진행됐고, 합의 메커니즘이 PoW(작업증명)에서 PoS(지분증명)로 전환됐다. 이 전환은 MEV 인프라에 두 가지 큰 변화를 가져왔다. 첫째, 블록 제안자가 마이너에서 검증자(validator)로 바뀌었다. 검증자는 32 ETH를 스테이킹하면 누구나 될 수 있고, 이더리움에는 100만 명을 넘는 검증자가 운영된다. 둘째, 블록 슬롯이 12초 간격으로 정해졌고, 슬롯 시작 직전에 어느 검증자가 블록을 제안할지가 결정된다. 이는 PoW의 확률적 채굴과 달리 결정론적 구조다.
 
-둘째, "검증자 집중". MEV-Boost 에 의존하면서 — 검증자 + Block builder 의 중앙화.
+PoS 전환은 MEV 시장의 권력 분포를 바꿨다. PoW 시기에는 마이너 풀(F2Pool·Ethermine 등)이 블록 제안의 다수를 차지했고, MEV 수익이 풀 단위로 흘러갔다. PoS에서는 100만 명의 개별 검증자가 권한을 분점하기 때문에, 한 검증자가 단일 블록 제안 권한을 가지는 빈도는 1년에 몇 번에 그친다. 개별 검증자가 직접 MEV 봇을 운영하는 것은 사실상 불가능하고, 따라서 외주 인프라가 필요해졌다.
 
-셋째, "학술적 공정성 위협". 분산 시스템의 "공정한 거래" 가 위협.
+### 4-2. MEV-Boost의 출시
 
-이 비판이 의미하는 바 — MEV 가 "피할 수 없는 학술 현상" 으로는 인정하되, "공정성 + 사용자 보호" 의 학술 도전 큼.
+이 외주 수요에 대응해 Flashbots는 2022년 9월 The Merge에 맞춰 MEV-Boost라는 클라이언트를 출시했다. MEV-Boost는 검증자 노드 옆에서 작동하는 sidecar 소프트웨어로, 다음과 같이 작동한다. 검증자가 블록 제안 슬롯에 도달하면, MEV-Boost가 여러 Relay에 블록 제안 요청을 보낸다. Relay는 Builder들이 미리 만들어둔 블록을 받아 가장 수익이 큰 블록을 검증자에게 전달한다. 검증자는 자기가 직접 블록을 짜는 대신, Relay에서 받은 블록을 그대로 채택하고, 그 블록의 priority fee를 받는다.
+
+이 구조는 PBS(Proposer-Builder Separation)의 구체화다. PBS는 비탈릭 부테린 등이 The Merge 이전부터 제안한 분리 모델로, 블록 제안자와 블록 빌더의 역할을 분리해 MEV 추출을 빌더에게 외주화하는 설계다. MEV-Boost는 이 PBS를 제도가 아닌 사실상의 표준 인프라로 구현한 것이다.
+
+## 5. MEV-Boost의 채택률 — 90%대로 자리잡기까지
+
+### 5-1. 초기 채택 곡선
+
+MEV-Boost는 The Merge 직후부터 검증자들 사이에서 빠르게 채택됐다. 2022년 12월 시점에서 검증자의 약 50%가 MEV-Boost를 사용했고, 2023년 중반에는 80%대, 2024년 이후에는 90%를 안정적으로 넘었다. 이 채택률은 mevboost.pics 같은 공개 대시보드에서 슬롯별로 확인되며, 검증자가 MEV-Boost를 사용한 블록은 외부 Builder가 만든 블록임을 표시한다.
+
+채택률이 빠르게 90%대로 올라간 이유는 단순하다. MEV-Boost를 사용하지 않으면 검증자는 자기 mempool에서 블록을 짜야 하고, 이 경우 블록의 priority fee 수익이 외부 Builder가 짜준 블록보다 평균적으로 낮다. 솔로 검증자나 lido·Coinbase·Binance 같은 스테이킹 서비스 모두 동일한 인센티브를 가지기 때문에 MEV-Boost 채택률이 빠르게 한쪽으로 수렴했다.
+
+### 5-2. 검증자 수익 구조
+
+MEV-Boost를 사용하는 검증자의 수익은 두 가지로 구성된다. 첫째, 합의층 보상(consensus layer reward). 슬롯 제안과 attestation에 대한 발행량 기반 보상으로, 검증자 1명당 연간 약 3% 안팎의 ETH 수익을 만든다. 둘째, 실행층 priority fee + MEV. MEV-Boost를 통해 받는 블록의 priority fee + Builder가 검증자에게 분배하는 MEV 수익이 여기에 해당한다. 이 두 번째 수익이 슬롯에 따라 변동성이 크고, 시장 활성기에는 합의층 보상보다 큰 비중을 차지하기도 한다.
+
+연간 평균으로 보면, MEV-Boost 사용 검증자의 추가 수익은 합의층 보상의 약 30~50% 수준으로 알려져 있다. 즉 검증자 연간 ETH 수익률이 3%대라면, MEV-Boost로 4~5% 수준까지 끌어올릴 수 있다. 이 차이가 90%대 채택률의 경제적 근거다.
+
+## 6. Relay와 Builder — MEV-Boost의 두 행위자
+
+### 6-1. Relay의 역할과 운영자
+
+Relay는 MEV-Boost 인프라의 중간 노드 역할을 한다. 검증자의 블록 제안 요청을 받아 여러 Builder의 입찰을 모은 뒤, 가장 수익이 큰 블록을 검증자에게 전달한다. Relay 운영자는 Flashbots, BloXroute, Aestus, Eden, Ultra Sound Relay, Agnostic, Manifold 등이 있다. 검증자는 신뢰하는 Relay 목록을 MEV-Boost 설정에 등록하고, 매 슬롯마다 그 Relay들에 동시 요청을 보낸다.
+
+Relay의 신뢰성 모델은 두 가지다. 첫째, Relay가 검증자에게 잘못된 블록(예: 무효한 트랜잭션이 포함된 블록)을 전달하지 않는다는 사회적 신뢰. 둘째, Relay가 받은 블록의 priority fee가 약속한 대로 검증자에게 전달된다는 신뢰. Flashbots Relay가 가장 큰 점유율을 가지지만, 2023년 들어 OFAC 제재 트랜잭션 필터링 이슈를 둘러싼 논란이 일면서 Ultra Sound Relay·Agnostic 같은 비제재 Relay의 점유율이 일부 늘었다.
+
+### 6-2. Builder의 역할과 시장 집중도
+
+Builder는 mempool과 사적 주문 흐름(private order flow)에서 트랜잭션을 모아 가장 수익이 큰 블록을 구성하는 주체다. Searcher의 번들, OFA(Order Flow Auction)의 사용자 트랜잭션, 일반 mempool 트랜잭션을 모두 합쳐 블록을 짠다. 대표 Builder로는 beaverbuild, rsync-builder, Titan Builder, Flashbots Builder, BuilderNet, eth-builder, builder0x69 등이 있다.
+
+Builder 시장의 집중도는 시기에 따라 변동이 크지만, 2023년 후반 이후 상위 3개 Builder가 전체 블록의 60~80%를 점유하는 패턴이 자주 관찰된다. 특히 beaverbuild와 rsync-builder가 2023년 중반 이후 점유율 상위에 자리잡았고, Titan Builder가 2024년 들어 비중을 확대했다. 이 집중도는 Builder의 자체 mempool 분석 능력, 사적 주문 흐름 확보 능력, 빠른 블록 구성 알고리즘에 좌우된다. 작은 Builder가 큰 Builder를 이기기 어려운 구조이며, 이는 PBS의 한계로 자주 지적된다.
+
+## 7. PBS의 학술적 함의 — 분권 vs 효율의 trade-off
+
+### 7-1. 검증자 부담 완화
+
+PBS의 첫 번째 의의는 검증자 부담 완화다. MEV 추출은 고도의 알고리즘과 인프라 투자를 요구한다. 솔로 검증자가 MEV 봇을 직접 운영하는 것은 비현실적이고, 그대로 두면 MEV 수익이 대형 검증자 풀에만 흘러가 검증자 분권화가 약해진다. PBS는 MEV 추출을 Builder에게 외주화하면서 솔로 검증자도 대형 검증자와 같은 수준의 MEV 수익에 접근할 수 있게 만든다. 이는 이더리움 검증자 셋의 분권화 유지에 기여한다고 평가된다.
+
+### 7-2. Builder 시장 집중의 부작용
+
+PBS의 두 번째 함의는 부정적이다. 검증자 분권화를 유지하는 대가로 Builder 시장이 집중된다. 상위 Builder 3개가 전체 블록의 60~80%를 점유하는 상태는, 사실상 이더리움 블록의 다수가 소수의 영리 Builder에 의해 짜여지는 셈이다. 만약 Builder가 OFAC 제재 주소의 트랜잭션을 필터링하기로 결정하면, 이더리움 블록의 다수가 제재 적용을 받게 된다. 2022년 8월 미 재무부 OFAC가 Tornado Cash를 제재한 직후 이 우려가 현실화됐고, Flashbots Relay와 일부 Builder가 일시적으로 제재 주소 트랜잭션을 필터링했다는 데이터가 보고됐다.
+
+이는 MEV-Boost 인프라가 사회적·법적 압력에 취약할 수 있음을 보여준 사례였다. 이후 Ultra Sound Relay·Agnostic Relay 같은 비검열 Relay가 등장했고, 검증자가 자유롭게 Relay 목록을 선택할 수 있는 구조가 일정 부분 검열 저항성을 회복시켰다. 그러나 Builder 단계의 집중도는 본질적으로 해결되지 않았다.
+
+### 7-3. SUAVE — Flashbots의 다음 단계
+
+Flashbots는 PBS의 한계를 넘어서기 위해 SUAVE(Single Unifying Auction for Value Expression)라는 새 인프라를 2023년부터 설계해왔다. SUAVE는 멀티체인 MEV 시장을 통합하는 프로토콜로, Builder의 역할을 분권화된 컴퓨팅 환경(SGX 등 trusted execution environment)으로 옮겨 검열과 시장 집중을 동시에 완화하려는 시도다. 2024~2025년 동안 SUAVE의 일부 컴포넌트가 테스트넷에서 운영됐고, 메인넷 본격 출시는 2026년 이후로 예정됐다.
+
+SUAVE가 PBS의 한계를 실제로 해결할 수 있을지는 아직 불확실하다. SGX 같은 신뢰 실행 환경은 하드웨어 공급자(Intel)에 대한 신뢰를 전제로 하고, 이는 다른 형태의 중앙화 위험을 내포한다. 학술적으로 SUAVE는 MEV 시장의 분권화·효율·검열저항을 동시에 추구하는 가장 야심찬 시도이지만, 결과는 시간이 더 흘러야 평가할 수 있다.
+
+## 8. MEV의 정량 — 누적 수익과 시기별 변동
+
+### 8-1. 누적 MEV 추출 규모
+
+이더리움 메인넷 위에서 누적된 MEV 추출 규모는 다양한 분석가들이 추정한다. Flashbots의 mev-explore, EigenPhi, Libmev 같은 도구가 보고한 데이터를 종합하면, 2020년 후반 PGA 시기부터 2026년 5월까지 이더리움에서 추출된 MEV 누적은 수십억 달러 규모로 알려졌다. 이 수치는 Searcher의 수익(번들 형태로 추출된 가치)과 Builder·검증자가 받은 priority fee의 합산에 가깝다.
+
+이중 sandwich attack에서 추출된 부분은 누적 5~15억 달러 사이로 추정된다. arbitrage가 가장 큰 비중을 차지하고, liquidation이 그 다음, sandwich가 일부 비중을 차지한다. 시기별로 보면 DeFi summer(2020~2021), Curve War(2021), LSD(Liquid Staking) 시즌(2023), Uniswap V4 도입기(2024) 같은 거래량 폭증 시기에 MEV 추출 규모도 함께 폭증했다.
+
+### 8-2. 추출의 분배
+
+MEV 추출 가치의 분배는 대략 다음과 같다. Searcher가 자기 번들 수익에서 일부를 priority fee로 검증자에게 지급하고, 그 priority fee 중 일부가 Builder에게 분배된다. 시기와 경쟁 강도에 따라 비율이 다르지만, 평균적으로 Searcher가 전체 MEV의 절반 안팎, 검증자가 30~40%, Builder가 5~15% 정도를 가져간다는 추정이 다수다. 사용자 입장에서 보면 sandwich attack의 경우 슬리피지 형태로 빠져나간 비용이 그대로 이 시스템 안에서 분배된 셈이고, arbitrage·liquidation의 경우 시장 효율성과 프로토콜 안정성의 대가로 일부가 분배되는 셈이다.
+
+## 9. 한국 사용자 입장에서의 MEV
+
+한국 사용자가 MEV의 영향을 받는 경로는 두 가지다. 첫째, 자가 지갑에서 DEX(Uniswap·1inch·CowSwap 등)를 직접 사용하는 경우. 이 경로에서 사용자는 mempool에 트랜잭션을 노출하고, sandwich attack의 잠재 대상이 된다. 슬리피지 한도를 너무 높게 설정하면 봇이 그 한도 안에서 가격을 움직여 차익을 가져갈 수 있다. 따라서 자가 지갑 사용 시 슬리피지 한도를 보수적으로(예: 0.5~1%) 설정하거나, 다음 편(#MEV2)에서 다룰 Private Mempool 인프라를 활용하는 것이 일반적인 권장 사항이다.
+
+둘째, 한국 거래소(업비트·빗썸·코빗·코인원)에서 거래하는 경우. 이 경로는 거래소 내부 매칭 엔진에서 거래가 체결되며, 이더리움 mempool과 무관하다. 따라서 한국 사용자가 자국 거래소 안에서만 거래하는 한 MEV의 영향은 없다. 이는 한국 사용자의 MEV 노출이 상대적으로 작은 이유 중 하나이며, 동시에 MEV 보호 인프라(Flashbots Protect·MEV Blocker)에 대한 한국 사용자 인지도가 낮은 이유이기도 하다.
+
+## 10. MEV 학술 연구의 흐름
+
+MEV는 분산 시스템 학술 연구의 큰 주제 중 하나로 자리잡았다. Cornell IC3(Initiative for CryptoCurrencies and Contracts), Stanford Center for Blockchain Research, EPFL DCL 같은 학술 그룹이 MEV의 측정·메커니즘 디자인·게임 이론적 분석을 지속적으로 발표해왔다. Flashbots의 연구 부서도 자체 논문을 다수 발표해 학계와 산업 경계에서 작업해왔다.
+
+연구 주제는 크게 네 갈래다. 첫째, MEV의 측정 — sandwich·arbitrage·liquidation의 정량 추적. 둘째, MEV 추출 메커니즘 디자인 — PBS·OFA·SUAVE 같은 인프라의 게임 이론 분석. 셋째, MEV가 합의 안정성에 미치는 영향 — 매우 큰 단일 블록 MEV가 검증자에게 합의를 깨뜨리는 인센티브를 줄 수 있는지(time-bandit attack, multi-block MEV)에 대한 연구. 넷째, MEV의 윤리·규제 — 사용자 보호와 시장 효율 사이의 균형을 어떻게 잡을지에 대한 정책 연구.
+
+이 네 갈래는 모두 진행 중이며, 결정적 결론에 도달하지 못한 상태다. MEV는 분산 시스템에서 사라지지 않는 구조적 현상이라는 합의는 형성됐지만, 그 추출 권한을 누가 어떻게 가져가야 사회적으로 가장 효율적인지에 대한 답은 아직 열려 있다.
+
+<Callout type="opposing-view" title="반대 시각 · MEV-Boost는 검열저항 측면에서 후퇴다">
+MEV-Boost와 PBS를 검증자 분권화의 진보로 평가하는 시각에 대해서는 회의적 관점도 충분히 존재한다. 첫째, 이더리움 블록의 다수가 소수의 Builder에 의해 짜여지는 현 상태는, 이더리움이 처음 표방한 "각 노드가 트랜잭션을 자유롭게 선별해 블록을 만드는 분권 시스템"과 거리가 멀다. 검증자가 블록 구성 권한을 외주화하는 순간, Builder가 검열·필터링·우선순위 조정 같은 권한을 사실상 행사하게 된다.
+
+둘째, 2022년 OFAC 제재 직후 Flashbots Relay와 일부 Builder가 Tornado Cash 관련 트랜잭션을 일시 필터링한 사례는, MEV-Boost 인프라가 법적 압력에 취약함을 보여줬다. 이후 비검열 Relay가 일부 등장했지만, Builder 단계의 집중도는 그대로 남아 있다. 검증자가 비검열 Relay를 선택해도, 비검열 Relay에 입찰하는 Builder의 다수가 검열을 적용하면 결과적으로 검열이 적용된 블록이 채택된다. 이 구조는 검열저항을 약하게 만든다.
+
+셋째, MEV-Boost 채택률 90%대는 검증자 입장의 합리적 선택이지만, 동시에 MEV 추출이 사회적으로 합당한지에 대한 질문을 가린다. sandwich attack 같은 형태가 MEV-Boost 인프라 위에서도 그대로 작동하고, 이를 PBS가 직접 막아주지는 않는다. 사용자 보호는 여전히 다음 편에서 다룰 Private Mempool과 OFA에 의존한다. 즉 MEV-Boost는 검증자 수익 구조를 정돈했지만, MEV의 본질적 문제(공정성·검열저항)는 다른 인프라 layer에서 해결해야 한다는 한계가 있다.
 </Callout>
 
-## 결론
+## 마무리
 
-**MEV = 검증자 트랜잭션 정렬 수익. Flashbots + MEV-Boost 가 학술 표준. 사용자 보호 학술 도전.**
+이더리움의 MEV 시장은 2020년 11월 Flashbots 출범 → 2022년 9월 The Merge → MEV-Boost 채택률 90%대 → Builder 시장 집중 → SUAVE 설계로 이어지는 6년의 진화를 거쳤다. 이 진화는 MEV가 사라지지 않는 구조적 현상임을 받아들이고, 그 추출과 분배를 어떻게 정돈할지에 대한 인프라 차원의 답을 만들어왔다. PBS는 검증자 분권화에는 기여했지만 Builder 집중과 검열 위험을 새로 만들었고, SUAVE가 이를 다시 해결하려 시도하는 흐름이다.
 
-다음 편(#MEV2) — Private mempool / OFA / Searcher 경제학으로 이어집니다.
+다음 편(#MEV2)에서는 MEV 시장의 또 다른 갈래인 사용자 보호 인프라를 다룬다. Private Mempool(Flashbots Protect·MEV Blocker), OFA(CowSwap·MEV Share), 그리고 Searcher 경제학을 정리하면서, MEV-Boost가 검증자 측의 인프라였다면 사용자 측의 인프라는 어떻게 발전해왔는지를 짚는다. 같은 MEV라는 단어가 검증자 시각에서는 "수익", 사용자 시각에서는 "비용"이라는 두 얼굴을 가진다는 점이 이 두 편에 걸쳐 분명해질 것이다.
