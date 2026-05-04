@@ -67,6 +67,7 @@ export default function RootLayout({
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
         <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
         <meta name="theme-color" content="#0a0a0f" />
+        <link rel="alternate" type="application/rss+xml" title="luxon-crypto-lab RSS" href="/feed.xml" />
       </head>
       <body className="min-h-full flex flex-col">
         <Header />

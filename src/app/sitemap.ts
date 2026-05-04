@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/onchain/`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/tags/`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/search/`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/feed.xml`, lastModified: now, changeFrequency: "daily", priority: 0.5 },
   ];
 
   const tagRoutes: MetadataRoute.Sitemap = getAllTags().map((t) => ({
