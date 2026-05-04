@@ -15,6 +15,8 @@ const NAV_ITEMS = [
   { href: "/crises/", label: "CRISES" },
   { href: "/research/", label: "RES" },
   { href: "/onchain/", label: "ONCHAIN" },
+  { href: "/tags/", label: "TAGS" },
+  { href: "/search/", label: "SEARCH" },
   { href: "/about/", label: "ABOUT" },
 ];
 

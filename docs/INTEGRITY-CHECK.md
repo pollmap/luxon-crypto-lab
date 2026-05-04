@@ -1,23 +1,23 @@
 # luxon-crypto-lab 무결성 점검 보고서
 
-생성: 2026-05-03 · 본문 143편
+생성: 2026-05-03 · 본문 176편
 
 ## 1. 학술 인용 등장 빈도
 
 | 인용 | 등장 빈도 | 등장 파일 수 |
 |------|--------|-----------|
-| NY Fed Staff Report 1052 (Bitcoin-Macro Disconnect) | 12 | 7 |
+| NY Fed Staff Report 1052 (Bitcoin-Macro Disconnect) | 13 | 8 |
 | NY Fed Staff Report 1085 (Stablecoin Run Risk) | 2 | 2 |
-| BIS WP 1133 (DeFi Lending) | 4 | 1 |
+| BIS WP 1133 (DeFi Lending) | 5 | 2 |
 | Liu & Tsyvinski (2021) RFS | 6 | 3 |
-| Cong et al. (2021) RFS Tokenomics | 12 | 9 |
+| Cong et al. (2021) RFS Tokenomics | 16 | 13 |
 | Eyal & Sirer (2014) Selfish Mining FC | 4 | 3 |
 | Schilling & Uhlig (2019) JME | 2 | 1 |
 | Yermack (2017) RoF Blockchain Governance | 3 | 1 |
 | Aggarwal et al. arXiv:1710.10377 (Quantum BTC) | 0 | 0 |
-| Cambridge CCAF | 16 | 5 |
+| Cambridge CCAF | 18 | 7 |
 | CBECI (Cambridge Bitcoin Electricity Index) | 9 | 3 |
-| BIS Project mBridge | 7 | 4 |
+| BIS Project mBridge | 8 | 5 |
 | MIT Project Hamilton CBDC | 8 | 2 |
 
 ## 2. 정량 수치 일관성 점검
@@ -61,6 +61,7 @@
 
 | 인용 텍스트 | 등장 파일 수 |
 |----------|--------|
+| `업비트** — 시장 점유 70-80%` | 1 |
 | `업비트, 빗썸)의 BTC 가격이 글로벌 평균보다 평균 2-5%` | 1 |
 | `업비트가 한국 거래소 시장의 약 80%` | 1 |
 | `업비트**: 한국 가상자산 거래소 시장 점유 약 70-80%` | 1 |
@@ -101,6 +102,9 @@
 
 ## 3. JSX MDX 호환성
 
+- `cbdc-digital-euro-pound.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `cbdc-digital-yuan-deep.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `cbdc-korea-bok-cbdc.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `defi-aave-lending-leader.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `defi-compound-lineage.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `defi-curve-stableswap-mathematics.mdx`: 1건 (`title=` 속성에 markdown asterisk)
@@ -111,6 +115,8 @@
 - `defi-morpho-layered-lending.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `defi-pendle-yield-separation.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `defi-uniswap-v4-amm.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `depin-helium-iotex-korea.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `gamefi-axie-skymavis-korea.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `korea-fintech-coupang-kurly-pay.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `korea-fintech-dunamu-upbit.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `korea-fintech-kaia-merger.mdx`: 1건 (`title=` 속성에 markdown asterisk)
@@ -118,8 +124,24 @@
 - `korea-fintech-naver-line-next.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `korea-fintech-toss-strategy.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 - `l2-arbitrum-optimistic-leader.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `l2-base-coinbase-strategy.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `l2-linea-consensys.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `l2-optimism-superchain.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `l2-scroll-taiko-community-zk.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `l2-zksync-era-zk.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `mev-flashbots-mevboost.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `mev-private-mempool.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `nft-korea-market.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `nft-market-2026-state.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `nft-rwa-tokenized-art.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `nft-taproot-ordinals.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `rwa-blackrock-buidl.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `rwa-centrifuge-realworld.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `rwa-korea-sto-rwa.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `rwa-maple-private-credit.mdx`: 1건 (`title=` 속성에 markdown asterisk)
+- `rwa-ondo-usdy-treasury.mdx`: 1건 (`title=` 속성에 markdown asterisk)
 
-총 JSX 호환성 위험: 17건
+총 JSX 호환성 위험: 38건
 
 ## 4. Disclaimer 박스 누락 체크
 

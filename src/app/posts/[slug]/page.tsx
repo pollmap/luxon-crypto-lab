@@ -30,8 +30,25 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const { default: Post } = await import(`@/content/posts/${slug}.mdx`);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: meta.title,
+    description: meta.subtitle ?? "",
+    datePublished: meta.publishedAt,
+    dateModified: meta.updatedAt ?? meta.publishedAt,
+    author: { "@type": "Person", name: meta.author ?? "이찬희" },
+    publisher: { "@type": "Organization", name: "luxon-crypto-lab" },
+    keywords: meta.tags?.join(", ") ?? "",
+    articleSection: meta.category,
+  };
+
   return (
     <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-8 lg:grid-cols-[260px_1fr] xl:grid-cols-[280px_1fr_220px] xl:gap-8 xl:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="hidden lg:block">
         <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
           <BlogSidebar activeSlug={slug} excludeRecentSlug={slug} />
