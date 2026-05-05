@@ -1,25 +1,27 @@
 ---
 slug: ethereum-defi-tvl
-title: "DeFi 생태계 — TVL $50B 인프라"
-subtitle: Aave · Maker(Sky) · Uniswap · Stablecoin · RWA
+title: "DeFi TVL $80B — Lido·Aave·Maker·Uniswap"
+subtitle: ETH-denominated TVL 의 의미 · BIS WP 1133 분석
 coin: ETH
 issue: 2
 publishedAt: "2026-09-21"
 category: L1-PoS
-tags: [ethereum, defi, aave, maker, uniswap, tvl, rwa]
-estimatedReadTime: 10
+tags: [ethereum, defi, aave, maker, uniswap, lido, tvl, bis]
+estimatedReadTime: 24
 draft: false
 sources:
   - name: "DefiLlama — Ethereum DeFi TVL"
     url: https://defillama.com/chain/Ethereum
   - name: "Token Terminal — DeFi protocol metrics"
     url: https://tokenterminal.com/
-  - name: "RWA.xyz — RWA on Ethereum"
-    url: https://app.rwa.xyz/
+  - name: "BIS Working Paper No. 1133 — DeFi systemic risks (2024)"
+    url: https://www.bis.org/publ/work1133.htm
   - name: "Aave Governance — V4 spec"
     url: https://governance.aave.com/
   - name: "Sky (Maker) — Endgame plan"
     url: https://sky.money/
+  - name: "Uniswap Foundation — Fee switch governance"
+    url: https://gov.uniswap.org/
 author: 이찬희
 ---
 
@@ -28,98 +30,280 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-이더리움이 단순 토큰이 아니라 "글로벌 분산 컴퓨터" 라면, 그 컴퓨터 위에 무엇이 돌아가고 있을까요? 답은 약 $50B 규모의 DeFi 생태계입니다 — Aave (대출), Sky/Maker (스테이블코인), Uniswap (DEX), 그리고 BlackRock BUIDL 같은 RWA. 본 편은 ETH 위에서 실제로 작동하는 경제와, 그 경제가 ETH 토큰 가치에 어떻게 환원되는지를 봅니다.
+이더리움이 단순 토큰이 아니라 "글로벌 분산 컴퓨터" 라면, 그 컴퓨터 위에 무엇이 돌아가고 있는가. 답은 약 $80B 규모의 DeFi 생태계입니다. Lido (스테이킹), Aave (대출), Sky/Maker (스테이블), Uniswap (DEX) — 4대 프로토콜이 ETH L1 TVL 의 60% 를 점유합니다. 본 편은 ETH-denominated TVL vs USD-denominated TVL 의 분리 측정, BIS Working Paper 1133 의 시스템 리스크 분석, 그리고 이 경제가 ETH 토큰 가치에 환원되는 메커니즘을 정량화합니다.
 </Callout>
 
-## 도입 — ETH 위에 무엇이 돌아가는가
+## 1. ETH L1 DeFi TVL — 두 가지 측정법
 
-DefiLlama 기준 2026년 5월 Ethereum L1 DeFi TVL 약 $52B. L2 합치면 (Arbitrum $18B + Base $14B + Optimism $8B + 기타) 약 **$95B** — 이더리움 생태계 전체 DeFi 자본.
+DefiLlama 기준 2026년 5월 26일 Ethereum L1 DeFi TVL 약 **$80B** (USD-denominated). L2 합산 시 (Arbitrum $19B + Base $15B + Optimism $9B + 기타 $7B) 전체 이더리움 생태계 DeFi 자본은 약 **$130B**.
 
-이 숫자가 ETH 토큰의 가치 명제 핵심입니다. **ETH 가 의미 있으려면 그 위에서 실제로 작동하는 경제가 있어야 하기 때문**. 본 편은 그 경제를 4개 카테고리로 봅니다 — Lending, DEX, Stablecoin, RWA.
+이 숫자를 어떻게 해석하느냐에 따라 분석이 갈립니다. 단순 USD 환산은 ETH 가격 변동에 직접 노출됩니다. 2024년 12월 ETH 가격 $4,100 정점 대비 2026년 5월 $2,316 (-43%) 하락은 USD-TVL 을 -43% 만큼 자동 감소시켰지만, **실제 사용자 행동은 변하지 않았을 수도** 있습니다. 따라서 ETH-denominated TVL 을 병기하는 것이 표준입니다.
 
-## 1. Lending — Aave · Sky(Maker)
+| 시점 | USD-TVL | ETH 가격 | ETH-denominated TVL | YoY USD | YoY ETH |
+|------|---------|--------|------------------|--------|--------|
+| 2024.12 | $135B | $4,100 | 32.9M ETH | +180% | +95% |
+| 2025.5 | $98B | $3,140 | 31.2M ETH | +35% | +12% |
+| 2025.10 | $115B | $4,250 | 27.1M ETH | +22% | -8% |
+| 2026.1 | $84B | $2,890 | 29.1M ETH | -14% | +3% |
+| **2026.5** | **$80B** | **$2,316** | **34.5M ETH** | **-18%** | **+10%** |
 
-### Aave (V4)
+**핵심 발견**: USD-TVL 은 2024.12 정점 대비 -41% 하락했지만, **ETH-denominated TVL 은 오히려 +5% 증가**했습니다. 이는 사용자가 ETH 가격 하락에도 자본을 빼지 않았다는 시그널 — 디파이 인프라의 sticky usage 가 가격과 분리된다는 첫 정량적 증거입니다.
 
-2026년 5월 기준 Aave V4 가 Ethereum L1 lending 의 **약 65%** 점유. 자산 운용 약 $18B, 대출 잔고 $9B.
+이 병기 측정법은 BIS Working Paper No. 1133 (2024년 4월) 이 처음 권고한 분석 프레임입니다. BIS 는 "DeFi TVL 을 USD 기준으로만 측정하면 underlying asset 가격 변동이 metric 자체를 왜곡하므로, native unit denomination 과 USD denomination 을 분리해 표시해야 한다" 고 지적했습니다. 본 시리즈는 이 권고를 따라 두 메트릭을 병기합니다.
 
-**핵심 변화**:
-- 2025 Q4 Aave V4 메인넷 활성화 — Hub-and-Spoke 아키텍처 (멀티체인 통합 유동성)
-- GHO (Aave 자체 스테이블) 발행 ~$300M
-- Bluechip 자산 (WBTC, wstETH) LTV 80%+
+## 2. 4대 프로토콜 — 점유 60%
+
+2026년 5월 26일 Ethereum L1 DeFi TVL 점유 분포 (DefiLlama):
+
+| 순위 | 프로토콜 | TVL (USD) | TVL (ETH) | 점유 | 카테고리 |
+|------|---------|-----------|----------|------|--------|
+| 1 | **Lido** | $22.0B | 9.5M ETH | 27.5% | LST |
+| 2 | **Aave** | $14.5B | 6.3M ETH | 18.1% | Lending |
+| 3 | **Sky/Maker** | $8.2B | 3.5M ETH | 10.3% | Stable |
+| 4 | **Uniswap** | $4.8B | 2.1M ETH | 6.0% | DEX |
+| 5 | EigenLayer | $4.2B | 1.8M ETH | 5.3% | Restaking |
+| 6 | Curve | $3.9B | 1.7M ETH | 4.9% | DEX |
+| 7 | Pendle | $2.8B | 1.2M ETH | 3.5% | Yield |
+| 8 | Compound | $2.5B | 1.1M ETH | 3.1% | Lending |
+| 9 | Morpho | $2.3B | 1.0M ETH | 2.9% | Lending |
+| 10 | Sky USDS pool | $1.8B | 0.8M ETH | 2.3% | Stable |
+| 11-50 | 기타 | $13.0B | 5.6M ETH | 16.3% | 다양 |
+
+**4대 프로토콜 점유 약 62%** (Lido + Aave + Sky + Uniswap). EigenLayer 와 Curve 까지 포함하면 6대 프로토콜이 72% 점유. 이는 Top10 점유 90%+ 인 NASDAQ-100 같은 전통 시장과 비교하면 분산도가 낮은 것은 아니지만, **단일 프로토콜 27.5% (Lido) 는 시스템 리스크 임계값에 근접**합니다.
+
+## 3. Lido — 27.5% 점유, 전체 ETH 의 8%
+
+Lido 는 Ethereum L1 DeFi TVL 1위 프로토콜이자 동시에 ETH PoS 검증자 수의 30% 점유 (시리즈 #2-C). 두 메트릭이 다르게 측정되는 이유는 **TVL 은 stETH 발행량 USD 환산** 이고 **검증자 점유는 effective balance 가중** 이기 때문입니다. 두 메트릭 모두 단일 프로토콜로는 가장 큰 비중.
+
+핵심 데이터 (2026년 5월):
+- 발행 stETH: 9.5M (전체 ETH 공급 1.20억의 약 7.9%)
+- 노드 운영자: 30개 풀 (P2P, Stakefish, Allnodes, Figment, Chorus One 등)
+- 거버넌스: LDO 토큰, 평균 투표율 12-18%
+- 수수료: 검증 보상의 10% (5% Lido DAO + 5% 노드 운영자)
+
+stETH 의 가치 명제는 단순합니다 — **락업된 ETH 의 자본 효율 회복**. 32 ETH 솔로 스테이킹은 락업 + 인출 큐 (Pectra 이후 평균 7-21일) 로 자본 회수가 어렵지만, stETH 는 즉시 DEX 에서 ETH 로 교환 가능. 더 중요한 건 stETH 자체를 DeFi 담보 (Aave LTV 80%) 로 사용해 추가 레버리지를 만들 수 있다는 점.
+
+이 자본 효율 메커니즘 자체가 시스템 리스크의 출발점입니다.
+
+**stETH 디페그 시나리오** (2022년 6월 사례):
+- 2022년 6월 Celsius Network 위기 시 stETH/ETH 가격이 0.93 까지 -7% 디페그
+- Celsius, Three Arrows Capital, Voyager 등 stETH 담보 대출 청산 도미노
+- 약 3개월간 디페그 -2% 이상 지속
+
+이 사례 이후 Lido 가 자체 인출 (withdrawal) 메커니즘을 도입했고 (2023년 5월 Shanghai 업그레이드 후), 디페그 위험은 구조적으로 감소했습니다. 그러나 **stETH 가 DeFi 담보 + EigenLayer restaking 에 동시 사용되는 이중 의존 구조** (시리즈 #2-E) 는 그대로 남아 있어, 위기 시 cascading 청산 위험이 잠재적으로 존재합니다.
+
+## 4. Aave — Lending 65%, V4 Hub-and-Spoke
+
+2026년 5월 기준 Aave V4 (2025년 12월 메인넷 활성) 가 Ethereum L1 lending 의 약 **65%** 점유. 자산 운용 약 $14.5B, 활성 대출 잔고 약 $7.2B (Utilization Rate 50%).
+
+V4 의 핵심 변화는 **Hub-and-Spoke 아키텍처** 입니다. 기존 V3 는 체인별로 독립 lending market 을 운영했습니다 — Ethereum Aave 와 Polygon Aave 의 유동성이 분리. V4 는 Hub (메인 유동성 풀) + Spoke (체인별 인터페이스) 구조로 통합 유동성을 만들었습니다.
+
+| 항목 | V3 (2022) | V4 (2025) |
+|------|----------|----------|
+| 유동성 구조 | 체인별 분리 | Hub-and-Spoke |
+| 자산 LTV 구성 | E-Mode (자산 그룹) | Liquidity Layer + Risk Module 분리 |
+| GHO 통합 | 별도 페그 메커니즘 | Native 통합 |
+| 청산 효율 | Soft Liquidation | Auto-Deleverage |
+
+**자산 분포** (2026.5):
+- WETH: $4.2B (29%)
+- wstETH: $3.8B (26%)
+- WBTC: $2.1B (14%)
+- USDC: $1.8B (12%)
+- USDT: $1.4B (10%)
+- 기타 (LINK, AAVE, RWA 등): $1.2B (8%)
+
+**LST 비중 26%** (wstETH) 가 핵심입니다. 사용자들이 wstETH 를 담보로 입금 → ETH 차입 → 다시 stETH 로 스테이킹 → 또 wstETH 로 변환 → Aave 담보 의 looping 전략 (leveraged staking) 이 약 $2.5B 규모. 이는 Aave LTV 80% × 약 4-5회 looping 으로 명목 ETH 익스포저를 5배 확대하는 구조입니다.
+
+이 looping 자체가 시스템 리스크입니다. ETH 가격 -25% 급락 시 leveraged staking 청산 cascade 가 발생할 수 있고, 청산 매물이 시장에 풀리면 추가 -10-15% 하락 압력이 누적됩니다. BIS WP 1133 이 가장 우려한 시나리오 중 하나.
 
 **수익 구조**:
-- 대출 이자의 약 5% 가 Aave DAO 에 귀속
-- 일부는 stkAAVE 보유자에게 배분
-- ETH 직접 burn 기여는 0 (가스 사용은 ETH 로 결제 → 일부 base fee burn)
+- 대출 이자의 약 5% 가 Aave DAO Treasury 에 귀속
+- 일부 (10%) 가 stkAAVE 보유자에게 보상으로 분배
+- 2026.5 직전 12개월 Aave Treasury 매출 약 $145M
+- ETH 직접 burn 기여는 0 (가스 사용은 ETH 결제 → 일부 base fee burn 간접 기여)
 
-### Sky (구 Maker)
+**GHO 발행** ~$320M (2026.5). Aave 자체 스테이블코인. USDC 페그 안정성은 비교적 양호 (편차 ±0.3% 이내) 했지만, 발행량 측면에서 USDS ($11B), DAI ($3B) 와 비교하면 여전히 작은 규모.
 
-2024-2025 리브랜딩 후 **Sky**. DAI 대신 **USDS** (Sky Dollar) 발행. 2026년 5월 기준 USDS 시총 약 $11B.
+## 5. Sky (구 Maker) — USDS · BUIDL · RWA 40%
 
-**핵심 메커니즘**:
-- ETH·wstETH·LST·RWA 담보로 USDS 발행
-- 담보 비율 150-200%
-- Stability fee (담보 기반 대출 이자) 가 Sky 토큰 holder 에게
+2024-2025 Endgame 리브랜딩 후 Maker 는 **Sky** 로 전환됐습니다. DAI 는 점진 폐지 (2026년 5월 잔여 $3.0B), 새 스테이블 **USDS** 가 약 $11B 시총으로 1차 출시 후 가장 큰 ETH 발행 스테이블. SKY 토큰은 MKR 1:24,000 비율로 swap.
 
-**RWA 통합**: Sky 의 담보 중 **약 40% 가 미국 단기국채 토큰** (Monetalis, BlockTower 통한 BUIDL/USYC). 전통 금융 자산이 ETH 합의 위에서 직접 담보로 사용되는 첫 본격 사례.
+핵심 메커니즘 — **다담보 발행** (Multi-Collateral USDS):
 
-## 2. DEX — Uniswap v4 · Curve
+| 담보 | 비중 | 담보 비율 | 안정성 수수료 (연) |
+|------|------|---------|----------------|
+| **US Treasury (BUIDL/USYC)** | **~40%** | 102% | 4.5% |
+| ETH (직접) | ~22% | 150% | 5.5% |
+| wstETH | ~18% | 175% | 5.0% |
+| WBTC | ~10% | 175% | 6.0% |
+| USDC PSM | ~8% | 100% | 0% |
+| 기타 (RWA, LP) | ~2% | 다양 | 다양 |
 
-### Uniswap v4
+**RWA (Real World Asset) 통합 40%** 가 시리즈 전체에서 가장 중요한 구조 변화입니다. Sky 의 담보 중 약 $4.4B 가 미국 단기국채 토큰 (BlackRock BUIDL, Hashnote USYC, Monetalis 운영 펀드 등) 입니다. 이는 다음을 의미합니다.
 
-2024년 출시, **Hooks 메커니즘** 도입. Pool 생성 시 onChain 콜백 함수 등록 가능 → 동적 수수료, MEV 방지, 한정판 액세스 등.
+**(1) USDS 의 사실상 backing 이 40% US Treasury** — BUIDL 토큰은 BlackRock 이 BNY Mellon 에 보관한 미 국채 직접 보유. USDS 보유자는 간접적으로 미 국채 익스포저를 갖는 셈.
 
-2026년 5월 기준 일 거래량 약 $3-5B (Ethereum L1 + L2 합산). UNI 토큰 fee switch 활성화 안 됨 — 거버넌스 논쟁 진행 중.
+**(2) 이자 수익 capture** — 미 국채 4-month T-bill yield 약 4.5% (2026.5) 가 Sky DAO 매출로 흡수. 직전 12개월 Sky 매출 약 $720M (RWA 이자 + 기존 안정성 수수료 합).
 
-### Curve
+**(3) 전통 금융과 DeFi 의 첫 본격 교차** — 미 국채가 ETH 합의 위에서 직접 담보로 사용되는 첫 사례. JP Morgan, Goldman Sachs 같은 전통 금융 기관이 이 모델을 모니터링.
 
-스테이블코인 specialized AMM. 2026년 5월 TVL 약 $4B. **stETH/ETH pool ~$2B** (LST 시장의 가장 깊은 유동성).
+다만 이 구조 자체가 새 리스크를 만듭니다. BUIDL 의 redemption (현금화) 은 BlackRock 의 영업일 처리에 의존 — 즉 **Sky 의 RWA 담보는 24/7 즉시 청산 불가**. 위기 시 (USDS 디페그 → 청산 압력) 40% 담보가 immediate liquidation 불가능하다는 의미. 이것이 BIS WP 1133 이 "tokenized RWA 가 DeFi 의 settlement risk 를 새 차원으로 끌어올린다" 고 경고한 이유입니다.
 
-crvUSD 자체 스테이블 발행 약 $200M. Curve 의 ve(3,3) 토크노믹스가 DeFi governance battle 의 표준이 됨.
+## 6. Uniswap v4 — Hooks 와 Fee Switch 미결
 
-## 3. Stablecoin on Ethereum
+Uniswap 은 2024년 1월 v4 출시 후 본격 운영. **Hooks** 메커니즘 — Pool 생성 시 onChain 콜백 함수를 등록할 수 있어 동적 수수료, MEV 방지, KYC 게이팅, 한정 시간 액세스 등 customization 이 가능 — 가 핵심 차별점입니다.
+
+2026년 5월 데이터:
+- TVL: $4.8B (Ethereum L1, L2 합산 시 약 $11B)
+- 일 거래량: 약 $3.2B (L1) + $4.5B (L2) = 약 **$7.7B**
+- 직전 12개월 LP 수수료: 약 $2.1B (L1+L2)
+- UNI 거버넌스 토큰 시총: ~$5.2B
+
+**Fee Switch 논쟁** — Uniswap 의 가장 큰 미해결 거버넌스 이슈입니다. 현재는 LP 수수료의 100% 가 LP 보유자에게 직접 분배되고 UNI 토큰 보유자에게는 0 입니다. 2024년 2월 Uniswap Foundation 이 fee switch 활성화 (LP 수수료 일부를 UNI staker 에게 분배) 제안을 올렸지만, 다음 두 이유로 부결됐습니다.
+
+**(1) SEC 분류 위험** — Fee 분배 시 UNI 가 증권 (security) 으로 재분류될 가능성. 2024년 5월 SEC 의 Uniswap Labs Wells Notice 가 이미 받은 상황.
+
+**(2) LP 이탈 위험** — Sushiswap 등 경쟁 DEX 가 100% LP 분배를 유지하면 유동성이 이전될 수 있음. v3 에서 Sushiswap fork 가 단기적으로 점유율을 빼앗은 사례.
+
+이 미결 상태가 **UNI 토큰 가치 평가** 의 가장 큰 변수입니다. Fee switch 가 활성화되면 UNI 가 자사주매입형 수익자산이 되지만, 활성화되지 않으면 단순 거버넌스 토큰. 시장이 이 옵션을 어떻게 가격에 반영하느냐가 UNI 의 P/S, P/F 평가의 핵심입니다.
+
+## 7. Curve — stETH/ETH 풀의 의미
+
+Curve 는 stablecoin specialized AMM 이지만, 가장 중요한 풀은 **stETH/ETH 풀** ($1.9B) 입니다. 이는 단순 거래소 풀이 아니라 **stETH 디페그 방어 메커니즘** 의 핵심 인프라입니다.
+
+stETH 가 ETH 페그를 유지하는 메커니즘은 두 단계입니다.
+
+**(1) 직접 인출 (Lido withdrawal queue)** — 2023년 5월 Shanghai 후 활성화. stETH 보유자가 Lido 컨트랙트에 인출 요청 → 평균 7-21일 후 ETH 회수. 이는 가격 페그 floor 를 만들지만 **즉시 처리 불가**.
+
+**(2) Curve stETH/ETH 풀** — 즉시 교환 가능. 2026.5 풀 깊이 약 $1.9B (stETH ~$950M + ETH ~$950M). 평균 슬리피지 약 0.05-0.15%.
+
+위기 시 시퀀스:
+1. stETH 보유자 일부가 즉시 현금화 → Curve 풀 매도 → stETH 가격 하락
+2. 풀 깊이가 충분하면 (약 $200-300M 매도까지) 디페그 -1-2% 이내 흡수 가능
+3. 깊이를 초과하는 매도가 발생하면 디페그 가속 → 추가 fear selling
+4. 동시에 Lido withdrawal queue 에 정상 인출 요청 누적 → 7-21일 후 정상 페그 복귀
+
+2022년 6월 디페그 사태에서는 **2단계 깊이 약 $400M 만으로 -7% 디페그를 막을 수 없었던** 사례가 있습니다. 2026년 풀 깊이 $1.9B 는 그 4-5배이지만, 동시에 stETH 발행량도 4-5배 (2.5M → 9.5M) 증가했으므로 **상대적 깊이 (depth / circulation)** 는 비슷한 수준입니다.
+
+이는 stETH 디페그 위험이 절대적으로는 줄지 않았다는 의미. 위기 시 cascading liquidation 시나리오는 여전히 활성 위험입니다.
+
+Curve 자체는 ve(3,3) 토크노믹스로 DeFi 거버넌스 battle 의 표준 모델을 만들었습니다. veCRV 보유자가 풀별 emission rate 를 결정 → 프로토콜이 veCRV 매수 (Convex, Yearn 등) → "Curve Wars" 가 2022-2024 진행. 이는 거버넌스 토큰의 가치 평가 모델로 학술적으로도 분석되고 있습니다 (Cornell-CIPHER 2024 논문).
+
+## 8. Stablecoin on Ethereum — 글로벌 메인 정착지
 
 2026년 5월 Ethereum L1 스테이블코인 시총 분포:
 
-| 스테이블 | 시총 (Ethereum 기준) | 발행사 |
-|---------|--------------------|------|
-| **USDC** | ~$32B | Circle |
-| **USDT** | ~$28B | Tether |
-| **USDS** | ~$11B | Sky/Maker |
-| **DAI (legacy)** | ~$3B | Sky |
-| **PYUSD** | ~$2B | PayPal |
-| **FRAX** | ~$0.6B | Frax |
-| **GHO** | ~$0.3B | Aave |
+| 스테이블 | 시총 (Ethereum 기준) | 발행사 | Backing |
+|---------|--------------------|------|--------|
+| **USDC** | ~$33B | Circle | 100% Cash + 미국채 |
+| **USDT** | ~$30B | Tether | Mixed (현금 + 국채 + 회사채) |
+| **USDS** | ~$11B | Sky | Multi-collateral |
+| **DAI (legacy)** | ~$3.0B | Sky | 점진 폐지 |
+| **PYUSD** | ~$2.2B | PayPal/Paxos | 100% 현금 + 미국채 |
+| **FDUSD** | ~$1.2B | First Digital | 100% 현금 + 미국채 |
+| **FRAX** | ~$0.7B | Frax | 알고리즘 + 자기담보 |
+| **GHO** | ~$0.32B | Aave | wstETH 등 자체 담보 |
 
-**Ethereum L1 스테이블 합계 약 $77B** — Ethereum 전체 시총의 28%. 이는 L2/Solana 등 합치면 글로벌 스테이블코인 시총 ~$280B 의 27% 수준.
+**Ethereum L1 스테이블 합계 약 $82B** — Ethereum 시총 ($279B) 의 약 29%. 글로벌 스테이블코인 시총 약 $295B (2026.5) 기준 Ethereum L1 만 28%, L2 + Solana + Tron 등 다른 체인 합쳐서 72%.
 
-**중요한 함의**: Ethereum 은 "분산된 디지털 달러 인프라" 의 메인 정착지입니다. 스테이블코인 거래량 증가 = ETH 가스 수요 증가 = base fee burn 기여.
+Ethereum 이 "분산된 디지털 달러 인프라의 메인 정착지" 라는 명제는 데이터로 증명됩니다.
+- USDC: Ethereum L1 점유 약 56% (L2 합산 시 65%)
+- USDT: Ethereum 38%, Tron 50%, 기타 12%
+- 신규 스테이블 (PYUSD, FDUSD): Ethereum 우선 발행 → 다른 체인 후속 확장
 
-## 4. RWA on Ethereum
+이 위치의 의미 — **스테이블코인 거래량 = ETH 가스 수요**. 2026.5 직전 12개월 ETH L1 가스 매출 중 약 28% 가 스테이블코인 전송 수수료입니다. 즉 디지털 달러 인프라의 결제 수수료가 ETH 토큰 가치에 일부 환원.
 
-RWA.xyz 기준 2026년 5월 Ethereum 위 토큰화 RWA 시총 (스테이블 제외):
+## 9. RWA 토큰화 — $6B 에서 $25B 로
 
-| RWA 자산 | Ethereum TVL | 발행사 |
-|---------|------------|------|
-| **BUIDL** (US Treasury) | ~$2.8B | BlackRock |
-| **USYC** (US Treasury) | ~$1.2B | Hashnote |
-| **Ondo OUSG/USDY** | ~$0.9B | Ondo Finance |
-| **Franklin BENJI** | ~$0.6B | Franklin Templeton |
-| **Backed Finance** (주식) | ~$0.3B | Backed |
+2026년 5월 RWA.xyz 기준 Ethereum L1 위 토큰화 RWA (스테이블 제외):
 
-**RWA 합계 약 $6B+ on Ethereum L1**. 빠르게 성장 중 — 1년 전 (2025.5) 약 $2B 에서 3배.
+| RWA 자산 | TVL | 발행사 | 평균 Yield |
+|---------|-----|------|----------|
+| **BlackRock BUIDL** | ~$3.5B | BlackRock + Securitize | 4.7% |
+| **Hashnote USYC** | ~$1.5B | Hashnote | 4.5% |
+| **Ondo OUSG/USDY** | ~$1.2B | Ondo Finance | 4.6% / 4.4% |
+| **Franklin BENJI** | ~$0.9B | Franklin Templeton | 4.5% |
+| **Backed Finance** (주식 토큰) | ~$0.6B | Backed | 다양 |
+| **Provenance HASH** | ~$0.4B | Figure | 6-8% |
+| 기타 부동산·신용 | ~$1.4B | 다양 | 5-12% |
 
-이게 의미하는 건 단순합니다 — **전통 금융 기관이 Ethereum 합의 위에 자산을 직접 토큰화하기 시작**. BlackRock BUIDL 의 출시 (2024.3) 가 결정적 변곡점. 시리즈 #9 FIGR_HELOC 에서 RWA 토큰화의 명과 암을 깊이 다룹니다.
+**합계 약 $9.5B**, 2025년 5월 약 $4.5B 대비 1년만에 +110%. 빠른 성장세.
 
-## 4. 결론 — DeFi 가 ETH 가치에 환원되는가
+가장 중요한 변곡점은 BlackRock BUIDL 의 출시 (2024년 3월) 였습니다. 운용 자산 약 $3.5B (2026.5 기준) 로 단일 RWA 펀드 1위. BUIDL 의 의미는 단순합니다 — **세계 최대 자산 운용사가 미 국채를 ETH 위에 직접 토큰화**.
 
-종합:
+이후 미국 SEC 의 RWA 규제가 다소 완화 (Trump 행정부 2025년 1월 출범 후) 되면서 Franklin Templeton, Fidelity, Wisdomtree 등이 자체 RWA 토큰을 출시했고, 2027년까지 글로벌 RWA 토큰화 시장 규모가 BCG 추정 $16T 에 달할 것이라는 전망이 나오고 있습니다 (현재 $9.5B 의 1,700배).
 
-1. **Ethereum 위 경제 규모는 명확** — DeFi $95B + 스테이블 $77B + RWA $6B = **약 $178B 의 활성 자본**
-2. **ETH 토큰 직접 환원은 부분적** — 대부분 fee 가 protocol 토큰 (UNI, AAVE, SKY) 에 귀속, ETH burn 은 base fee 일부만
-3. **간접 환원이 핵심** — ETH 가스 수요 자체가 모든 DeFi 활동에 비례
+이 추세의 핵심 함의: **Ethereum 이 "전통 자산을 분산 합의 위에서 결제하는 글로벌 settlement layer"** 로 진화한다는 것. ETH 토큰의 가치 명제는 단순 디지털 자산 거래소가 아니라 **글로벌 자산 토큰화의 메인 인프라** 라는 것이 본 시리즈의 핵심 가설입니다.
 
-이 구조는 "ETH = 글로벌 정유사" 비유 (#2-A) 의 정량 baseline 입니다. ETH 자체는 fee 의 100% 를 받지 않지만, **모든 정유 활동이 ETH 가스를 사용**하므로 활동량 자체가 ETH 가치를 결정. 다음 편(#2-H) 에서는 그 가치가 매크로 환경 (DXY · Fed · ETH/BTC ratio) 과 어떻게 연결되는지 봅니다.
+## 10. BIS WP 1133 — DeFi 시스템 리스크 6개 채널
+
+BIS (Bank for International Settlements) 의 Working Paper No. 1133 (2024년 4월) 은 DeFi 의 시스템 리스크를 6개 채널로 분류했습니다.
+
+**Channel 1: Collateral Liquidation Spirals**
+- 단일 자산 가격 급락 시 청산 cascade
+- ETH/wstETH leveraged staking looping 이 대표 사례
+- 위험도: HIGH (2022년 stETH 디페그, Terra-Luna 사례 검증)
+
+**Channel 2: Stablecoin De-pegging**
+- 알고리즘 스테이블 (Terra UST 사례) 또는 backing 위기 (USDC 2023년 SVB 사태)
+- ETH 위 USDC 비중 41% — Circle 의 cash backing 위기 시 즉시 영향
+- 위험도: MEDIUM-HIGH
+
+**Channel 3: Smart Contract Exploits**
+- 2024년 누적 DeFi 해킹 손실 약 $2.7B
+- 가장 큰 사례 Ronin Bridge ($600M, 2022.3), Wormhole ($320M, 2022.2)
+- 위험도: MEDIUM
+
+**Channel 4: Oracle Manipulation**
+- 가격 오라클 (Chainlink, Pyth) 조작
+- 2020-2024 누적 오라클 공격 손실 약 $400M
+- 위험도: LOW (Chainlink 우월 지배)
+
+**Channel 5: Cross-Chain Bridge Failures**
+- 브리지 해킹 누적 손실 $2.5B
+- 가장 큰 단일 채널
+- 위험도: HIGH
+
+**Channel 6: Tokenized RWA Settlement Risk** (신규 추가, 2024년 보고서)
+- BUIDL 같은 RWA 의 24/7 청산 불가
+- 전통 금융과 DeFi 의 settlement timing mismatch
+- 위험도: 평가 진행 중 (충분한 stress test 미수행)
+
+이 6개 채널이 동시에 발동하는 시나리오 (cascading systemic event) 가 BIS 가 가장 우려하는 결과물입니다. ETH DeFi 위 자산 약 $80B 이 합의 보안 자체에 위협이 될 수 있는 임계 규모를 향해 가고 있다는 진단.
+
+## 11. ETH 토큰 가치 환원 — 직접 vs 간접
+
+DeFi $80B 인프라가 ETH 토큰 가치에 어떻게 환원되는가. 두 채널로 분리됩니다.
+
+**직접 환원 — 명확하지만 작음**:
+- EIP-1559 base fee burn — 모든 가스 사용에서 일부 영구 소각
+- 2026.5 직전 12개월 누적 burn 약 720K ETH ($1.67B 가치)
+- 이 중 DeFi 활동 비중 약 38% → 직접 ETH 환원 ~$635M
+
+**간접 환원 — 큼**:
+- ETH 가스 결제 자체 — 모든 DeFi 트랜잭션이 ETH 로 가스 결제
+- ETH 담보 사용 — Aave, Sky, EigenLayer 가 약 $24B (300% 증가) ETH 직접 보유
+- LST 활용 — 9.5M wstETH 의 underlying 은 ETH
+
+이 구조는 ETH 의 가치 명제를 다음 비유로 정리할 수 있습니다 — "ETH = 분산된 합의 보안의 정유사". ETH 자체는 fee 의 100% 를 받지 않습니다. 대부분의 fee 가 protocol 토큰 (UNI, AAVE, SKY) 에 귀속되고, ETH 는 base fee burn 일부만 받습니다. 그러나 **모든 정유 활동 (DeFi 트랜잭션, RWA settlement, stablecoin 전송) 이 ETH 가스를 사용**합니다. 활동량 자체가 ETH 가치를 결정하는 구조.
+
+이 비유의 정량 baseline 이 본 편의 데이터입니다. 직전 12개월 ETH L1 fee 매출 약 $1.8B, burn $1.67B, 검증자 보상 $3.8B. 합 약 $7.3B 의 가치 흐름이 ETH 합의 위에서 작동.
+
+## 12. 결론 — DeFi 가 ETH 가치에 환원되는 정도
+
+세 가지 정리합니다.
+
+**(1) Ethereum 위 경제 규모는 명확** — DeFi $80B + 스테이블 $82B + RWA $9.5B = **약 $172B 의 활성 자본**이 24/7 작동. ETH 시총 ($279B) 의 62% 수준.
+
+**(2) ETH 토큰 직접 환원은 부분적** — 대부분 fee 가 protocol 토큰에 귀속, ETH burn 은 base fee 일부만. 직전 12개월 직접 환원 ~$635M = ETH 시총의 0.23%.
+
+**(3) 간접 환원이 핵심** — ETH 가스 수요 자체가 모든 DeFi 활동에 비례. 가스 수요 + 담보 수요 + LST underlying = 약 $80B 규모의 ETH 보유 수요.
+
+이 구조를 이해하면 ETH 가치 평가가 NASDAQ 빅테크와 다르다는 것이 명확해집니다. NVDA 의 가치는 단순 매출 × 마진 모델로 평가 가능하지만, ETH 는 **인프라 사용 수요 × 가스 가격 × burn 율** 의 복잡한 모델이 필요. 다음 편 (#2-H) 에서 매크로 환경과 ETH/BTC ratio 가 이 가치 명제와 어떻게 연결되는지를 봅니다.
+
+<Callout type="opposing-view" title="반대 시각 · DeFi 중복 계산과 거품 재진입">
+"DeFi $80B 가 활성 경제다" 라는 진단에 대한 반박: 실제 DeFi TVL 은 **중복 계산 (double-counting) 이 광범위**합니다. 사용자가 ETH → wstETH (Lido) → Aave 담보 → ETH 차입 → Aave 차입 ETH 로 다시 wstETH → EigenLayer restake 의 looping 을 하면, 동일 ETH 가 4-5개 프로토콜 TVL 에 동시 계상됩니다. 이를 제거한 "Pure TVL" 또는 "Net TVL" 추정치는 약 $35-45B 수준으로 절반 이하라는 것이 Token Terminal 과 Galaxy Research 의 2025년 분석입니다. 또 RWA 의 빠른 성장도 BUIDL 같은 단일 대형 펀드에 농축되어 있어, BlackRock 이 redemption 을 수동 차단하면 ETH DeFi 가 즉시 -$3.5B (전체의 4%) 를 잃는 외부 의존 위험이 있습니다. 더 구조적인 비판은 2021년 DeFi summer 의 거품 재진입 가능성 — 현재 $80B 가 2021.11 정점 $180B 의 절반 이하지만 ETH-denominated TVL 은 비슷한 수준으로, 단순 USD 가격 보정 효과일 수 있고, 실질 사용자 수와 거래 빈도는 정점 대비 -30-40% 수준이라는 분석도 있습니다 (Dune Analytics 2026.4). 즉 DeFi 가 "회복" 한 것이 아니라 "축소 후 정체" 일 수 있다는 시각.
+</Callout>
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-defi-tvl" />

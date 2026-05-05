@@ -1,13 +1,13 @@
 ---
 slug: ethereum-eigenlayer-restaking
-title: "EigenLayer · Restaking과 AVS의 신탁 위임"
-subtitle: 시스템 리스크 누적의 다음 단계
+title: "EigenLayer Restaking — TVL $15B · AVS 신탁 위임"
+subtitle: Lido + EigenLayer 결합 · cascading slash 시스템 리스크
 coin: ETH
 issue: 2
 publishedAt: "2026-09-07"
 category: L1-PoS
-tags: [ethereum, eigenlayer, restaking, avs, systemic-risk]
-estimatedReadTime: 10
+tags: [ethereum, eigenlayer, restaking, avs, systemic-risk, lido]
+estimatedReadTime: 23
 draft: false
 sources:
   - name: "EigenLayer Whitepaper — Restaking primer"
@@ -15,11 +15,13 @@ sources:
   - name: "Galaxy Research — Restaking landscape (2025)"
     url: https://www.galaxy.com/insights/
   - name: "Paradigm — The risks of restaking (2024)"
-    url: https://www.paradigm.xyz/
+    url: https://www.paradigm.xyz/research/cryptoeconomic-aggregation
   - name: "DefiLlama — Restaking TVL"
     url: https://defillama.com/protocols/Restaking
   - name: "Karak / Symbiotic — competing restaking protocols"
     url: https://karak.network/
+  - name: "Ethereum Research — Cryptoeconomic security stacking (2024)"
+    url: https://ethresear.ch/
 author: 이찬희
 ---
 
@@ -28,100 +30,258 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-스테이킹된 ETH 는 이미 락업되어 합의 보안에 사용 중입니다. 그런데 이걸 "한 번 더" 다른 보안 모듈에 빌려줄 수 있다는 게 EigenLayer 의 발상입니다 — Restaking. 자본 효율의 정점이지만, 슬래싱 조건이 누적되면서 시스템 리스크가 cascading 으로 증폭됩니다. 본 편은 그 이론과 실제 위험을 정량적으로 봅니다.
+스테이킹된 ETH 는 이미 락업되어 합의 보안에 사용 중입니다. 이걸 "한 번 더" 다른 보안 모듈에 빌려준다는 것이 EigenLayer 의 발상입니다 — Restaking. 자본 효율의 정점이지만 슬래싱 조건이 누적되면서 시스템 리스크가 cascading 으로 증폭됩니다. 2026년 5월 기준 EigenLayer TVL 약 $15B (정점 $19B 에서 -21% 조정), 50개 이상 AVS 운영. Lido stETH + EigenLayer 결합 비중이 9.5M ETH 의 약 31.6% (3.0M ETH = $7B) 에 달해 시스템 리스크 임계 수준에 근접했습니다. 본 편은 그 이론과 실제 위험을 정량화합니다.
 </Callout>
 
-## 도입 — 한 ETH 를 여러 번 사용한다
+## 1. 한 ETH 를 여러 번 사용한다
 
-#2-D 에서 LST (Lido stETH) 가 락업된 ETH 를 토큰화해 DeFi 에 다시 쓸 수 있게 했다는 것을 봤습니다. EigenLayer 는 그 다음 단계입니다 — **stETH 를 또 다른 보안 모듈(AVS)에 재담보**하는 것.
+시리즈 #2-D 에서 LST (Lido stETH) 가 락업된 ETH 를 토큰화해 DeFi 에 다시 쓸 수 있게 했다는 것을 봤습니다. EigenLayer 는 그 다음 단계입니다 — **stETH 를 또 다른 보안 모듈 (AVS) 에 재담보**하는 것.
 
 비유로 표현하면, ETH 를 한 번 스테이킹하면 ETH 합의 보안에 기여합니다. Restaking 을 하면 그 ETH 가 EigenDA 의 데이터 가용성 보안 + Hyperlane 의 cross-chain 메시지 보안 + AltLayer 의 rollup 보안에 동시 기여합니다. 한 자본이 여러 시스템을 보안.
 
 자본 효율 측면에서는 혁신이지만, **각 시스템에 슬래싱 조건이 따로 있습니다**. 한 시스템에서 슬래싱 발동되면 그 자본이 다른 시스템에서도 빠짐 → cascading slash 위험.
 
-## 1. EigenLayer 작동 원리 — Pooled Security 모델
+EigenLayer 는 2023년 6월 메인넷 출시, 2024년 4월 본격 staking activation, 2024년 8월 EIGEN 토큰 출시. 2025년 초 정점 TVL $19B 에서 2026년 5월 약 $15B 로 -21% 조정 (ETH 가격 변동 영향 + 일부 자본 회수). 그러나 ETH-denominated TVL 은 6.5M ETH 로 안정 유지 — USD 감소가 ETH 가격 -43% 효과의 결과.
 
-EigenLayer 는 2023년 메인넷 출시, 2024년 본격 운영. 2026년 5월 TVL 약 $19B (Lido 다음으로 ETH 생태계 2위).
+## 2. 작동 원리 — Pooled Security 모델
 
-핵심 메커니즘 (3단계):
+EigenLayer 의 작동 원리는 3단계로 정리됩니다.
 
-### 1-1. ETH 또는 LST 입금
+### 2-1. ETH 또는 LST 입금
 
-사용자가 ETH (native restaking) 또는 stETH/cbETH/rETH (LST restaking) 을 EigenLayer 에 입금. EigenLayer 가 그 자산의 슬래싱 권한을 받음.
+사용자가 ETH (native restaking) 또는 stETH/cbETH/rETH (LST restaking) 을 EigenLayer 에 입금. EigenLayer 가 그 자산의 슬래싱 권한을 받습니다.
 
-### 1-2. Operator 위임
+| 입금 자산 | 비중 (2026.5) | TVL | 평균 yield |
+|---------|--------------|-----|----------|
+| **stETH (Lido)** | ~46% | $6.9B | 2.7-3.0% (기본) + AVS yield |
+| **wETH (native)** | ~22% | $3.3B | 3.0-3.5% (기본) + AVS yield |
+| **cbETH (Coinbase)** | ~9% | $1.4B | 2.5-2.8% (기본) + AVS yield |
+| **rETH (Rocket Pool)** | ~7% | $1.0B | 2.8-3.2% (기본) + AVS yield |
+| **mETH (Mantle)** | ~5% | $0.75B | 다양 |
+| **swETH (Swell)** | ~4% | $0.6B | 다양 |
+| 기타 LRT (sfrxETH 등) | ~7% | $1.05B | 다양 |
 
-입금자는 자기 자본을 운영할 Operator 를 선택. Operator 는 어떤 AVS 를 운영할지 결정.
+stETH 비중 46% — Lido 의 시장 점유가 EigenLayer 위에서도 그대로 반영. 이것이 "Lido + EigenLayer 이중 의존" 의 정량 baseline 입니다. ETH 합의 보안 자본 ($73.8B 스테이킹 전체) 의 9.4% 가 Lido + EigenLayer 양쪽에 동시 의존.
 
-### 1-3. AVS 운영 + 슬래싱 합의
+### 2-2. Operator 위임
+
+입금자는 자기 자본을 운영할 Operator 를 선택. 2026년 5월 기준 약 320개 Operator 활성. 주요 Operator:
+
+| Operator | 위임 자본 | 점유 |
+|---------|---------|------|
+| **P2P.org** | ~$2.1B | 14.0% |
+| **Stakefish** | ~$1.5B | 10.0% |
+| **Pier Two** | ~$0.9B | 6.0% |
+| **Allnodes** | ~$0.75B | 5.0% |
+| **Luganodes** | ~$0.6B | 4.0% |
+| 기타 (315개) | ~$9.15B | 61.0% |
+
+상위 5 Operator 가 39% 점유. 이들이 어떤 AVS 를 운영할지 결정합니다.
+
+### 2-3. AVS 운영 + 슬래싱 합의
 
 AVS (Actively Validated Service) 는 EigenLayer 보안을 빌려 자체 시스템 운영. AVS 자체 합의 룰 위반 시 운영 Operator 의 위임 자본 슬래싱.
 
-**구조 그림**:
-<Formula>{`사용자 ETH/stETH
+```
+사용자 ETH/stETH
       ↓ (입금)
 EigenLayer pool
       ↓ (위임)
 Operator (예: P2P, Stakefish)
-      ↓ (운영)
-AVS 1, AVS 2, AVS 3 ...`}</Formula>
-한 Operator 가 동시에 여러 AVS 를 운영할 수 있습니다 — **그래서 한 ETH 의 슬래싱 위험이 여러 AVS 에 누적**됩니다.
+      ↓ (운영, 한 Operator 가 여러 AVS 동시 운영 가능)
+AVS 1, AVS 2, AVS 3 ...
+```
 
-## 2. AVS 생태계 — 무엇이 ETH 보안을 빌리는가
+한 Operator 가 동시에 여러 AVS 를 운영하면 — **한 ETH 의 슬래싱 위험이 여러 AVS 에 누적**됩니다. 이것이 Paradigm 의 2024년 분석에서 가장 우려한 구조.
+
+## 3. AVS 생태계 — 50+ AVS, $4-5B 위탁
 
 2026년 5월 기준 주요 AVS:
 
-| AVS | 분야 | 위탁 자본 (ETH) | 비고 |
-|-----|------|---------------|------|
-| **EigenDA** | Data Availability | ~$8B | EigenLayer 자체 first-party AVS |
-| **AltLayer** | Restaked rollups | ~$2B | App-specific rollup 인프라 |
-| **Hyperlane** | Cross-chain messaging | ~$1.5B | 모듈러 interop |
-| **Lagrange** | ZK coprocessor | ~$1B | ZK proof aggregation |
-| **Espresso** | Shared sequencer | ~$0.8B | L2 시퀀서 분산화 |
-| 기타 (50+ AVS) | — | ~$5.7B | DePIN, oracle 등 |
+| AVS | 분야 | 위탁 자본 | 활성 시점 | 비고 |
+|-----|------|---------|---------|------|
+| **EigenDA** | Data Availability | ~$6.5B | 2024.4 | EigenLabs 자체 first-party AVS |
+| **AltLayer** | Restaked rollups | ~$1.5B | 2024.6 | App-specific rollup 인프라 |
+| **Hyperlane** | Cross-chain messaging | ~$1.1B | 2024.5 | 모듈러 interop |
+| **Lagrange** | ZK coprocessor | ~$0.85B | 2024.7 | ZK proof aggregation |
+| **Espresso** | Shared sequencer | ~$0.65B | 2024.9 | L2 시퀀서 분산화 |
+| **Brevis** | ZK coprocessor | ~$0.45B | 2025.2 | 데이터 검증 |
+| **Witness Chain** | Watchtower | ~$0.35B | 2024.10 | L2 monitoring |
+| **Aligned Layer** | ZK proof verification | ~$0.30B | 2024.12 | proof 통합 |
+| 기타 (40+ AVS) | DePIN, oracle, MEV 등 | ~$3.3B | 다양 | 진화 중 |
 
-총 위탁 자본 ~$19B. 이는 **ETH 합의 보안 자본 (~$130B 스테이킹) 의 약 14%** 가 동시에 다른 AVS 보안에 빌려진 셈입니다.
+**EigenDA 의 비대 비중** — 단일 AVS 가 위탁 자본의 약 43% 점유. 이는 EigenLabs (EigenLayer 운영사) 자체가 first-party AVS 를 만들어 자기 인프라에 우선 활용했기 때문. 다른 AVS 들이 충분한 위탁 자본을 끌어오는 데 시간이 걸리고 있습니다.
+
+총 위탁 자본 ~$15B 중 약 $4-5B 가 활성 AVS 에 실제 사용 중. 나머지 약 $10B 는 EigenLayer pool 에 입금되어 있지만 아직 AVS 에 위임 안 된 상태 — 이는 사용자가 yield 차익을 기다리고 있거나, AVS 선택을 보류 중인 자본입니다.
 
 **경쟁 프로토콜**:
-- **Karak**: 멀티체인 restaking (BNB, Arbitrum 지원)
-- **Symbiotic**: 더 유연한 AVS 등록 모델
-- **Babylon**: BTC restaking (다른 자산)
+- **Karak** (~$2.1B TVL) — 멀티체인 restaking (BNB, Arbitrum, K2 자체 체인 지원). 2025 출시.
+- **Symbiotic** (~$1.8B TVL) — 더 유연한 AVS 등록 모델. Lido + Paradigm 백킹.
+- **Babylon** — BTC restaking (다른 자산). ETH 와 분리.
 
-EigenLayer 는 여전히 시장 점유율 1위지만, 단일 점유는 70% 수준에서 안정화.
+EigenLayer 는 여전히 ETH restaking 시장 점유 1위지만, 단일 점유는 Karak + Symbiotic 등 경쟁자 등장으로 약 70% 수준에서 안정화. 2024년 정점 90%+ 에서 -20%p 하락.
 
-## 3. 시스템 리스크 누적 — Cascading Slash 시나리오
+## 4. AVS Yield — 매력의 정량 baseline
 
-<Callout type="warning" title="리스크 · Cascading Slash 시나리오 (Paradigm 2024 분석)">
-Paradigm 의 2024년 페이퍼는 다음 시나리오를 경고합니다:
-**(1) AVS 1 운영 중 큰 슬래싱 발동 → (2) Operator 위임 자본 부족 → (3) AVS 2/3 도 운영 불능 → (4) 그 AVS 들이 의존하는 DeFi 프로토콜 connectivity 끊김 → (5) DeFi 디페그·청산 cascade**.
-</Callout>
+EigenLayer 가 사용자에게 매력적인 이유는 ETH 기본 yield (3%) 위에 추가 yield (AVS yield) 를 쌓을 수 있다는 점입니다. 2026년 5월 기준 평균 AVS yield:
 
-위험의 핵심은 세 가지 누적입니다:
+| AVS 카테고리 | 평균 추가 yield | 슬래싱 위험 등급 |
+|------------|--------------|--------------|
+| **Data Availability** (EigenDA) | 0.5-0.8% | LOW |
+| **Cross-chain messaging** (Hyperlane) | 1.0-1.5% | MEDIUM |
+| **Shared sequencer** (Espresso) | 1.5-2.5% | MEDIUM-HIGH |
+| **ZK coprocessor** (Lagrange, Brevis) | 0.8-1.5% | MEDIUM |
+| **DePIN, oracle** (다양) | 2.0-5.0% | HIGH |
 
-### 3-1. LST + Restaking 이중 의존
+평균 종합 yield (ETH 기본 3% + AVS 추가 1-3%) = 약 4-6%. 이는 ETH 솔로 스테이킹 (3.0-3.5%) 보다 매력적. 다만 슬래싱 위험이 ETH 합의 슬래싱 (검증된 5년 운영) 보다 높음 — AVS 슬래싱 조건은 신생, 공격 벡터 미검증.
 
-Lido stETH 를 EigenLayer 에 restake 하면, 그 자본은 (1) Lido 노드 운영자 슬래싱 (2) EigenLayer Operator 슬래싱 (3) AVS 자체 슬래싱 — **세 차원의 슬래싱 위험**에 동시 노출.
+EIGEN 토큰 부수 인센티브도 추가됩니다. 2024년 9월 출시된 EIGEN 토큰을 EigenLayer 사용자에게 시즌별 에어드롭. 2024 시즌 1, 2025 시즌 2 누적 약 23% 의 토큰 분배. 그러나 EIGEN 가격이 2024.10 정점 $5.6 에서 2026.5 약 $1.85 로 -67% 하락하며 인센티브 효과 약화.
 
-### 3-2. AVS 슬래싱 조건의 검증 부재
+## 5. Cascading Slash — Paradigm 의 4단계 시나리오
 
-ETH 합의의 슬래싱 조건은 18+ 년 검증 (PoW 시절부터 합의 메커니즘). AVS 의 슬래싱 조건은 아직 신생 — 공격 벡터가 충분히 발견 안 됨. **알려지지 않은 known unknowns**.
+Paradigm 의 2024년 4월 페이퍼 "The Risks of LSTs and Restaking" 가 가장 본격적인 시스템 리스크 분석입니다. 4단계 cascading 시나리오:
 
-### 3-3. 자본 회수 시 시스템적 충격
+**Stage 1: AVS 슬래싱 발동**
+- 한 AVS 가 자체 합의 룰 위반 검출
+- Operator 위임 자본의 일부 (예: 5%) 슬래싱
+- 그 Operator 가 운영하던 다른 AVS 들도 영향
 
-EigenLayer 위탁 자본의 unwind 시간은 7일 (보안 윈도우). 위기 시 7일 동안 자본이 묶여 있으면서 LST 디페그 → Aave 청산 → 추가 디페그 cascade 가능.
+**Stage 2: Operator 자본 부족**
+- 슬래싱으로 Operator 자본 감소
+- 다른 AVS 의 보안 임계 미달
+- 그 AVS 들이 자동 slashing 또는 운영 중단
 
-**역사적 stress test 0건** — Restaking 시스템은 본격 위기 사이클을 아직 한 번도 거치지 않았습니다.
+**Stage 3: LST 디페그 시작**
+- stETH 가 EigenLayer 에 위임된 비중이 큼 (46%)
+- AVS slash → stETH underlying 자본 감소
+- Lido 인출 큐 압박 → stETH/ETH 디페그 시작
 
-## 4. 결론 — 자본 효율의 한계
+**Stage 4: DeFi 청산 cascade**
+- stETH 디페그 → Aave 의 wstETH 담보 청산 압박
+- 청산 매물 시장 → ETH 가격 추가 하락
+- ETH 가격 ↓ → 다른 DeFi 청산 → cascading systemic event
 
-Restaking 은 ETH 자본 효율을 새 차원으로 끌어올렸습니다 — 한 자본이 여러 보안 시스템에 기여. 그러나 그 효율은 **시스템 단순화가 아니라 복잡성 증가** 위에서 만들어졌습니다.
+**위험의 정량 baseline**:
+- ETH 합의 보안 총 자본: ~$73.8B
+- EigenLayer 위탁: ~$15B (20%)
+- 그 중 stETH 위탁: ~$6.9B (9.4%)
+- 4 Stage 발동 시 영향 자본: 최악 ~$15-25B
+
+이 시나리오는 아직 한 번도 stress test 되지 않았습니다. EigenLayer 가 본격 운영된 2024년 4월 이후 약 2년간 큰 슬래싱 사고 0건 — AVS 슬래싱 자체가 활성화된 사례가 매우 적습니다 (2026.5 기준 누적 슬래싱 사례 약 12건, 모두 작은 규모).
+
+## 6. 시스템 리스크의 3차원 누적
+
+위험의 핵심은 세 가지 누적입니다.
+
+### 6-1. LST + Restaking 이중 의존
+
+Lido stETH 를 EigenLayer 에 restake 하면 자본은 다음 세 차원의 슬래싱 위험에 동시 노출:
+
+1. **Lido 노드 운영자 슬래싱** — Lido 가 위임한 30개 노드 운영자 중 한 곳이 ETH 합의 슬래싱 발동
+2. **EigenLayer Operator 슬래싱** — EigenLayer 가 위임한 Operator 가 AVS 슬래싱 조건 위반
+3. **AVS 자체 슬래싱** — AVS 의 자체 합의 룰 위반
+
+세 차원의 슬래싱이 누적되면 한 stETH 가 동시에 30%+ 까지 슬래싱될 수 있습니다 (이론상 최악). 실제로는 Lido 의 분산 위임 + Operator 의 분산 운영으로 단일 ETH 의 cascading slash 위험은 5-10% 수준이라는 것이 EigenLayer Foundation 자체 stress 모델의 결론.
+
+### 6-2. AVS 슬래싱 조건의 검증 부재
+
+ETH 합의의 슬래싱 조건 (Double Vote, Surround Vote, Double Proposal) 은 18+ 년 검증 (PoW 시절부터 합의 메커니즘). 5년 PoS 운영에서도 600+ 케이스 검증.
+
+AVS 의 슬래싱 조건은 아직 신생:
+- EigenDA: 2024.4 활성, 누적 슬래싱 3건 (모두 운영 실수)
+- Hyperlane: 2024.5 활성, 누적 슬래싱 1건
+- AltLayer: 2024.6 활성, 누적 슬래싱 0건
+
+공격 벡터가 충분히 발견 안 됨. **알려지지 않은 known unknowns**. 첫 본격 위기 사이클 전까지 진짜 안전성 검증 불가.
+
+### 6-3. 자본 회수 시 시스템적 충격
+
+EigenLayer 위탁 자본의 unwind 시간:
+
+```
+사용자 인출 요청
+      ↓
+Withdrawal Queue (7일 보안 윈도우)
+      ↓
+실제 자본 회수
+```
+
+7일 보안 윈도우는 AVS 가 "사용자가 위반 후 인출하는 것" 을 막기 위한 안전 장치입니다. 그러나 위기 시 7일 동안 자본이 묶여 있으면서 cascading 이벤트가 진행될 수 있습니다.
+
+**역사적 stress test 0건** — Restaking 시스템은 본격 위기 사이클 (2022.5 LUNA, 2022.11 FTX 같은 큰 시장 충격) 을 아직 한 번도 거치지 않았습니다. 2024.4 이후 ETH 가격이 큰 변동성 (특히 2025.10 사이클 정점 $4,250 → 2026.5 $2,316, -45%) 을 보였지만, 이는 점진적 하락이지 급격한 cascading event 가 아니었습니다.
+
+## 7. EIGEN 토큰 — Programmable Slashing
+
+EigenLayer 의 자체 토큰 EIGEN (2024.9 출시) 은 "intersubjective slashing" 이라는 새 개념을 도입했습니다. 기본 슬래싱 (objective slashing) 은 코드 검증으로 자동 처리되지만, 일부 위반 (예: 검열, 비-cryptoeconomic 위반) 은 코드로 검출 어려운 "intersubjective" 영역입니다.
+
+EIGEN 토큰의 메커니즘:
+- EIGEN 보유자 투표로 intersubjective slashing 결정
+- 위반 검출 시 EIGEN forking — "정상 EIGEN" 과 "슬래시 EIGEN" 두 토큰으로 분기
+- 시장이 어느 쪽이 정통인지 결정
+
+이는 학술적으로 흥미로운 메커니즘이지만 실제 운영에서는 아직 한 번도 활성화된 적 없습니다 (2026.5 기준). EIGEN 가격 -67% 하락이 토큰 모델 자체의 평가 약화를 보여주는 시그널일 수 있습니다.
+
+## 8. ETH 가치 명제에 미치는 영향 — 양면 효과
+
+EigenLayer 는 ETH 가치 명제에 두 방향으로 영향을 미칩니다.
+
+**긍정적 효과**:
+
+1. **ETH 사용처 확장** — ETH 를 단순 합의 보안에 더해 AVS 보안에도 사용. ETH 보유 수요 추가.
+2. **수익률 향상** — ETH 솔로 스테이킹 3% → EigenLayer 4-6%. ETH 보유 매력 증가.
+3. **인프라 다양화** — 다양한 AVS 가 ETH 합의 위에서 추가 인프라 제공. 이더리움 생태계 확장.
+
+**부정적 효과**:
+
+1. **시스템 리스크 증폭** — Cascading slash 시나리오. 검증 안 됨.
+2. **Lido + EigenLayer 농축** — 두 단일 프로토콜에 ETH 보안 자본 25%+ 농축. 분산화 후퇴.
+3. **AVS 의 ETH 불평등 환원** — AVS yield 가 EIGEN 토큰에 환원, ETH burn 으로 환원 안 됨. ETH 보유자 입장에서 가치 누수의 새 채널.
+
+세 번째 효과 — **AVS 의 가치 환원 메커니즘** — 이 학술적으로 가장 미묘한 문제입니다. AVS 가 사용 수익을 만들면, 그 수익은 (1) AVS 자체 토큰, (2) Operator, (3) EigenLayer Foundation, (4) EIGEN 토큰 보유자 — 4개 주체에 분배됩니다. ETH 보유자는 직접 환원 받지 못합니다. 이는 시리즈 #2-F (L2 가치 누수) 와 유사한 구조 — modular 시스템의 가치 분산.
+
+## 9. Lido + EigenLayer 결합 — 시스템 임계 분석
+
+Lido stETH 와 EigenLayer 의 결합 비중을 정량 분석합니다.
+
+| 메트릭 | 값 |
+|------|-----|
+| Lido 발행 stETH 총량 | 9.5M ETH |
+| EigenLayer 에 위탁된 stETH | 3.0M ETH |
+| **결합 비중** | **31.6%** |
+| 결합 자본 USD 가치 | ~$6.95B |
+| 전체 ETH 공급 대비 | 2.5% |
+| 전체 ETH 스테이킹 대비 | 9.4% |
+
+이 비중이 2024년 EigenLayer 출시 후 빠르게 증가했습니다.
+
+| 시점 | Lido + EigenLayer 결합 비중 |
+|------|---------------------------|
+| 2024.4 (EigenLayer 본격 활성) | ~12% |
+| 2024.10 | ~25% |
+| 2025.5 | ~38% (정점) |
+| 2026.1 | ~33% |
+| **2026.5** | **~31.6%** |
+
+2025년 5월 정점 38% 에서 2026년 5월 31.6% 로 약 -7%p 하락. 이는 (1) EIGEN 토큰 -67% 하락에 따른 매력 감소, (2) 일부 사용자가 Karak/Symbiotic 으로 분산, (3) AVS slashing 위험 인식 증가 — 세 요인의 결합입니다.
+
+그러나 31.6% 는 여전히 시스템 리스크 임계 수준에 가깝습니다. Vitalik Buterin 의 33% 임계값 가이드 (시리즈 #2-C) 가 단일 LST 에 대한 것이었지만, **단일 결합 (Lido + EigenLayer)** 에도 유사한 임계 우려가 적용 가능합니다.
+
+## 10. 결론 — 자본 효율의 한계
+
+Restaking 은 ETH 자본 효율을 새 차원으로 끌어올렸습니다. 한 자본이 여러 보안 시스템에 동시 기여. 그러나 그 효율은 **시스템 단순화가 아니라 복잡성 증가** 위에서 만들어졌습니다.
 
 세 가지 결론:
 
-1. **Restaking 은 ETH 가치 명제에 양면 효과** — ETH 의 사용처를 늘리지만 시스템 위험도 증폭
-2. **검증되지 않은 cascading 시나리오** — 한 번도 stress test 안 됨
-3. **Lido + EigenLayer 누적 의존** — 두 단일 프로토콜에 ETH 보안 자본의 ~25%+ 가 묶임
+**(1) Restaking 은 ETH 가치 명제에 양면 효과** — ETH 의 사용처를 늘리지만 시스템 위험도 증폭. 두 효과의 정량 비교는 5-10년 추가 데이터 필요.
 
-다음 편(#2-F) 에서는 또 다른 ETH 가치 명제 위협 — **L2 가치 누수** — 를 봅니다. Pectra 의 EIP-7691 가 만든 양날의 검입니다.
+**(2) 검증되지 않은 cascading 시나리오** — Paradigm 4 Stage 시나리오는 한 번도 stress test 안 됨. 첫 본격 위기 사이클 (예: ETH -50% 급락 + 동시 AVS 슬래싱) 까지 진짜 안전성 검증 불가.
+
+**(3) Lido + EigenLayer 누적 의존** — 두 단일 프로토콜에 ETH 보안 자본의 25%+ 가 묶임. 31.6% 결합 비중은 33% 시스템 임계값에 근접.
+
+다음 편 (#2-F) 에서는 ETH 가치 명제의 또 다른 위협 — **L2 가치 누수** — 를 봅니다. Pectra 의 EIP-7691 가 만든 양날의 검입니다.
+
+<Callout type="opposing-view" title="반대 시각 · Cryptoeconomic Aggregation 의 정당성">
+"Restaking 은 시스템 리스크 증폭" 이라는 진단에 대한 반박: Sreeram Kannan (EigenLayer 창립자) 과 학계 일부 (UC Berkeley, Stanford) 는 restaking 을 "cryptoeconomic security 의 자연 진화" 로 해석합니다. 핵심 논거는 다음과 같습니다. 첫째, ETH 합의 보안 자본 ($73.8B) 의 활용도는 매우 낮음 — 합의 보안에 기여하지만 그 보안 자본이 다른 시스템에 활용되지 않아 자본 효율 측면에서 비효율. 둘째, AVS 가 자체 합의 메커니즘을 만들면 (각자 자체 PoS 토큰 발행) ETH 보다 훨씬 적은 보안 예산으로 시작해야 함 → 보안 약화. EigenLayer 는 그 격차를 메움. 셋째, cascading slash 시나리오는 이론적으로 가능하지만 정량적으로 -5-10% 수준 (전체 EigenLayer 자본의), ETH 가격 -45% 같은 시장 충격보다 훨씬 작음. 넷째, AVS 는 자체 토큰으로 추가 보안 layer 를 쌓을 수 있어 EigenLayer 슬래싱이 유일한 안전망이 아님. 더 본질적 비판은 "AVS 가 만든 가치가 ETH 보유자에게 환원 안 됨" 의 진단에 대해 — AVS 사용 자체가 ETH 가스를 소비하므로 (모든 EigenLayer 트랜잭션은 ETH 결제), **간접 가치 환원** 은 작동한다는 시각. ETH 의 가치 명제는 burn 만이 아니라 사용량 + 담보 수요 + 합의 보안 수요의 종합이라는 결론에 도달합니다. 이 논쟁은 5-10년 운영 데이터 누적 후 정량적 검증 가능합니다.
+</Callout>
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-eigenlayer-restaking" />

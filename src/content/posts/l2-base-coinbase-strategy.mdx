@@ -3,11 +3,11 @@ slug: l2-base-coinbase-strategy
 coin: NONE
 issue: 0
 title: "Base — Coinbase L2 전략과 토큰 부재 모델"
-subtitle: Coinbase 통합 · 토큰 부재 · OP Stack · 사용자 1억 (L2 시리즈 #L2)
+subtitle: Coinbase 통합 · 토큰 부재 · OP Stack · TVL $14B (L2 시리즈 #L2)
 publishedAt: "2026-05-04"
 category: L2
 tags: [base, coinbase, l2, optimism, op-stack]
-estimatedReadTime: 13
+estimatedReadTime: 24
 draft: false
 author: 이찬희
 sources:
@@ -24,171 +24,153 @@ sources:
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Coinbase 가 만든 L2 "Base" — "가상자산 + 빅테크 결합" 의 가장 큰 학술 사례. 그리고 — 토큰 없이도 L2 가 작동하는지를 증명한 첫 사례. 그 학술적 의미.
+Coinbase 가 만든 L2 Base 의 사업 구조와 시장 위치. NASDAQ 상장 거래소가 자체 L2 를 운영하는 의미, 1억 명 사용자 베이스를 OP Stack 위로 옮긴 메커니즘, 그리고 자체 토큰 없이 가스 수익만으로 작동하는 monetization 구조를 정리한다.
 </Callout>
 
 <L2TVLChart />
 
-## 도입 — "빅테크의 L2 진출"
+## 도입 — 거래소가 자기 L2 를 만든다는 결정
 
-자, Base 강의를 시작합시다. 이 L2 는 — 다른 L2 와 결정적으로 다릅니다. **Coinbase 가 운영하는 L2** 거든요.
+Base 의 흥미로운 점은 운영 주체가 거래소라는 사실이다. 2023년 8월 메인넷 출범 당시 시장은 두 가지 반응을 동시에 보였다. 한쪽은 "Coinbase 의 사용자 베이스가 그대로 온체인으로 옮겨오면 L2 시장 판도가 바뀐다" 였고, 다른 한쪽은 "거래소가 직접 L2 를 운영하면 중앙화 리스크가 한 회사에 집중된다" 였다. 출범 약 1년 9개월이 지난 2026년 5월 현재 두 반응 모두 부분적으로 맞았다는 결론에 가까워지고 있다.
 
-전통 L2 (Arbitrum, Optimism, zkSync) 가 — "독립 가상자산 회사" 가 운영하는 인프라라면, Base 는 — 미국 최대 가상자산 거래소이자 NASDAQ 상장 기업 Coinbase 가 운영하는 L2. 이게 학술적으로 매우 흥미로운 "빅테크 + 가상자산 결합" 사례입니다.
+TVL 기준으로 Base 는 약 $14B. Arbitrum ($18B) 다음으로 큰 L2 다. zkSync Era, StarkNet, Linea, Polygon zkEVM 같은 ZK Rollup 진영을 모두 합친 것보다 단일 체인이 더 크다. 이 규모는 Coinbase 의 사용자 베이스가 실제로 Base 로 이동했다는 정량 증거다. 동시에 Sequencer, RPC, 거버넌스가 모두 Coinbase 단독 운영이라는 점에서 분산성 비판도 그대로 유지된다.
 
-Base 의 출범 (2023년 8월) 이후 — 빠른 시간 안에 사용자 1억 명 + TVL $5B+ 달성. L2 시장의 가장 큰 사례 중 하나가 됐어요.
+Base 의 의미를 평가하려면 세 가지 축을 분리해서 봐야 한다. 첫째는 Coinbase 라는 NASDAQ 상장 거래소의 사업 전략. 둘째는 OP Stack 이라는 오픈소스 인프라 선택. 셋째는 자체 토큰 없이 작동하는 monetization 구조다. 이 세 축이 결합돼 다른 L2 와 다른 카테고리를 만들었다.
 
-오늘은 — Base 의 학술적 의미, 그리고 "토큰 부재 모델" 의 의미를 깊이 봅니다.
+## 1. Coinbase 의 사업 전략
 
-## 1. Base 의 출발 — "Coinbase 의 전략"
+### 1-1. 상장 거래소의 다각화 압력
 
-### 1-1. 왜 Coinbase 가 L2 를 만들었는가
+Coinbase 는 2021년 4월 NASDAQ 직상장 이후 매출 구조가 거래 수수료에 과도하게 의존한다는 지적을 계속 받았다. 2022~2023년 약세장에서 거래량이 급감하면서 분기 매출이 절반 가까이 줄어든 분기도 있었다. 2023년 1분기 매출 $773M 중 거래 수수료 비중이 약 56%, 나머지가 USDC 보관 수익, 구독 서비스, 기타 항목이었다. 시장은 이 구조를 약점으로 봤다. 거래량이 가상자산 가격 사이클에 직결되는데, 가격이 하락하면 거래량도 함께 하락하기 때문이다.
 
-Coinbase 가 — 자체 L2 를 만든 이유:
-- **사용자 락인** — Coinbase 사용자 1억+ 명이 — Base 위에서 직접 활동
-- **수익 다각화** — 거래 수수료 + L2 sequencer 수익
-- **온체인 활동 진출** — DeFi, NFT 등 온체인 사업 직접 참여
-- **이더리움 친화** — 자체 L1 X, Ethereum 친화
+이 압력 위에서 Coinbase 가 선택한 다각화 방향이 세 가지였다. 첫째가 USDC 발행사 Circle 과의 매출 분담을 통한 안정 수익 확보. 둘째가 Coinbase Prime 같은 기관 보관 서비스. 셋째가 Base 였다. Base 는 거래 수수료 외 새로운 수익원이다. 사용자가 Base 위에서 트랜잭션을 발생시키면 Coinbase 가 운영하는 Sequencer 가 가스비 일부를 수익으로 가져간다. L2Beat 데이터를 기준으로 Base 의 Sequencer 수익은 출범 후 누적 $100M 이상으로 추정된다.
 
-이게 — "빅테크의 L2 통합 전략" 의 표준 사례.
+### 1-2. 1억 명 사용자 베이스의 활용
 
-### 1-2. OP Stack 채택
+Coinbase 의 검증된 사용자 (KYC 완료) 는 약 1억 명, 활성 사용자는 분기 약 800만~1,200만 명 수준이다. 이 사용자 베이스가 Base 의 가장 큰 경쟁 우위다. 다른 L2 는 사용자를 새로 모아야 한다. Arbitrum 도 Optimism 도 zkSync Era 도 마찬가지였다. Base 는 Coinbase 거래소 앱 안에 "Base 진입 버튼" 을 넣는 것만으로 잠재 사용자를 1억 명 단위로 확보했다.
 
-Base 가 — "OP Stack" (Optimism 의 오픈소스 스택) 으로 구축. 이게 학술적으로 중요한 결정입니다.
+이 채널을 monetize 하는 첫 번째 단계가 자체 보관형 지갑인 Coinbase Wallet 의 Base 통합이었다. 2023년 8월 Base 출범과 동시에 Coinbase Wallet 이 Base 를 기본 네트워크로 등록했다. 사용자는 별도 RPC 설정 없이 Base 에서 트랜잭션을 발생시킬 수 있다. 두 번째 단계가 Coinbase 거래소 앱 자체에서 Base 자산을 직접 매수 · 매도할 수 있게 한 것이다. 사용자는 USDC 를 Coinbase 에서 매수한 후 한 번의 클릭으로 Base 로 옮길 수 있다.
 
-OP Stack 채택의 의미:
-- 자체 인프라 개발 X
-- Optimism 과 같은 framework + 호환성
-- "Superchain" (#L3 참조) 에 참여
+### 1-3. SEC 와의 분쟁 영향
 
-Base + Optimism + OP Stack 의 조합이 — L2 시장의 "공유 인프라 framework" 가 됐습니다.
+Coinbase 는 2023년 6월 SEC 로부터 미등록 증권 거래소 운영 혐의로 제소당했다. 이 분쟁은 2024년 7월 SEC 가 일부 청구를 철회하며 부분적으로 정리됐고, 2025년 트럼프 행정부 이후 SEC 의 가상자산 규제 방침이 완화되면서 Coinbase 에 우호적인 방향으로 결론났다. 그러나 Base 는 이 분쟁 시기 동안에도 운영이 중단되지 않았다. SEC 의 청구가 거래소의 토큰 상장 행위에 집중됐고, L2 운영은 별개 사업으로 분리돼 있었기 때문이다.
 
-## 2. Base 의 시장 위상
+이 사건은 거래소 사업의 규제 리스크와 L2 운영의 규제 리스크가 다르다는 점을 보여준다. Base 가 자체 토큰을 발행하지 않은 것도 이 차이를 강화하는 결정이다. 토큰을 발행하면 그 토큰 자체가 SEC 의 증권성 판단 대상이 된다. 토큰이 없으면 그 판단이 발생하지 않는다.
 
-### 2-1. TVL + 사용자
+## 2. OP Stack 이라는 선택
 
-- Base TVL: 약 $5B (2026)
-- 일 활성 사용자: 약 100만+
-- Coinbase 통합 사용자: 약 1억 명
+### 2-1. OP Stack 의 구조
 
-### 2-2. 학술적 영향
+OP Stack 은 Optimism 이 개발한 오픈소스 L2 프레임워크다. Sequencer, Rollup 노드, Bridge 컨트랙트, Fault Proof 시스템이 모듈화돼 있다. 누구나 OP Stack 코드를 가져와서 자기 체인을 만들 수 있다. Base 는 이 OP Stack 위에 구축됐다. 자체 인프라를 처음부터 개발하지 않고 검증된 코드를 가져온 것이다.
 
-Base 가 — L2 시장의 "빅테크 + 일상 사용자" 의 첫 대규모 사례. 다른 L2 (Arbitrum, Optimism) 가 — DeFi 중심이라면, Base 는 — 일상 결제 + DeFi + NFT + 게임의 종합 플랫폼.
+이 선택은 기술적 합리성과 정치적 합리성을 모두 갖춘다. 기술적으로는 Optimism 이 이미 1년 이상 운영하면서 검증된 코드베이스를 활용한다. Base 가 별도 보안 감사와 인프라 개발에 드는 비용을 절약할 수 있다. 정치적으로는 Coinbase 가 "독자적 L2 표준을 만들려고 한다" 는 비판을 피할 수 있다. Optimism 이 만든 표준에 합류하는 형태로 출발한다.
 
-## 3. 토큰 부재 모델 — "학술적 흥미"
+### 2-2. Sequencer 수익 분배 합의
 
-### 3-1. 토큰 부재의 의미
+Coinbase 와 Optimism Foundation 사이에는 Sequencer 수익 분배 합의가 있다. Base 의 Sequencer 가 받는 가스 수익 중 일부 (약 15%) 가 Optimism Collective 의 RetroPGF 자금으로 흘러간다. 이 구조는 OP Stack 위에 구축된 다른 체인에도 적용된다. Worldcoin 의 World Chain, Mode Network, Zora Network, Lyra 등이 모두 OP Stack 위에서 비슷한 수익 분배 구조를 갖는다.
 
-Base 가 — 자체 토큰을 발행하지 않은 첫 대규모 L2. ARB (Arbitrum), OP (Optimism) 등과 다른 점.
+이 합의의 효과는 두 갈래다. Optimism 에는 안정적인 트레저리 수익원이 된다. ARB, OP 같은 거버넌스 토큰의 가치 포착이 약하다는 비판이 있던 상태에서, OP Stack 으로부터 들어오는 Sequencer 수익이 토큰 보유자에게 간접적으로 환원될 수 있는 구조를 만든다. Base 에는 자체 인프라를 처음부터 만드는 비용을 절감하면서 Optimism 생태계의 보안과 도구를 빌릴 수 있는 옵션이 된다. 양쪽 모두에게 합리적이다.
 
-이게 학술적으로 매우 흥미롭습니다. 왜냐:
+### 2-3. Superchain 비전
 
-**전통적 L2 모델**:
-- 자체 토큰 발행 (ARB, OP 등)
-- 거버넌스 + 인센티브 + 가치 포착
-- 토큰 가격이 — L2 의 "성공 지표"
+OP Stack 위에 구축된 체인들이 공유하는 인프라를 Superchain 이라 부른다. 같은 Bridge 컨트랙트, 같은 Fault Proof 시스템, 같은 거버넌스 토큰 (OP) 을 공유한다. 2026년 5월 기준 Superchain 에 참여한 체인은 Base, OP Mainnet, World Chain, Mode, Zora, Lyra, Lisk, Soneium, Unichain 등 약 20개. TVL 기준 합산이 $25B 이상으로, 단일 클러스터 중 가장 크다.
 
-**Base 모델**:
-- 자체 토큰 X
-- 가스비를 ETH 로 결제
-- 수익이 — Coinbase 본사로 들어감
-- 거버넌스가 — Coinbase 가 결정
+Base 는 이 Superchain 클러스터의 핵심이다. TVL 의 절반 이상을 Base 가 차지한다. Base 의 사용자 활동이 Superchain 전체의 활성도를 견인한다. 이 사실은 Coinbase 가 Optimism 진영에서 차지하는 정치적 비중을 키웠다. Optimism Collective 의 의사결정에서 Coinbase 의 영향력이 사실상 핵심 주체가 됐다.
 
-### 3-2. 학술적 trade-off
+## 3. 시장 위치와 사용자 활동
 
-토큰 부재 모델의 장점:
-- 토큰 가격 변동성 X
-- 사용자가 — 가격 투기 X, 사용에 집중
-- 미국 SEC 규제 회피 (토큰 = 증권성 위험)
+### 3-1. TVL 추이
 
-단점:
-- 분산 거버넌스 X
-- 사용자 인센티브 약함
-- "진정한 분산 L2 X" 라는 학술 비판
+Base 의 TVL 은 2023년 8월 출범 당시 $0 에서 시작해 2024년 1분기 $1B, 2024년 4분기 $5B, 2025년 4분기 $14B 까지 성장했다. 이 성장 속도는 다른 L2 의 초기 1년 9개월 대비 압도적으로 빠르다. Arbitrum 이 같은 기간 도달한 TVL 은 약 $7B, Optimism 은 약 $2B 이었다. Base 의 성장 속도는 Coinbase 채널 효과를 정량적으로 보여준다.
 
-### 3-3. 미래 토큰 발행 가능성
+TVL 의 구성도 흥미롭다. Base TVL 의 약 40% 가 Aerodrome (Velodrome 의 Base 포크) 단일 프로토콜에 집중돼 있다. 나머지가 Aave, Uniswap, Compound, Morpho 같은 메인넷 프로토콜의 Base 배포 버전이다. 자체 출범한 native 프로토콜의 비중이 상대적으로 작다. 이는 Base 가 "기존 DeFi 의 Coinbase 진입 게이트웨이" 역할을 하고 있다는 의미다.
 
-Base 가 — 미래에 토큰 발행할 가능성도 있음. 그러나 — 현 단계에서는 토큰 부재 유지. 이게 L2 시장의 "제3 모델" (토큰 + 토큰 부재) 의 학술 사례.
+### 3-2. 일 활성 사용자
 
-## 4. Base 의 "메인스트림 진입"
+L2Beat 데이터 기준 Base 의 일 활성 주소는 약 100만~150만 개. Arbitrum 의 약 50만, Optimism 의 약 30만 보다 압도적으로 많다. 이 격차는 Base 의 사용자 분포가 다르다는 사실을 시사한다. DeFi 에 능숙한 고액 사용자보다 일상적 결제와 NFT 거래를 하는 일반 사용자 비중이 높다. 평균 거래액이 다른 L2 보다 작다는 통계도 이를 뒷받침한다.
 
-### 4-1. 일상 사용자 친화
+### 3-3. NFT, 게임, SocialFi
 
-Base 의 차별점 — Coinbase 사용자가 — "가상자산 잘 모르는 일상 사용자" 가 다수. 그래서 Base 가 — 가장 "메인스트림 친화적" 인 L2.
+Base 의 사용 사례는 DeFi 외 영역으로 빠르게 확장됐다. 2024~2025년 Base 위에서 일어난 가장 큰 트래픽 이벤트는 friend.tech (SocialFi), Zora (NFT), Farcaster (분산 SNS), Aerodrome (DEX) 이었다. 이 중 Farcaster 는 Coinbase 출신 인사가 창업한 분산 SNS 플랫폼으로, Base 위에서 사용자 키와 메시지가 운영된다. Coinbase 직원이 만든 dapp 들이 Base 위에 집중되는 패턴이 명확했다.
 
-특징:
-- Coinbase Wallet 통합 (어려운 시드 구문 X)
-- USD 결제 (USDC 통합)
-- NFT, 게임, 결제 등 다양한 사용 사례
+이 패턴은 Base 의 정체성을 "Coinbase 가 직접 영향력을 행사하는 dapp 생태계" 로 만든다. Optimism 이 Public Goods 자금을 통해 분산 거버넌스 dapp 을 지원하는 모델과 정반대다. Coinbase 가 직접 유망 dapp 에 투자하고 보조금을 지원하며 Coinbase Wallet 의 frontpage 에 노출시킨다. 사실상 Coinbase 가 운영하는 vertical SaaS 플랫폼에 가깝다.
 
-### 4-2. 학술적 평가
+## 4. 자체 토큰 부재 모델
 
-Base 의 "메인스트림 진입" 이 — L2 학계의 "가상자산 채택 framework" 사례. Cong et al. (2021) RFS framework 으로 분석 가능.
+### 4-1. 토큰 없는 L2 의 monetization
 
-그러나 — "진정한 가상자산 사용자" 의 비율이 — 다른 L2 보다 낮을 가능성. 일상 결제만 사용하는 사용자가 다수.
+Base 는 자체 토큰을 발행하지 않는다. 가스비는 ETH 로 지급된다. Sequencer 가 받는 가스 수익은 Coinbase 본사로 들어가고, 그 중 약 15% 가 Optimism Collective 로 흘러간다. 토큰 보유자에 대한 분배 메커니즘은 존재하지 않는다. 이 구조에서 사용자에게 제공되는 financial 인센티브는 직접적으로 없다. 거래 수수료가 낮고 트랜잭션 확정이 빠르다는 utility 만이 사용 동기다.
 
-## 5. Base + DeFi
+이 모델의 가장 가까운 비교 대상이 Linea 다. Linea 도 ConsenSys 가 Sequencer 를 운영하고 ETH 가스 수익을 본사로 흡수한다. 둘 다 토큰 없이 작동하는 L2 의 사례를 만들었다. 반대로 Arbitrum 의 ARB, Optimism 의 OP, zkSync Era 의 ZK 는 모두 거버넌스 토큰을 가지고 있다. 토큰을 가진 L2 와 가지지 않은 L2 사이에 시장 점유의 차이가 생기지 않았다는 점이 흥미롭다. 토큰 보유 여부가 L2 의 성공을 결정하지 않는다는 정량 증거가 쌓였다.
 
-### 5-1. Base 의 DeFi 인프라
+### 4-2. 미국 SEC 의 증권성 판단 회피
 
-Base 위 DeFi:
-- Aerodrome (Velodrome 의 Base 버전, AMM)
-- Uniswap (Base 배포)
-- Aave (Base 배포)
-- DeFiLlama 데이터 — Base 위 DeFi TVL 약 $2-3B
+토큰을 발행하지 않은 가장 강력한 이유는 미국 SEC 의 증권성 판단이다. Howey Test 의 핵심 요소인 "타인의 노력에 따른 합리적 수익 기대" 가 토큰이 없으면 발생하지 않는다. Coinbase 는 이미 거래소 사업으로 SEC 와 분쟁을 겪었기 때문에 추가적인 규제 리스크를 만들지 않으려는 동기가 강하다.
 
-### 5-2. 학술적 의미
+2025년 SEC 의 가상자산 규제 방침이 완화되면서 토큰 발행의 규제 리스크는 다소 줄었다. 그러나 Base 는 그 후에도 토큰 발행 계획을 발표하지 않았다. 사용자 인센티브를 토큰 외 다른 형태 (Coinbase 거래소 앱 내 보상, Coinbase Wallet 의 utility) 로 제공하는 모델을 유지하고 있다.
 
-Base 의 DeFi 진출이 — "빅테크가 DeFi 의 게이트웨이" 가 되는 학술 사례. 그러나 — Coinbase 가 운영하는 인프라이므로 "중앙화된 DeFi" 라는 비판.
+### 4-3. 거버넌스 부재의 의미
 
-## 6. Coinbase + Base 의 "통합 전략"
+토큰이 없다는 것은 분산 거버넌스도 없다는 뜻이다. Base 의 모든 거버넌스 결정은 Coinbase 가 한다. Sequencer 운영 정책, Bridge 보안 업그레이드, Fee 구조 변경 모두 Coinbase 가 단독으로 결정한다. L2Beat 가 Base 를 Stage 0 으로 분류하는 이유다. Stage 0 은 운영자가 사용자 자금을 동결할 수 있는 권한을 갖는 L2 를 의미한다.
 
-### 6-1. Coinbase 통합 효과
+이 구조가 사용자에게 의미하는 바는 두 갈래다. 첫째, Coinbase 의 운영 능력에 의존한다. Coinbase 의 사업 안정성이 Base 의 사업 안정성과 직결된다. 둘째, Coinbase 의 규제 의무에 종속된다. 미국 정부의 OFAC 제재 명단에 오른 주소가 Base 에서 거래되면 Coinbase 가 그 거래를 차단할 수 있다. 실제로 2024년 Tornado Cash 관련 주소가 Base 에서 일부 트랜잭션이 차단된 사례가 보고됐다.
 
-Coinbase 본사 + Base 의 통합이 — 시너지 효과:
-- Coinbase 사용자가 — 한 번의 클릭으로 Base 진출
-- USDC (Coinbase 발행) 가 — Base 위 메인 스테이블코인
-- Coinbase Wallet 이 — Base 의 핵심 지갑
+## 5. 메인스트림 사용자 진입의 의미
 
-### 6-2. 학술적 평가
+### 5-1. Coinbase 거래소 앱과의 통합
 
-이 통합이 — "수직 통합(vertical integration)" 의 가상자산 시장 사례. 미국 빅테크 (Apple, Google) 의 수직 통합과 비슷한 학술 framework.
+Coinbase 거래소 앱의 1억 명 사용자가 Base 로 이동하는 경로가 다른 L2 와 비교할 수 없을 만큼 매끄럽다. 사용자는 거래소 앱 안에서 USDC 를 매수한 후 "Base 로 보내기" 버튼을 누르면 Coinbase 가 자체 운영하는 게이트웨이를 통해 Base 위 자기 지갑으로 자산을 옮길 수 있다. Bridge 수수료도 Coinbase 가 일부 보조한다. 이 경험은 다른 L2 의 Bridge 사용 경험 (Hop, Across, Stargate 등을 직접 이용해야 함) 과 차원이 다르다.
 
-그러나 — "중앙화 위험" 도 큼. Coinbase 가 — Base 의 모든 핵심 인프라 통제.
+이 매끄러움이 Base 의 사용자 베이스를 다른 L2 와 다르게 만들었다. Base 사용자의 다수가 가상자산 본질을 이해하지 못한 일반 결제 사용자다. NFT 를 한두 번 구매한 후 다시 거래소 앱으로 돌아가는 사용자, friend.tech 같은 SocialFi 앱을 한 번 시도해본 사용자가 다수다. 이들이 일관된 DeFi 사용자로 전환되는 비율은 상대적으로 낮다.
 
-## 7. Base 의 위험
+### 5-2. USDC 통합
 
-### 7-1. SEC 규제 위험
+Base 의 메인 스테이블코인은 USDC 다. Circle 이 발행하는 USDC 가 Base 에서 native 자산으로 직접 발행되며, Coinbase 거래소가 발행 · 환매 게이트웨이를 운영한다. 사용자가 Coinbase 거래소에서 USD 를 USDC 로 환전하면 그 USDC 가 Base 위에서 1:1 로 사용 가능하다. Tether 의 USDT 는 Base 에서 비중이 작다. 이 차이는 Base 가 "Circle-Coinbase 축의 스테이블코인 인프라" 라는 정체성을 강화한다.
 
-Base 의 가장 큰 위험 — 미국 SEC 규제. Coinbase 가 — SEC 와 분쟁 중 (2023-2024). Base 가 — 규제 영향을 받을 가능성.
+2024년 12월 EU MiCA 발효 후 USDT 가 일부 유럽 거래소에서 상장 폐지된 반면 USDC 는 MiCA 의 EMT (E-Money Token) 라이선스를 가장 먼저 획득한 사례 중 하나였다. 이 규제 적합성이 Base 의 글로벌 결제 인프라 진출에 우호적인 환경을 만든다.
 
-### 7-2. 중앙화 위험
+### 5-3. 한국 시장과의 관계
 
-Base sequencer 가 — Coinbase 단독 운영. 분산화 X. 학술적 분산성 우려.
+Coinbase 는 한국 시장에 직접 진출하지 않았다. 한국 사용자는 가상자산 사업자 신고 (VASP) 가 있는 국내 거래소 (업비트, 빗썸 등) 를 통해서만 가상자산을 매수할 수 있다. 따라서 Base 의 한국 사용자 비중은 매우 작다. 한국 사용자가 Base 를 사용하려면 해외 거래소를 거치거나 자체 지갑을 통해야 한다. 이 진입 마찰은 Base 의 한국 시장 진출을 사실상 봉쇄한다.
 
-### 7-3. 토큰 부재의 한계
+다만 글로벌 dapp 이 한국 사용자를 받을 때 Base 가 인프라 후보가 될 수는 있다. Farcaster 같은 분산 SNS 가 한국 사용자에게 어필하면 그 사용자가 Base 위 활동에 참여한다. 그러나 이 시나리오는 작은 규모로만 발생할 가능성이 크다.
 
-장기적으로 — 토큰 부재 모델이 사용자 + 개발자 인센티브 충분한지 미검증.
+## 6. 위험 요인
 
-<Callout type="opposing-view" title="반대 시각 · Base 의 중앙화 우려">
-Base 의 비판:
+### 6-1. Coinbase 단독 의존
 
-첫째, "Coinbase 단독 운영". Sequencer + 인프라 + 거버넌스가 모두 Coinbase. 진정한 분산 L2 X.
+Base 의 가장 명확한 위험은 Coinbase 의 사업 안정성에 종속된다는 점이다. Coinbase 가 SEC, IRS, 타국 규제 당국과 분쟁을 겪을 때마다 Base 의 운영 연속성이 잠재적으로 흔들린다. 2023년 SEC 분쟁 시기에도 Base 운영은 중단되지 않았지만, 미래에 더 큰 규제 충격이 발생하면 Sequencer 운영이 일시 중단될 가능성을 배제할 수 없다.
 
-둘째, "토큰 부재의 한계". 사용자 + 개발자 인센티브 부족.
+### 6-2. Aerodrome 집중 위험
 
-셋째, "미국 SEC 규제 위험". Coinbase 가 SEC 와 분쟁 중.
+Base TVL 의 약 40% 가 Aerodrome 단일 프로토콜에 집중돼 있다. Aerodrome 이 보안 사고나 토큰 가격 폭락을 겪으면 Base 전체 TVL 이 함께 하락한다. 이 집중도는 Base 의 사용자 다양성이 아직 충분히 확보되지 않았다는 의미다.
 
-넷째, "메인스트림 사용자의 한계". 가상자산 본질을 이해하지 못한 사용자가 다수.
+### 6-3. 토큰 부재의 빌더 인센티브 한계
 
-이 비판이 의미하는 바 — Base 가 "빅테크 L2 의 학술 사례" 로는 가치 있되, "진정한 분산 L2" 는 아님.
+토큰이 없는 L2 는 빌더 인센티브를 토큰 분배가 아닌 직접 보조금으로 제공해야 한다. Coinbase 는 Base 출범 후 자체 자금으로 빌더 보조금 프로그램 (Base Ecosystem Fund 등) 을 운영하고 있지만, 그 규모가 Arbitrum STIP 이나 Optimism RetroPGF 보다 작다. 장기적으로 빌더가 Base 보다 인센티브가 큰 L2 로 이동할 가능성이 있다.
+
+### 6-4. 메인스트림 사용자의 가상자산 이탈
+
+Base 의 사용자 베이스 중 큰 비중이 가상자산 본질을 이해하지 못한 일반 사용자다. 이들이 가상자산 시장의 변동성에 노출되거나 한 번의 NFT 사기를 겪으면 시장에서 이탈할 가능성이 크다. 사용자 retention 의 장기적 안정성이 검증되지 않은 영역이다.
+
+<Callout type="opposing-view" title="반대 시각 · Base 가 마주한 다섯 가지 의문">
+Base 의 시장 점유는 인상적이지만, 비판적 관점도 명확하다.
+
+첫째, 분산성 부재. Sequencer · 거버넌스 · Bridge 가 모두 Coinbase. L2Beat 기준 Stage 0. 사용자 자금 동결 권한이 한 회사에 집중.
+
+둘째, Aerodrome 의존. TVL 40% 가 단일 프로토콜. 다양성 부족.
+
+셋째, 토큰 부재의 양면성. 단기적으로는 SEC 규제 리스크 회피에 유리하지만, 장기적으로 빌더 인센티브와 사용자 충성도의 도구가 부재.
+
+넷째, 메인스트림 사용자의 retention 미검증. Base 사용자 다수가 한두 번 NFT 구매 후 이탈. 일관된 DeFi 사용자로 전환되는 비율이 낮음.
+
+다섯째, Optimism 진영 종속. OP Stack 의 거버넌스 결정이 Optimism Collective 에서 이루어진다. Base 의 핵심 인프라 업그레이드가 Optimism 의 결정에 의존.
+
+이 다섯 가지가 의미하는 바는 분명하다. Base 가 "거래소 직영 L2" 라는 카테고리를 만든 첫 사례라는 점은 분명하지만, 그 카테고리가 장기적으로 분산 L2 와 같은 신뢰를 받을 수 있을지는 별개의 질문이다.
 </Callout>
 
-## 결론
+## 마무리
 
-1. **Base = Coinbase L2, 빅테크 + 가상자산 결합 학술 사례**.
-2. **OP Stack 채택 = 공유 인프라 framework, Superchain 참여**.
-3. **토큰 부재 모델 = L2 시장의 제3 모델 (토큰 + 토큰 부재)**.
-4. **메인스트림 진입 = 일상 사용자 친화, Cong et al. RFS framework**.
-5. **중앙화 위험 + SEC 규제 = 학술적 우려**.
+Base 는 거래소가 자기 사용자 베이스를 온체인으로 옮기는 데 성공한 첫 사례다. 1억 명 KYC 완료 사용자가 Coinbase Wallet 을 통해 한 번의 클릭으로 Base 에 진입한다. 다른 L2 가 사용자 확보에 1년 이상의 토큰 인센티브 캠페인을 들여야 했던 일을 Base 는 거래소 앱 통합만으로 해결했다. TVL $14B 와 일 활성 주소 100만 이상은 그 결과다.
 
-다음 편(#L3) — Optimism + Superchain 의 OP Stack 생태계로 이어집니다.
+동시에 Base 는 분산 L2 가 아니다. Sequencer, Bridge, 거버넌스가 모두 Coinbase 단독이다. 토큰이 없고 거버넌스 토큰 보유자도 없다. 사용자 자금 동결 권한이 한 회사에 집중된 구조다. 이 구조의 trade-off 가 장기적으로 어떻게 작동할지는 아직 검증 중이다. Coinbase 의 사업 안정성이 흔들리거나 미국 규제 환경이 다시 강경해지면 그 영향이 그대로 Base 위 사용자에게 전달된다. 이 질문에 대한 답은 다음 1~2년의 사이클 안에서 나올 가능성이 크다. 다음 편 (#L3) 에서는 Optimism 과 Superchain 의 OP Stack 생태계를 다룬다.

@@ -3,11 +3,11 @@ slug: onchain-nupl-sopr
 coin: NONE
 issue: 0
 title: "NUPL + SOPR — 시장 sentiment 정량"
-subtitle: NUPL 5 phase · SOPR · 단기/장기 보유자 분리 (On-Chain 시리즈 #O6)
+subtitle: NUPL 5 phase · SOPR · LTH/STH 155일 임계 · Glassnode 측정 (On-Chain 시리즈 #O6)
 publishedAt: "2026-09-20"
 category: Series
 tags: [nupl, sopr, sentiment, glassnode, lth, sth]
-estimatedReadTime: 12
+estimatedReadTime: 23
 draft: false
 sources:
   - name: "Glassnode — NUPL Indicator"
@@ -24,132 +24,200 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-NUPL (Net Unrealized Profit/Loss) 의 5 phase + SOPR (Spent Output Profit Ratio) 의 trading 의미. 단기 (155일 미만) vs 장기 (155일 이상) 보유자 분리. 사이클 phase 식별의 가장 학술적 framework.
+NUPL (Net Unrealized Profit/Loss) 의 정의와 5 phase 분류 (Capitulation, Hope-Fear, Optimism-Anxiety, Belief-Denial, Euphoria-Greed). SOPR (Spent Output Profit Ratio) 의 의미. Glassnode 가 정한 LTH (장기 보유자) 와 STH (단기 보유자) 의 155일 임계와 그 framework 이 4 사이클에서 어떻게 검증됐는지의 정량 기록.
 </Callout>
 
-## 도입 — "보유자의 미실현 수익 정량"
+## 도입 — 미실현 수익을 정량화한다
 
-가상자산 시장 분석에서 가장 학술적인 framework — "누가 얼마나 미실현 수익/손실인가". NUPL + SOPR 이 이를 정량화. 4 사이클 모두에서 검증된 가장 신뢰할 만한 sentiment 지표.
+가상자산 시장 분석에서 가장 학술적으로 정교한 framework 중 하나가 보유자의 미실현 수익/손실 (unrealized P&L) 을 정량화하는 도구다. NUPL 과 SOPR 이 그 대표 지표다. Glassnode 가 2018년 이 두 지표를 표준화한 이후 가상자산 분석가, 학계, 일부 기관 투자자가 사이클 phase 식별의 핵심 도구로 사용한다. 4 사이클 (2014, 2017-2018, 2021-2022, 2024) 모두에서 NUPL 0.75+ 후 폭락이 재현됐다는 정량 검증이 이 지표의 신뢰도를 높였다.
 
-본 편은 4섹션 — (1) NUPL, (2) SOPR, (3) LTH/STH 분리, (4) ETF 시대 영향 — 으로 정리.
+NUPL 의 작동 원리는 Bitcoin 의 모든 트랜잭션이 public 이라는 사실에 기반한다. 모든 BTC 가 마지막으로 이동한 시점의 가격을 알 수 있고, 그 가격을 모두 합한 값 (Realized Cap) 을 계산할 수 있다. 현재 시가총액 (Market Cap) 에서 Realized Cap 을 뺀 값을 시가총액으로 나누면 전체 보유자의 미실현 수익 비율이 나온다. 이 비율이 NUPL 이다. 이 측정이 가능한 자산은 BTC 와 일부 다른 가상자산뿐이다. 전통 자산 시장에서는 보유자별 매수가를 알 수 없기 때문에 이런 framework 자체가 작동하지 않는다.
+
+본 편은 NUPL 의 5 phase 분류, SOPR 의 trading 의미, LTH/STH 의 155일 임계 framework, ETF 시대의 영향을 정리한다. 4 사이클의 정량 검증을 통해 이 지표의 신뢰도와 한계를 살펴본다.
 
 ## 1. NUPL (Net Unrealized Profit/Loss)
 
-### 1-1. 정의
+### 1-1. 정의와 계산
+
+NUPL 의 계산식은 다음과 같다.
+
 <Formula>{`NUPL = (Market Cap - Realized Cap) / Market Cap`}</Formula>
-이 비율이 — "전체 BTC 보유자의 미실현 수익 비중".
 
-### 1-2. 5 Phase
-Glassnode 가 NUPL 을 5 phase 로 분류:
+Market Cap 은 현재 BTC 가격에 발행량 (약 1980만 BTC) 을 곱한 값이다. Realized Cap 은 각 BTC UTXO 가 마지막으로 이동한 시점의 가격에 그 UTXO 의 양을 곱해서 모두 합한 값이다. 즉 Realized Cap 은 모든 BTC 보유자가 평균적으로 매수한 가격의 합이라고 볼 수 있다.
 
-| NUPL | Phase | 색 |
-|------|-------|---|
-| < 0 | **Capitulation** (항복) | 빨간색 |
-| 0 - 0.25 | **Hope-Fear** (보통) | 주황색 |
-| 0.25 - 0.5 | **Optimism-Anxiety** (낙관) | 노란색 |
-| 0.5 - 0.75 | **Belief-Denial** (확신) | 연두색 |
-| > 0.75 | **Euphoria-Greed** (광풍) | 초록색 |
+NUPL 이 0.5 이라면 전체 BTC 의 절반이 미실현 수익이라는 의미다. NUPL 이 0 이라면 시장 전체가 손익분기점이다. NUPL 이 음수라면 전체 보유자가 평균적으로 손실 상태다. 이 정의가 가상자산 시장의 sentiment 를 정량적으로 capture 하는 가장 직관적 framework 이 된다.
 
-### 1-3. 사이클 검증
-| 시점 | NUPL | Phase |
-|------|------|------|
-| 2014.1 | 0.83 (top) | Euphoria |
-| 2015.1 | -0.10 (bottom) | Capitulation |
-| 2017.12 | 0.78 (top) | Euphoria |
-| 2018.12 | -0.15 (bottom) | Capitulation |
-| 2021.4 | 0.76 (top) | Euphoria |
-| 2022.11 | -0.10 (bottom) | Capitulation |
-| 2024.3 | 0.62 | Belief |
-| 2026.1 | 0.55 | Belief |
+### 1-2. 5 Phase 분류
 
-**4 사이클 모두 NUPL 0.75+ 후 폭락**. 매우 정확.
+Glassnode 가 NUPL 값에 따라 시장을 5 phase 로 분류한다.
+
+| NUPL | Phase | 의미 |
+|------|-------|------|
+| < 0 | Capitulation (항복) | 전체 보유자가 평균 손실. 항복 매도. |
+| 0 - 0.25 | Hope-Fear (보통) | 회복 초기 또는 약세장 후반. |
+| 0.25 - 0.5 | Optimism-Anxiety (낙관) | 회복 본격화 또는 강세장 초기. |
+| 0.5 - 0.75 | Belief-Denial (확신) | 강세장 중반. |
+| > 0.75 | Euphoria-Greed (광풍) | 강세장 정점 임박. |
+
+이 phase 분류는 임의적 수치가 아니라 4 사이클의 데이터 fit 에 기반한다. 모든 사이클에서 정점이 NUPL 0.75 ~ 0.85 구간에서 형성됐고, 모든 바닥이 NUPL -0.10 ~ -0.20 구간에서 형성됐다. 이 패턴이 5 phase 의 임계값을 결정했다.
+
+### 1-3. 4 사이클 검증
+
+4 사이클의 NUPL 정점과 바닥은 다음과 같다.
+
+| 시점 | NUPL | Phase | BTC 가격 |
+|------|------|-------|---------|
+| 2014.1 | 0.83 (정점) | Euphoria | $1,100 |
+| 2015.1 | -0.10 (바닥) | Capitulation | $200 |
+| 2017.12 | 0.78 (정점) | Euphoria | $19,500 |
+| 2018.12 | -0.15 (바닥) | Capitulation | $3,200 |
+| 2021.4 | 0.76 (정점) | Euphoria | $64,000 |
+| 2022.11 | -0.10 (바닥) | Capitulation | $15,500 |
+| 2024.3 | 0.62 | Belief | $73,000 |
+| 2026.1 | 0.55 | Belief | $99,000 |
+
+흥미로운 패턴은 2024년 정점이 NUPL 0.62 (Belief 구간) 에서 형성됐다는 점이다. 이전 세 사이클에서 정점이 모두 NUPL 0.75+ 였던 것과 다르다. 이 차이의 원인이 ETF 출시로 인한 사용자 베이스의 변화로 분석된다. ETF 사용자가 직접 보유자보다 미실현 수익에 덜 민감하게 반응하면서 NUPL 정점이 낮은 위치에서 형성됐다는 가설이다.
+
+만약 이 가설이 옳다면 NUPL 의 phase 임계값이 미래에는 다르게 적용될 수 있다. 이전 사이클의 0.75 임계가 2024년 이후에는 0.65 정도로 내려갈 가능성이 있다. 이 변화가 NUPL 의 trading 가치를 줄이는 요인이다.
 
 ## 2. SOPR (Spent Output Profit Ratio)
 
 ### 2-1. 정의
-<Formula>{`SOPR = (이전 시점 코인 가격) / (최초 매수 시점 코인 가격)`}</Formula>
-매도 시점 — SOPR > 1 = 수익으로 매도, SOPR < 1 = 손실로 매도.
 
-### 2-2. 의미
-- SOPR > 1 — 보유자가 "평균 수익으로 매도" (시장 강세)
-- SOPR ≈ 1 — 보유자가 "손익분기점에서 매도"
-- SOPR < 1 — 보유자가 "평균 손실로 매도" (시장 약세, 항복)
+SOPR 의 계산식은 다음과 같다.
 
-### 2-3. 사이클 검증
+<Formula>{`SOPR = (코인이 이동한 시점의 가격) / (코인이 마지막으로 이동했던 시점의 가격)`}</Formula>
+
+SOPR > 1 이면 매도자가 평균적으로 수익을 내고 매도했다는 의미다. SOPR < 1 이면 손실을 보고 매도했다는 의미다. SOPR ≈ 1 이면 손익분기점에서 매도했다는 의미다.
+
+SOPR 는 매일 측정되며 7일 이동평균이 trading 신호로 자주 사용된다. 7일 평균 SOPR 가 1 을 위에서 아래로 깰 때 (cross below 1) 가 단기 약세 신호로 해석되고, 1 을 아래에서 위로 깰 때 (cross above 1) 가 단기 강세 신호로 해석된다.
+
+### 2-2. 사이클 검증
+
 | 시점 | SOPR (7일 평균) | 의미 |
 |------|----------------|------|
-| 2017.12 (top) | 1.08 | 수익 매도 가속 |
-| 2018.11 (bottom) | 0.95 | 손실 매도 (항복) |
+| 2017.12 (정점) | 1.08 | 수익 매도 가속 |
+| 2018.11 (바닥 임박) | 0.95 | 손실 매도 (항복) |
 | 2022.6 (Luna 후) | 0.92 | 큰 손실 매도 |
 | 2024.3 (ETF 가속) | 1.04 | 정상 |
 | 2026.1 | 1.02 | 정상 |
 
+SOPR < 0.95 가 발생한 시점이 항복 매도의 명확한 신호로 작동한다. 이 시점에서 시장 바닥이 임박했다는 가설이 4 사이클에서 검증됐다. 2018년 11월, 2022년 6월 모두 SOPR < 0.95 가 발생한 후 1~3개월 안에 사이클 바닥이 형성됐다.
+
+### 2-3. NUPL 과 SOPR 의 관계
+
+NUPL 과 SOPR 는 같은 데이터 (Realized Cap, on-chain 가격) 를 다르게 활용한다. NUPL 은 전체 시장의 미실현 P&L 을 정량화하고, SOPR 는 매도자의 실현 P&L 을 정량화한다. 두 지표가 함께 강세 또는 약세 신호를 보일 때 신뢰도가 가장 높다.
+
+예를 들어 NUPL 이 0.75+ (Euphoria) 이고 동시에 SOPR > 1.05 가 지속되면 정점 임박 신호가 강하다. 보유자 다수가 큰 미실현 수익 상태에 있고, 매도자가 평균적으로 큰 수익을 실현하고 있다는 의미다. 이 조합이 2017년 12월, 2021년 4월에 실제로 관찰됐다.
+
+반대로 NUPL < 0 이고 SOPR < 0.95 가 지속되면 바닥 임박 신호가 강하다. 보유자 다수가 손실 상태에 있고, 매도자가 손실을 받아들이고 매도하는 상황이다. 이 조합이 2018년 11월, 2022년 6월에 관찰됐다.
+
 ## 3. LTH (Long-Term Holder) vs STH (Short-Term Holder)
 
-### 3-1. 정의
-- **LTH** — 155일 이상 보유자
-- **STH** — 155일 미만 보유자
+### 3-1. 155일 임계
 
-155일 임계가 "학습된 임계" (Glassnode 의 통계 분석).
+Glassnode 가 보유자를 LTH 와 STH 로 분류하는 임계는 155일이다. BTC 를 155일 이상 보유한 사용자가 LTH, 그 미만이 STH 다. 이 임계의 학술적 근거는 통계 분석이다. Glassnode 가 보유자별 매도 패턴을 분석한 결과, 155일이 매도 행동이 명확히 변하는 임계로 나타났다. 155일 미만 보유자는 가격 변동에 빠르게 반응하면서 매도하지만, 155일 이상 보유자는 가격 변동에 덜 반응한다.
 
-### 3-2. LTH/STH 의미
-- LTH supply 가속 = 매도 압력 감소 (보수)
-- STH supply 가속 = 매도 압력 가속 (불안정)
+이 임계는 임의적 수치다. 다른 임계 (90일, 200일, 1년 등) 도 학술적으로 가능하다. 155일이 선택된 이유는 데이터 fit 이 가장 좋았다는 통계 근거뿐이다. 학계에서는 이 임계의 임의성에 대한 비판이 있다. 다른 임계를 사용하면 LTH/STH 비율의 의미가 달라질 수 있다.
+
+### 3-2. LTH supply 추세
+
+LTH supply 는 전체 BTC 발행량 중 LTH 가 보유한 비중이다. 4 사이클의 LTH supply 패턴은 다음과 같다.
 
 | 시점 | LTH supply | STH supply |
 |------|-----------|-----------|
-| 2018.12 (bottom) | 67% | 33% |
-| 2021.4 (top) | 74% | 26% |
-| 2022.11 (bottom) | 79% | 21% |
+| 2018.12 (바닥) | 67% | 33% |
+| 2021.4 (정점) | 74% | 26% |
+| 2022.11 (바닥) | 79% | 21% |
 | 2024.3 | 75% | 25% |
 | 2026.1 | 72% | 28% |
 
-**LTH supply 80% 근처 = bottom 신호**, **65% 미만 = top 신호** (역사 통계).
+흥미로운 패턴은 사이클 정점에서 LTH supply 가 줄어드는 경향이다. LTH 가 정점 부근에서 매도하면서 그 BTC 가 STH 로 이전된다. 정점이 형성된 후 약세장에서 STH 가 매도하고 다시 LTH 로 이전되는 순환이다. 이 패턴이 4 사이클에서 모두 재현됐다.
 
-### 3-3. LTH 매도의 의미
-LTH 가 매도하기 시작 = "가장 강한 보유자도 매도" = 사이클 정점 임박. 2017.11, 2021.3 모두 정점 1-2개월 전 LTH 매도 가속.
+### 3-3. LTH 매도가 의미하는 바
+
+LTH 가 매도하기 시작한다는 것은 가장 강한 보유자도 이익 실현을 시작했다는 신호다. 이 신호가 사이클 정점 임박을 시사한다는 가설이 학계에서 검증됐다. 2017년 11월, 2021년 3월 모두 정점 1~2개월 전 LTH 매도가 가속됐다.
+
+이 가설의 trading 활용 가치는 일부 명확하다. LTH supply 가 단기간 (1~2개월) 에 빠르게 줄어드는 시점이 정점 임박 신호로 해석된다. 그러나 정확한 시점은 알기 어렵다. LTH 가 매도를 시작한 후 정점까지 1개월이 걸릴 수도, 3개월이 걸릴 수도 있다.
 
 ## 4. ETF 시대의 영향
 
-### 4-1. ETF 가 LTH 인가 STH 인가
-ETF 가 BTC 보유 후 — 거래량이 매일 변하지만 underlying BTC 는 long-term 보유. 학술적 분류:
-- **Glassnode 분류** — ETF 보유 BTC 를 LTH 로 카운팅 (155일 이상)
-- **CryptoQuant 분류** — 별도 카테고리 "ETF cohort"
+### 4-1. ETF 사용자의 분류
 
-이 분류 차이가 LTH/STH 비율에 영향.
+2024년 1월 미국 BTC 현물 ETF 출시 후 ETF 가 보유한 BTC 가 빠르게 늘었다. 2026년 5월 기준 미국 ETF 가 보유한 BTC 가 약 130만 개 (전체 발행량의 약 6.5%) 다. 이 BTC 를 LTH 로 분류할지 STH 로 분류할지에 대한 framework 이 분석 도구마다 다르다.
+
+Glassnode 의 분류 방식은 ETF 가 보유한 BTC 를 다른 보유자와 동일하게 처리한다. ETF 의 BTC 가 마지막으로 이동한 시점부터 155일이 지나면 LTH 로 카운팅된다. 이 분류 방식의 문제는 ETF 사용자의 행동이 직접 보유자와 다르다는 점을 capture 하지 못한다는 것이다.
+
+CryptoQuant 같은 다른 분석 도구는 ETF 보유 BTC 를 별도 카테고리 (ETF cohort) 로 분류한다. 이 방식이 ETF 사용자의 unique 행동을 capture 하는 데 유리하지만, 표준화되지 않은 분류 방식이다.
 
 ### 4-2. ETF 가 NUPL 에 미치는 영향
-ETF 매수가 가속하면 Market Cap 가속 → NUPL 가속 (보유자 수익 가속). 그러나 ETF 보유자는 "실현 매도" X 라 SOPR 영향 작음.
 
-### 4-3. 한국 시장 적용
-한국 사용자의 평균 보유 기간 — 약 110일 (2026 Q1, 한국가상자산보호원 추정). 글로벌 평균 (~180일) 보다 짧습니다. 한국 STH 비중이 글로벌보다 큼.
+ETF 매수가 가속되면 BTC 가격이 가속되면서 Market Cap 이 가속된다. NUPL 도 함께 가속된다. 이 메커니즘이 2024년 사이클에서 NUPL 정점이 0.62 라는 낮은 위치에서 형성된 한 원인일 수 있다. ETF 매수가 가격을 끌어올리는 동력 중 하나였지만, ETF 사용자가 NUPL 에 반영되는 방식이 직접 보유자와 다를 수 있다.
 
-이게 "한국 시장 변동성이 큼" 의 한 원인.
+이 차이의 정량적 분석은 학계에서 진행 중이다. 만약 ETF 사용자가 직접 보유자보다 미실현 수익에 덜 민감하게 반응한다면, 미래 사이클의 NUPL 정점이 더 낮은 위치에서 형성될 가능성이 있다. 이 변화가 NUPL 의 trading 가치를 줄이는 요인이 된다.
 
-<Callout type="opposing-view" title="반대 시각 · NUPL + SOPR 의 ETF 시대 한계">
-NUPL + SOPR + LTH/STH framework 가 4 사이클 검증됐지만, 비판적 시각도 있습니다.
+### 4-3. ETF 의 SOPR 영향
 
-첫째, **155일 임계의 임의성**. 다른 임계 (90일, 200일, 1년) 도 학술적으로 가능. 155일이 "역사 fit" 이지 "이론적 정당성" 없음.
+ETF 가 BTC 를 매수한 후 그 BTC 를 매도하지 않는 한 SOPR 에 영향을 주지 않는다. ETF 의 BTC 는 Coinbase Custody 에 보관되며, ETF 자체의 거래는 ETF 주식의 거래일 뿐 underlying BTC 의 이동이 아니다. SOPR 는 underlying BTC 가 다른 주소로 이동할 때만 측정된다.
 
-둘째, **ETF cohort 분류의 영향**. ETF 가 LTH 로 카운팅되면 LTH 비중이 인위적 가속. 신호 왜곡.
+이 사실이 SOPR 의 의미를 변화시킨다. 이전 사이클에서 SOPR 가 전체 보유자의 매도 행동을 capture 했다면, ETF 시대에는 SOPR 가 직접 보유자만의 매도 행동을 capture 한다. 시장의 전체 매도 압력이 SOPR 에 반영되지 않을 수 있다. 이 한계가 SOPR 의 trading 가치를 일부 줄인다.
 
-셋째, **사라진 BTC 의 영향**. 영구 분실 BTC ~4M 가 "LTH" 로 영원히 카운팅. NUPL/SOPR 의 baseline 왜곡.
+## 5. 한국 시장 적용
 
-넷째, **NUPL 광풍 (>0.75) 의 늦은 신호**. NUPL 0.75 도달 시점이 정점에 매우 가까움. "식별" 가능, "early warning" 약함.
+### 5-1. 한국 사용자의 평균 보유 기간
 
-다섯째, **한국 STH 비중의 unique character**. 한국 사용자 보유 기간이 짧음. 글로벌 framework 가 한국에 직접 적용 어려움.
+한국 사용자의 평균 보유 기간이 글로벌 평균보다 짧다는 패턴이 있다. 한국 가상자산 보호원의 추정에 따르면 한국 사용자의 평균 보유 기간이 약 110일 수준이다. 글로벌 평균이 약 180일이라는 추정 대비 약 60% 수준이다.
 
-이 5가지 비판이 의미하는 바 — NUPL + SOPR 이 "강한 도구" 이지만 "silver bullet" 이 아닙니다.
+이 차이가 의미하는 바는 한국 사용자의 STH 비중이 글로벌 평균보다 크다는 점이다. 155일 임계로 분류하면 한국 사용자의 다수가 STH 로 분류될 것이다. STH 가 가격 변동에 더 빠르게 반응하면서 한국 시장의 변동성이 글로벌 평균보다 크다는 패턴과 일치한다.
+
+### 5-2. 한국 거래소 데이터의 한계
+
+한국 거래소의 BTC 가 LTH 인지 STH 인지 정확히 분류하기 어렵다. 한국 거래소는 사용자 자산을 자체 wallet 에 보관하고, 사용자별 매수가 정보가 거래소 wallet 에서 보이지 않는다. CryptoQuant 와 Glassnode 의 분류는 거래소 wallet 자체의 이동을 기반으로 하기 때문에 한국 사용자의 실제 보유 행동을 capture 하지 못할 수 있다.
+
+이 한계는 한국 시장 분석의 일관된 문제다. on-chain 분석 도구가 한국 사용자의 행동을 정확히 분리해 분석하기 어렵다. 한국 가상자산 보호원이 자체 분기 통계를 발표하지만 글로벌 framework 과 직접 비교하기 어려운 형식이다.
+
+### 5-3. 김치 프리미엄과 NUPL
+
+김치 프리미엄이 가속되는 시기에 한국 사용자의 미실현 수익이 글로벌 평균보다 빠르게 가속된다. 한국 거래소 가격이 글로벌보다 1~5% 높은 상태에서 사용자가 매수하면, 그 매수가가 글로벌 NUPL 의 baseline 보다 높다. 가격 하락 시 한국 사용자가 글로벌 평균보다 빠르게 손실 상태에 들어간다.
+
+이 패턴이 한국 사용자의 sentiment 변동성이 큰 한 원인이다. NUPL 이 글로벌에서 0.5 (Belief) 수준일 때 한국 사용자의 NUPL 은 0.4 (Optimism-Anxiety) 정도일 수 있다. 같은 시장 상태가 한국 사용자에게 더 약한 sentiment 로 작동한다.
+
+## 6. 학술적 한계
+
+### 6-1. 155일 임계의 임의성
+
+LTH/STH 의 155일 임계가 학술적으로 정당화되기 어렵다는 비판이 있다. 다른 임계 (90일, 200일, 1년) 를 사용하면 LTH/STH 비율의 의미가 달라진다. 155일이 선택된 이유는 데이터 fit 이 가장 좋았다는 통계 근거뿐이고, 이 fit 이 미래 사이클에서도 유지될 것이라는 보장이 없다.
+
+### 6-2. 사라진 BTC 의 영향
+
+영구 분실된 BTC 가 약 400만 개 정도로 추정된다. 사토시 추정 wallet 의 110만 BTC, 초기 채굴자의 분실 BTC, 거래소 사고로 분실된 BTC 등이 포함된다. 이 BTC 는 영원히 LTH 로 카운팅된다. 그러나 실제로는 보유자가 매도할 수 없는 상태이므로 시장 sentiment 와 무관하다. 이 분실 BTC 가 NUPL 과 LTH supply 의 baseline 을 왜곡한다.
+
+### 6-3. NUPL Euphoria 의 늦은 신호
+
+NUPL 0.75+ (Euphoria) 가 정점에 매우 가까운 시점에 도달한다는 점이 trading 도구로서의 한계다. NUPL 이 Euphoria 에 도달했을 때는 가격이 이미 고점 근처에 있을 가능성이 크다. early warning indicator 로 작동하기에는 신호가 너무 늦다. 식별 도구로는 가치 있지만 매도 시점 도구로는 한계가 있다.
+
+### 6-4. ETF cohort 의 분류 영향
+
+ETF 보유 BTC 를 어떻게 분류하는가에 따라 NUPL, SOPR, LTH/STH 비율이 모두 달라진다. Glassnode 와 CryptoQuant 의 분류 차이가 같은 시장 상태에 대한 다른 신호를 만들 수 있다. 이 분류 표준의 부재가 미래 사이클의 분석에서 일관성을 줄일 가능성이 있다.
+
+<Callout type="opposing-view" title="반대 시각 · NUPL + SOPR 의 다섯 가지 한계">
+NUPL + SOPR + LTH/STH framework 가 4 사이클 검증됐지만, ETF 시대의 한계도 명확하다.
+
+첫째, 155일 임계의 임의성. 다른 임계도 학술적으로 가능. 통계 fit 외 정당성 부족.
+
+둘째, ETF cohort 분류의 영향. ETF 가 LTH 로 카운팅되면 LTH 비중이 인위적 가속. 신호 왜곡.
+
+셋째, 사라진 BTC 의 영향. 영구 분실 BTC ~400만이 LTH 로 영원히 카운팅. NUPL/SOPR baseline 왜곡.
+
+넷째, NUPL Euphoria (>0.75) 의 늦은 신호. NUPL 0.75 도달 시점이 정점에 매우 가까움. 식별 가능, early warning 약함.
+
+다섯째, 한국 STH 비중의 unique character. 한국 사용자 보유 기간이 짧음. 글로벌 framework 의 한국 직접 적용 어려움.
+
+이 다섯 가지가 의미하는 바는 분명하다. NUPL + SOPR 가 강한 도구이지만 silver bullet 이 아니다. 도구의 한계를 인식하고 다른 지표와 결합해 사용해야 한다.
 </Callout>
 
-## 결론 — 4 사이클 검증 framework
+## 마무리
 
-본 편이 정리한 5가지 핵심 발견:
+NUPL 과 SOPR 는 가상자산 시장 분석에서 가장 학술적으로 정교한 framework 중 하나다. 모든 트랜잭션이 public 이라는 BTC 의 특성을 활용해 보유자의 미실현 수익을 정량화하는 도구다. 4 사이클의 검증을 통과하면서 sentiment 지표 중 가장 신뢰도가 높은 카테고리에 자리잡았다.
 
-1. **NUPL 5 phase** — Capitulation, Hope-Fear, Optimism-Anxiety, Belief-Denial, Euphoria-Greed.
-2. **SOPR > 1 = 수익 매도, < 1 = 손실 매도 (항복)**.
-3. **LTH/STH 155일 임계** — LTH 80%+ = bottom, < 65% = top 신호.
-4. **ETF cohort 분류 변동**. Glassnode = LTH, CryptoQuant = 별도.
-5. **한국 사용자 평균 보유 110일** (글로벌 180일 대비 짧음). STH 비중 큼 → 변동성 큼.
-
-다음 편(#O7) — 옵션 IV + Max Pain.
+동시에 ETF 시대의 도래가 이 framework 의 한계를 드러내기 시작했다. 2024년 사이클의 NUPL 정점이 0.62 라는 낮은 위치에서 형성된 사실, ETF 보유 BTC 의 분류 표준 부재, 사라진 BTC 의 baseline 왜곡이 모두 framework 의 신뢰도를 일부 줄이는 요인이다. 다음 사이클에서 이 framework 이 어떻게 진화할지가 학계의 관찰 지점이다. 다음 편 (#O7) 에서는 옵션 IV 와 Max Pain 을 다룬다.

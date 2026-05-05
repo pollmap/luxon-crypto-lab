@@ -3,11 +3,11 @@ slug: onchain-fear-greed-sentiment
 coin: NONE
 issue: 0
 title: "Fear & Greed + Google Trends + Twitter sentiment"
-subtitle: Fear & Greed 5 component · Google Trends · 가격 lag (On-Chain 시리즈 #O8)
+subtitle: Alternative.me 5 component · 0-100 스케일 · 4 사이클 검증 (On-Chain 시리즈 #O8)
 publishedAt: "2026-10-04"
 category: Series
 tags: [fear-greed, sentiment, google-trends, twitter, alternative]
-estimatedReadTime: 10
+estimatedReadTime: 22
 draft: false
 sources:
   - name: "Alternative.me — Crypto Fear & Greed Index"
@@ -24,112 +24,185 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Alternative.me 의 Crypto Fear & Greed Index 의 5 component (변동성, 거래량, 소셜, 도미넌스, Google Trends) 가 어떻게 합산되나요? Twitter sentiment 가 정말 가격 예측에 도움이 되나요?
+Alternative.me 가 2018년 출시한 Crypto Fear & Greed Index 의 5 component 합산 방식 (변동성 25%, 거래량 25%, 소셜 15%, 도미넌스 10%, Google Trends 10%, 설문 15%) 과 0-100 스케일의 의미. 4 사이클에서 Extreme Greed 후 폭락, Extreme Fear 후 반등 패턴이 어떻게 재현됐는지의 정량 검증. Google Trends 와 Twitter sentiment 가 보조 지표로 작동하는 메커니즘.
 </Callout>
 
-## 도입 — "sentiment 의 정량화"
+## 도입 — sentiment 의 정량화
 
-가상자산 시장의 가장 "emotional" 측면 — 사용자 sentiment. "공포" 와 "탐욕" 의 사이클이 가격을 끌어가는 패턴이 학술적으로 검증. "buy when others are fearful, sell when others are greedy" — Warren Buffett 의 명언이 가상자산에서도 작동.
+가상자산 시장에서 가장 정량화하기 어려운 측면이 사용자 sentiment 다. 공포와 탐욕이라는 감정이 가격을 움직인다는 통념은 오래 됐지만, 그 감정을 숫자로 표현하는 표준 framework 은 가상자산 시장에서 늦게 도입됐다. 2018년 Alternative.me 가 출시한 Crypto Fear & Greed Index 가 첫 표준이 됐고, 그 후 8년이 지난 2026년 시점에는 글로벌 가상자산 sentiment 의 표준 도구로 자리잡았다.
 
-Alternative.me 가 2018년 출시한 "Crypto Fear & Greed Index" 가 이를 정량화. 글로벌 가상자산 sentiment 의 표준.
+이 인덱스의 핵심 가설은 단순하다. 시장이 극단적 탐욕 (Extreme Greed) 상태에 도달하면 단기 정점이 임박했고, 극단적 공포 (Extreme Fear) 상태에 도달하면 단기 바닥이 임박했다. 이 가설은 Warren Buffett 의 "다른 사람이 두려워할 때 사고, 다른 사람이 탐욕적일 때 팔아라" 라는 명언의 가상자산 버전이다. 흥미로운 점은 이 가설이 4 사이클 (2017, 2021, 2022, 2024) 에서 모두 작동했다는 사실이다. 모든 사이클에서 정점은 Extreme Greed 구간에서 형성됐고, 모든 바닥은 Extreme Fear 구간에서 형성됐다.
+
+본 편은 이 인덱스의 5 component 구성을 정리하고, 4 사이클의 정량 검증을 살펴보고, Google Trends 와 Twitter sentiment 가 보조 지표로 작동하는 방식을 다룬다. 마지막으로 한국 시장의 unique 패턴이 글로벌 framework 으로 capture 되기 어려운 이유를 살펴본다.
 
 ## 1. Fear & Greed Index 의 5 Component
 
 ### 1-1. 합산 방법
-Index = 5 component 가중 평균:
-1. **변동성 (25%)** — 30일/90일 평균 대비 현재 변동성
-2. **거래량 (25%)** — 30일/90일 평균 대비 현재 거래량
-3. **소셜 미디어 (15%)** — Twitter + Reddit hashtag 빈도
-4. **도미넌스 (10%)** — BTC dominance 변화
-5. **Google Trends (10%)** — "Bitcoin" 검색 빈도
-6. **설문 (15%)** — 사용자 직접 설문 (작은 표본)
 
-### 1-2. 점수 0-100
+Alternative.me 의 인덱스는 5 component 가중 평균으로 산출된다. 각 component 의 가중치는 다음과 같다.
+
+- 변동성 (25%): 30일/90일 평균 대비 현재 변동성. 변동성이 평균보다 높으면 공포 신호, 낮으면 탐욕 신호.
+- 거래량 (25%): 30일/90일 평균 대비 현재 거래량. 거래량이 평균보다 높으면서 가격이 상승하면 탐욕 신호.
+- 소셜 미디어 (15%): Twitter, Reddit 의 BTC 관련 hashtag 빈도. 빈도가 가속되면 탐욕 신호.
+- 도미넌스 (10%): BTC dominance (BTC 시가총액 / 전체 가상자산 시가총액) 의 변화. 도미넌스가 가속되면 공포 신호 (사용자가 알트코인에서 BTC 로 회피).
+- Google Trends (10%): "Bitcoin" 검색 빈도. 빈도가 가속되면 탐욕 신호.
+- 설문 (15%): Alternative.me 자체 사용자 설문. 표본이 작아서 정확도가 낮지만 보조 지표.
+
+이 가중치는 Alternative.me 가 출시 시점에 결정한 값이고, 이후 변경되지 않았다. 가중치 자체에 학술적 정당성은 약하다. 5 component 가 모두 동일한 정보 가치를 가진다는 가정도 정확하지 않다. 그러나 4 사이클에서 검증되면서 시장이 받아들이는 표준 도구가 됐다.
+
+### 1-2. 0-100 스케일
+
+5 component 가 합산된 후 0-100 스케일로 정규화된다. 각 구간의 의미는 다음과 같다.
+
 | 점수 | 단계 |
 |------|------|
-| 0-24 | Extreme Fear |
-| 25-49 | Fear |
+| 0 - 24 | Extreme Fear |
+| 25 - 49 | Fear |
 | 50 | Neutral |
-| 51-74 | Greed |
-| 75-100 | Extreme Greed |
+| 51 - 74 | Greed |
+| 75 - 100 | Extreme Greed |
 
-### 1-3. 역사 사례
-| 시점 | Index | 단계 | 결과 |
-|------|-------|------|------|
-| 2017.12 | 95 | Extreme Greed | -85% 폭락 |
-| 2018.12 | 8 | Extreme Fear | +600% 반등 |
-| 2021.4 | 92 | Extreme Greed | -50% 조정 |
-| 2022.6 | 6 | Extreme Fear | +120% 반등 |
-| 2024.3 | 88 | Extreme Greed | -20% 조정 |
-| 2026.1 | 65 | Greed | 안정 |
+Extreme Fear (0-24) 구간이 시장 바닥을 시사하고, Extreme Greed (75-100) 구간이 시장 정점을 시사한다는 것이 인덱스의 핵심 해석이다. 중간 구간 (Fear, Neutral, Greed) 은 명확한 신호를 주지 않는다.
 
-**Extreme Greed 후 폭락, Extreme Fear 후 반등** 의 패턴이 4 사이클 검증.
+### 1-3. 4 사이클 검증
 
-## 2. Google Trends — "검색 = 채택"
+| 시점 | Index | 단계 | 이후 12개월 결과 |
+|------|-------|------|------------------|
+| 2017.12 | 95 | Extreme Greed | -85% (바닥까지) |
+| 2018.12 | 8 | Extreme Fear | +600% (정점까지) |
+| 2021.4 | 92 | Extreme Greed | -50% (1차 조정) |
+| 2022.6 | 6 | Extreme Fear | +120% (2024 정점까지) |
+| 2024.3 | 88 | Extreme Greed | -20% (단기 조정) |
+| 2026.1 | 65 | Greed | 안정 (현재 진행) |
 
-### 2-1. "Bitcoin" 검색 빈도
+4 사이클 모두 Extreme Greed (75+) 후 폭락이 있었고, Extreme Fear (25-) 후 반등이 있었다. 이 패턴의 정확도가 단일 지표로는 가장 높은 수준이다. 다만 polarity 만 알려주고 정확한 시점이나 폭의 크기는 알려주지 않는다는 한계가 있다. Extreme Greed 가 발생한 후 며칠 안에 정점이 올 수도, 몇 주 후에 올 수도 있다.
+
+## 2. Google Trends — 검색이 곧 채택
+
+### 2-1. "Bitcoin" 검색 빈도의 사이클
+
+Google Trends 에서 "Bitcoin" 검색 빈도는 가상자산 사이클을 반영하는 가장 직관적 지표다. 2017년 12월 사이클 정점에서 검색 빈도가 100 (역대 최고) 에 도달했고, 그 후 약세장에서 빠르게 하락했다.
+
 | 시점 | Google Trends 점수 (0-100) |
-|------|--------------------------|
+|------|---------------------------|
 | 2017.12 | 100 (사상 최고) |
 | 2021.5 | 73 |
 | 2024.3 | 68 |
 | 2025.10 | 35 |
 | 2026.1 | 28 |
 
-Google Trends 가 "가격 보다 사이클을 약간 빨리 capture" 의 lead indicator 인지 학계 논쟁.
+흥미로운 패턴은 2021년 사이클의 검색 빈도가 2017년 사이클보다 낮았다는 점이다. 2021년 BTC 가격은 2017년 정점의 약 3.5배에 도달했지만, Google Trends 점수는 73 수준에 그쳤다. 2024년 사이클은 더 낮은 68 이었다. 이 패턴이 의미하는 바는 가상자산이 점차 메인스트림화되면서 "처음 알게 되는 사용자" 의 비중이 줄어들었다는 점이다. 2017년에는 BTC 가 새로운 개념이었고, 검색 빈도가 가격 사이클과 함께 폭발했다. 2024년에는 BTC 가 이미 익숙한 개념이고, 가격이 정점에 도달해도 새로 검색하는 사용자가 적었다.
 
-### 2-2. 한국 사용자
-"비트코인" 한국어 검색 빈도가 글로벌 "Bitcoin" 검색과 약 0.85 상관. 한국 사용자가 "가격 가속 시 검색 가속" 의 동조.
+### 2-2. Lead vs Lag indicator
 
-### 2-3. "Buy bitcoin" vs "Sell bitcoin"
-"Buy bitcoin" 검색 vs "Sell bitcoin" 검색 비율도 sentiment 신호. 평소 "Buy" 가 더 높지만, "Sell" 가속 시 항복 신호.
+Google Trends 가 가격의 lead indicator (선행 지표) 인지 lag indicator (후행 지표) 인지에 대한 학술 논쟁이 있다. 2017년과 2021년 사이클에서는 검색 빈도가 가격과 동시에 움직였다 (concurrent). 2024년 사이클에서는 검색 빈도가 가격보다 약간 늦게 움직였다 (lag). 이 차이는 사용자 베이스의 변화를 반영한다. 신규 사용자가 다수일 때는 검색이 가격을 추종 (lag), 기존 사용자가 다수일 때는 검색이 가격과 동시 작동.
+
+이 패턴이 옳다면 Google Trends 의 trading 가치는 시간에 따라 줄어든다. 가상자산이 메인스트림화될수록 검색 데이터의 신호 가치가 줄어들고, 다른 sentiment 지표 (Twitter, Reddit) 가 상대적으로 더 유용해진다. Alternative.me 의 인덱스에서 Google Trends 비중이 10% 에 그치는 것도 이 한계를 반영한다.
+
+### 2-3. 한국어 검색 데이터
+
+한국 시장에 적용할 때는 글로벌 "Bitcoin" 검색 외에 한국어 "비트코인" 검색을 별도로 봐야 한다. 두 데이터의 상관계수는 약 0.85 수준이다. 한국 사용자가 글로벌 사이클과 비슷하게 움직이지만 일부 시기에 차이가 있다. 한국 정부의 정책 발표 (2017년 12월 가상자산 거래 규제 검토 등) 가 한국어 검색만 가속시킨 사례가 있다.
+
+또한 "Buy bitcoin" vs "Sell bitcoin" 의 검색 비율이 sentiment 의 추가 신호다. 평상시에는 "Buy" 가 "Sell" 보다 약 5배 많은 빈도를 보인다. "Sell" 검색이 가속되면 항복 (capitulation) 신호로 해석된다. 2018년 12월, 2022년 6월의 바닥 시기에 "Sell" 검색이 일시적으로 가속됐다.
 
 ## 3. Twitter Sentiment
 
-### 3-1. Santiment 의 "Crypto Twitter Sentiment"
-Santiment 가 BTC 관련 Twitter 글의 sentiment 분석 (NLP 기반). 0-100 점수.
+### 3-1. Santiment 의 NLP 기반 측정
+
+Santiment 는 Twitter 의 BTC 관련 글을 NLP (자연어 처리) 로 분석해 sentiment 점수를 산출한다. 0~100 스케일이고, 50 이상이 긍정, 50 미만이 부정으로 분류된다. 이 데이터가 Alternative.me 인덱스의 소셜 미디어 component 에 반영된다.
+
+Twitter sentiment 의 가장 큰 한계는 봇 (bot) 활동의 영향이다. 가상자산 관련 Twitter 에서 자동 봇 계정의 비중이 약 10~20% 로 추정된다. 일부 토큰 발행자가 자기 토큰 홍보를 위해 봇 계정을 운영하면서 sentiment 가 인위적으로 부풀려진다. Santiment 가 봇 필터링 알고리즘을 적용하지만 100% 정확하지 않다.
 
 ### 3-2. 영향력 있는 인물의 sentiment
-- Saylor (Strategy CEO) — 영구 강세
-- Cathie Wood (ARK) — 강세 (BTC $1.5M 가설)
-- Vitalik (ETH) — 균형
-- 익명 인플루언서 — 변동
 
-### 3-3. "FOMO" 신호
-Twitter 의 "to the moon" + "diamond hands" hashtag 빈도 가속 = FOMO 가속. 단기 정점 임박 신호.
+Twitter 에서 영향력 있는 인물의 sentiment 가 시장에 직접 영향을 주는 패턴이 자주 관찰된다.
+
+- Michael Saylor (Strategy CEO, 구 MicroStrategy): 영구 강세 자세. BTC 매수 발표가 시장에 강세 신호로 작동.
+- Cathie Wood (ARK Invest): 강세 자세. ARK 의 BTC 가격 시나리오 ($1.5M 등) 가 정기적으로 시장에서 인용됨.
+- Vitalik Buterin (Ethereum 공동 창립자): 균형 자세. 기술 분석에 집중하고 가격에 대한 직접 발언 적음.
+- Elon Musk (Tesla, X): 변동 자세. 2021년 Tesla 의 BTC 매수 발표와 결제 중단 발표가 시장 변동성에 직접 영향.
+- 익명 인플루언서: 변동 자세. 2024년 이후 일부 익명 계정이 큰 팔로워를 확보하며 단기 변동성에 영향.
+
+이 인물들의 발언이 sentiment 지표에 반영되는 비중이 다른 사용자보다 크다. Santiment 와 Alternative.me 모두 가중치를 적용해서 영향력을 반영한다.
+
+### 3-3. FOMO 신호
+
+Twitter 의 sentiment 패턴 중 단기 정점 신호로 자주 인용되는 것이 FOMO (Fear of Missing Out) 신호다. "to the moon", "diamond hands", "lambo" 같은 hashtag 빈도가 가속되면 사용자 다수가 FOMO 상태에 들어갔다는 신호로 해석된다. 이 시점이 단기 정점에 가깝다는 가설이다.
+
+이 가설의 검증은 일부만 명확하다. 2021년 4월 (BTC $64K) 시점에 "to the moon" 빈도가 정점을 찍었고 그 직후 BTC 가 -50% 하락했다. 2024년 3월 (BTC $73K) 시점에도 비슷한 패턴이 나타났고 그 후 단기 조정이 있었다. 그러나 이 hashtag 빈도와 정점의 일치가 항상 작동하는 것은 아니다. 2024년 11월 (BTC $99K) 시점에는 hashtag 빈도가 가속됐지만 가격이 추가 상승했다.
 
 ## 4. 한국 시장 적용
 
 ### 4-1. 한국 retail 의 빠른 sentiment 변화
-한국 사용자의 sentiment 가 글로벌 보다 빠르게 변동. 한국 가상자산 보호원의 분기 설문 — 한국 사용자의 "sentiment volatility" 가 미국 보다 약 1.4배.
 
-### 4-2. "네이버 검색" 보조
-글로벌 Google Trends 외에 한국에서는 "네이버 검색 트렌드" 가 보조 지표. 비트코인 검색이 한국에서 가속 시 김치 프리미엄 가속과 동조.
+한국 가상자산 사용자의 sentiment 가 글로벌보다 빠르게 변동한다는 패턴이 있다. 한국 가상자산 보호원의 분기 설문에서 한국 사용자의 sentiment volatility 가 미국 사용자의 약 1.4배라는 추정이 나온다. 같은 가격 변동에 한국 사용자가 더 큰 sentiment 반응을 보인다.
 
-### 4-3. 한국형 Fear & Greed
-한국 사용자만의 unique sentiment — 글로벌 + 김치 프리미엄 + 한국 정책 + 한국 미디어 의 결합. 한국형 인덱스가 학계에서 시도되지만 표준화 X.
+이 패턴의 원인은 두 가지로 추정된다. 첫째, 한국 사용자의 평균 보유 기간이 짧다 (약 110일, 글로벌 약 180일 대비). 짧은 보유 기간은 sentiment 의 빠른 변화로 이어진다. 둘째, 한국 미디어의 가상자산 보도 빈도가 글로벌 평균보다 높다. 가상자산 관련 뉴스가 일상적으로 보도되면서 사용자 sentiment 가 미디어 노출에 빠르게 반응한다.
 
-<Callout type="opposing-view" title="반대 시각 · Sentiment 신호의 한계">
-Fear & Greed Index 가 4 사이클 검증됐지만, 비판적 시각도 있습니다.
+### 4-2. 네이버 검색 트렌드
 
-첫째, **lagging indicator** 한계. Sentiment 가 "가격 변화 후" 변화. 즉 "가격이 떨어진 후 사용자가 fear". Lead indicator 가 아님.
+한국에서는 글로벌 Google Trends 외에 네이버 검색 트렌드가 sentiment 의 추가 보조 지표가 된다. 한국 사용자의 다수가 네이버를 사용하기 때문에 네이버 데이터가 한국 sentiment 의 더 정확한 신호를 줄 수 있다. "비트코인" 네이버 검색이 가속되는 시점이 한국 거래소 거래량 가속과 동조한다.
 
-둘째, **5 component 가중치의 임의성**. 25/25/15/10/10/15 의 가중치가 "역사 fit" 이지 학술적 정당성 약함.
+또 하나의 패턴은 김치 프리미엄과 네이버 검색의 동조다. 김치 프리미엄이 가속되는 시점에 네이버 검색도 함께 가속된다. 한국 사용자가 김치 프리미엄을 인지하지 못하더라도, 한국 거래소 가격이 빠르게 오르면 검색 빈도도 함께 오른다. 이 패턴이 한국 사용자의 진입을 추가로 가속시키는 양의 피드백 순환을 만든다.
 
-셋째, **소셜 미디어 manipulation**. Twitter/Reddit 의 hashtag 가 일부 trader 의 "의도적 마케팅" 으로 조작. "진정한 sentiment" 와 차이.
+### 4-3. 한국형 인덱스 시도
 
-넷째, **Google Trends 의 "causation vs correlation"**. 검색 가속이 "가격 가속 결과" 인지 "가격 가속 원인" 인지 명확하지 않음.
+글로벌 Alternative.me 인덱스가 한국 시장의 unique 패턴을 capture 하지 못한다는 인식이 있다. 한국 가상자산 사용자의 sentiment 가 글로벌 평균과 다르게 움직이는 시점이 자주 있다. 한국 정부의 정책 발표, 김치 프리미엄 변동, 한국 미디어의 보도 빈도가 한국 sentiment 에 영향을 주는 요인들이다.
 
-다섯째, **한국 unique 패턴이 standard 화 어려움**. 한국 사용자의 빠른 sentiment 가 글로벌 인덱스로 capture 어려움.
+이 한국 unique 패턴을 정량화하는 한국형 인덱스를 시도하는 학계 연구가 일부 있다. 한국 가상자산 보호원, KAIST, 서울대 경영대 일부 연구진이 한국형 sentiment 인덱스를 발표했지만 표준화되지 않은 상태다. 데이터 출처 (네이버, 카카오, 한국 거래소 거래량) 의 신뢰성과 가중치 결정에 대한 합의가 부족하다.
 
-이 5가지 비판이 의미하는 바 — Sentiment 가 "식별 도구" 이지 "trading signal" 의 single source 가 아닙니다.
+## 5. Sentiment 지표의 학술적 한계
+
+### 5-1. Lagging vs Leading indicator
+
+Sentiment 지표의 가장 큰 학술적 비판은 lagging indicator (후행 지표) 라는 점이다. Sentiment 가 가격 변화 후에 변화한다. 가격이 떨어진 후 사용자가 fear 상태에 들어간다. Lead indicator (선행 지표) 가 아니라는 의미다.
+
+이 비판이 옳다면 sentiment 지표는 trading signal 로 사용하기 어렵다. 가격이 이미 떨어진 후 sentiment 가 Extreme Fear 에 도달하면, 매수 시점이 이미 지났을 수 있다. 그러나 lagging indicator 도 일정 가치를 가진다. 시장의 현재 상태를 파악하는 도구로 작동할 수 있고, 다른 leading indicator 와 결합해 사용할 수 있다.
+
+### 5-2. 5 Component 가중치의 임의성
+
+Alternative.me 인덱스의 25/25/15/10/10/15 가중치에 대한 학술적 정당성이 약하다. 다른 가중치 조합 (예: 변동성 30%, 거래량 30%, 나머지 동일) 도 합리적일 수 있다. Alternative.me 는 가중치를 결정한 근거를 공개하지 않았다. 이 임의성이 인덱스의 학술 가치를 일부 깎는다.
+
+또 한 가지 한계는 component 사이의 상관관계다. 변동성과 거래량이 강하게 상관돼 있다. 두 component 에 각각 25% 가중치를 부여하는 것은 사실상 같은 신호에 50% 를 부여하는 것과 비슷하다. 이 중복이 인덱스의 정확도를 일부 줄인다.
+
+### 5-3. 소셜 미디어 manipulation
+
+소셜 미디어 component 가 가장 큰 manipulation 위험에 노출된다. 일부 트레이더가 의도적으로 hashtag 를 푸시하면서 sentiment 를 인위적으로 변경할 수 있다. 봇 계정이 자동으로 글을 발행하면서 sentiment 점수를 부풀릴 수 있다. Santiment 와 Alternative.me 가 봇 필터링을 적용하지만 완벽하지 않다.
+
+이 manipulation 위험이 가장 크게 작동하는 시점이 단기 토큰 펌프 (특정 알트코인의 급등) 가 발생할 때다. 토큰 발행자가 자기 토큰 홍보를 위해 sentiment 를 부풀리면서 전체 가상자산 sentiment 까지 영향을 주는 패턴이 일부 관찰된다. BTC 와 ETH 의 sentiment 는 상대적으로 manipulation 위험이 작지만, 알트코인 sentiment 는 신뢰도가 낮다.
+
+## 6. 정책적 의미
+
+### 6-1. 사이클 식별 도구로서의 가치
+
+4 사이클 검증을 통과한 sentiment 지표가 가상자산 사이클 식별 도구로 자리잡았다. 정책 입안자, 금융 안정성 감독 기관, 기관 투자자가 sentiment 지표를 시장 상태 파악의 보조 도구로 사용한다. 미국 FSOC 의 2024년 보고서가 가상자산 sentiment 지표를 명시적으로 언급한 사례가 있다.
+
+이 활용이 의미하는 바는 sentiment 가 거래 도구를 넘어 시장 안정성 모니터링 도구로 작동한다는 점이다. Extreme Greed 가 지속되는 시기에 시장 안정성 위험이 증가하고, Extreme Fear 가 지속되는 시기에 시장 회복 신호를 모니터링한다는 framework 이 자리잡았다.
+
+### 6-2. 한국 정책 framework 의 부재
+
+한국에는 sentiment 를 정책 framework 으로 활용하는 시스템이 아직 없다. 한국 가상자산 보호원이 분기 설문을 진행하지만 실시간 sentiment 모니터링 시스템은 없다. 2024년 8월 캐리 트레이드 청산 같은 외부 충격이 발생했을 때 한국 정부의 대응이 늦었던 한 원인이 이 모니터링 부재다.
+
+향후 한국 정부가 sentiment 모니터링을 정책 framework 에 포함시키는 시도가 필요하다. 한국형 인덱스 (네이버 검색, 카카오 데이터, 한국 거래소 거래량 결합) 를 표준화하고, 그 데이터를 기반으로 시장 안정성 신호 시스템을 구축하는 방향이 가능하다.
+
+<Callout type="opposing-view" title="반대 시각 · Sentiment 신호의 다섯 가지 한계">
+Fear & Greed Index 가 4 사이클 검증됐지만, 비판적 관점도 명확하다.
+
+첫째, Lagging indicator. Sentiment 가 가격 변화 후 변화. Lead indicator 가 아님.
+
+둘째, 5 component 가중치의 임의성. 25/25/15/10/10/15 의 가중치가 역사 fit 이지 학술적 정당성 약함.
+
+셋째, 소셜 미디어 manipulation. Twitter, Reddit 의 hashtag 가 일부 트레이더의 의도적 마케팅으로 조작 가능.
+
+넷째, Google Trends 의 causation vs correlation. 검색 가속이 가격 가속의 결과인지 원인인지 명확하지 않음.
+
+다섯째, 한국 unique 패턴이 standard 화 어려움. 한국 사용자의 빠른 sentiment 가 글로벌 인덱스로 capture 어려움.
+
+이 다섯 가지가 의미하는 바는 분명하다. Sentiment 가 식별 도구이지 trading signal 의 single source 가 아니다. 다른 지표와 결합해 사용해야 한다.
 </Callout>
 
-## 결론 — 4가지 핵심 발견
+## 마무리
 
-1. **Fear & Greed Index 5 component**. 변동성 + 거래량 + 소셜 + 도미넌스 + Google + 설문.
-2. **Extreme Greed (75+) 후 폭락, Extreme Fear (25-) 후 반등** — 4 사이클 검증.
-3. **Google Trends + Twitter sentiment 가 보조 지표**.
-4. **한국 sentiment 가 글로벌 대비 1.4배 변동성**. 빠른 변화.
+Alternative.me 의 Crypto Fear & Greed Index 가 4 사이클에서 작동했다는 사실이 sentiment 지표의 가치를 정량적으로 증명한다. Extreme Greed 후 폭락, Extreme Fear 후 반등 패턴이 모든 사이클에서 재현됐다. 이 패턴이 그 자체로 trading signal 은 아니지만, 시장의 현재 상태를 파악하는 도구로 작동한다.
 
-다음 편(#O10) — Puell Multiple. 채굴자 수익성 사이클.
+동시에 sentiment 지표의 한계도 명확하다. Lagging indicator 의 성격, 가중치의 임의성, 소셜 미디어 manipulation 의 가능성, 한국 unique 패턴의 capture 어려움이 모두 지적되는 한계다. 다음 1~2년 사이 가상자산이 더 메인스트림화되면서 sentiment 지표의 신호 가치가 어떻게 변할지가 관찰 지점이다. 다음 편 (#O10) 에서는 Puell Multiple 과 채굴자 수익성 사이클을 다룬다.

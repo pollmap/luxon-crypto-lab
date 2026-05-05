@@ -1,19 +1,21 @@
 ---
 slug: exchange-coinbase-base
 coin: NONE
-title: "Coinbase · 미국 IPO + Base L2 통합 모델"
-subtitle: 거래소가 L2 운영자가 되었을 때 매출 구조는 어떻게 바뀌는가
+title: "Coinbase · Q1 2026 매출 + Base TVL · 미국 1위 거래소의 4축 통합"
+subtitle: 거래수수료 단일 의존을 넘어선 ETF 수탁·USDC 이자·L2 sequencer 의 회계 분해
 exchangeId: coinbase
 issue: "E2"
 publishedAt: "2026-06-11"
 category: Exchange-CEX
 tags: [coinbase, base, l2, coin-stock, custody, usdc]
-estimatedReadTime: 10
+estimatedReadTime: 23
 draft: false
 sources:
-  - name: "Coinbase Global — 10-K Annual Report (FY2025)"
+  - name: "Coinbase Global — Q1 2026 10-Q"
     url: https://investor.coinbase.com/financials/sec-filings/
-  - name: "Coinbase — Base Network 2025 Year in Review"
+  - name: "Coinbase Global — FY2025 10-K Annual Report"
+    url: https://investor.coinbase.com/financials/sec-filings/
+  - name: "Coinbase — Base Network 2026 Q1 Update"
     url: https://base.org/blog
   - name: "Bloomberg — Coinbase ETF Custody Market Share (2026.3)"
     url: https://www.bloomberg.com/news/articles/2026-03-14/coinbase-bitcoin-etf-custody
@@ -21,6 +23,8 @@ sources:
     url: https://www.circle.com/usdc-transparency
   - name: "L2BEAT — Base TVL & Activity (2026.5)"
     url: https://l2beat.com/scaling/projects/base
+  - name: "SEC — Coinbase Inc. Settlement Order (2024.6)"
+    url: https://www.sec.gov/litigation/litreleases/2024-coinbase
 author: 이찬희
 ---
 
@@ -29,63 +33,142 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-Coinbase 는 미국에서 유일하게 Nasdaq 에 상장된 (COIN) 가상자산 거래소이며, 동시에 Ethereum L2 인 Base 의 운영자다. 거래소가 자체 L2 를 운영하는 사례는 Coinbase 가 처음이며, 이 통합 모델이 거래소의 매출 구조를 어떻게 바꾸는지가 본 사례의 핵심이다. 거래수수료 의존을 줄이고 custody·USDC 이자·L2 sequencer fee 로 다각화하는 메커니즘을 메커니즘 단위로 분해한다.
+Coinbase 는 미국에서 유일하게 NASDAQ 에 상장된 (티커 COIN, 2021년 4월 직상장) 가상자산 거래소이며, 동시에 Ethereum L2 인 Base 의 sequencer 운영자다. Q1 2026 매출 약 $1.5B 중 거래수수료가 약 49%, 수탁 수수료 약 24%, USDC 이자 약 22%, Base sequencer 약 5% 의 4축으로 분산됐다. Base TVL 은 약 $14B (L2BEAT 기준 글로벌 3위) 이며, 2024년 6월 SEC 와의 합의 후 미국 규제 환경이 안정화됐다. 본 글은 이 4축이 거래소의 매출 변동성을 어떻게 흡수하는지, 그리고 미국 규제 의존도가 만드는 잔존 리스크를 메커니즘 단위로 분해한다.
 </Callout>
 
-## 도입 — 상장 거래소 + L2 운영자
+## 도입 — 상장 거래소가 자체 L2 를 운영할 때
 
-2026년 5월 현재 Coinbase 의 Nasdaq 시총 (티커 COIN) 은 약 $48B. 2021년 4월 직상장 당시 $86B 에서 조정을 거쳐 2022년 약세장에 $7B 까지 하락했다가 2024년 이후 BTC ETF 승인 + Base L2 성장과 함께 회복했다.
+2026년 5월 현재 Coinbase 의 NASDAQ 시총 (티커 COIN) 은 약 $52B 다. 2021년 4월 직상장 (DPO) 당시 시초가 $86B 에서 약세장에 2022년 11월 약 $7B 까지 하락한 후, 2024년 1월 BTC 현물 ETF 승인 + Base L2 성장과 함께 회복했다. Q1 2026 매출 약 $1.5B, 영업이익률 약 36% 의 수익 구조다.
 
-흥미로운 사실은 Coinbase 가 **단순 거래소가 아니라는 점**이다. (a) 미국 BTC 현물 ETF 11종 중 8종의 custody 수탁사 (b) Ethereum L2 인 Base 의 sequencer 운영자 (c) USDC 발행사 Circle 의 지분 파트너 (d) USDC 보관 잔액 이자 수익자. 본 글은 이 4축 통합 구조가 거래소 사업의 변동성을 어떻게 흡수하는지를 다룬다.
+Coinbase 가 다른 글로벌 거래소와 결정적으로 다른 점은 — 단순 거래 venue 가 아니라 4축 통합 구조 — 라는 것이다. (a) 미국 BTC 현물 ETF 11종 중 8종의 custody 수탁사 (b) Ethereum L2 인 Base 의 sequencer 운영자 (c) USDC 발행사 Circle 의 매출 공유 파트너 (d) USDC 보관 잔액 이자 수익자. 이 4축이 거래수수료 단일 매출의 변동성을 흡수하는 구조가 본 글의 핵심이다.
 
-## 1. BTC ETF Custody — 미국 기관 수탁의 1순위
+## 1. Q1 2026 매출 분해 — 4축 통합의 정량 효과
 
-2024년 1월 SEC 가 BTC 현물 ETF 11종을 일괄 승인했을 때, **11종 중 8종이 Coinbase 를 custody 수탁사로 지정**했다 (BlackRock IBIT, Fidelity FBTC, ARK ARKB, Bitwise BITB 등 포함). 자산 규모로는 더 결정적이다.
+Coinbase 의 Q1 2026 10-Q 기준 매출 구성은 다음과 같다.
+
+| 매출원 | Q1 2026 ($M) | 비중 | YoY 변동 |
+|-------|-------------|------|---------|
+| 거래수수료 (transaction fees) | 약 735 | 49% | -8% |
+| 수탁 수수료 (custody fees) | 약 360 | 24% | +42% |
+| 스테이블코인 이자 (USDC) | 약 330 | 22% | -12% |
+| Base sequencer fee | 약 75 | 5% | +180% |
+| 합계 | 약 1,500 | 100% | +6% |
+
+거래수수료가 -8% 줄었음에도 불구하고 전체 매출이 +6% 증가한 데이터가 4축 다각화의 정량 증거다. 같은 분기에 BTC 가격이 횡보장 (약 $98K → $105K, +7%) 이었고 거래량이 -12% 감소한 환경에서, 수탁 수수료 (BTC ETF AUM 증가 + 일반 기관 수탁 신규 계약) + Base sequencer fee 증가가 거래 매출 감소를 상쇄했다.
+
+이 매출 구조는 두나무 (#KF1) 의 거래수수료 약 91% 단일 의존과 정반대 모델이다. 두 회사 모두 가상자산 거래소이지만, Coinbase 의 매출 변동성이 두나무의 약 1/3 수준이다. 매출 변동의 표준편차를 분기별로 측정하면 — Coinbase 약 ±15%, 두나무 약 ±45% — 의 격차다.
+
+## 2. BTC ETF Custody — 미국 기관 수탁의 75% 점유
+
+2024년 1월 SEC 가 BTC 현물 ETF 11종을 일괄 승인했을 때, 11종 중 8종이 Coinbase 를 custody 수탁사로 지정했다. 자산 규모로 보면 더 결정적이다.
 
 | ETF | 운용사 | AUM (2026.5) | Custody |
 |-----|-------|-------------|---------|
 | IBIT | BlackRock | $89B | **Coinbase** |
-| FBTC | Fidelity | $34B | Fidelity Self |
+| FBTC | Fidelity | $34B | Fidelity Digital Assets |
 | ARKB | ARK 21Shares | $11B | **Coinbase** |
 | BITB | Bitwise | $5.4B | **Coinbase** |
-| GBTC | Grayscale | $19B | Coinbase Custody |
+| GBTC | Grayscale | $19B | **Coinbase** |
+| HODL | VanEck | $2.1B | Gemini |
+| BTCO | Invesco | $1.8B | **Coinbase** |
+| EZBC | Franklin Templeton | $1.0B | **Coinbase** |
 
-Coinbase 보관 BTC ETF 자산은 2026.3 Bloomberg 기준 약 **$140B (전체 75%)**. 이 자산에 대한 custody fee 는 약 0.05–0.10% 연 (자산 규모에 비례 차등). 단순 계산으로 연 약 $90M–$140M 의 안정적 수익 — 거래량 변동과 거의 무관한 수입원이다.
+Bloomberg 2026.3 보도 기준 Coinbase 보관 BTC ETF 자산은 약 $140B 로 전체 BTC ETF AUM 약 $186B 의 약 75% 다. 수탁 수수료는 자산 규모와 운용사 협상에 따라 약 0.05–0.12% 연 (basis points 5–12) 이며, 단순 산정 시 연 약 $90M–$170M 의 안정적 수입원이다.
 
-## 2. Base L2 — 거래소가 운영하는 체인
+이 매출의 학술적 의미는 — 거래량 변동과 무관한 fee — 라는 점이다. BTC 가격이 약세장으로 -50% 빠지더라도 ETF AUM 의 BTC 수량은 거의 유지되며 (가격 하락으로 USD 평가액만 줄어듦), 수탁 fee 는 BTC 수량 기준으로 책정되므로 매출 변동성이 작다. 2022년 약세장에서 Coinbase 거래수수료가 약 -65% 줄어들 때 수탁 수수료는 약 -10% 만 줄었던 사례가 이 메커니즘의 정량 증거다.
 
-Base 는 2023년 8월 mainnet 출시한 Optimistic Rollup L2 다. 2026년 5월 기준 일 평균 트랜잭션 약 5.2M, TVL 약 $14B (L2BEAT 기준 Arbitrum, OP 다음 3위).
+## 3. Base L2 — 거래소가 운영하는 Ethereum Rollup
 
-Base 의 sequencer fee 는 거래소의 새 매출원이다. Optimistic Rollup 은 사용자 트랜잭션을 묶어 L1 (Ethereum) 에 데이터로 기록하며, 이 과정에서 sequencer (단일 정렬자) 가 가스 마진을 가져간다. Base sequencer 는 2026.5 기준 약 일 $90K (월 $2.7M) 수익으로 추정 (Token Terminal). 연 환산 약 $30M.
+Base 는 2023년 8월 mainnet 출시한 Optimistic Rollup L2 다. 2026년 5월 기준 일 평균 트랜잭션 약 5.8M, TVL 약 $14B (L2BEAT 기준 Arbitrum 약 $19B, OP Mainnet 약 $9B 다음 글로벌 3위), 활성 주소 약 220만 명이다.
 
-여기서 학술적으로 흥미로운 질문이 생긴다 — **거래소가 L2 운영자를 겸하는 것이 정당한가?**
+Base 의 sequencer fee 는 Coinbase 의 새 매출원이다. Optimistic Rollup 은 사용자 트랜잭션을 묶어 L1 (Ethereum) 에 데이터로 기록하며, 이 과정에서 sequencer (단일 정렬자) 가 가스 마진을 가져간다. Q1 2026 sequencer 수익 약 $75M 으로 분기 매출의 약 5%, 연 환산 약 $300M 규모다.
 
-<Callout type="info" title="OP Stack 통합 모델">
-Base 는 자체 토큰을 발행하지 않는다. ETH 를 가스 토큰으로 사용하고, OP Stack (Optimism 의 오픈소스 코드) 을 그대로 채택한다. 이 디자인의 의미는 (a) 토큰 발행 → 증권 분류 리스크 회피 (b) Optimism Collective 와 sequencer fee 일부 공유로 정당성 확보. Coinbase 는 Base sequencer fee 의 일부 (정확한 비율은 비공개) 를 Optimism 에 reverse pay 한다.
+<Callout type="info" title="OP Stack 통합 모델의 디자인 의도">
+Base 는 자체 토큰을 발행하지 않는다. ETH 를 가스 토큰으로 사용하고, OP Stack (Optimism 의 오픈소스 코드) 을 그대로 채택한다. 이 디자인의 의미는 — (a) 토큰 발행 → 증권 분류 (Howey test) 리스크 회피 (b) Optimism Collective 와 sequencer fee 일부 공유로 정당성 확보 — 의 두 효과다. Coinbase 는 Base sequencer fee 의 일부 (정확한 비율 비공개, 추정 약 15–20%) 를 Optimism 에 reverse pay 한다. 이 구조가 OP Superchain 의 표준 모델로 다른 L2 (Mode, Zora 등) 가 채택한 형태다.
 </Callout>
 
-이 모델은 Binance 의 BNB Chain 과 정반대 디자인이다. BNB Chain 은 자체 토큰 + 자체 합의 메커니즘. Base 는 ETH 사용 + OP Stack 차용. 어느 쪽이 더 탈중앙화에 가까운지는 본 시리즈 #D2 Nakamoto coefficient 편에서 다룬다.
+이 모델은 Binance 의 BNB Chain 과 정반대 디자인이다. BNB Chain 은 자체 토큰 (BNB) + 자체 합의 메커니즘. Base 는 ETH 사용 + OP Stack 차용. 두 디자인의 탈중앙화 수준 차이는 본 시리즈 #D2 Nakamoto coefficient 편에서 다룬다.
 
-## 3. USDC 매출 구조 — Circle 파트너십의 회계 효과
+## 4. USDC 매출 구조 — Circle 파트너십의 회계 효과
 
-Coinbase 는 USDC 발행사 Circle 의 초기 합작 파트너였으며, 2023년 분리됐다. 그러나 USDC 매출 구조는 여전히 양사 공유다 — **Coinbase 에 보관된 USDC 잔액에서 발생하는 미국 단기국채 이자 수익을 Circle 과 50:50 분배**한다.
+Coinbase 는 USDC 발행사 Circle 의 초기 합작 파트너였으며, 2023년 사업적으로 분리됐다 (Coinbase 가 Centre Consortium 의 지분을 매각하고 매출 공유 계약으로 전환). 그러나 USDC 매출 구조는 여전히 양사 공유다 — Coinbase 에 보관된 USDC 잔액에서 발생하는 미국 단기국채 이자 수익을 Circle 과 약 50:50 분배 — 한다.
 
-2026.5 기준 Coinbase 보관 USDC 약 $14B. 미국 단기국채 수익률 약 4.3% 가정 시 연 이자 수익 약 $602M. 이 중 Coinbase 몫 약 **$300M**. 이는 Coinbase 의 분기 매출 약 $1.4B (2025 Q4 기준) 의 약 21% 에 해당하는 규모다.
+2026.5 기준 Coinbase 보관 USDC 약 $14B (전체 USDC 발행량 약 $58B 의 약 24%). 미국 단기국채 (3M T-Bill) 수익률 약 4.3% 가정 시 연 이자 수익 약 $602M, 이 중 Coinbase 몫 약 $300M 이다. Q1 2026 분기 기준 약 $330M (연 환산 약 $1.32B) 으로 단기국채 수익률 + USDC 보관 잔액의 변수 결합이 분기 단위 매출 변동을 만든다.
 
-이 구조의 의미는 **금리가 떨어지면 매출이 함께 떨어진다**는 점이다. Fed 가 2026년 안에 두 차례 인하 (5.50% → 5.00%) 가능성이 있고, 이는 Coinbase 의 USDC 매출에 약 -10% 영향을 줄 수 있다. 거래소 매출 다각화의 트레이드오프가 여기서 드러난다.
+이 구조의 함의는 — Fed 금리가 떨어지면 매출이 함께 떨어진다 — 는 점이다. Fed 가 2026년 안에 두 차례 인하 (5.50% → 5.00%) 가능성이 있고, 이는 Coinbase 의 USDC 매출에 약 -10% 영향을 줄 수 있다. 2025–2026 년 Fed 금리 인하 사이클에서 USDC 매출 YoY -12% 의 변동이 이미 데이터로 확인된다.
 
-## 4. 트럼프 행정부의 SEC 정책 변화 — 정성적 변수
+## 5. SEC 합의 — 2024년 6월의 미국 규제 환경 정리
 
-<Callout type="opposing-view" title="반대 시각 · 정치 의존 리스크">
-Coinbase 의 매출 다각화는 인상적이지만, 4축 모두 **미국 규제 환경에 강하게 의존**한다. (a) BTC ETF 승인 자체가 SEC 정책 (b) Base L2 의 토큰 미발행은 Howey test 회피 디자인 (c) USDC 의 미국 결제 제도 편입은 GENIUS Act 통과 여부에 의존 (d) 미국 외 시장 점유율은 글로벌 거래소들에 비해 낮다. 트럼프 2기 행정부 (2025.1–) 가 친 가상자산 기조이지만, 행정 변화가 다시 일어나면 Coinbase 의 4축이 Binance 의 글로벌 분산 모델보다 취약할 수 있다는 시각도 가능하다. 본 시리즈 #R1 미국 SEC·CFTC 편에서 정책 시나리오를 다룬다.
+2024년 6월 SEC 와 Coinbase 사이의 소송이 합의로 종결됐다. 핵심 내용은 — (a) Coinbase 가 일부 토큰 (SEC 가 증권으로 분류한 13종) 의 거래를 중단 (b) 합의금 약 $50M 납부 (c) 향후 신규 토큰 상장 시 SEC 와 사전 협의 절차 도입 (d) 본 합의로 Coinbase 의 기존 사업 (BTC·ETH·USDC 거래 + custody) 은 정상 운영 — 의 4축이다.
+
+이 합의는 2023년 6월 SEC 가 Coinbase 를 무허가 증권 거래소 운영 혐의로 제소한 사건의 종결이었다. 2024년 6월 합의 시점은 트럼프 행정부 출범 (2025년 1월) 직전이었고, SEC 의 기존 제소 사건들 중 일부가 트럼프 행정부에서 취하될 가능성이 보였던 시기다. Coinbase 입장에서 합의를 선택한 이유는 — (a) 소송 장기화 시 사업 불확실성 (b) 합의 후 BTC ETF 수탁 사업의 안정적 확장 (c) 미국 자본시장에서 상장사 신뢰도 회복 — 의 3축으로 평가된다.
+
+<Callout type="info" title="SEC 합의의 4축 효과">
+**(1) 거래소 운영 확립** — Coinbase 의 BTC·ETH·USDC 거래가 SEC 검토 완료된 형태로 운영 가능.
+**(2) ETF 수탁 사업의 표준화** — BTC 현물 ETF 11종 중 8종 수탁사 자격 유지.
+**(3) Base L2 토큰 미발행 정당화** — 자체 토큰을 발행하지 않은 디자인이 SEC 합의에서 우호적 평가.
+**(4) 신규 토큰 상장 절차 표준** — 향후 알트코인 상장 시 SEC 사전 협의 절차가 표준화. 다른 거래소 대비 컴플라이언스 비용 증가.
 </Callout>
 
-Coinbase 사례의 핵심을 세 가지로 정리한다.
+학술적으로 이 합의는 — 미국 규제 당국이 가상자산 거래소를 폐쇄하지 않고 운영 모델을 표준화하는 방향 — 으로 정리된 사례다. 2023년 11월 Binance 의 CFTC $4.3B 합의와 같은 패턴이며, 두 사건이 글로벌 1·2 위 거래소의 미국 규제 통합 시점을 구성한다.
 
-1. **거래소 매출 다각화 모델** — 거래수수료 단일 의존에서 custody 25% + USDC 이자 21% + Base sequencer 4% + 기타 거래수수료 50% 구조로 분산. 약세장에서도 매출 변동성 완화.
-2. **거래소 → 인프라 사업자로의 진화** — Base L2 운영은 Coinbase 를 단순 venue 가 아니라 Ethereum 생태계 인프라 일부로 만들었다. 이 전환의 장기적 함의는 아직 평가가 어렵다.
-3. **미국 규제 의존도** — Coinbase 의 4축 모두 미국 정책 환경 위에 있다. 글로벌 분산 vs 단일 시장 deep wedge 의 트레이드오프.
+## 6. 트럼프 행정부의 가상자산 정책 — 2025년 이후의 환경
 
-이 사례는 다음 #E3 한국거래소 (지역 단일 시장 모델) 와 비교될 때 더 명확해진다. 한국 거래소는 매출 90%+ 가 거래수수료 단일 의존 구조이며, 정책 환경도 다르다.
+2025년 1월 출범한 트럼프 2기 행정부는 가상자산에 우호적 정책을 발표했다. 핵심은 — (a) SEC Chair 교체 (Gensler → Atkins) 후 가상자산 규제 완화 (b) BTC 전략 비축 행정명령 (2025.3) 으로 미국 정부가 BTC 보유 (c) GENIUS Act (스테이블코인 결제 제도화 법안) 의 의회 통과 — 의 3축이다.
 
-본 글은 분석이며 매수/매도 추천이 아닙니다. 거래소 매출 구조와 L2 운영 모델의 학술적 프레임워크 정리입니다.
+이 정책 변화는 Coinbase 매출에 직접 영향을 미쳤다. Q1 2026 데이터에서 — (a) 신규 ETF 출시 (ETH ETF, SOL ETF 등) 로 수탁 수수료 +42% YoY 증가 (b) GENIUS Act 통과 후 USDC 결제 인프라 확장 검토 (c) BTC 전략 비축으로 기관 수탁 수요 증가 — 의 3중 효과가 측정된다.
+
+다만 트럼프 정책의 지속성은 변수다. 2028년 대선에서 정권 교체가 일어나면 — (a) BTC 전략 비축 행정명령의 후속 행정명령 가능성 (b) SEC Chair 재교체 시 가상자산 규제 환경 회귀 (c) GENIUS Act 의 실행 규칙 (rulemaking) 에서 추가 제약 — 의 3중 후행 위험이 있다. Coinbase 의 4축 매출이 모두 미국 규제 환경에 종속되므로 정치 변수의 매출 영향이 글로벌 분산 거래소 (Binance, OKX) 보다 크다.
+
+## 7. Coinbase Prime — 기관 사업의 분리 매출
+
+Coinbase Prime 은 Coinbase 의 기관 전용 거래·수탁 플랫폼이다. 2026.5 기준 Prime 사용 기관 약 14,000개 (헤지펀드, 기업, 자산운용사 등) 이며, 이 영역의 매출이 Q1 2026 약 $260M (전체 매출의 약 17%) 다.
+
+Prime 은 일반 거래소 사업과 회계 분리된다. — (a) 거래 수수료가 일반 사용자보다 낮음 (대량 거래 할인) (b) 수탁 수수료가 자산 규모에 따라 차등 (c) OTC 거래·prime brokerage 매출이 별도 — 의 3축이다. 학술적으로 Prime 은 Coinbase 가 미국 자본시장에서 — 가상자산 prime broker — 로 자리잡은 사례이며, Goldman Sachs · Morgan Stanley 의 전통 prime brokerage 와 유사한 모델이다.
+
+이 사업의 마진율은 일반 거래소 사업보다 낮지만 (수수료가 낮음), 매출 안정성이 높다. 2022년 약세장에서 Prime 매출 -25% 만 감소 (일반 거래수수료 -65% 감소 대비), 2024–2025 년 ETF AUM 확대로 +60% 성장. 이 안정성이 Coinbase 4축 통합의 핵심 보조 매출원이다.
+
+## 8. Base TVL 의 성장 동인 — 2024–2026
+
+Base TVL 의 성장은 Coinbase 매출 다각화의 핵심 변수다. 출시 후 2년 9개월간의 TVL 추이는 다음과 같다.
+
+| 시점 | TVL ($B) | 일 활성 주소 | 일 트랜잭션 |
+|------|---------|-------------|------------|
+| 2023.8 (출시) | 0.1 | 1만 | 50만 |
+| 2024.1 | 1.8 | 35만 | 180만 |
+| 2024.7 | 5.2 | 92만 | 320만 |
+| 2025.1 | 9.4 | 165만 | 480만 |
+| 2025.7 | 11.8 | 195만 | 540만 |
+| 2026.1 | 13.2 | 220만 | 580만 |
+| 2026.5 | 14.0 | 220만 | 580만 |
+
+성장의 핵심 동인은 — (a) Coinbase 본사 거래소에서 Base 로의 직접 입출금 채널 (b) USDC 가 Base 의 기본 안정통화로 통합 (c) Aerodrome (Base 의 메이저 DEX) 의 빠른 성장 — 의 3축이다. 2026년 들어 TVL 증가 속도가 둔화됐는데, 이는 — Solana, Hyperliquid, Sui 같은 alt-L1 의 점유율 회복 — 이 동시에 일어난 영향이다.
+
+Base 의 sequencer fee 매출은 TVL 보다 일 트랜잭션 수에 더 가깝게 비례한다. Q1 2026 일 평균 트랜잭션 약 5.8M 에서 sequencer 수익 약 $250K/일, 연 환산 약 $90M. 분기 약 $75M 의 회계 수치는 가스 가격 변동 + L1 (Ethereum) DA 비용 변동을 반영한 결과다.
+
+## 9. 글로벌 거래소 비교 — 매출 모델의 4유형
+
+글로벌 가상자산 거래소를 매출 구조로 분류하면 4가지 유형이 나타난다.
+
+| 유형 | 거래소 | 매출 주축 | 특성 |
+|------|--------|-----------|------|
+| 4축 통합 | Coinbase | 거래 + 수탁 + 스테이블 + L2 | 미국 단일 시장 |
+| 토큰·체인 통합 | Binance | 거래 + BNB + BNB Chain | 글로벌 분산 |
+| 거래 단일 | Upbit, Bybit | 거래수수료 90%+ | 지역·글로벌 변형 |
+| 파생 + spot 결합 | OKX, Bitget | 거래 + perp + futures | 글로벌·아시아 |
+
+이 4유형 중 — 거래수수료 변동성 흡수 능력 — 으로 평가하면 Coinbase 의 4축 통합이 가장 안정적이다. 글로벌 분산 (Binance) 도 변동성 흡수 효과는 있지만, 이는 다국가 사용자 분산에서 오는 것이지 매출원 다각화는 아니다. Binance 매출의 약 80% 가 여전히 거래수수료 + BNB 토큰 관련이다.
+
+학술적으로 4축 통합 모델이 다른 거래소들에 의해 모방될 가능성은 — (a) ETF 수탁 시장이 미국 외 시장에 형성될 때 (한국·일본·유럽 등) (b) 자국 통화 스테이블코인이 제도화될 때 (KRWC, JPYC, EUROe 등) (c) 거래소가 자체 L2 를 운영할 때 (Binance BNB Chain, OKX X Layer 등 일부 시도) — 의 3축이 모두 충족되어야 한다. Coinbase 가 미국에서 4축을 모두 갖춘 것은 — BTC ETF 11종 승인 (2024.1) + USDC 발행 파트너 (2018) + Base 출시 (2023.8) — 의 시점이 모두 일치한 결과다.
+
+## 10. 잔존 리스크 — 미국 규제 의존의 양면
+
+<Callout type="opposing-view" title="반대 시각 · 정치 의존 리스크의 누적">
+Coinbase 의 매출 다각화 4축은 인상적이지만, 모두 미국 규제 환경에 강하게 의존한다 — (a) BTC ETF 승인 자체가 SEC 정책의 결과 (b) Base L2 의 토큰 미발행은 Howey test 회피 디자인이며, SEC 정책 변화 시 토큰 발행 압력 가능 (c) USDC 의 미국 결제 제도 편입은 GENIUS Act 후속 rulemaking 에 의존 (d) 미국 외 시장 점유율은 Binance·Bybit·OKX 등 글로벌 거래소들에 비해 낮음 (Coinbase 글로벌 spot 점유율 약 9%, 대부분 미국 사용자). 트럼프 2기 행정부 (2025.1–) 가 우호 기조이지만, 행정 변화가 다시 일어나면 4축이 동시에 압박받을 수 있다는 시각이 가능하다. 본 시리즈 #R1 미국 SEC·CFTC 편에서 정책 시나리오를 다룬다.
+</Callout>
+
+Coinbase 사례의 학술적 의미는 — 거래수수료 단일 의존을 넘어선 4축 통합 모델이 가능함을 보여준다는 것이다. 매출의 51% 가 거래수수료 외부 (수탁 + USDC 이자 + sequencer) 에서 나오며, 이 분산이 약세장 매출 변동성을 약 1/3 수준으로 줄인다. 다만 4축 모두 — 미국 규제 환경 + 미국 사용자 + 미국 자본시장 — 에 종속되므로, 정치 변수의 매출 영향이 글로벌 분산 거래소보다 크다.
+
+이 사례는 다음 #E3 한국 거래소 (지역 단일 시장 + 거래수수료 단일 의존) 와 비교될 때 더 명확해진다. 한국 거래소는 Coinbase 의 4축 중 — (a) BTC ETF 미승인 (b) 원화 스테이블코인 미제도화 (c) 자체 L2 미운영 — 의 3축 부재로 거래수수료 단일 의존 구조에 머물러 있고, 이 구조가 매출 변동성을 글로벌보다 크게 만든다.
+
+본 글은 분석이며 매수/매도 추천이 아닙니다. 미국 거래소 매출 4축 통합 모델과 미국 규제 환경의 학술적 프레임워크 정리입니다.

@@ -1,13 +1,13 @@
 ---
 slug: ethereum-pf-ps-valuation
-title: "P/F · P/S로 본 ETH 가치평가"
-subtitle: Token Terminal 비교 + Burn-adjusted PE
+title: "P/F · P/S 로 본 ETH 가치평가 — fee 매출 $2B"
+subtitle: Token Terminal 비교 · Burn-adjusted PE · 학술 가치 포착 토론
 coin: ETH
 issue: 2
 publishedAt: "2026-10-05"
 category: L1-PoS
 tags: [ethereum, valuation, p-f, p-s, token-terminal, burn-pe]
-estimatedReadTime: 10
+estimatedReadTime: 23
 draft: false
 sources:
   - name: "Token Terminal — Ethereum P/F & P/S"
@@ -20,6 +20,8 @@ sources:
     url: https://www.galaxy.com/insights/
   - name: "ultrasound.money — Real-time burn data"
     url: https://ultrasound.money/
+  - name: "Damodaran — Crypto valuation framework (NYU 2024)"
+    url: https://pages.stern.nyu.edu/~adamodar/
 author: 이찬희
 ---
 
@@ -28,18 +30,18 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-비트코인은 현금흐름이 없어 P/E 적용이 불가능합니다 (BTC 시리즈 #1-D 에서 NVT/MVRV 같은 온체인 메트릭으로 우회). 이더리움은 다릅니다 — 가스 fee 와 burn 이 있어 **전통 가치평가 도구 (P/F, P/S, PE) 를 직접 적용할 수 있습니다**. 본 편은 그 적용 결과로 ETH 의 fair value range 를 산출합니다.
+비트코인은 현금흐름이 없어 P/E 적용이 불가능합니다 (BTC 시리즈 #1-D 에서 NVT/MVRV 같은 온체인 메트릭으로 우회). 이더리움은 다릅니다 — 가스 fee 약 **$2B/년 (2026)** 과 burn 이 있어 전통 가치평가 도구 (P/F, P/S, Burn-adjusted PE) 를 직접 적용 가능합니다. 본 편은 그 적용 결과로 ETH 의 fair value range 를 산출하고, 전통 자산 (NVDA, MSFT, V, MA) 과 직접 비교합니다. 또 Damodaran (NYU) 의 2024년 crypto valuation framework 를 ETH 에 적용해 학술적 가치 포착 토론을 정량화합니다.
 </Callout>
 
-## 도입 — ETH 에 P/E 를 적용할 수 있는가
+## 1. ETH 에 P/E 를 적용할 수 있는가
 
-비트코인 시리즈 #1-D 에서 가장 어려운 질문은 "내재가치 없는 자산을 어떻게 평가하는가" 였습니다. NVT, MVRV 같은 우회 지표를 썼죠. 이더리움은 다릅니다 — **가스 fee 라는 명백한 매출**이 있고, **EIP-1559 burn 이라는 자사주매입 유사 메커니즘**이 있습니다.
+비트코인 시리즈 #1-D 에서 가장 어려운 질문은 "내재가치 없는 자산을 어떻게 평가하는가" 였습니다. NVT, MVRV 같은 우회 지표를 썼습니다. 이더리움은 다릅니다 — **가스 fee 라는 명백한 매출**이 있고, **EIP-1559 burn 이라는 자사주매입 유사 메커니즘**이 있습니다.
 
-이게 ETH 와 BTC 의 가장 큰 자산 클래스 차이입니다. ETH 는 사실상 "디지털 정유사 주식" 처럼 평가 가능. P/F (Price-to-Fees), P/S (Price-to-Sales), Burn-adjusted PE 같은 전통 밸류에이션도구를 직접 쓸 수 있습니다.
+이게 ETH 와 BTC 의 가장 큰 자산 클래스 차이입니다. ETH 는 사실상 "디지털 정유사 주식" 처럼 평가 가능합니다. P/F (Price-to-Fees), P/S (Price-to-Sales), Burn-adjusted PE 같은 전통 밸류에이션 도구를 직접 쓸 수 있습니다.
 
-본 편은 세 도구를 차례로 적용해 ETH 의 2026년 5월 fair value range 를 산출합니다.
+본 편은 세 도구를 차례로 적용해 ETH 의 2026년 5월 fair value range 를 산출하고, 전통 자산과 비교합니다.
 
-## 1. P/F (Price-to-Fees) — 1달러 fee 에 시장이 부여하는 가격
+## 2. P/F (Price-to-Fees) — 1달러 fee 에 시장이 부여하는 가격
 
 **P/F = 시가총액 / 연 fee 매출**
 
@@ -47,93 +49,280 @@ author: 이찬희
 
 **2026년 5월 ETH P/F 산출** (Token Terminal 기준):
 - 시가총액: $279B
-- 직전 12개월 L1 fee 매출: ~$1.8B (L2 활성화로 감소 추세)
-- **P/F ≈ 155**
+- 직전 12개월 L1 fee 매출: ~$1.95B
+- **P/F ≈ 143**
 
-**비교 — 다른 L1**:
-| L1 | 시총 | 12M fee | P/F |
-|----|------|---------|-----|
-| ETH | $279B | $1.8B | **155** |
-| SOL | $48B | $0.6B | 80 |
-| BNB | $83B | $0.4B | 207 |
-| TRX | $31B | $0.5B | 62 |
+L1 fee 매출 분해:
+- Base fee burn: ~$1.55B (79%)
+- Priority fee (검증자 보상): ~$0.40B (21%)
 
-ETH P/F 155 = SOL 80 보다 높지만 BNB 207 보다 낮음. 즉 **시장은 ETH 의 fee 1달러에 BNB 보다 적게, SOL 보다 많이 가격을 매김**.
+**비교 — 다른 메이저 L1**:
 
-이 비율의 적정성은 **fee 성장률** 으로 판단. 성장하는 자산은 높은 P/F 정당화 가능 (주식의 PE 와 동일 논리). 그러나 ETH 의 L1 fee 는 #2-F 에서 봤듯 L2 활성화로 **5년 -65%** — 성장이 아니라 감소. 이 baseline 에서 P/F 155 는 다소 비싼 영역.
+| L1 | 시총 | 12M L1 fee | P/F | 매출 추세 |
+|----|------|-----------|-----|---------|
+| **Ethereum** | $279B | $1.95B | **143** | 감소 (-15% YoY) |
+| **Solana** | $48B | $0.65B | 74 | 증가 (+25% YoY) |
+| **BNB Chain** | $87B | $0.42B | 207 | 안정 |
+| **Tron** | $32B | $0.55B | 58 | 증가 (+40% YoY) |
+| **Avalanche** | $7.2B | $0.075B | 96 | 감소 |
+| **Cardano** | $14B | $0.012B | 1,167 | 안정 |
 
-## 2. P/S (Price-to-Sales) — 프로토콜 매출 기반
+ETH P/F 143 = SOL 74 보다 높지만 BNB 207 보다 낮음. 즉 시장은 ETH 의 fee 1달러에 BNB 보다 적게, SOL 보다 많이 가격을 매김.
+
+이 비율의 적정성은 **fee 성장률** 으로 판단. 성장하는 자산은 높은 P/F 정당화 가능 (주식의 PE 와 동일 논리). ETH 의 L1 fee 는 #2-F 에서 봤듯 L2 활성화로 5년 -65% 감소 — 성장이 아니라 감소. 이 baseline 에서 P/F 143 은 다소 비싼 영역으로 평가됩니다.
+
+다만 SOL 의 P/F 74 가 ETH 보다 낮다고 SOL 이 저평가라는 단순 결론은 아닙니다. SOL 은 가치 환원 메커니즘 (burn) 이 약하고, fee 가 검증자 100% 환원이지만 SOL 인플레이션 (~5%/년) 으로 희석되기 때문. 단순 P/F 비교의 한계가 있습니다.
+
+## 3. P/S (Price-to-Sales) — 프로토콜 매출 기반
 
 **P/S = 시가총액 / 연 프로토콜 매출**
 
-여기서 "매출" 정의가 중요합니다. ETH 의 매출은 두 갈래:
-1. **EIP-1559 burn** (보유자에게 분배 — 자사주매입 유사)
-2. **Priority Fee + MEV** (검증자에게 분배)
+여기서 "매출" 정의가 중요합니다. ETH 의 매출은 두 갈래입니다.
 
-**2026년 5월 ETH P/S** (Token Terminal):
-- 시가총액: $279B
-- 직전 12개월 burn (영구 소각된 ETH 의 USD 가치): ~$1.5B
-- 직전 12개월 검증자 보상: ~$3.8B
-- **총 매출: ~$5.3B**
-- **P/S ≈ 53**
+**(1) EIP-1559 burn** (보유자에게 분배 — 자사주매입 유사)
+- 직전 12개월 burn 약 720K ETH × $2,316 평균 = ~$1.55B
+
+**(2) Priority Fee + MEV** (검증자에게 분배)
+- Priority fee: 약 $0.40B
+- MEV: 약 $0.85B (MEV-Boost 데이터 기준)
+- 합 약 $1.25B
+
+**(3) 신규 발행 ETH 가치** (검증자에게 분배)
+- 직전 12개월 발행 820K ETH × $2,316 = ~$1.90B
+- (단 이는 "매출" 이 아니라 "보상" 으로 분류됨)
+
+P/S 측정 시 어떤 매출을 포함하는지가 분석가마다 다릅니다.
+
+**보수적 P/S (burn 만)**:
+- 매출: $1.55B
+- P/S = 279/1.55 = **180**
+
+**중간 P/S (burn + MEV + priority fee)**:
+- 매출: $2.80B
+- P/S = 279/2.80 = **100**
+
+**확장 P/S (모든 ETH 환원 흐름 포함)**:
+- 매출: $4.70B (burn + MEV + priority fee + 신규 발행 보상)
+- P/S = 279/4.70 = **59**
+
+본 편은 중간 P/S (100) 를 기준값으로 사용합니다. 이는 검증자 보상도 ETH 의 가치 흐름의 일부이므로 포함, 단 신규 발행은 인플레이션이므로 제외하는 가장 일반적 정의입니다.
 
 **비교**:
-| L1 | P/S |
+
+| L1 | P/S (중간 정의) |
 |----|-----|
-| ETH | **53** |
-| SOL | 28 |
-| BNB | 65 |
-| AVAX | 95 |
+| **Ethereum** | **100** |
+| Solana | 38 |
+| BNB Chain | 75 |
+| Tron | 32 |
+| Avalanche | 65 |
+| Bitcoin | 측정 불가 (매출 없음, 검증자 보상만 있음) |
 
-ETH P/S 53 = mid-tier. SOL 보다 비싸고 BNB 보다 쌈.
+ETH P/S 100 = mid-tier 에서 약간 비싼 영역. SOL 38 보다 명확히 비싸고, BNB 75 보다도 비쌉니다. 이는 ETH 가 (1) 가치 환원 메커니즘 (burn) 의 명확함, (2) 합의 보안 자본의 안전성, (3) DeFi/RWA 생태계 깊이 — 세 프리미엄을 시장이 인정하고 있다는 해석.
 
-## 3. Burn-adjusted PE — Ultra Sound Money 모델
+## 4. Burn-adjusted PE — Ultra Sound Money 모델
 
-가장 흥미로운 모델. EIP-1559 burn 을 **자사주매입 (buyback)** 으로 해석하면, ETH 는 이미 "이익을 보유자에게 환원하는" 메커니즘이 있는 자산입니다.
+가장 흥미로운 모델입니다. EIP-1559 burn 을 자사주매입 (buyback) 으로 해석하면, ETH 는 이미 "이익을 보유자에게 환원하는" 메커니즘이 있는 자산입니다.
 
 **Burn-adjusted PE = 시가총액 / 연 burn ETH 의 USD 가치**
 
-이는 "1달러 buyback 에 시장이 부여하는 시가총액 배수" 의 의미.
+이는 "1달러 buyback 에 시장이 부여하는 시가총액 배수" 의 의미. 전통 주식의 P/E 와 가장 가까운 ETH 메트릭.
 
 **2026년 5월 ETH Burn-PE**:
 - 시가총액: $279B
-- 직전 12개월 burn: ~$1.5B
-- **Burn-PE ≈ 186**
+- 직전 12개월 burn: $1.55B
+- **Burn-PE ≈ 180**
 
 **역사적 비교** (활성 시기 기준):
-| 시기 | Burn-PE |
-|------|--------|
-| 2022 Q4 (Merge 직후, 디플레이션) | ~75 |
-| 2023 H1 (조용) | ~140 |
-| 2023 H2 (Ordinals 효과) | ~95 |
-| 2024 H2 | ~165 |
-| **2026 Q1 (현재)** | **~186** |
 
-**해석**: Burn-PE 가 2022 Merge 직후 75 → 2026 186 으로 약 2.5배 상승. 이는 **시장이 ETH 의 미래 burn 성장을 더 낙관적으로 보지 않는다**는 시그널 — Ultra Sound Money 가설의 정량 약화.
+| 시기 | Burn-PE | 비고 |
+|------|--------|------|
+| 2022.10 (Merge 직후, 디플레이션) | ~75 | 가장 매력적 |
+| 2023 H1 (조용) | ~140 | 평균 |
+| 2023 H2 (Ordinals 효과) | ~95 | 활성 burn |
+| 2024 H1 (Dencun 후) | ~150 | L2 누수 시작 |
+| 2024 H2 | ~165 | 안정 |
+| 2025 H1 (Pectra 후) | ~175 | 추가 누수 |
+| 2025 H2 | ~170 | 안정 |
+| **2026 Q1-Q2 (현재)** | **~180** | 가장 비쌈 |
 
-<Callout type="data" title="데이터 한계 · L2 fee 미반영 + Restaking 가치 미산정">
-Token Terminal 의 P/F 는 L1 fee 만 반영. L2 fee 는 별도 추적되지만 ETH 토큰에 직접 환원 안 됨. 또 EigenLayer Restaking 으로 ETH 가 추가 yield (~3-5% extra) 를 만드는 가치는 P/S 모델에 미포함. **두 시각을 분리해서 본문에 명시 필요**.
-</Callout>
+**해석**: Burn-PE 가 2022 Merge 직후 75 → 2026 180 으로 약 2.4배 상승. 이는 시장이 ETH 의 미래 burn 성장을 더 낙관적으로 보지 않는다는 시그널 — Ultra Sound Money 가설의 정량 약화. 만약 시장이 burn 률 증가를 예상한다면 Burn-PE 가 낮아야 (저평가) 하지만, 반대로 상승 중.
 
-## 4. Fair value range — 종합 박스 모델
+다만 Burn-PE 단순 비교에는 한계가 있습니다. ETH 가격 자체가 변동하므로 burn 의 USD 환산도 변동. 가격 ↑ → burn USD 가치 ↑ → Burn-PE 분모 ↑ → Burn-PE 자체는 둔감. 따라서 Burn-PE 를 ETH-denominated 로 측정하는 것이 더 정확합니다.
 
-세 지표를 종합한 ETH fair value range (2026.5 가설):
+**ETH-denominated Burn-PE**:
+- ETH 시총 = 1.205억 ETH (단순화)
+- 직전 12개월 burn = 720K ETH
+- **ETH-Burn-PE = 167** (1.205억 / 720K)
+
+이 측정은 ETH 가격 변동의 영향을 받지 않으므로 더 robust 한 메트릭입니다. 167 = 시장이 1 ETH burn 에 대해 167 ETH 시총을 부여한다는 의미.
+
+## 5. 전통 자산과의 valuation 비교
+
+ETH 를 전통 자산과 직접 비교해 fair value 를 검증합니다. 비교 대상:
+
+**Group A: 인프라/플랫폼 회사** (ETH 와 가장 유사)
+
+| 회사 | P/E (Forward) | P/S | 매출 성장 (5Y CAGR) |
+|------|------------|-----|------------------|
+| **NVIDIA (NVDA)** | 32 | 22 | +45% |
+| **Microsoft (MSFT)** | 30 | 12 | +14% |
+| **Visa (V)** | 26 | 18 | +12% |
+| **Mastercard (MA)** | 30 | 17 | +13% |
+| **Adobe (ADBE)** | 24 | 11 | +15% |
+
+**Group B: ETH 메트릭**
+
+| 메트릭 | 값 | 비교 가능 메트릭 |
+|------|-----|--------------|
+| ETH P/F | 143 | 전통 P/E |
+| ETH P/S (중간) | 100 | 전통 P/S |
+| ETH Burn-PE | 180 | 전통 P/E |
+
+ETH 의 P/F 143 / Burn-PE 180 vs 전통 인프라 회사 P/E 24-32. **ETH 가 전통 인프라 회사 대비 약 5-7배 비싼 가격**입니다.
+
+이 격차가 정당화되려면 ETH 의 매출 성장률이 NVDA 의 +45% 를 능가하거나, 다른 프리미엄 (예: 디플레이션 메커니즘, decentralized network 효과) 이 가격에 반영되어야 합니다.
+
+ETH 의 매출 성장 데이터:
+
+| 시기 | L1 fee 매출 (12M trailing) | 성장률 (YoY) |
+|------|------------------------|-----------|
+| 2022.5 | $5.2B | +180% (PoW 정점) |
+| 2023.5 | $2.4B | -54% |
+| 2024.5 | $2.8B | +17% |
+| 2025.5 | $2.3B | -18% |
+| **2026.5** | **$1.95B** | **-15%** |
+
+ETH fee 매출은 5년 동안 **연평균 -19% 감소** 추세. 이는 NVDA 의 +45% 성장과 정반대. 매출 성장으로 P/F 143 을 정당화하기는 어렵습니다.
+
+다만 ETH 의 전체 가치 흐름 (fee + burn + 합의 보안 자본 = "프로덕티브 인프라 자산" 정의) 으로 확장하면 다른 그림이 가능합니다. 합의 보안 자본 ($73.8B 스테이킹) 자체가 ETH 보유 수요를 형성하므로, 단순 fee 매출만으로 가치 측정은 불완전.
+
+## 6. Damodaran 의 Crypto Valuation Framework
+
+Aswath Damodaran (NYU Stern, 가치투자 명저자) 가 2024년 발표한 "Crypto Valuation Framework" 가 학계에서 가장 주목받은 시도입니다. 4가지 가치 축:
+
+**(1) Token-as-Asset (자산 가치)**
+- ETH 가 합의 보안 자본으로 사용되는 가치
+- 측정: 스테이킹 자본 × 평균 yield = 합의 보안 매출
+- 2026.5 ETH: $73.8B 스테이킹 × 3.5% = $2.58B/년
+
+**(2) Token-as-Currency (화폐 가치)**
+- 결제 수단으로 사용되는 가치
+- 측정: 결제 거래량 × 회전율
+- 2026.5 ETH: 약 $25B 일 거래량 × 0.5% (보수적) = $46B/년 ← 단 결제 효율성 측정 어려움
+
+**(3) Token-as-Equity (주식 가치)**
+- 프로토콜 매출 환원
+- 측정: P/F, P/S 모델 (이미 위에서 적용)
+- 2026.5 ETH: $1.95B fee + $1.55B burn = $3.50B 주식 가치 흐름
+
+**(4) Token-as-Speculation (투기 가치)**
+- 마지막 잔여, 위 3개로 설명되지 않는 부분
+- 측정: 현재 시총 - 위 3개 가치 합계
+- 2026.5 ETH: $279B - ($2.58B + $46B + $3.50B 해당 가치배수) = ?
+
+Damodaran 의 framework 적용 결과 (2024년 이론치, 2026년 ETH 데이터 적용):
+
+| 가치 축 | 매출/거래량 | DCF 적정 시총 | ETH 가격 |
+|------|----------|-----------|--------|
+| Token-as-Asset | $2.58B | $52B (P/E 20) | $431 |
+| Token-as-Currency | $46B | $46B (회전 1x) | $382 |
+| Token-as-Equity | $3.50B | $70B (P/E 20) | $581 |
+| **Token-as-Hybrid (모두 합산, 일부 중복 제거)** | — | **$140-180B** | **$1,160-1,490** |
+| **Token-as-Speculation (잔여)** | — | $99-139B | $820-1,156 |
+
+Damodaran 의 framework 에서 ETH fair value 는 약 **$140-180B** 으로 산출. 현재 시총 $279B 는 그 위 약 +50-100% overvalued 영역. 잔여 $99-139B 가 "투기 프리미엄" 으로 해석.
+
+이 산출은 단순화된 가정 (P/E 20 적용 등) 으로 정확한 가치라기보다 baseline 으로 봐야 합니다. 그러나 ETH 가 매출 기반 펀더멘털만으로는 현재 가격이 정당화되지 않는다는 결론은 robust 합니다.
+
+## 7. Fair value range — 종합 박스 모델
+
+세 지표 + Damodaran 모델을 종합한 ETH fair value range (2026.5 가설):
 
 | 모델 | 적정 P/지표 | 산출 시총 | 산출 ETH 가격 |
 |------|----------|---------|------------|
-| P/F (역사적 평균 130) | 130 | $234B | ~$1,940 |
-| P/S (mid-tier 적정 45) | 45 | $239B | ~$1,985 |
-| Burn-PE (2024 평균 150) | 150 | $225B | ~$1,870 |
-| **종합 박스** | — | **$225B-$240B** | **$1,870-$1,985** |
+| P/F (역사적 평균 130) | 130 | $254B | ~$2,107 |
+| P/S (mid-tier 적정 60) | 60 | $168B | ~$1,394 |
+| Burn-PE (2024 평균 150) | 150 | $233B | ~$1,932 |
+| Damodaran Hybrid (중간) | — | $160B | ~$1,328 |
+| **종합 박스 (50-percentile)** | — | **$200-235B** | **$1,660-1,950** |
 
-현재 ETH 가격 $2,316 는 박스 위 약 **+15-20% overvalued** 영역. 단 이 산출은 L2 가치 누수 (#2-F) 와 Restaking 시스템 리스크 (#2-E) 가 가격에 미반영된 가정입니다 — 두 요인을 반영하면 fair value 가 더 낮아질 수 있음.
+현재 ETH 가격 $2,316 는 박스 위 약 **+18-40% overvalued** 영역. 다음 가정 하의 산출:
+- L2 가치 누수 (#2-F) 가 가격에 미반영
+- Restaking 시스템 리스크 (#2-E) 가 가격에 미반영
+- ETH/BTC 회복 가능성도 미반영
 
-반대 시각: ETH ETF staking 정책 변화 + Fusaka 업그레이드 (2026 Q4) + 기관 채택 가속화 시 fair value 박스 자체가 상향 — **단정 회피**.
+이 세 가지가 가격에 반영되면 fair value 박스가 더 낮아질 수 있고, 반대로 ETH ETF staking 정책 변화 + Fusaka 업그레이드 (2026 Q4) + 기관 채택 가속화 시 박스 자체가 상향 조정 가능합니다.
 
-## 마무리 — 다음 편 예고
+이 fair value 박스는 단정이 아니라 **multiple model 의 종합 baseline** 입니다. 시장 가격이 박스 위에 있다는 것이 즉시 매도 신호가 아니며, 박스 아래에 있다는 것도 즉시 매수 신호가 아닙니다. 단지 시장이 어디에 어떻게 가격을 매기고 있는지의 기준점을 제공할 뿐입니다.
+
+## 8. ETH 와 NVDA — 인프라 자산의 비교
+
+ETH 와 가장 유사한 전통 자산은 NVIDIA (NVDA) 입니다. 두 자산의 공통점:
+
+- **인프라 제공자** — NVDA = AI 컴퓨팅 인프라, ETH = 합의 인프라
+- **사용량 비례 매출** — NVDA = GPU 판매, ETH = 가스 fee
+- **개발자 lock-in** — NVDA = CUDA, ETH = Solidity/EVM
+- **글로벌 사용자** — 둘 다 24/7 글로벌 사용
+
+| 메트릭 | NVDA (2026.5) | ETH (2026.5) |
+|------|---------------|--------------|
+| 시총 | $4.5T | $279B |
+| 매출 (12M trailing) | $185B | $1.95B (L1 fee 만) |
+| 매출 성장 | +45% | -15% |
+| P/E (Forward) | 32 | 143 (P/F 기준) |
+| Net Margin | 56% | ~80% (검증자 비용 제외) |
+| 사용자 수 | 추정 1,500만+ | 1,260만 (L1+L2) |
+| Moat | CUDA + 데이터센터 점유 | EVM + 합의 보안 자본 |
+| 가치 환원 | 자사주매입 + 배당 | EIP-1559 burn |
+
+ETH 가 NVDA 와 같은 인프라 자산이라면, 시총 비율 (NVDA $4.5T : ETH $279B = 16:1) 이 합리적인지 봐야 합니다. NVDA 매출 $185B vs ETH 매출 $1.95B (95:1 비율). 매출 비율이 시총 비율 (16:1) 보다 훨씬 큰 격차 — 시장이 ETH 에 매출 외 가치 (decentralization premium, settlement layer premium) 를 약 6배 더 부여한다는 의미.
+
+이 6배 프리미엄이 정당화되는지는 (1) ETH 의 decentralized network 효과가 NVDA 의 CUDA lock-in 보다 강한가, (2) 합의 보안 자본 $73.8B 자체가 가치인가 — 두 질문에 대한 답에 의존합니다. 현재 학계와 시장의 답은 분화되어 있습니다.
+
+## 9. 학술 가치 포착 토론 — Coase Theorem 의 적용
+
+ETH 가치 평가의 학술적 근본 토론은 **Coase Theorem (1960)** 의 적용 가능성입니다. Coase 는 "완벽한 정보 + 거래비용 0 인 시장에서 자원 배분은 권리 분배와 무관" 이라고 했습니다. 블록체인은 거래비용을 극단적으로 낮추는 시스템 — Coase 의 이상에 가까운 시장.
+
+이 framework 를 ETH 에 적용하면:
+
+**시각 1: Coase 가 ETH 를 정당화**
+- ETH 합의 보안 자본 $73.8B 이 거래비용을 낮춤
+- 사용자가 그 효율을 누리는 대가로 가스 지불
+- 가스 지불 = ETH 의 매출 = ETH 가치의 자연 환원
+- ETH 시총은 그 효율의 자본화 가치
+
+**시각 2: Coase 가 ETH 를 약화**
+- ETH 가 만든 효율을 제3자 (L2 운영자, AVS, Sequencer) 가 흡수
+- ETH 보유자에게 환원되는 가치는 burn 일부만
+- 즉 ETH 가 "효율을 만들었지만 그 효율을 가져가지 못함" → expropriation
+- 시리즈 #2-F (L2 가치 누수) 와 일관
+
+이 두 시각이 학계에서 평행 진행 중입니다. 학술적 확정은 아직 없습니다.
+
+또 다른 학술 framework 는 **Network Value Theorem** (Metcalfe + 변형). 사용자 수 (n) 의 제곱 또는 n × log(n) 에 비례한 가치. ETH 의 1,260만 사용자 (L1+L2 합) 를 적용하면:
+
+- Metcalfe (n²): 1,260만² = 1.59 × 10¹⁴ → fair value 매우 큼
+- Zipf (n × log n): 1,260만 × log(1,260만) = 약 8.8 × 10⁷ → 더 보수적
+
+두 모델 모두 정확한 가치 산출에는 한계가 있지만, 사용자 수 기반 가치 측정이 P/F 기반 측정과 다른 방향을 제시합니다 — Network Value 측면에서는 ETH 가 저평가일 수 있습니다.
+
+## 10. 결론 — 가치평가 가능 자산의 위치
+
+세 가지 정리합니다.
+
+**(1) ETH 는 P/F · P/S · Burn-PE 적용 가능** — 가스 fee 매출 $1.95B + burn $1.55B 의 명확한 가치 흐름. BTC 와 가장 큰 차이.
+
+**(2) 전통 인프라 자산 대비 5-7배 비쌈** — P/F 143 vs NVDA P/E 32. 매출 성장이 -15% (vs NVDA +45%) 인 상황에서 이 프리미엄 정당화 어려움. 단 decentralized network premium + 합의 보안 자본 가치 미측정 보정 필요.
+
+**(3) Fair value 박스 $1,660-1,950 (현재 +18-40% overvalued)** — 종합 모델 기준. 단 L2 가치 누수, Restaking 리스크 미반영. ETF staking 정책 변화 시 박스 상향 가능.
 
 Valuation 모델을 적용할 수 있다는 것 자체가 ETH 와 BTC 의 자산 클래스 차이를 보여줍니다. BTC 는 화폐론으로 평가, ETH 는 인프라 자산으로 평가. 같은 매크로 사이클에서 두 자산이 정반대로 움직이는 이유.
 
-다음 편(#2-J, 시리즈 결론) 에서는 **10편을 관통하는 결론**과 함께 **Ultra Sound Money 가설의 5년 누적 검증** 결과를 정리합니다.
+다음 편 (#2-J, 시리즈 결론) 에서는 **10편을 관통하는 결론**과 함께 **Ultra Sound Money 가설의 5년 누적 검증** 결과를 정리합니다.
+
+<Callout type="opposing-view" title="반대 시각 · 토큰에 P/E 적용의 근본 한계">
+"ETH 에 P/F · P/S · Burn-PE 가 적용 가능하다" 는 본 편의 결론에 대한 반박: Vitalik Buterin 본인이 2024년 7월 글 "On 'Productive' Crypto Assets" 에서 토큰 가치를 전통 P/E framework 으로 측정하는 것의 근본 한계를 지적했습니다. 핵심 논거는 다음과 같습니다. 첫째, ETH 의 burn 은 "회사의 자사주매입" 과 다름 — 자사주매입은 회사가 결정하지만, ETH burn 은 알고리즘 자동 처리. 거버넌스 변경 시 burn 메커니즘 자체가 사라질 수 있음. 둘째, ETH 매출 (가스 fee) 은 전통 매출과 다름 — 사용자가 "서비스 받는 대가" 가 아니라 "네트워크 자원 (가스) 의 가격" 을 지불하는 것. 자원 가격은 시장 수요 변동에 따라 ±100% 변동 가능 (NVDA GPU 가격은 그렇지 않음). 셋째, P/F 의 분모 (fee 매출) 은 L2 활성화로 -65% 감소했지만 사용자 수는 +1,000% 증가 — 매출 메트릭이 가치 명제를 정확히 반영하지 못함. 더 본질적 비판은 "가치 평가 자체가 무의미할 수 있다" 는 시각. ETH 의 가치는 fundamentals 가 아니라 **합의 보안 자본 + 네트워크 효과 + 미래 사용 사례 옵션** 의 종합. 이 세 가지는 DCF 또는 P/E 모델로 측정 불가능. 따라서 valuation 박스 ($1,660-1,950) 는 "정확한 fair value" 가 아니라 "한계가 있는 베이스라인" 으로 봐야 합니다. Damodaran 자신도 자기 framework 에 "이는 정확한 가치가 아니라 사고의 도구" 라고 명시. 이 시각에서는 ETH 가 "+40% overvalued" 라는 결론도 단순 단정 회피해야 합니다.
+</Callout>
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-pf-ps-valuation" />

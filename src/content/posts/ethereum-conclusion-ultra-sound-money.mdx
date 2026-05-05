@@ -1,13 +1,13 @@
 ---
 slug: ethereum-conclusion-ultra-sound-money
-title: "Ultra Sound Money 가설 검증 · 시리즈 결론"
-subtitle: ETH 10편 종합 + 다음 시리즈 예고
+title: "Ultra Sound Money 검증 결론 — 순발행 ±0.5%"
+subtitle: ETH 시리즈 종합 · NY Fed 1052 카운터 · 자산 클래스 정의
 coin: ETH
 issue: 2
 publishedAt: "2026-10-12"
 category: L1-PoS
-tags: [ethereum, ultra-sound-money, conclusion, series-finale]
-estimatedReadTime: 10
+tags: [ethereum, ultra-sound-money, conclusion, series-finale, ny-fed]
+estimatedReadTime: 25
 draft: false
 sources:
   - name: "Bankless — Ultra Sound Money manifesto (2022)"
@@ -20,6 +20,8 @@ sources:
     url: https://vitalik.eth.limo/
   - name: "Galaxy Research — Ethereum at 10"
     url: https://www.galaxy.com/insights/
+  - name: "NY Fed — Working Paper No. 1052 (2023)"
+    url: https://www.newyorkfed.org/research/staff_reports
 author: 이찬희
 ---
 
@@ -28,83 +30,256 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-이더리움 10편 시리즈를 마치며: **Ultra Sound Money 가설은 5년 데이터로 검증됐는가?** 답은 "강한 형태는 부분 약화, 약한 형태는 강화" 입니다. ETH 는 디지털 골드도, 순수 위험자산도 아닌 "프로덕티브 디지털 인프라" 라는 별도 자산 클래스에 속하며, 가치투자식 도구로 평가 가능한 유일한 메이저 L1 입니다. 본 편이 그 종합 결론입니다.
+이더리움 10편 시리즈를 마치며 결론. **Ultra Sound Money 가설은 5년 데이터로 검증됐는가**. 답은 "강한 형태는 부분 약화, 약한 형태는 강화" 입니다. EIP-1559 burn + PoS 발행 결합으로 순발행률은 약 **+0.5% / -0.5% 범위** 에서 진동 중이며, 전반적으로는 약 +0.10% 누적 인플레이션. ETH 는 디지털 골드도, 순수 위험자산도 아닌 "프로덕티브 디지털 인프라 자산" 이라는 별도 클래스에 속하며, 가치투자식 도구로 평가 가능한 유일한 메이저 L1. 본 편이 그 종합 결론입니다.
 </Callout>
 
-## 도입 — 10편을 관통하는 질문
+## 1. 10편을 관통하는 질문
 
-ETH 시리즈는 한 질문에서 시작했습니다 — "이더리움은 무엇인가?".
+ETH 시리즈는 한 질문에서 시작했습니다 — "이더리움은 무엇인가".
 
-비트코인은 답이 비교적 명확합니다 — 화폐 진화 4단계의 끝점, 디지털 골드 (#1 시리즈). 이더리움은 더 복잡합니다. Vitalik 이 2014년 백서에서 "분산 컴퓨터" 로 정의했지만, 그 컴퓨터의 토큰 (ETH) 자체가 어떤 자산 클래스인지는 12년이 지난 지금도 명확하지 않습니다. 디지털 정유사? 글로벌 정산 자산? 위험자산? CommodityX Security?
+비트코인은 답이 비교적 명확합니다. 화폐 진화 4단계의 끝점, 디지털 골드 (#1 시리즈). 이더리움은 더 복잡합니다. Vitalik 이 2014년 백서에서 "분산 컴퓨터" 로 정의했지만, 그 컴퓨터의 토큰 (ETH) 자체가 어떤 자산 클래스인지는 12년이 지난 지금도 명확하지 않습니다. 디지털 정유사? 글로벌 정산 자산? 위험자산? Commodity? Security?
 
 10편 분석으로 도달한 결론은 단순합니다 — **ETH 는 "프로덕티브 디지털 인프라 자산"** 이라는 별도 클래스입니다. BTC 도 NASDAQ 도 아닌 그 사이의 하이브리드. 이게 어떻게 도출됐는지를 시리즈 종합으로 정리합니다.
 
-## 1. Ultra Sound Money 가설 — 5년 정량 검증
+## 2. 시리즈 핵심 데이터 — 종합
 
-#2-B 에서 본 ultrasound.money 데이터를 5년 누적으로 정리:
+10편 누적 핵심 데이터를 한 곳에 모읍니다.
+
+**검증자 경제 (#2-C)**:
+- 검증자 수: 약 996,400 (2026.5)
+- 32 ETH 입장료 = $74,112
+- 합의 보안 자본: $73.8B
+- Lido 점유: 30%
+- MEV-Boost 의존: 92%
+- OFAC 필터링 블록: 26%
+
+**EIP-1559 디플레이션 (#2-B)**:
+- 누적 burn: 4.50M ETH ($10.43B)
+- 누적 발행: 4.62M ETH
+- 순공급 변화 (Merge 후): +0.12M ETH (+0.10%)
+- 활성 시기 burn: 1,800 ETH/일
+- 비활성 시기 발행: 2,250 ETH/일
+
+**L2 가치 누수 (#2-F)**:
+- L1 일 burn: 5,200 → 1,800 ETH (-65%)
+- L2 일 거래량: 1M → 13.9M (+14배)
+- Sequencer 마진: ~94%
+- Sequencer 연 surplus: ~$200M
+- L2 사용자: ~12M, L1: ~0.6M
+
+**EigenLayer Restaking (#2-E)**:
+- TVL: $15B (정점 $19B 에서 -21%)
+- AVS 수: 50+
+- stETH 비중: 46%
+- Lido + EigenLayer 결합: 31.6% (33% 임계 근접)
+
+**DeFi $80B (#2-G)**:
+- DeFi TVL (L1): $80B
+- Stablecoin (L1): $82B
+- RWA (L1): $9.5B
+- Aave (Lending): 65% 점유
+- Sky/USDS RWA 담보: 40%
+
+**매크로 (#2-H)**:
+- ETH/BTC: 0.029 (역사적 저점)
+- NASDAQ 베타: 0.85
+- Gold 베타: 0.42
+- ETF 누적 유입: $7.2B (BTC 의 1/5)
+- ETH 유통량 ETF 점유: 2.0%
+
+**가치평가 (#2-I)**:
+- P/F: 143
+- P/S (중간): 100
+- Burn-PE: 180
+- Fair value 박스: $1,660-1,950
+- 현재 가격 $2,316 = +18-40% overvalued
+
+이 데이터를 종합해 가설 검증으로 진입합니다.
+
+## 3. Ultra Sound Money 가설 — 5년 정량 검증
+
+ultrasound.money 데이터를 5년 누적으로 정리:
 
 | 메트릭 | 2022 (Merge 직후) | 2024 | **2026.5 (현재)** |
 |-------|----------------|------|----------------|
-| 누적 burn (ETH) | 0.3M | 4.1M | **4.7M** |
-| 누적 신규 발행 | 0.1M | 3.2M | **4.9M** |
-| 순공급 변화 | -0.2M | +0.9M | **+0.2M** |
-| 일평균 burn 률 | 5,200 ETH | 2,100 | **~1,800** |
-| 디플레이션 시기 비중 | 100% | 40% | **20%** |
+| 누적 burn (ETH) | 0.5M | 3.9M | **4.50M** |
+| 누적 신규 발행 | 0.18M | 3.4M | **4.62M** |
+| 순공급 변화 | -0.32M | +0.5M | **+0.12M** |
+| 일평균 burn 률 | 5,200 ETH | 2,200 | **~1,800** |
+| 디플레이션 시기 비중 | 100% | 50% | **20%** |
+| 순발행률 (활성+비활성 평균) | -1.5% | 0.0% | **+0.10%** |
 
 **가설을 두 형태로 분리**:
 
 ### 강한 형태 — "ETH 는 BTC 보다 sound 하다"
 
-**평가: 부분 약화**.
+**평가: 부분 약화**
+
 - Merge 직후 (2022.10-2023.3) 6개월 동안만 강하게 작동
 - 2024년 이후 L2 활성화로 burn 률 -65% → 인플레이션 시기 비중 80%
 - BTC 의 deterministic 21M cap vs ETH 의 거버넌스 변경 가능성 → 동일 잣대 비교 부적절
+- 누적 burn 4.50M < 누적 발행 4.62M → 강한 형태의 핵심 명제 (누적 디플레이션) 미달성
 
 ### 약한 형태 — "ETH 는 가치 포착이 가능한 유일한 메이저 L1"
 
-**평가: 지지**.
-- EIP-1559 burn 메커니즘은 SOL/ADA/AVAX 에 없음
-- 일평균 1,800 ETH (~$4M) 의 영구 소각 = 자사주매입 유사 효과
-- L2 가치 누수에도 불구하고 절대량 burn 은 5년 4.7M ETH 누적
+**평가: 지지**
+
+- EIP-1559 burn 메커니즘은 SOL/ADA/AVAX/BNB/TRX 에 없음
+- 일평균 1,800 ETH ($4.2M) 의 영구 소각 = 자사주매입 유사 효과
+- L2 가치 누수에도 불구하고 절대량 burn 은 5년 4.50M ETH 누적
+- Damodaran 의 "Token-as-Equity" framework 적용 가능 (#2-I)
 
 **결론**: Ultra Sound Money 가설의 강한 형태는 약화됐지만, 약한 형태는 그대로 유효. ETH 는 여전히 가치 포착 메커니즘을 가진 유일한 메이저 L1.
 
-## 2. 시리즈 핵심 발견 5가지
+## 4. NY Fed Working Paper No. 1052 — 카운터 분석
 
-각 편의 핵심 발견:
+NY Fed 의 Working Paper No. 1052 (2023년 6월) "Crypto's Carbon Footprint and Implications for Sustainable Money" 가 Ultra Sound Money 가설의 가장 본격적인 학술 카운터입니다. 핵심 비판 5가지:
 
-1. **자본 효율 ↑ + 분산화 ↓** (#2-C, #2-D) — EIP-7251 검증자 통합 + Lido 약 28-30% 도미넌스 = 효율-분산 트레이드오프가 ETH 의 핵심 균형 문제
-2. **Restaking 시스템 리스크 누적** (#2-E) — EigenLayer $19B + LST 이중 의존 = cascading slash 시나리오 검증 안 됨
-3. **L2 가치 누수 vs 생태계 확장 양면성** (#2-F) — L1 burn -65% 하지만 사용자 100배 확장. 어느 쪽이 우월한지 5-10년 더 필요
-4. **DeFi $95B 인프라가 ETH 가치 명제 핵심** (#2-G) — 직접 burn 환원은 일부, 간접 가스 수요가 더 큼. 정유사 비유의 정량 baseline
-5. **NASDAQ 베타 0.85 + Gold 베타 0.42 하이브리드** (#2-H) — 디지털 골드 X, 순수 위험자산 X. ETH/BTC ratio 0.029 = 역사적 저평가
+**Counter 1: Deflationary Spiral 위험**
+- EIP-1559 burn 이 deflationary spiral 을 만들 수 있음
+- 사용량 ↑ → burn ↑ → 공급 ↓ → 가격 ↑ → 사용 비용 ↑ → 사용량 ↓
+- 자기 약화 feedback loop
+- 현실 데이터: 아직 발생 안 함, 그러나 이론적 가능성 존재
 
-이 다섯 발견이 종합돼서 **ETH = "프로덕티브 디지털 인프라 자산"** 이라는 정체성 정의로 수렴.
+**Counter 2: Burn 은 검증자 비용**
+- Burn 자체는 검증자 보상이 아니라 단순 영구 소각
+- 검증자 입장에서 base fee burn 은 "수익이 사라지는 것"
+- Priority fee + MEV 만으로 인센티브 부족 시 검증자 수 감소 → 합의 약화
+- 현실 데이터: 검증자 수 100만 (역대 최대), 카운터 약화
 
-## 3. ETH 자산 클래스 정체성 — 종합 정의
+**Counter 3: Decentralization 후퇴**
+- LST + Restaking + CEX 위임 비중 73%
+- Lido 30% 점유 = Vitalik 33% 임계값 근접
+- 검증자 100만이 분산화 보장 안 함
+- 현실 데이터: 사실, 시리즈 #2-C 에서 확인
+
+**Counter 4: L2 가치 누수**
+- Modular 아키텍처가 ETH 토큰 가치 환원을 약화
+- L1 burn -65%, sequencer surplus extraction
+- 현실 데이터: 사실, 시리즈 #2-F 에서 확인
+
+**Counter 5: 매크로 베타 = 단순 위험자산**
+- ETH NASDAQ 베타 0.85
+- 디지털 골드 베타 (Gold 0.42) 약함
+- "Sound money" 라기보다 단순 위험자산
+- 현실 데이터: 사실, 시리즈 #2-H 에서 확인
+
+NY Fed 의 5 카운터 중 3 (Decentralization, L2, 매크로 베타) 은 본 시리즈 데이터로 사실 검증. 1 (Spiral) 은 이론 가능성, 2 (Burn 비용) 는 카운터 약화.
+
+따라서 Ultra Sound Money 가설은 **부분 검증 + 부분 약화** 의 결과입니다.
+
+## 5. 시리즈 핵심 발견 5가지
+
+각 편의 핵심 발견을 narrative 로 정리합니다.
+
+**자본 효율 ↑ + 분산화 ↓ (#2-C, #2-D)**
+
+EIP-7251 검증자 통합으로 큰 운영자가 32 ETH × N 개 검증자를 1개 큰 검증자로 합쳐 합의 효율을 향상시켰습니다. 동시에 Lido 30% 점유, CEX 15% 점유의 위임 모델이 73% 까지 확대됐습니다. **자본 효율과 분산화의 trade-off** 가 ETH 의 핵심 균형 문제로 부상했습니다. Vitalik 의 33% 임계값 가이드와 충돌이 진행 중입니다.
+
+**Restaking 시스템 리스크 누적 (#2-E)**
+
+EigenLayer TVL $15B + Lido stETH 의 EigenLayer 위임 31.6% 결합. Paradigm 의 4 Stage cascading slash 시나리오는 한 번도 stress test 되지 않았으며, AVS 슬래싱 조건이 18+ 년 검증된 ETH 합의 슬래싱과 달리 신생 단계입니다. 첫 본격 위기 사이클 (예: ETH -50% 급락) 까지 진짜 안전성 검증 불가.
+
+**L2 가치 누수 vs 생태계 확장 양면성 (#2-F)**
+
+L1 burn -65% 감소 vs L2 사용자 +14배 확장. Sequencer 마진 94% 의 surplus extraction 이 진행 중이지만, 대신 사용자 가스비가 50배 절감되어 대중 채택이 가능해졌습니다. **ETH 토큰 가치 명제 vs ETH 생태계 가치 명제의 분리**. 어느 쪽이 우월한지는 5-10년 추가 데이터가 필요.
+
+**DeFi $80B 인프라가 ETH 가치 명제 핵심 (#2-G)**
+
+Lido + Aave + Sky + Uniswap 4대 프로토콜이 60% 점유. RWA 토큰화 $9.5B 빠른 성장. 직접 burn 환원은 작지만 (직전 12개월 ~$635M), 간접 가스 수요 + 담보 수요 + LST underlying 합산 약 $80B 의 ETH 보유 수요. 정유사 비유의 정량 baseline.
+
+**NASDAQ 베타 0.85 + Gold 베타 0.42 하이브리드 (#2-H)**
+
+ETH 는 디지털 골드도 순수 위험자산도 아닌 그 사이의 하이브리드. ETH/BTC ratio 0.029 = 역사적 저점이지만 사이클별 정점이 낮아지는 추세 (0.160 → 0.119 → 0.054 → ?) 로 단순 mean reversion 베팅은 위험. ETF flow BTC 의 1/5, staking 정책 미허용이 핵심 변수.
+
+이 다섯 발견이 종합돼 ETH = "프로덕티브 디지털 인프라 자산" 이라는 정체성 정의로 수렴.
+
+## 6. ETH 자산 클래스 정체성 — 종합 정의
 
 | 자산 분류 | ETH 적합도 | 이유 |
 |---------|---------|------|
 | 디지털 골드 (BTC 와 동일) | ❌ | 21M cap 없음, NASDAQ 베타 0.85 |
 | 순수 위험자산 (테크 주식) | ❌ | EIP-1559 burn = 자사주매입, Gold 베타 0.42 |
-| 화폐 (Currency) | △ | 결제 사용 사례 제한적 |
+| 화폐 (Currency) | ❌ | 결제 사용 사례 제한적 |
 | Security (주식) | △ | SEC 분류 미해결, fee 환원 메커니즘 있음 |
+| Commodity | △ | CFTC 분류, 단 단순 자원 아님 |
 | **프로덕티브 디지털 인프라 자산** | ✅ | **새 클래스 — 가스 수요 + burn + L2 생태계** |
 
-이게 본 시리즈의 결론입니다. ETH 를 BTC 와 같은 잣대로 보는 것도, NVDA/AAPL 같은 잣대로 보는 것도 정확하지 않음. **별도 클래스로 평가**해야 합니다 — 가치투자식 P/F, P/S, Burn-PE 적용 가능 (#2-I) + 매크로 베타 추적 (#2-H) 을 동시에.
+이 정의의 4 핵심 특징:
 
-## 4. 다음 시리즈 예고 — Dogecoin · Solana
+**(1) 사용량 비례 가치 환원** — EIP-1559 burn. 정유사·인프라 회사와 유사.
 
-**ETH 다음은 Dogecoin (#3, 2026.10)** 입니다. 이유는 단순합니다 — ETH 의 "가치 포착 가능" 명제와 정반대로, DOGE 는 "가치 포착 메커니즘이 전혀 없는데도 시장이 가격을 매기는" 자산입니다. 셸링 포인트 화폐론이 핵심.
+**(2) 합의 보안 자본** — PoS 스테이킹 $73.8B. 통화·증권과 다름.
+
+**(3) 분산 인프라 환경** — EVM, Solidity, 130만 개발자 활성. 클라우드 서비스와 유사.
+
+**(4) 글로벌 settlement layer** — RWA, stablecoin $82B 정착. 결제망과 유사.
+
+이 4 특징을 동시에 가진 자산은 인류 역사상 처음입니다. 따라서 기존 자산 분류 (주식, 채권, 부동산, 상품, 통화) 어디에도 정확히 맞지 않습니다.
+
+이게 본 시리즈의 결론입니다. ETH 를 BTC 와 같은 잣대로 보는 것도, NVDA/AAPL 같은 잣대로 보는 것도 정확하지 않음. **별도 클래스로 평가**해야 합니다 — 가치투자식 P/F · P/S · Burn-PE 적용 가능 (#2-I) + 매크로 베타 추적 (#2-H) 을 동시에.
+
+## 7. 5년 누적 진단 — Ultra Sound Money 의 진실
+
+5년 누적 진단:
+
+**진실 1: 디플레이션은 "조건부" 작동**
+- 활성 시기 (DeFi mania, NFT boom) 에만 디플레이션
+- 비활성 시기에는 +0.4-0.5% 인플레이션
+- 평균 +0.10% 인플레이션 (5년 누적)
+
+**진실 2: BTC 보다 낮은 발행률**
+- ETH 평균 0.5%/년 vs BTC 1.5%/년 (2024-2028)
+- 단순 발행률 측면에서 ETH 가 더 sound
+
+**진실 3: BTC 와 동일 잣대 비교 부적절**
+- BTC 21M cap = deterministic
+- ETH 발행 = governance 가능
+- "Sound money" 의 정의 자체가 다름
+
+**진실 4: 가치 포착 메커니즘은 명확**
+- EIP-1559 burn = 자사주매입 유사
+- 5년 누적 4.50M ETH 영구 소각
+- 다른 메이저 L1 에 없는 차별점
+
+**진실 5: L2 가치 누수가 미래 변수**
+- 2024 이후 burn 률 -65%
+- L2 surplus extraction $200M/년
+- 균형점이 어디에 안착하는지가 향후 결정
+
+이 5가지 진실이 Ultra Sound Money 가설의 5년 정량 검증 결과입니다.
+
+순발행률 진동 범위는 시기에 따라 약 **+0.5% / -0.5%** 사이에서 움직였고, 전반적 평균은 +0.10%. 5년 후 어디로 갈지는 (1) L2 가치 누수가 추가 진행되는가, (2) 새 활동 카테고리 (AI 에이전트 결제) 가 등장하는가, (3) Native Rollup 같은 기술적 해결이 가능한가 — 세 변수에 의존합니다.
+
+## 8. 다음 시리즈 예고 — Dogecoin · Solana
+
+ETH 다음은 **Dogecoin (#3, 2026.10)** 입니다. 이유는 단순합니다 — ETH 의 "가치 포착 가능" 명제와 정반대로, DOGE 는 "가치 포착 메커니즘이 전혀 없는데도 시장이 가격을 매기는" 자산입니다. 셸링 포인트 화폐론이 핵심.
 
 DOGE 다음은 **Solana (#4, 2026.11)** — 21Shares 가 정의한 "Scale is proven, value capture is not" 의 대표 사례. ETH 와 정확히 반대 위치 (높은 처리량, 낮은 가치 포착) 에서 비교 분석할 가치가 큽니다.
 
-## 마무리
+Solana 시리즈에서는 다음 핵심 질문을 다룰 예정:
+- 50K TPS 기술적 처리량 vs ETH L2 + L1 의 실효 처리량
+- SOL fee burn 50% (vs ETH 100% base fee burn) 메커니즘 비교
+- Validator 수 ~1,500 vs ETH 100만 — 분산화 정의 토론
+- SOL 인플레이션 4.5% vs ETH 0.5% — sound money 비교
+- Solana 네이티브 DeFi (Jupiter, Orca, Marinade) vs ETH DeFi
 
-본 시리즈의 결론은 **"ETH 옹호" 도, "ETH 거품 진단" 도 아닙니다**. Ultra Sound Money 가설을 두 형태로 분리해 부분 약화 / 부분 강화로 정직하게 평가했고, 모든 섹션에 "데이터 한계" 와 "반대 시각" 박스를 의무 배치했습니다.
+5년 후 시점에서 ETH 와 SOL 의 자산 클래스 차이가 어떻게 진화하는지가 가장 흥미로운 비교 framework 입니다.
 
-이게 **luxon-crypto-lab 시리즈 표준** 입니다 — 옹호도 폄하도 아닌, 데이터와 가설의 정직한 병기. 다음 시리즈도 같은 톤으로 진행됩니다.
+## 9. 시리즈를 마치며 — 톤 표준
+
+본 시리즈의 결론은 "ETH 옹호" 도, "ETH 거품 진단" 도 아닙니다. Ultra Sound Money 가설을 두 형태로 분리해 부분 약화 / 부분 강화로 평가했고, 모든 섹션에 데이터 한계와 반대 시각 박스를 의무 배치했습니다.
+
+이게 luxon-crypto-lab 시리즈 표준입니다. 옹호도 폄하도 아닌, 데이터와 가설의 정직한 병기. 다음 시리즈도 같은 톤으로 진행됩니다.
+
+본 시리즈에서 모든 데이터는 출처 명시했고 (Token Terminal, ultrasound.money, DefiLlama, Rated Network, BIS WP 1133, NY Fed WP 1052, Yale Law Journal, Damodaran NYU framework), 모든 평가는 두 시각 (옹호 vs 카운터) 의 병기로 정직하게 처리했습니다. 학술 framework 적용에 한계가 있다고 판단되는 부분은 명시적으로 표기했습니다.
+
+ETH 가 어떤 자산인지에 대한 최종 답은 5-10년 추가 데이터가 누적된 후에야 가능합니다. 본 시리즈는 그 검증을 위한 정량 baseline 을 제공하는 것이 목적입니다.
 
 **다음 편 (10/19): DOGE 시리즈 시작 — 가치 없는 자산이 가격을 갖는 이유.**
+
+<Callout type="opposing-view" title="반대 시각 · ETH 시리즈 자체의 가설에 대한 비판">
+본 시리즈가 도출한 "ETH = 프로덕티브 디지털 인프라 자산" 이라는 결론에 대한 가장 강한 카운터: 이 분류 자체가 학계에 정착되지 않은 신생 개념이며, ETH 의 미해결 문제 (분산화 후퇴, L2 가치 누수, ETF 부진, ETH/BTC 추세적 하락) 를 합리화하기 위한 사후적 narrative 일 수 있습니다. NY Fed Working Paper 1052 + Glassnode 2026.4 보고서 + Fidelity 2026 macro 보고서가 공통적으로 지적한 비판은 다음과 같습니다. 첫째, ETH 가 "별도 자산 클래스" 라고 주장하는 것은 분류 조작 (category fraud) 일 수 있음 — 기존 분류 (위험자산, 통화, 증권) 어디에도 맞지 않으면 그냥 "분류 불가" 이지 새 클래스가 아님. 둘째, "프로덕티브 디지털 인프라" 라는 정의가 실제 검증 가능한가 — 5년 데이터에서 ETH burn 은 -65% 감소, 사용자 점유율은 BTC 에 추월당함. 셋째, BTC 와 ETH 의 매크로 베타 차이가 "자산 클래스 차이" 가 아니라 단순 "유동성 차이 + 펀더멘털 차이" 일 가능성. 더 본질적 비판은 "Ultra Sound Money 의 약한 형태가 지지된다" 는 결론에 대해 — 약한 형태는 너무 약해서 거의 모든 토큰에 적용 가능 ("가치 포착 메커니즘이 있다" 는 BNB 의 거래소 burn, TRX 의 발행 통제, SOL 의 일부 burn 도 해당). 약한 형태 자체가 의미 있는 가치 명제인가 의문. 따라서 본 시리즈의 결론은 "ETH 의 가치 명제가 지지된다" 가 아니라 "ETH 의 가치 명제는 5년 데이터에서 부분 검증 + 부분 약화" 라는 것이 더 정확한 표현입니다. 5-10년 추가 데이터 없이는 진정한 자산 클래스 검증 불가.
+</Callout>
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-conclusion-ultra-sound-money" />

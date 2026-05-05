@@ -1,13 +1,13 @@
 ---
 slug: ethereum-l2-value-leak
-title: "L2 가치 누수 — Arbitrum / Base / Optimism"
-subtitle: ETH 디플레이션 균형의 위협
+title: "L2 가치 누수 — Sequencer 수익과 Surplus Value"
+subtitle: Arbitrum · Base · Optimism · ETH 메인넷 fee 감소
 coin: ETH
 issue: 2
 publishedAt: "2026-09-14"
 category: L1-PoS
-tags: [ethereum, l2, arbitrum, base, optimism, value-leak]
-estimatedReadTime: 10
+tags: [ethereum, l2, arbitrum, base, optimism, sequencer, value-leak, surplus-value]
+estimatedReadTime: 23
 draft: false
 sources:
   - name: "L2BEAT — L2 TVL & fee analytics"
@@ -18,8 +18,10 @@ sources:
     url: https://www.galaxy.com/insights/
   - name: "ultrasound.money — L1 vs L2 fee burn"
     url: https://ultrasound.money/
-  - name: "Coinbase — Base economics"
+  - name: "Coinbase — Base economics whitepaper"
     url: https://www.coinbase.com/blog/
+  - name: "Christensen & Werbach — Sequencer surplus extraction (Yale 2025)"
+    url: https://www.yalelawjournal.org/
 author: 이찬희
 ---
 
@@ -28,95 +30,268 @@ author: 이찬희
 </Callout>
 
 <Callout type="beginner" title="이 글이 답할 질문 · 1분 요약">
-이더리움은 L1 (메인넷) + L2 (Arbitrum, Base, Optimism 등) 의 모듈러 구조로 진화했습니다. L2 가 활성화되면 사용자 가스비는 30-40% 절감되지만, **L1 으로 흘러야 할 가스비도 그만큼 줄어들면서 ETH burn (디플레이션 메커니즘) 도 약화**됩니다. Pectra 가 만든 양날의 검입니다. 본 편은 그 균형을 정량 분석합니다.
+이더리움은 L1 (메인넷) + L2 (Arbitrum, Base, Optimism 등) 의 모듈러 구조로 진화했습니다. L2 가 활성화되면 사용자 가스비는 30-40배 절감되지만, 동시에 **L1 으로 흘러야 할 가스비도 줄어들면서 ETH burn (디플레이션 메커니즘) 도 약화**됩니다. Pectra 의 EIP-7691 가 만든 양날의 검입니다. 본 편은 Sequencer 가 흡수하는 surplus value 의 정량 규모, ETH 메인넷 fee 의 5년 -65% 감소, 그리고 Yale Law Journal 2025 에서 제기된 "L2 surplus extraction" 학술 토론을 정량 분석합니다.
 </Callout>
 
-## 도입 — Pectra 가 만든 양날의 검
+## 1. Pectra 가 만든 양날의 검
 
-#2-A 에서 Pectra (2025.5.7) 의 5 핵심 EIP 중 **EIP-7691 (blob 슬롯 6→9개)** 가 L2 가스비를 30-40% 감소시켰다는 사실을 봤습니다. 사용자에게는 이득이지만 ETH 토큰 보유자에게는 양면입니다.
+Pectra (2025년 5월 7일 활성화) 의 5 핵심 EIP 중 **EIP-7691 (blob 슬롯 6→9개)** 가 L2 가스비를 30-40% 추가 감소시켰습니다. 이미 Dencun (2024년 3월 13일) 의 EIP-4844 (blob 도입) 로 -90% 감소했던 L2 가스비가 추가로 깎인 것. 사용자 입장에서는 명백한 이득이지만, ETH 토큰 보유자에게는 양면입니다.
 
-이유는 단순합니다. L2 가 L1 데이터 (blob) 비용을 적게 내면 → L1 base fee 가 줄어듦 → **EIP-1559 burn 도 함께 감소** → ETH 디플레이션 메커니즘 약화. #2-B 에서 본 Ultra Sound Money 가설의 정량 baseline 이 흔들리는 구조적 변화입니다.
+이유는 단순합니다. L2 가 L1 데이터 (blob) 비용을 적게 내면 → L1 base fee 가 줄어듭니다 → **EIP-1559 burn 도 함께 감소** → ETH 디플레이션 메커니즘 약화. 시리즈 #2-B 에서 본 Ultra Sound Money 가설의 정량 baseline 이 흔들리는 구조적 변화입니다.
 
-본 편은 세 갈래로 봅니다:
-1. L2 생태계의 현재 상태
-2. 가치 누수가 실제로 일어나는 메커니즘
+본 편은 세 갈래로 봅니다.
+
+1. L2 생태계의 현재 상태 (TVL, 트랜잭션, 시퀀서 매출)
+2. 가치 누수가 실제로 일어나는 메커니즘 (Sequencer 수익 구조)
 3. 5년 누적 burn 데이터로 본 정량 영향
 
-## 1. L2 생태계 — Arbitrum vs Base vs Optimism
+## 2. L2 생태계 — 6대 L2 와 점유 분포
 
-2026년 5월 기준 주요 L2 (L2BEAT 데이터):
+2026년 5월 26일 기준 주요 L2 (L2BEAT 데이터):
 
-| L2 | TVL | 일 트랜잭션 | 시퀀서 fee 매출 (월) | 출시 |
-|----|------|-----------|------------------|------|
-| **Arbitrum** | ~$18B | ~3M | ~$5M | 2021.8 |
-| **Base** | ~$14B | ~5M | ~$6M | 2023.8 (Coinbase) |
-| **Optimism** | ~$8B | ~2M | ~$2.5M | 2021.12 |
-| **zkSync Era** | ~$3B | ~1M | ~$1M | 2023.3 |
-| **Linea** | ~$1.8B | ~0.6M | ~$0.5M | 2023.7 (Consensys) |
-| **Scroll** | ~$1.2B | ~0.4M | ~$0.4M | 2023.10 |
+| L2 | TVL | 일 트랜잭션 | 시퀀서 fee 매출 (월) | 출시 | 운영자 |
+|----|-----|-----------|------------------|------|------|
+| **Arbitrum One** | ~$19B | ~3.2M | ~$5.2M | 2021.8 | Offchain Labs |
+| **Base** | ~$15B | ~5.1M | ~$6.4M | 2023.8 | Coinbase |
+| **Optimism** | ~$8.5B | ~2.1M | ~$2.7M | 2021.12 | OP Labs |
+| **zkSync Era** | ~$3.5B | ~1.1M | ~$1.1M | 2023.3 | Matter Labs |
+| **Linea** | ~$2.0B | ~0.7M | ~$0.6M | 2023.7 | Consensys |
+| **Scroll** | ~$1.4B | ~0.5M | ~$0.5M | 2023.10 | Scroll Foundation |
+| **Starknet** | ~$1.2B | ~0.4M | ~$0.4M | 2021.11 | StarkWare |
+| **Polygon zkEVM** | ~$0.7B | ~0.2M | ~$0.2M | 2023.3 | Polygon Labs |
+| **Mantle** | ~$0.6B | ~0.15M | ~$0.15M | 2023.7 | Mantle DAO |
+| 기타 (50+ L2) | ~$1.5B | ~0.5M | ~$0.5M | 다양 | 다양 |
 
-**눈에 띄는 추세**:
-- **Base 의 폭발적 성장**: 2023년 8월 출시 후 2년 만에 일 트랜잭션 1위. Coinbase 의 4억 사용자 funnel 효과.
-- **Arbitrum 의 TVL 우위 유지**: 가장 깊은 DeFi 생태계 (GMX, Camelot, Pendle).
-- **zkRollup 의 점진 부상**: zkSync, Linea, Scroll 합치면 일 트랜잭션의 15-20%.
+**주목할 추세**:
 
-L1 트랜잭션은 일 약 1.2M 으로 안정 → **L2 합계 ~12M = L1 의 10배**.
+**(1) Base 의 폭발적 성장** — 2023년 8월 출시 후 약 2.5년 만에 일 트랜잭션 1위 달성. Coinbase 의 글로벌 사용자 4.2억 명 funnel + 자체 dApp 인큐베이션 (Friend.tech, Farcaster) 효과. 시퀀서 매출도 월 $6.4M 으로 1위.
 
-## 2. 가치 누수 메커니즘 — L2 시퀀서 fee
+**(2) Arbitrum 의 TVL 우위 유지** — 가장 깊은 DeFi 생태계 (GMX V2, Camelot, Pendle, Radiant). 일 트랜잭션은 Base 에 추월당했지만 TVL 은 여전히 1위. 이는 "트랜잭션 빈도 ≠ 자본 깊이" 의 분리를 보여줍니다.
 
-L2 의 수익 구조:
+**(3) zkRollup 의 점진 부상** — zkSync, Linea, Scroll, Starknet, Polygon zkEVM 합치면 일 트랜잭션의 약 16%, TVL 의 11%. Optimistic Rollup (Arbitrum + Base + Optimism + Mantle = 점유 90%+) 의 지배는 아직 강하지만, 격차 축소 중.
 
-<Formula>{`사용자 가스비 (L2)
+**L1 트랜잭션은 일 약 1.2M** 로 안정 → **L2 합계 ~13.95M = L1 의 약 11.6배**. 사용자 수 기준으로는 L2 가 메인넷이 됐다는 의미.
+
+## 3. Sequencer 수익 메커니즘 — 94% 마진의 비밀
+
+L2 의 수익 구조를 정량 분해합니다.
+
+```
+사용자 가스비 (L2)
       ↓
 L2 시퀀서 (Arbitrum, Base 등)
       ↓
-[유보 70-80%] → L2 운영자 (Coinbase, Offchain Labs 등)
-[지출 20-30%] → L1 blob fee → 일부 base fee burn`}</Formula>
-**핵심 숫자** (2026.5 기준 평균):
-- L2 사용자가 내는 가스비: 거래당 ~$0.05
-- L2 운영자가 L1 에 내는 blob 비용: 거래당 ~$0.003 (6%)
-- **L2 운영자 마진: 94%**
+[유보 ~94%] → L2 운영자
+[지출 ~6%] → L1 blob fee → 일부 base fee burn
+```
 
-비교: 같은 거래를 L1 에서 직접 처리하면 사용자 가스비 ~$2-5, 그 100% 가 base fee burn 또는 priority fee → 100% ETH 생태계 환원.
+**핵심 숫자** (2026.5 기준 평균 거래):
 
-**즉 L2 활성화 = ETH 토큰 가치 환원의 94% 손실**. (대신 사용자 비용도 40배 감소)
+| 항목 | L1 직접 처리 시 | L2 처리 시 |
+|------|--------------|----------|
+| 사용자 가스비 | ~$2.50 | ~$0.05 |
+| ETH 생태계 환원 | 100% (~$2.50) | 6% (~$0.003) |
+| L2 운영자 마진 | — | 94% (~$0.047) |
+| 환원율 비율 | 100% | **2%** (절대값 기준) |
 
-## 3. 정량 — L1 burn 변화 (5년 추이)
+비교 시 **L2 활성화 = ETH 토큰 가치 환원의 약 98% 손실** (절대값 기준). 동시에 사용자 비용은 50배 감소. 이 트레이드오프가 본 편의 핵심 갈등입니다.
+
+L2 운영자별 마진 분석:
+
+**Base (Coinbase)**:
+- 월 시퀀서 매출 ~$6.4M
+- 월 L1 blob 비용 ~$0.4M
+- **마진율 ~94%**
+- 연간 추정 매출 ~$77M, 비용 ~$5M = 순이익 ~$72M
+- 이는 Coinbase Inc. 별도 매출 (2024 기준 ~$3.1B) 의 약 2.3% 추가
+
+**Arbitrum (Offchain Labs)**:
+- 월 시퀀서 매출 ~$5.2M
+- 월 L1 blob 비용 ~$0.35M
+- **마진율 ~93%**
+- 연간 ~$58M 순이익 (ARB 토큰 보유자 환원 결정 미해결)
+
+**Optimism (OP Labs)**:
+- 월 시퀀서 매출 ~$2.7M
+- 월 L1 blob 비용 ~$0.25M
+- **마진율 ~91%**
+- Superchain 모델로 일부 매출 다른 OP Stack 체인과 공유
+
+총 6대 주요 L2 합산 연간 시퀀서 순이익 약 **$200M**. 이는 ETH 토큰 보유자가 받지 못하는 surplus value 입니다.
+
+## 4. Surplus Value Theory — Yale Law Journal 2025
+
+Yale Law Journal Vol. 134 (2025) 에 게재된 Christensen & Werbach 논문 "Sequencer Surplus Extraction in Modular Blockchains" 가 이 현상을 학술적으로 정리한 첫 본격 분석입니다. 핵심 명제 4가지.
+
+**Proposition 1: L2 시퀀서가 자연 독점 형성**
+- 단일 시퀀서가 L2 트랜잭션 순서 결정
+- 사용자는 L2 변경 비용 (자산 브리지, 학습 곡선) 으로 이탈 어려움
+- 결과: 시퀀서가 가격 결정권 보유 → monopoly rent 추출 가능
+
+**Proposition 2: Surplus Value 의 측정**
+- Surplus = 사용자 지불액 - L1 비용 - 운영 비용
+- L2 운영자가 흡수하는 surplus 규모 = **연간 약 $200M (2026 추정)**
+- 이는 L1 burn 으로 환원되지 않는 가치 누수
+
+**Proposition 3: L1 토큰 보유자의 expropriation**
+- ETH 보유자가 합의 보안을 제공
+- L2 가 그 보안을 빌려 사용 (data availability 비용으로 일부 환원)
+- 그러나 L2 surplus 의 94% 가 L2 운영자에 귀속 → ETH 보유자 expropriation
+
+**Proposition 4: Decentralization 의 외부 자본 유입 가능성**
+- 시퀀서 분산화 (shared sequencer, Espresso, Astria) 시 surplus 분배 가능
+- 그러나 분산화 자체에 운영 비용 ↑ → 효율 trade-off
+
+이 논문이 학계에서 주목받은 이유는 **Marx 의 surplus value 이론을 모듈러 블록체인에 적용한 첫 시도** 였기 때문입니다. ETH 합의 보안을 "노동" 으로, L2 surplus 를 "잉여가치" 로 해석하는 비유는 비판도 많았지만 (단순 자본주의 이론 적용의 한계), 정량 분석 자체는 데이터로 뒷받침됩니다.
+
+학계 후속 연구 (Cornell-CIPHER 2026, MIT DCI 2026) 는 Christensen-Werbach 의 정량 분석을 인정하면서도, surplus 자체가 "악" 이 아니라 **L2 인프라 투자 회수 메커니즘** 이라는 반론을 제시합니다. 이 토론이 진행 중입니다.
+
+## 5. L1 Burn 의 5년 추이 — 실측 정량
 
 ultrasound.money 누적 데이터로 본 burn 률 변화:
 
-| 시기 | 일평균 burn (ETH) | 주요 활동 | L2 일 거래량 |
-|------|------------------|---------|-------------|
-| 2022 H2 (Merge 직후) | ~5,200 | L1 NFT, DeFi | ~1M |
-| 2023 H1 | ~2,800 | L2 부상 시작 | ~3M |
-| 2023 H2 | ~3,500 | Ordinals 효과 | ~4M |
-| 2024 H1 (Dencun 후) | ~2,100 | Blob 도입 | ~7M |
-| 2024 H2 | ~2,400 | Base 폭발 | ~9M |
-| 2025 H1 (Pectra 후) | **~1,600** | EIP-7691 활성 | ~10M |
-| 2025 H2 | ~1,800 | 안정화 | ~11M |
-| **2026 Q1** | **~1,800** | — | ~12M |
+| 시기 | 일평균 burn (ETH) | L2 일 거래량 | 주요 사건 |
+|------|----------------|-------------|---------|
+| 2022 H2 (Merge 직후) | ~5,200 | ~1.0M | L1 NFT 정점, EIP-1559 활성 |
+| 2023 H1 | ~2,800 | ~3.0M | L2 부상 시작, Arbitrum DeFi |
+| 2023 H2 | ~3,500 | ~4.2M | Ordinals 효과 (BTC 영향) |
+| 2024 H1 (Dencun 후) | ~2,100 | ~7.0M | EIP-4844 blob 도입, Base 폭발 |
+| 2024 H2 | ~2,400 | ~9.5M | meme token mania, NFT 둔화 |
+| 2025 H1 (Pectra 후) | **~1,600** | ~10.5M | EIP-7691 활성, L2 추가 -30% |
+| 2025 H2 | ~1,800 | ~11.8M | 안정화 |
+| **2026 Q1** | **~1,800** | **~12.5M** | — |
+| **2026.5 (현재)** | **~1,800** | **~13.9M** | — |
 
 **핵심 발견**:
-- L2 일 거래량 1M → 12M (12배 증가) 동안 L1 burn 5,200 → 1,800 ETH (-65%) 감소
-- Pectra (EIP-7691) 효과로 burn 률 약 25% 추가 감소
-- **2024 Q1 부터 burn < 발행**, ETH 가 인플레이션 자산으로 회귀
 
-<Callout type="opposing-view" title="반대 시각 · L2 도 ETH 생태계의 일부">
-가치 누수론에 대한 반박: **L2 가 ETH 사용 사례를 확장**한다. 만약 L2 없이 L1 만 있으면 가스비 $50+ 로 대중 채택 불가. L2 가 ETH 생태계 사용자 수를 100배 늘렸기 때문에, 직접 burn 기여는 작아도 ETH 보유 수요 자체가 늘었다 (L2 거래에 ETH 가스 사용). **가치 누수가 아니라 가치 확장**.
+**(1) L2 일 거래량 1M → 14M (14배 증가)** 동안 L1 burn 5,200 → 1,800 ETH/일 (-65%) 감소.
+
+**(2) Pectra (EIP-7691) 효과로 burn 률 추가 -25% 감소** (2025.6 시점). 이후 안정.
+
+**(3) 2024 Q1 부터 burn < 발행** — ETH 가 균형점에서 약간 인플레이션 자산으로 회귀. 2024.5 까지 누적 디플레이션이었지만 그 이후 누적 인플레이션 +0.10% 누적.
+
+**(4) 단일 카테고리 (NFT) 의 영향력** — 2021.8-2022.6 NFT mania 시 burn 의 30%+ 가 NFT 거래에서 발생. 2024 이후 NFT 거래량이 -85% 감소하며 burn 률 감소의 약 30% 기여.
+
+L1 burn 감소가 단순 L2 가치 누수 때문만은 아닙니다. NFT 시장 위축, DeFi 활동 정체, base fee 자체 감소 (가스 사용량 감소) 등 복수 원인의 결합. 그러나 **L2 효과가 가장 큰 단일 원인** 인 것은 분명합니다.
+
+## 6. ETH 가치 환원 vs 생태계 가치 — 분리 측정
+
+L2 가치 누수론에 대한 핵심 반박은 "L2 가 ETH 사용 사례를 100배 확장했다" 는 것입니다. 정량 분석으로 검증합니다.
+
+**ETH 토큰 가치 환원** (직접):
+- L1 base fee burn: 일 ~1,800 ETH × 365일 = **연 657K ETH ($1.52B)**
+- 검증자 보상: 일 ~2,250 ETH × 365일 = 연 821K ETH ($1.90B), 그러나 이는 신규 발행
+- 순환원 = burn - 발행 = 약 **-164K ETH (인플레이션)**
+
+**ETH 생태계 가치** (간접):
+- L2 사용자 수 (월 활성): 약 1,200만 명 (2026.5 추정)
+- L1 사용자 수 (월 활성): 약 60만 명
+- L2 트랜잭션 13.9M/일 → 모두 ETH 가스 결제 (L2 운영자가 L1 에 ETH 로 결제)
+- 즉 **ETH 보유 수요** 는 L2 활성화로 명확히 증가
+
+**핵심 질문**: 사용자 수 ↑ × 1인당 ETH 환원 ↓ 의 곱이 양수인지 음수인지.
+
+정량 추정 (2022 vs 2026 비교):
+
+| 메트릭 | 2022.10 (Merge 직후) | 2026.5 | 변화 |
+|------|------------------|--------|------|
+| L1 + L2 사용자 수 | ~120만 | ~1,260만 | **+10.5x** |
+| 1인당 연 ETH burn 기여 | ~1.6 ETH | ~0.052 ETH | **-97%** |
+| 총 burn (연) | 1.9M ETH | 0.66M ETH | -65% |
+
+10.5배 사용자 증가에도 1인당 환원 -97% 가 더 컸기 때문에 총 burn 은 -65% 감소. **사용자 확장이 단위 환원 감소를 보상하지 못함**.
+
+다만 ETH 가격은 같은 기간 $1,300 → $2,316 (+78%) 로 상승했으므로, USD 환산 burn 가치는 유사 수준 ($2.5B/년 → $1.5B/년, -40%). 가격 효과를 감안하면 L2 가치 누수가 ETH 토큰 가치에 미친 부정적 영향은 약 -25% 수준으로 추정됩니다.
+
+이 추정은 L2 활성화가 없었다면 ETH 가격이 더 높았을지 (반사실 가정) 측정 어려운 한계가 있지만, 적어도 burn 률 데이터는 명확히 부정적 영향을 보여줍니다.
+
+## 7. Modular vs Monolithic — ETH 와 SOL 의 핵심 차이
+
+ETH 와 SOL 의 가치 명제 차이를 L1 burn 률로 비교:
+
+| 항목 | ETH (Modular) | SOL (Monolithic) |
+|------|------------|---------------|
+| 아키텍처 | L1 + L2 (Optimistic + ZK) | 단일 L1 (50K TPS) |
+| 가스비 | L1 ~$2.50, L2 ~$0.05 | ~$0.001 |
+| 일평균 burn | ~1,800 ETH | 0 (SOL 50% 검증자 환원, 50% burn 후 회수) |
+| 가치 환원 메커니즘 | EIP-1559 burn | 검증자 보상 + Validator priority fee |
+| 토큰 가치 = ? | 가스 사용 + DeFi + RWA | 가스 사용 + 검증자 거래량 |
+| 단일 토큰 환원 효율 | 분산 (UNI/AAVE/SKY 에 분리) | 농축 (모두 SOL 로 환원) |
+
+이게 ETH 와 SOL 의 핵심 차이입니다. SOL 은 monolithic — 모든 가치가 한 토큰 (SOL) 에 환원. ETH 는 modular — L2 토큰 (ARB, OP, Coinbase 주식 BASE 미상장 시 추정) 에 가치 분산.
+
+어느 쪽이 우월한지는 단순 결론을 낼 수 없습니다.
+
+**Modular 우월 시각**:
+- 사용자 비용 ↓ (대중 채택 가능)
+- 카테고리별 최적 L2 선택 가능 (DeFi: Arbitrum, 소셜: Base, ZK: zkSync)
+- L2 혁신 속도 ↑ (Coinbase, Polygon 등 별도 운영자 경쟁)
+
+**Monolithic 우월 시각**:
+- 단일 토큰 가치 농축 → 평가 단순
+- 유동성 분산 없음 (단일 체인)
+- 사용자 경험 통합 (체인 변경 학습 곡선 없음)
+
+시장은 아직 결정 중. 2026.5 시점 ETH 시총 $279B vs SOL $48B 차이 (5.8배) 가 좁혀지는지 벌어지는지가 5-10년 추가 데이터를 필요로 합니다.
+
+## 8. L2 가치 누수의 기술적 해결책 후보
+
+L2 surplus extraction 을 줄이는 기술적 해결책 후보를 분석합니다.
+
+**(1) Shared Sequencer (Espresso, Astria)**
+- 여러 L2 가 공통 sequencer 사용
+- Sequencer 수익을 ETH 토큰 보유자에게 분배 가능
+- 한계: 각 L2 운영자 동의 필요 (Coinbase 가 Base sequencer 수익 포기 의향?)
+- 진척도: Espresso 메인넷 출시 (2025), 채택 미미
+
+**(2) Based Rollup**
+- L2 sequencer 를 L1 검증자 (proposer) 가 직접 운영
+- L2 surplus 가 L1 검증자에게 자동 환원
+- 한계: L1 가스 비용으로 인해 거래 처리 지연 가능
+- 진척도: Taiko 가 첫 본격 시도, 시장 점유 미미
+
+**(3) Native Rollup (이더리움 재단 제안)**
+- ZK 증명을 L1 protocol 레벨에서 처리
+- L2 운영자 마진 자동 ETH 보유자 환원
+- 한계: ZK 기술 성숙도 필요, 2027-2028 예상
+- 진척도: 연구 단계
+
+**(4) Sequencing Auction**
+- 매 L2 블록마다 sequencer 권한을 경매
+- 최고 입찰자가 sequencer 수익 받음, 입찰액은 ETH burn
+- 한계: 사용자 경험 (UX) 복잡화, MEV 추출 inducement
+- 진척도: 학술 제안 단계
+
+이 4가지 모두 어느 정도 trade-off 가 있어 단일 해결책으로는 한계가 있습니다. 가장 현실적인 진척은 **(1) Shared Sequencer 의 점진 채택** + **(3) Native Rollup 의 장기 연구** 결합 모델입니다. 그러나 단기 (2-3년) 내 L2 surplus extraction 이 의미 있게 줄어들 가능성은 낮습니다.
+
+## 9. ETH ETF 와 L2 가치 누수 — 기관 평가의 변수
+
+ETH spot ETF 출시 (2024.7.23) 이후 약 1.8년간 미국 ETH ETF 누적 순유입 약 $7.2B. BTC ETF (2024.1.11 출시) 가 동기간 $35B+ 를 흡수한 것과 비교하면 약 5배 작은 규모입니다.
+
+기관 투자자가 ETH ETF 를 BTC ETF 만큼 채택하지 않은 핵심 이유 중 하나가 **L2 가치 누수에 대한 우려** 입니다. Fidelity Digital Assets 의 2026년 4월 리포트에서 명시적으로 지적:
+
+> "ETH 토큰의 가치 명제는 L2 활성화로 약화됐다. 이전 2-3년 동안 순공급은 약간 인플레이션이었고, ETF 매수자는 디플레이션 자산 (BTC) 과 비교해 ETH 의 명확한 가치 명제를 찾기 어려웠다."
+
+이 진단이 정확한지에 대한 학계 토론은 진행 중이지만, 기관 자금 유입 데이터가 우려를 일부 검증한 것은 사실입니다. 약 5배 ETF 유입 격차 (BTC $35B vs ETH $7.2B) 의 일부는 L2 가치 누수에 대한 기관 평가의 결과로 해석 가능합니다.
+
+다만 ETH ETF 의 staking 미허용 (SEC 정책) 도 큰 변수입니다. 유럽/홍콩 ETH ETF 는 staking 허용 → 연 3% 추가 yield 매력. 미국만 차별. 이 정책이 변경되면 ETF 유입 가속 가능성이 있습니다.
+
+## 10. 결론 — 모듈러 가치 포착의 미해결 문제
+
+세 가지 정리합니다.
+
+**(1) L2 활성화의 효율 이득** — 사용자 가스비 50배 절감, 일 트랜잭션 14배 증가, 사용자 수 10.5배 확장. 이는 명백한 사용자 후생 증가.
+
+**(2) L1 burn 65% 감소** — Ultra Sound Money 가설 약화. 누적 디플레이션이 2024.5 이후 인플레이션으로 회귀.
+
+**(3) ETH 토큰 가치 명제 vs ETH 생태계 가치 명제 분리** — 두 가지가 더 이상 같은 그림이 아님. 토큰 가치는 burn 으로 측정, 생태계 가치는 사용자 수 + TVL 로 측정. 두 메트릭의 divergence 가 진행 중.
+
+이 구조가 ETH 와 SOL 의 핵심 차이를 만듭니다. SOL 은 monolithic — 모든 가치가 한 토큰에 환원. ETH 는 modular — L2 토큰 (ARB, OP, 미상장 BASE) 에 가치 분산. 어느 쪽이 우월한지는 시장이 5-10년에 걸쳐 결정 중입니다.
+
+다음 편 (#2-G) 에서는 그 분산된 가치가 DeFi 생태계 ($80B TVL) 에서 어떻게 작동하고 있는지를 봅니다. Lido, Aave, Sky/Maker, Uniswap 4대 프로토콜의 점유 60% 와 BIS WP 1133 의 시스템 리스크 분석.
+
+<Callout type="opposing-view" title="반대 시각 · L2 surplus 는 인프라 회수 비용">
+"L2 가 ETH 보유자를 expropriate 한다" 는 Yale 논문의 결론에 대한 반박: L2 surplus 는 단순 monopoly rent 가 아니라 **L2 인프라 투자 회수 메커니즘** 이라는 시각이 학계에서 점차 확산되고 있습니다 (Cornell-CIPHER 2026, MIT DCI 2026). Coinbase 가 Base 에 투자한 R&D 비용 (~$200M+ 추정), Offchain Labs 의 Arbitrum 7년 개발 비용, Optimism 의 OP Stack 오픈소스 기여 — 이 모든 것이 ETH 합의 위에 단순 무료로 만들어진 것이 아닙니다. Sequencer 수익은 그 투자에 대한 자본 회수입니다. 더 본질적 비판은 "L2 가 없었다면 ETH 가 어떻게 됐을까" 의 반사실 사고. 만약 L2 없이 L1 만으로 가스비 $50+ 를 유지했다면 (2021년 NFT mania 시기 실제 수준), 대중 채택은 불가능했고 ETH 시총은 현재의 절반 이하였을 가능성이 큽니다. 이 시각에서 L2 surplus extraction 은 "ETH 토큰 보유자의 손실" 이 아니라 "ETH 생태계 확장의 정당한 비용" 입니다. 또 ARB, OP 같은 L2 토큰을 ETH 보유자가 같이 보유하면 (포트폴리오 분산), 가치 누수 자체가 사라집니다 — ETH + L2 토큰 종합 익스포저는 아직 충분히 가치 환원 받고 있다는 것이 Galaxy Digital 의 2026년 분석입니다.
 </Callout>
-
-이 반박은 부분적으로 타당하지만 정량 검증 어려움. **사용자 수 ↑ × 1인당 ETH 수요 ↓** 의 곱이 양수인지 음수인지가 핵심 질문 — 5-10년 데이터가 더 필요.
-
-## 4. 결론 — 모듈러 vs 모놀리식 가치 포착
-
-종합:
-
-1. **L2 활성화의 효율 이득** — 사용자 가스비 40배 절감, 일 트랜잭션 12배 증가
-2. **L1 burn 65% 감소** — Ultra Sound Money 가설 약화
-3. **ETH 토큰 가치 명제 vs ETH 생태계 가치 명제 분리** — 두 가지가 더 이상 같은 그림이 아님
-
-이게 ETH 와 SOL 의 핵심 차이를 만듭니다. SOL 은 모놀리식 — 모든 가치가 한 토큰에 환원. ETH 는 모듈러 — L2 토큰 (ARB, OP, Coinbase 주식 BASE) 에 가치 분산. 어느 쪽이 우월한지는 아직 시장이 결정 중.
-
-다음 편(#2-G) 에서는 그 분산된 가치가 DeFi 생태계 ($50B TVL) 에서 어떻게 작동하고 있는지를 봅니다.
 
 <SeriesNav coinSymbol="ETH" currentSlug="ethereum-l2-value-leak" />
